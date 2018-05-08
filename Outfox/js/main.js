@@ -28,8 +28,9 @@ create: function() {
     //Group for the tiles
     isoGroup = game.add.group();
     
+    this.stage.backgroundColor = "#ff9900";
     this.spawnTiles();
-    this.spawnPlayer();
+    player = this.spawnPlayer();
     
     // Provide a 3D position for the cursor
     cursorPos = new Phaser.Plugin.Isometric.Point3();
@@ -69,16 +70,14 @@ spawnTiles: function () {
             // Create a tile using the new game.add.isoSprite factory method at the specified position.
             // The last parameter is the group you want to add it to (just like game.add.sprite)
             tile = game.add.isoSprite(xx, yy, 0, 'dirt', 0, isoGroup);
-            tile.anchor.set(0.5, 0.5);
+            tile.anchor.set(0, 0);
         }
     }
 },
 spawnPlayer: function () {
     var player = game.add.isoSprite(0,0,0, 'fox',0,isoGroup);
-    player.anchor.set(0,0);
-    game.debug.bodyInfo(player, 16, 16);
-    game.debug.body(player);
-    
+    player.anchor.set(0.5,0.5);
+    player.enableBody = true;
 }
 }
 game.state.add('test', testState);
