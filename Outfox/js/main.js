@@ -1,53 +1,51 @@
 var game = new Phaser.Game(600, 600, Phaser.AUTO);
 
 
-var Boot = function(game){}
+var Boot = function(game){};
 Boot.prototype = {
-        init: function()
+  init: function(){
                 console.log('Boot: init');
                 this.stage.disableVisibilityChange = true;
-        }
+        },
         preload: function(){
-                consoled.log('Boot: preload');
-        }
+                console.log('Boot: preload');
+        },
         create: function(){
                 console.log('Boot: create');
                 this.state.start('Preloader');
-        }
+        },
 }
-var Preloader = function(game){}
+var Preloader = function(game){};
 Preloader.prototype = {
         preload: function(){
-                consoled.log('Preloader: preload');
-        }
+                console.log('Preloader: preload');
+        },
         create: function(){
                 console.log('Preloader: create');
-        }
+        },
         update: function(){
                 console.log('Preloader: Update');
-                this.state.start('Mainmenu');
-        }
+                this.state.start('MainMenu');
+        },
 }
-var MainMenu = function(game) {
-        identi = null;
-}
-mainMenu.prototype = {
+var MainMenu = function(game) {};
+MainMenu.prototype = {
         preload: function(){
-                consoled.log('MainMenu: preload');
-        }
+                console.log('MainMenu: preload');
+        },
         create: function(){
                 console.log('MainMenu: create');
                 game.stage.backgroundColor = "#453987";
                 this.style = {font: "bold 32px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle"};
                 this.text = game.add.text(this.world.centerX, this.world.centerY, 'Yoyoyo this is\nhere', this.style);
 		this.text.setShadow(3, 3, 'rgba(0,0,0,0.5', 2);        
-        }
+        },
         update: function(){
                 console.log('MainMenu: Update');
                 if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
-                        game.state.start('testState');
+                        game.state.start('test');
                 }
-        }
+        },
 }
 var testState = function(game) {};
 testState.prototype = {
@@ -61,7 +59,7 @@ testState.prototype = {
 	update: function() {
     	    // run game loop
     },
-
+}
 //spawnTiles function courtesy of: http://rotates.org/phaser/iso/examples/interaction.htm
 //	spawnTiles: function () {
 //    	var tile;
@@ -80,8 +78,8 @@ testState.prototype = {
  //	}
  //}
  game.state.add('test', testState);
- game.state.add('MainMenu');
- game.state.add('Preloader');
- game.state.add('Boot');
+ game.state.add('MainMenu', MainMenu);
+ game.state.add('Preloader', Preloader);
+ game.state.add('Boot', Boot);
  game.state.start('Boot');
 
