@@ -28,7 +28,7 @@ create: function() {
     //Group for the tiles
     isoGroup = game.add.group();
     
-    this.stage.backgroundColor = "#ff9900";
+    this.stage.backgroundColor = "#facade";
     this.spawnTiles();
     player = this.spawnPlayer();
     
