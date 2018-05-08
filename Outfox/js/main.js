@@ -84,3 +84,4 @@ testState.prototype = {
  game.state.add('Preloader');
  game.state.add('Boot');
  game.state.start('Boot');
+
