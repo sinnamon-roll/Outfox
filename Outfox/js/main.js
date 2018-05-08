@@ -10,7 +10,7 @@ preload: function() {
     game.load.path = 'assets/img/';
     //load image data (key, url)
     game.load.image('dirt', 'dirt.png');
-    game.load.image('fox', 'foxy.png');
+    game.load.image('fox', 's_Fox01_SW.png');
     
     game.time.advancedTiming = true;
     //enable Isometrics
