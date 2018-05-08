@@ -28,9 +28,8 @@ create: function() {
     //Group for the tiles
     isoGroup = game.add.group();
    
-    game.stage.backgroundColor = "#ff9900";
     this.spawnTiles();
-    this.spawnPlayer();
+    player = this.spawnPlayer();
     
     // Provide a 3D position for the cursor
     cursorPos = new Phaser.Plugin.Isometric.Point3();
@@ -75,8 +74,8 @@ spawnTiles: function () {
     }
 },
 spawnPlayer: function () {
-    var player = game.add.isoSprite(0,0,0, 'fox',0,isoGroup);
-    player.anchor.set(0,0);
+    var player = game.add.isoSprite(64,64,0, 'fox',0,isoGroup);
+    player.anchor.set(0,.5);
     game.debug.bodyInfo(player, 16, 16);
     game.debug.body(player);
     
