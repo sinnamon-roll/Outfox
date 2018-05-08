@@ -27,7 +27,8 @@ create: function() {
     // place your assets
     //Group for the tiles
     isoGroup = game.add.group();
-    
+   
+    game.stage.backgroundColor = "#ff9900";
     this.spawnTiles();
     this.spawnPlayer();
     
