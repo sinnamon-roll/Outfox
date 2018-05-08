@@ -27,8 +27,12 @@ create: function() {
     // place your assets
     //Group for the tiles
     isoGroup = game.add.group();
+<<<<<<< HEAD
     
     this.stage.backgroundColor = "#facade";
+=======
+   
+>>>>>>> feature-adjacency-FOX
     this.spawnTiles();
     player = this.spawnPlayer();
     
@@ -75,9 +79,17 @@ spawnTiles: function () {
     }
 },
 spawnPlayer: function () {
+<<<<<<< HEAD
     var player = game.add.isoSprite(0,0,0, 'fox',0,isoGroup);
     player.anchor.set(0.5,0.5);
     player.enableBody = true;
+=======
+    var player = game.add.isoSprite(64,64,0, 'fox',0,isoGroup);
+    player.anchor.set(0,.5);
+    game.debug.bodyInfo(player, 16, 16);
+    game.debug.body(player);
+    
+>>>>>>> feature-adjacency-FOX
 }
 }
 game.state.add('test', testState);
