@@ -1,4 +1,4 @@
-var game = new Phaser.Game(600, 600, Phaser.AUTO);
+var game = new Phaser.Game(64 * 5, 64 * 5, Phaser.AUTO);
 
 
 var Boot = function(game){};
@@ -18,7 +18,11 @@ Boot.prototype = {
 var Preloader = function(game){};
 Preloader.prototype = {
         preload: function(){
-                console.log('Preloader: preload');
+            console.log('Preloader: preload');
+            //Load the tilemap data (key, url, data, format)
+            this.load.tilemap('level', 'assets/img/outfox.json', null, Phaser.Tilemap.TILED_JSON);
+            //Load tilemap spritesheet (key, url, frameWidth, frameHeight)
+            this.load.spritesheet('tilesheet','assets/img/outfox.png',64,64);
         },
         create: function(){
                 console.log('Preloader: create');
@@ -31,13 +35,15 @@ Preloader.prototype = {
 var MainMenu = function(game) {};
 MainMenu.prototype = {
         preload: function(){
-                console.log('MainMenu: preload');
+            console.log('MainMenu: preload');
         },
         create: function(){
-                console.log('MainMenu: create');
-                game.stage.backgroundColor = "#453987";
-                this.style = {font: "bold 32px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle"};
-                this.text = game.add.text(this.world.centerX, this.world.centerY, 'Yoyoyo this is\nhere', this.style);
+            console.log('MainMenu: create');
+
+            game.stage.backgroundColor = "#453987";
+            
+            this.style = {font: "bold 32px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle"};
+            this.text = game.add.text(0, 0, 'Yoyoyo this is\nhere', this.style);
 		this.text.setShadow(3, 3, 'rgba(0,0,0,0.5', 2);        
         },
         update: function(){
@@ -53,7 +59,20 @@ testState.prototype = {
     },
  
 	create: function() {
-
+        //Start physics
+        game.physics.startSystem(Phaser.Physics.ARCADE);
+        
+        //create new tilemap object
+        map = game.add.tilemap('level');
+        //add image to the map to be used as a tileset (tileset, key)
+        //the tileset name is specified w/in the .json file and Tiled
+        //Can have multiple tilesets in any one map
+        map.addTilesetImage('landscape','tilesheet');
+        //Set all tiles to collide, by passing empty array
+        map.setCollisionByExclusion([]);
+        mapLayer = map.createLayer('Ground Level');
+        //set the world size to match the size of the Tilemap Layer
+        mapLayer.resizeWorld();
     },
 
 	update: function() {
