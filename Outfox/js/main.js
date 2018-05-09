@@ -1,4 +1,5 @@
 var game = new Phaser.Game(64 * 5, 64 * 5, Phaser.AUTO);
+var player;
 
 
 var Boot = function(game){};
@@ -19,10 +20,13 @@ var Preloader = function(game){};
 Preloader.prototype = {
         preload: function(){
             console.log('Preloader: preload');
+            //ASSET LOADS
+            game.load.path = 'assets/img/';
             //Load the tilemap data (key, url, data, format)
-            this.load.tilemap('level', 'assets/img/outfox.json', null, Phaser.Tilemap.TILED_JSON);
+            this.load.tilemap('level', 'outfox.json', null, Phaser.Tilemap.TILED_JSON);
             //Load tilemap spritesheet (key, url, frameWidth, frameHeight)
-            this.load.spritesheet('tilesheet','assets/img/outfox.png',64,64);
+            this.load.spritesheet('tilesheet','outfox.png',64,64);
+            this.load.image('fox', 's_Fox01_SW.png')
         },
         create: function(){
                 console.log('Preloader: create');
@@ -57,11 +61,19 @@ var testState = function(game) {};
 testState.prototype = {
 	preload: function() {
     },
- 
+
+spawnPlayer: function () {
+    this.player = game.add.sprite(3 * 64,4 * 64,'fox');
+    //Connect at the base of player's "feet"
+    this.player.anchor.set(0.5,1);
+    this.game.physics.arcade.enable(this.player);
+},
+
 	create: function() {
         //Start physics
         game.physics.startSystem(Phaser.Physics.ARCADE);
         
+        //TILEMAP SETUP
         //create new tilemap object
         map = game.add.tilemap('level');
         //add image to the map to be used as a tileset (tileset, key)
@@ -73,6 +85,9 @@ testState.prototype = {
         mapLayer = map.createLayer('Ground Level');
         //set the world size to match the size of the Tilemap Layer
         mapLayer.resizeWorld();
+
+        //PLAYER SETUP
+        this.spawnPlayer();
     },
 
 	update: function() {
@@ -91,10 +106,6 @@ testState.prototype = {
  //       	}
   //  	}
 //	},
-//	spawnPlayer: function () {
- //   	var player = game.add.isoSprite(0,0,0, 'water',0,isoGroup);
-  //  	player.anchor.set(0.5,0);
- //	}
  //}
  game.state.add('test', testState);
  game.state.add('MainMenu', MainMenu);
