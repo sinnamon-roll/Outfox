@@ -63,10 +63,12 @@ testState.prototype = {
     },
 
 spawnPlayer: function () {
-    this.player = game.add.sprite(3 * 64,4 * 64,'fox');
+    this.player = this.game.add.sprite(3 * 64,3 * 64,'fox');
     //Connect at the base of player's "feet"
-    this.player.anchor.set(0.5,1);
+    this.player.anchor.set(0.5,0);
     this.game.physics.arcade.enable(this.player);
+    this.player.body.setSize(32, 20, 10, 80); //reset collision box
+    this.player.body.collideWorldBounds = true;
 },
 
 	create: function() {
@@ -75,38 +77,43 @@ spawnPlayer: function () {
         
         //TILEMAP SETUP
         //create new tilemap object
-        map = game.add.tilemap('level');
+        map = this.game.add.tilemap('level');
         //add image to the map to be used as a tileset (tileset, key)
         //the tileset name is specified w/in the .json file and Tiled
         //Can have multiple tilesets in any one map
         map.addTilesetImage('landscape','tilesheet');
-        //Set all tiles to collide, by passing empty array
-        map.setCollisionByExclusion([]);
+        map.setCollision(2);
         mapLayer = map.createLayer('Ground Level');
         //set the world size to match the size of the Tilemap Layer
         mapLayer.resizeWorld();
-
+        
         //PLAYER SETUP
         this.spawnPlayer();
+        
+        //CURSORS
+        cursors = this.input.keyboard.createCursorKeys();
+
     },
 
 	update: function() {
-    	    // run game loop
+        // run game loop
+        if(cursors.up.justPressed()) {
+            this.player.y = this.player.y - 64;
+        } else if(cursors.down.justPressed()) {
+            this.player.y = this.player.y + 64;
+        } else if(cursors.left.justPressed()) {
+            this.player.x = this.player.x - 64;
+        } else if(cursors.right.justPressed()) {
+            this.player.x = this.player.x + 64;
+        }
     },
+    
+    render: function () {
+        game.debug.bodyInfo(this.player, 16, 16);
+        game.debug.body(this.player);
+        mapLayer.debug = true;
+    }
 }
-//spawnTiles function courtesy of: http://rotates.org/phaser/iso/examples/interaction.htm
-//	spawnTiles: function () {
-//    	var tile;
-//    	for (var xx = 0; xx < 256; xx += 38) {
-//        	for (var yy = 0; yy < 256; yy += 38) {
- //           	// Create a tile using the new game.add.isoSprite factory method at the specified position.
-//            	// The last parameter is the group you want to add it to (just like game.add.sprite)
- //           	tile = game.add.isoSprite(xx, yy, 0, 'dirt', 0, isoGroup);
- //           	tile.anchor.set(0.5, 0);
- //       	}
-  //  	}
-//	},
- //}
  game.state.add('test', testState);
  game.state.add('MainMenu', MainMenu);
  game.state.add('Preloader', Preloader);
