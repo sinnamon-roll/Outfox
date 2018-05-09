@@ -2,9 +2,9 @@
  "infinite":false,
  "layers":[
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[2, 2, 2, 2, 2, 2, 1, 2, 1, 2, 2, 1, 1, 1, 2, 2, 1, 1, 1, 2, 2, 1, 1, 1, 2],
          "height":5,
-         "name":"Tile Layer 1",
+         "name":"Ground Level",
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
@@ -17,7 +17,21 @@
  "renderorder":"right-down",
  "tiledversion":"1.1.5",
  "tileheight":64,
- "tilesets":[],
+ "tilesets":[
+        {
+         "columns":1,
+         "firstgid":1,
+         "image":"outfox.png",
+         "imageheight":129,
+         "imagewidth":64,
+         "margin":0,
+         "name":"landscape",
+         "spacing":1,
+         "tilecount":2,
+         "tileheight":64,
+         "tilewidth":64,
+         "transparentcolor":"#000000"
+        }],
  "tilewidth":64,
  "type":"map",
  "version":1,
