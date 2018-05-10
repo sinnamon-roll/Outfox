@@ -25,8 +25,8 @@ Preloader.prototype = {
             //Load the tilemap data (key, url, data, format)
             this.load.tilemap('level', 'outfox.json', null, Phaser.Tilemap.TILED_JSON);
             //Load tilemap spritesheet (key, url, frameWidth, frameHeight)
-            this.load.spritesheet('tilesheet','outfox.png',64,64);
-            this.load.image('fox', 's_Fox01_SW.png')
+            this.load.image('tilesheet','outfox.png',64,64);
+            this.load.image('fox', 'foxy.png')
         },
         create: function(){
                 console.log('Preloader: create');
@@ -62,16 +62,15 @@ testState.prototype = {
 	preload: function() {
     },
 
-spawnPlayer: function () {
-    this.player = this.game.add.sprite(3 * 64,3 * 64,'fox');
-    //Connect at the base of player's "feet"
-    this.player.anchor.set(0.5,0);
-    this.game.physics.arcade.enable(this.player);
-    this.player.body.setSize(32, 20, 10, 80); //reset collision box
-    this.player.body.collideWorldBounds = true;
-},
+    spawnPlayer: function () {
+        this.player = this.game.add.sprite(64,3 * 64,'fox');
+        //Connect at the base of player's "feet"
+        this.game.physics.arcade.enable(this.player);
+        //this.player.body.setSize(54, 54, 5, 5); //reset collision box
+        this.player.body.collideWorldBounds = true;
+    },
 
-	create: function() {
+    create: function() {
         //Start physics
         game.physics.startSystem(Phaser.Physics.ARCADE);
         
@@ -94,6 +93,20 @@ spawnPlayer: function () {
         cursors = this.input.keyboard.createCursorKeys();
 
     },
+    
+    getTileProperties: function() {
+        
+        var x = mapLayer.getTileX(this.player.position.x);
+        var y = mapLayer.getTileY(this.player.position.y);
+        
+        var tile = map.getTile(x, y, mapLayer);
+        console.log(tile);
+        
+        // Note: JSON.stringify will convert the object tile properties to a string
+        currentDataString = JSON.stringify( tile.properties );
+        
+        tile.properties.wibble = true;
+    },
 
 	update: function() {
         // run game loop
@@ -106,6 +119,7 @@ spawnPlayer: function () {
         } else if(cursors.right.justPressed()) {
             this.player.x = this.player.x + 64;
         }
+        
     },
     
     render: function () {
