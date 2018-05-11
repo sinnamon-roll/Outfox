@@ -1,6 +1,7 @@
 // stuff i have yet to code, but its gonna be the prefab for the player character
 // Player prefab constructor function
 var size = 64;
+var adj = false;
 function Player(game, key) {
 	// call to Phaser.Sprite // new Sprite(game, x, y, key, frame)
 	Phaser.Sprite.call(this, game, size,3 * size, key);
@@ -9,6 +10,8 @@ function Player(game, key) {
 	// put some physics on it
 	game.physics.arcade.enable(this);
 	this.body.collideWorldBounds = true;
+    this.style = {font: "bold 32px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle"};
+    this.text = game.add.text(0, 0, 'C for Charisma!', this.style);
 }
 // explicitly define prefab's prototype (Phaser.Sprite) and constructor (Player)
 Player.prototype = Object.create(Phaser.Sprite.prototype);
@@ -32,14 +35,25 @@ Player.prototype.update = function() {
 	    console.log('right pressed');
         }
     
-    //ADJ?
+    //ADJ!!!
     if(enemy.x == (this.x + size) || enemy.x == (this.x - size) ){
         if (enemy.y == this.y) {
             console.log("ADJACENT R/L");
+            this.adj = true;
         }
     }else if (enemy.y == (this.y + size) || enemy.y == (this.y - size) ){
         if (enemy.x == this.x) {
-            console.log("ADJACENT UP/DOWN")
+            console.log("ADJACENT UP/DOWN");
+            this.adj = true;
         }
+    }else {
+        this.adj = false;
+    }
+    
+    //Prompt Charisma
+    if (this.adj == true) {
+        this.text.visible = true;
+    } else {
+        this.text.visible = false;
     }
 }
