@@ -1,5 +1,8 @@
-var game = new Phaser.Game(600, 600, Phaser.AUTO);
-
+var game = new Phaser.Game(64 * 5, 64 * 5, Phaser.AUTO);
+var player;
+var enemy;
+//Turn on/off debug info
+var debug = false;
 
 var Boot = function(game){};
 Boot.prototype = {
@@ -18,7 +21,15 @@ Boot.prototype = {
 var Preloader = function(game){};
 Preloader.prototype = {
         preload: function(){
-                console.log('Preloader: preload');
+            console.log('Preloader: preload');
+            //ASSET LOADS
+            game.load.path = 'assets/img/';
+            //Load the tilemap data (key, url, data, format)
+            this.load.tilemap('level', 'outfox.json', null, Phaser.Tilemap.TILED_JSON);
+            //Load tilemap spritesheet (key, url, frameWidth, frameHeight)
+            this.load.image('tilesheet','outfox.png',64,64);
+            this.load.image('player', 'dog.png');
+            this.load.image('enemy', 'gorilla.png');
         },
         create: function(){
                 console.log('Preloader: create');
@@ -31,17 +42,19 @@ Preloader.prototype = {
 var MainMenu = function(game) {};
 MainMenu.prototype = {
         preload: function(){
-                console.log('MainMenu: preload');
+            console.log('MainMenu: preload');
         },
         create: function(){
-                console.log('MainMenu: create');
-                game.stage.backgroundColor = "#453987";
-                this.style = {font: "bold 32px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle"};
-                this.text = game.add.text(this.world.centerX, this.world.centerY, 'Yoyoyo this is\nhere', this.style);
+            console.log('MainMenu: create');
+
+            game.stage.backgroundColor = "#453987";
+            
+            this.style = {font: "bold 32px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle"};
+            this.text = game.add.text(0, 0, 'Yoyoyo this is\nhere', this.style);
 		this.text.setShadow(3, 3, 'rgba(0,0,0,0.5', 2);        
         },
         update: function(){
-                console.log('MainMenu: Update');
+                //console.log('MainMenu: Update');
                 if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
                         game.state.start('test');
                 }
@@ -51,32 +64,45 @@ var testState = function(game) {};
 testState.prototype = {
 	preload: function() {
     },
- 
-	create: function() {
 
+    create: function() {
+        //Start physics
+        game.physics.startSystem(Phaser.Physics.ARCADE);
+        
+        //TILEMAP SETUP
+        //create new tilemap object
+        map = this.game.add.tilemap('level');
+        //add image to the map to be used as a tileset (tileset, key)
+        //the tileset name is specified w/in the .json file and Tiled
+        //Can have multiple tilesets in any one map
+        map.addTilesetImage('landscape','tilesheet');
+        map.setCollision(2);
+        mapLayer = map.createLayer('Ground Level');
+        //set the world size to match the size of the Tilemap Layer
+        mapLayer.resizeWorld();
+
+        
+        //PLAYER SETUP
+        //this.spawnPlayer();
+        player = new Player(game, 'player'); 
+        game.add.existing(player);
+       	
+        //ENEMY SETUP
+        enemy = new Enemy(game, 'enemy');
+        game.add.existing(enemy);
     },
 
 	update: function() {
-    	    // run game loop
     },
+    
+    render: function () {
+        if(debug == true) {
+            game.debug.bodyInfo(player, 16, 16);
+            game.debug.body(player);
+            game.debug.body(enemy);
+        }
+    }
 }
-//spawnTiles function courtesy of: http://rotates.org/phaser/iso/examples/interaction.htm
-//	spawnTiles: function () {
-//    	var tile;
-//    	for (var xx = 0; xx < 256; xx += 38) {
-//        	for (var yy = 0; yy < 256; yy += 38) {
- //           	// Create a tile using the new game.add.isoSprite factory method at the specified position.
-//            	// The last parameter is the group you want to add it to (just like game.add.sprite)
- //           	tile = game.add.isoSprite(xx, yy, 0, 'dirt', 0, isoGroup);
- //           	tile.anchor.set(0.5, 0);
- //       	}
-  //  	}
-//	},
-//	spawnPlayer: function () {
- //   	var player = game.add.isoSprite(0,0,0, 'water',0,isoGroup);
-  //  	player.anchor.set(0.5,0);
- //	}
- //}
  game.state.add('test', testState);
  game.state.add('MainMenu', MainMenu);
  game.state.add('Preloader', Preloader);
