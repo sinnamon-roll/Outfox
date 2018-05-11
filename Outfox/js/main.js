@@ -2,7 +2,7 @@ var game = new Phaser.Game(64 * 5, 64 * 5, Phaser.AUTO);
 var player;
 var enemy;
 //Turn on/off debug info
-var debug = true;
+var debug = false;
 
 var Boot = function(game){};
 Boot.prototype = {
@@ -51,7 +51,7 @@ MainMenu.prototype = {
             game.stage.backgroundColor = "#453987";
             
             this.style = {font: "bold 32px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle"};
-            this.text = game.add.text(0, 0, 'Yoyoyo this is\nhere', this.style);
+            this.text = game.add.text(0, 0, 'Press Space to Start!', this.style);
 		this.text.setShadow(3, 3, 'rgba(0,0,0,0.5', 2);        
         },
         update: function(){

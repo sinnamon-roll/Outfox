@@ -33,8 +33,13 @@ Player.prototype.update = function() {
         }
     
     //ADJ?
-        if(enemy.x == (this.x + size) || enemy.x == (this.x - size) ||
-           enemy.y == (this.y + size) || enemy.y == (this.y - size)) {
-            console.log("ADJACENT");
+    if(enemy.x == (this.x + size) || enemy.x == (this.x - size) ){
+        if (enemy.y == this.y) {
+            console.log("ADJACENT R/L");
         }
+    }else if (enemy.y == (this.y + size) || enemy.y == (this.y - size) ){
+        if (enemy.x == this.x) {
+            console.log("ADJACENT UP/DOWN")
+        }
+    }
 }
