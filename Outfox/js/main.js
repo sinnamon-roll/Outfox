@@ -1,6 +1,8 @@
 var game = new Phaser.Game(64 * 5, 64 * 5, Phaser.AUTO);
 var player;
 var enemy;
+//Turn on/off debug info
+var debug = false;
 
 var Boot = function(game){};
 Boot.prototype = {
@@ -26,9 +28,8 @@ Preloader.prototype = {
             this.load.tilemap('level', 'outfox.json', null, Phaser.Tilemap.TILED_JSON);
             //Load tilemap spritesheet (key, url, frameWidth, frameHeight)
             this.load.image('tilesheet','outfox.png',64,64);
-            this.load.image('fox', 's_Fox01_SW.png')
             this.load.image('player', 'dog.png');
-	    this.load.image('enemy', 'gorilla.png');
+            this.load.image('enemy', 'gorilla.png');
         },
         create: function(){
                 console.log('Preloader: create');
@@ -64,14 +65,6 @@ testState.prototype = {
 	preload: function() {
     },
 
-    //spawnPlayer: function () {
-    //    this.player = this.game.add.sprite(64,3 * 64,'fox');
-    //    //Connect at the base of player's "feet"
-    //    this.game.physics.arcade.enable(this.player);
-    //    //this.player.body.setSize(54, 54, 5, 5); //reset collision box
-    //    this.player.body.collideWorldBounds = true;
-    //},
-
     create: function() {
         //Start physics
         game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -92,49 +85,23 @@ testState.prototype = {
         //PLAYER SETUP
         //this.spawnPlayer();
         player = new Player(game, 'player'); 
-	game.add.existing(player);
+        game.add.existing(player);
        	
-	//ENEMY SETUP
-	enemy = new Enemy(game, 'enemy');
-	game.add.existing(enemy);
-    },
-    
-    getTileProperties: function() {
-        
-        var x = mapLayer.getTileX(this.player.position.x);
-        var y = mapLayer.getTileY(this.player.position.y);
-        
-        var tile = map.getTile(x, y, mapLayer);
-        console.log(tile);
-        
-        // Note: JSON.stringify will convert the object tile properties to a string
-        currentDataString = JSON.stringify( tile.properties );
-        
-        //DIAMOND ATTACK
-        diamonds = this.game.add.group();                    //Group: diamonds💎
-        diamonds.enableBody = true;                            //... corporeal
-        diamonds.physicsBodyType = Phaser.Physics.ARCADE;
+        //ENEMY SETUP
+        enemy = new Enemy(game, 'enemy');
+        game.add.existing(enemy);
     },
 
 	update: function() {
-    //    // run game loop
-    //    if(cursors.up.justPressed()) {
-    //        this.player.y = this.player.y - 32;
-    //    } else if(cursors.down.justPressed()) {
-    //        this.player.y = this.player.y + 32;
-    //    } else if(cursors.left.justPressed()) {
-    //        this.player.x = this.player.x - 32;
-    //    } else if(cursors.right.justPressed()) {
-    //        this.player.x = this.player.x + 32;
-    //    }
-        
     },
     
-    //render: function () {
-    //    game.debug.bodyInfo(this.player, 16, 16);
-    //    game.debug.body(this.player);
-    //    mapLayer.debug = true;
-    //}
+    render: function () {
+        if(debug == true) {
+            game.debug.bodyInfo(player, 16, 16);
+            game.debug.body(player);
+            game.debug.body(enemy);
+        }
+    }
 }
  game.state.add('test', testState);
  game.state.add('MainMenu', MainMenu);
