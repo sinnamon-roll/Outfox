@@ -1,7 +1,6 @@
 var game = new Phaser.Game(64 * 5, 64 * 5, Phaser.AUTO);
 var player;
-var playerLastPos;
-
+var enemy;
 
 var Boot = function(game){};
 Boot.prototype = {
@@ -27,13 +26,9 @@ Preloader.prototype = {
             this.load.tilemap('level', 'outfox.json', null, Phaser.Tilemap.TILED_JSON);
             //Load tilemap spritesheet (key, url, frameWidth, frameHeight)
             this.load.image('tilesheet','outfox.png',64,64);
-<<<<<<< HEAD
-            this.load.image('fox', 'foxy.png')
-            this.load.image('diamond', 'diamond.png')
-
-=======
             this.load.image('fox', 's_Fox01_SW.png')
->>>>>>> 3168946cc4ca9476982d1d27cbe5698420f4016c
+            this.load.image('player', 'dog.png');
+	    this.load.image('enemy', 'gorilla.png');
         },
         create: function(){
                 console.log('Preloader: create');
@@ -95,16 +90,13 @@ testState.prototype = {
 
         
         //PLAYER SETUP
-<<<<<<< HEAD
-        this.spawnPlayer();
-        
-        //CURSORS
-        cursors = this.input.keyboard.createCursorKeys();
-=======
         //this.spawnPlayer();
-        player = new Player(game, 'fox'); 
+        player = new Player(game, 'player'); 
 	game.add.existing(player);
-
+       	
+	//ENEMY SETUP
+	enemy = new Enemy(game, 'enemy');
+	game.add.existing(enemy);
     },
     
     getTileProperties: function() {
@@ -117,7 +109,6 @@ testState.prototype = {
         
         // Note: JSON.stringify will convert the object tile properties to a string
         currentDataString = JSON.stringify( tile.properties );
->>>>>>> 3168946cc4ca9476982d1d27cbe5698420f4016c
         
         //DIAMOND ATTACK
         diamonds = this.game.add.group();                    //Group: diamonds💎
@@ -126,43 +117,6 @@ testState.prototype = {
     },
 
 	update: function() {
-<<<<<<< HEAD
-        // run game loop
-        if(cursors.up.justPressed()) {
-            this.player.y = this.player.y - 64;
-            var diamond = diamonds.create(this.player.x, this.player.y + 64, 'diamond');
-            diamonds.enableBody = true;
-            console.log("Made diamond", diamond);
-    
-            
-        } else if(cursors.down.justPressed()) {
-            this.player.y = this.player.y + 64;
-        } else if(cursors.left.justPressed()) {
-            this.player.x = this.player.x - 64;
-        } else if(cursors.right.justPressed()) {
-            this.player.x = this.player.x + 64;
-        }
-        //a tile
-        //var playerTile = this.getTileProperties();
-        var collectDiamond = function collectDiamond(player, diamond) {
-            console.log("COLLECT THE DIAMOND");
-            diamond.kill();
-        }
-        //game.physics.arcade.collide(player)
-        
-        game.physics.arcade.overlap(player,diamonds,collectDiamond,null,this);
-        
-        
-        
-    },
-    
-    render: function () {
-        game.debug.bodyInfo(this.player, 16, 16);
-        game.debug.body(this.player);
-        game.debug.body(diamonds);
-        
-    }
-=======
     //    // run game loop
     //    if(cursors.up.justPressed()) {
     //        this.player.y = this.player.y - 32;
@@ -181,7 +135,6 @@ testState.prototype = {
     //    game.debug.body(this.player);
     //    mapLayer.debug = true;
     //}
->>>>>>> 3168946cc4ca9476982d1d27cbe5698420f4016c
 }
  game.state.add('test', testState);
  game.state.add('MainMenu', MainMenu);
