@@ -7,6 +7,8 @@ function Player(game, key) {
 	Phaser.Sprite.call(this, game, size,3 * size, key);
     // add custom properties
 	cursors = game.input.keyboard.createCursorKeys();
+    cKey = game.input.keyboard.addKey(Phaser.Keyboard.C);
+
 	// put some physics on it
 	game.physics.arcade.enable(this);
 	this.body.collideWorldBounds = true;
@@ -53,7 +55,12 @@ Player.prototype.update = function() {
     //Prompt Charisma
     if (this.adj == true) {
         this.text.visible = true;
+        //Keyboard input for Charistma Interaction only available when adjacent
+        if (cKey.justPressed()) {
+            console.log("So Charismatic~~~~");
+        }
     } else {
         this.text.visible = false;
     }
+    
 }
