@@ -2,7 +2,7 @@ var game = new Phaser.Game(64 * 5, 64 * 5, Phaser.AUTO);
 var player;
 var enemy;
 //Turn on/off debug info
-var debug = false;
+var debug = true;
 
 var Boot = function(game){};
 Boot.prototype = {
@@ -29,7 +29,8 @@ Preloader.prototype = {
             //Load tilemap spritesheet (key, url, frameWidth, frameHeight)
             this.load.image('tilesheet','outfox.png',64,64);
             this.load.image('player', 's_fox_red_front.png');
-            this.load.image('enemy', 'gorilla.png');
+            this.load.image('enemy', 'foxy.png');
+            this.load.image('back', 's_fox_red_back.png')
         },
         create: function(){
                 console.log('Preloader: create');
@@ -97,7 +98,8 @@ testState.prototype = {
     
     render: function () {
         if(debug == true) {
-            game.debug.bodyInfo(player, 16, 16);
+            game.debug.bodyInfo(enemy, 16, 16);
+            game.debug.bodyInfo(player, 16, game.world.height - 50);
             game.debug.body(player);
             game.debug.body(enemy);
         }

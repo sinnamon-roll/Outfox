@@ -4,7 +4,6 @@ var size = 64;
 function Enemy(game, key) {
         // call to Phaser.Sprite // new Sprite(game, x, y, key, frame)
         Phaser.Sprite.call(this, game,4* size,4* size, key);
-	this.scale.setTo(0.5, 0.5);
         // add custom properties
         cursors = game.input.keyboard.createCursorKeys();
         // put some physics on it

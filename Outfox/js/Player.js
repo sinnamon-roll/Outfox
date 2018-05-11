@@ -4,8 +4,7 @@ var size = 64;
 function Player(game, key) {
 	// call to Phaser.Sprite // new Sprite(game, x, y, key, frame)
 	Phaser.Sprite.call(this, game, size,3 * size, key);
-	//this.scale.setTo(0.25, 0.25);
-	// add custom properties
+    // add custom properties
 	cursors = game.input.keyboard.createCursorKeys();
 	// put some physics on it
 	game.physics.arcade.enable(this);
@@ -19,9 +18,11 @@ Player.prototype.constructor = Player;
 Player.prototype.update = function() {
         if(cursors.up.justPressed()) {
             this.y = this.y - size;
+            this.loadTexture('back');
 		console.log('up pressed');
         } else if(cursors.down.justPressed()) {
             this.y = this.y + size;
+            this.loadTexture('player');
 	    console.log('down pressed');
         } else if(cursors.left.justPressed()) {
             this.x = this.x - size;
@@ -29,5 +30,11 @@ Player.prototype.update = function() {
         } else if(cursors.right.justPressed()) {
             this.x = this.x + size;
 	    console.log('right pressed');
+        }
+    
+    //ADJ?
+        if(enemy.x == (this.x + size) || enemy.x == (this.x - size) ||
+           enemy.y == (this.y + size) || enemy.y == (this.y - size)) {
+            console.log("ADJACENT");
         }
 }
