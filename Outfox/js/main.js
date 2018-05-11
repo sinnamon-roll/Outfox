@@ -1,6 +1,6 @@
 var game = new Phaser.Game(64 * 5, 64 * 5, Phaser.AUTO);
 var player;
-
+var enemy;
 
 var Boot = function(game){};
 Boot.prototype = {
@@ -26,7 +26,8 @@ Preloader.prototype = {
             this.load.tilemap('level', 'outfox.json', null, Phaser.Tilemap.TILED_JSON);
             //Load tilemap spritesheet (key, url, frameWidth, frameHeight)
             this.load.image('tilesheet','outfox.png',64,64);
-            this.load.image('fox', 's_Fox01_SW.png')
+            this.load.image('player', 'dog.png');
+	    this.load.image('enemy', 'gorilla.png');
         },
         create: function(){
                 console.log('Preloader: create');
@@ -89,9 +90,12 @@ testState.prototype = {
         
         //PLAYER SETUP
         //this.spawnPlayer();
-        player = new Player(game, 'fox'); 
+        player = new Player(game, 'player'); 
 	game.add.existing(player);
-
+       	
+	//ENEMY SETUP
+	enemy = new Enemy(game, 'enemy');
+	game.add.existing(enemy);
     },
     
     getTileProperties: function() {

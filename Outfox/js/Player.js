@@ -3,7 +3,7 @@
 function Player(game, key) {
 	// call to Phaser.Sprite // new Sprite(game, x, y, key, frame)
 	Phaser.Sprite.call(this, game, 64,3 * 64, key);
-
+	this.scale.setTo(0.25, 0.25);
 	// add custom properties
 	cursors = game.input.keyboard.createCursorKeys();
 	// put some physics on it
