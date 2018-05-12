@@ -42,18 +42,20 @@ Player.prototype.update = function() {
         }
     
     //ADJ!!!
-    if(enemy.x == (this.x + size) || enemy.x == (this.x - size) ){
-        if (enemy.y == this.y) {
-            console.log("ADJACENT R/L");
-            this.adj = true;
+    if (enemy.alive == true) {
+        if(enemy.x == (this.x + size) || enemy.x == (this.x - size) ){
+            if (enemy.y == this.y) {
+                console.log("ADJACENT R/L");
+                this.adj = true;
+            }
+        }else if (enemy.y == (this.y + size) || enemy.y == (this.y - size) ){
+            if (enemy.x == this.x) {
+                console.log("ADJACENT UP/DOWN");
+                this.adj = true;
+            }
+        }else {
+            this.adj = false;
         }
-    }else if (enemy.y == (this.y + size) || enemy.y == (this.y - size) ){
-        if (enemy.x == this.x) {
-            console.log("ADJACENT UP/DOWN");
-            this.adj = true;
-        }
-    }else {
-        this.adj = false;
     }
     
     //Prompt Charisma
@@ -61,7 +63,7 @@ Player.prototype.update = function() {
         this.text.visible = true;
         //Keyboard input for Charistma Interaction only available when adjacent
         if (cKey.justPressed()) {
-            console.log("So Charismatic~~~~");
+            console.log("So Charismatic~~~~", enemy.health);
             //.damage() will handle the killing of sprite if necessary~
             enemy.damage(this.CHAR);
         }
