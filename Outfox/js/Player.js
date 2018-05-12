@@ -56,6 +56,8 @@ Player.prototype.update = function() {
         }else {
             this.adj = false;
         }
+    } else {
+        this.adj = false;
     }
     
     //Prompt Charisma
