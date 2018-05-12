@@ -1,6 +1,7 @@
 //Enemies with basic Ai that just follow the player
 // prefab constructor function
 var size = 64;
+var CHAR;
 function Enemy(game, key) {
         // call to Phaser.Sprite // new Sprite(game, x, y, key, frame)
         Phaser.Sprite.call(this, game,4* size,4* size, key);
@@ -9,6 +10,8 @@ function Enemy(game, key) {
         // put some physics on it
         game.physics.arcade.enable(this);
         this.body.collideWorldBounds = true;
+        this.health = 10;
+        this.CHAR = 5;
 }
 // explicitly define prefab's prototype (Phaser.Sprite) and constructor (Player)
 Enemy.prototype = Object.create(Phaser.Sprite.prototype);

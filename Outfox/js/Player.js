@@ -2,12 +2,16 @@
 // Player prefab constructor function
 var size = 64;
 var adj = false;
+var CHAR;
+var HEALTH;
 function Player(game, key) {
 	// call to Phaser.Sprite // new Sprite(game, x, y, key, frame)
 	Phaser.Sprite.call(this, game, size,3 * size, key);
     // add custom properties
 	cursors = game.input.keyboard.createCursorKeys();
     cKey = game.input.keyboard.addKey(Phaser.Keyboard.C);
+    this.health = 10;
+    this.CHAR = 5;
 
 	// put some physics on it
 	game.physics.arcade.enable(this);
@@ -58,6 +62,8 @@ Player.prototype.update = function() {
         //Keyboard input for Charistma Interaction only available when adjacent
         if (cKey.justPressed()) {
             console.log("So Charismatic~~~~");
+            //.damage() will handle the killing of sprite if necessary~
+            enemy.damage(this.CHAR);
         }
     } else {
         this.text.visible = false;
