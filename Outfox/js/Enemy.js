@@ -25,7 +25,7 @@ Enemy.prototype.update = function() {
 			if(player.x > this.x){
 				//move left
 				this.x = this.x + size;
-			}else{
+			}else if(player.x < this.x){
 				//move right
 				this.x = this.x - size;
 			}
@@ -45,7 +45,7 @@ Enemy.prototype.update = function() {
                         if(player.x > this.x){
                                 //move left
                                 this.x = this.x + size;
-                        }else{  
+                        }else if(player.x < this.x){  
                                 //move right
                                 this.x = this.x - size;
                         }
@@ -65,7 +65,7 @@ Enemy.prototype.update = function() {
                         if(player.x > this.x){
                                 //move left
                                 this.x = this.x + size;
-                        }else{  
+                        }else if(player.x < this.x){  
                                 //move right
                                 this.x = this.x - size;
                         }
@@ -85,7 +85,7 @@ Enemy.prototype.update = function() {
                         if(player.x > this.x){
                                 //move left
                                 this.x = this.x + size;
-                        }else{  
+                        }else if(player.x < this.x){  
                                 //move right
                                 this.x = this.x - size;
                         }
