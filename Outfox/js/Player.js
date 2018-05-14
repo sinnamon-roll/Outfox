@@ -3,7 +3,6 @@
 var size = 64;
 var adj = false;
 var CHAR;
-var HEALTH;
 function Player(game, key) {
 	// call to Phaser.Sprite // new Sprite(game, x, y, key, frame)
 	Phaser.Sprite.call(this, game, size,3 * size, key);
