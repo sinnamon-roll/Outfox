@@ -33,6 +33,12 @@ Preloader.prototype = {
             this.load.image('player', 's_fox_red_front.png');
             this.load.image('enemy', 'foxy.png');
             this.load.image('back', 's_fox_red_back.png')
+            
+            //MUSIC
+            game.load.path = 'assets/audio/';
+            //Song obtained from:: freesound.org/people/dobroide/sounds/34580/
+            game.load.audio('bgMusic',['BGMusic.mp3']);
+            game.load.audio('charSound',['UpSound.mp3']);
         },
         create: function(){
                 console.log('Preloader: create');
@@ -58,9 +64,9 @@ MainMenu.prototype = {
         },
         update: function(){
                 //console.log('MainMenu: Update');
-                if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
-                        game.state.start('test');
-                }
+            if(this.cache.isSoundDecoded('bgMusic') && game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR) ){
+                this.state.start('test');
+            }
         },
 }
 var testState = function(game) {};
@@ -71,6 +77,9 @@ testState.prototype = {
     create: function() {
         //Start physics
         game.physics.startSystem(Phaser.Physics.ARCADE);
+        
+        //MUSIC
+        playMusic();
         
         //TILEMAP SETUP
         //create new tilemap object
@@ -95,6 +104,13 @@ testState.prototype = {
         this.addEnemy(enemygroup);
         //enemy = new Enemy(game, 'enemy');
         //game.add.existing(enemy);
+
+        function playMusic() {
+            console.log('Playing music');
+            var firstMusic = game.add.audio('bgMusic');
+            firstMusic.play('', 0, 0.75, true);    // ('marker', start position, volume (0-1), loop)
+        }
+
     },
 
     addEnemy: function(group){

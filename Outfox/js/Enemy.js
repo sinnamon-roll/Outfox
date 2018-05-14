@@ -24,7 +24,19 @@ Enemy.prototype.constructor = Enemy;
 Enemy.prototype.update = function() {
         spawnlocY = size*game.rnd.integerInRange(1, 3);
         spawnlocX = size*game.rnd.integerInRange(1, 3);
-        if(cursors.up.justPressed()) {
+        //If the enemy and player are overlapped
+        if( this.y == player.y && this.x == player.x){
+            if(player.y == size * 4) {
+                if (player.x == size * 4) {
+                    this.x -= size;
+                } else {
+                    this.x += size;
+                }
+            } else {
+                this.y += size;
+            }
+        }
+    if(cursors.up.justPressed()) {
 		//check player x and y position, set to wait for player input beforehand
 		if(this.y == player.y){
 			if(player.x > this.x){
