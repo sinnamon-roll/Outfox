@@ -138,16 +138,22 @@ testState.prototype = {
         // load a path to save us typing
         this.load.path = 'assets/img/'; 
         // load image assets
-        this.load.images(['prolBorder'], ['prologueborder.png']);
+        this.load.images(['tempLayout', 'grid'], ['tempLayout.png', 'tempGrid.png']);
     },
 
     create: function() {
         //Start physics
         game.physics.startSystem(Phaser.Physics.ARCADE);
-        game.stage.backgroundColor = "#facade";
+        game.stage.backgroundColor = "#ffffff";
         
         //MUSIC
         playMusic();
+
+        // show temp layout image underneath game
+        //game.add.sprite(0, 0, 'tempLayout');
+
+        // show temp grid under the game
+        game.add.sprite(0, 0, 'grid');
         
         //TILEMAP SETUP
         //create new tilemap object
@@ -161,7 +167,9 @@ testState.prototype = {
         //set the world size to match the size of the Tilemap Layer
         mapLayer.resizeWorld();
 
-        
+        // show temp grid on top of game
+        //game.add.sprite(0, 0, 'grid');
+   
         //PLAYER SETUP
         //this.spawnPlayer();
         player = new Player(game, 'player'); 
