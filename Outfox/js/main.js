@@ -1,6 +1,8 @@
 var game = new Phaser.Game(64 * 5, 64 * 5, Phaser.AUTO);
 var player;
+var enemygroup;
 var enemy;
+var colors = [0x1BE7FF, 0x6EEB83, 0xE4FF1A, 0xE8AA14, 0xE8AA14];
 //Turn on/off debug info
 var debug = false;
 
@@ -98,17 +100,31 @@ testState.prototype = {
         game.add.existing(player);
        	
         //ENEMY SETUP
-        enemy = new Enemy(game, 'enemy');
-        game.add.existing(enemy);
-        
+        enemygroup = game.add.group();
+        this.addEnemy(enemygroup);
+        //enemy = new Enemy(game, 'enemy');
+        //game.add.existing(enemy);
+
         function playMusic() {
             console.log('Playing music');
             var firstMusic = game.add.audio('bgMusic');
             firstMusic.play('', 0, 0.75, true);    // ('marker', start position, volume (0-1), loop)
         }
+
     },
 
+    addEnemy: function(group){
+    	//throwing out new enemies into the mix yo
+    	var tintColor = colors[game.rnd.between(0, colors.length-1)]; //for variety, which is the spiciest of meatballs
+    	enemy = new Enemy(game, 'enemy', tintColor);
+    	game.add.existing(enemy);
+    	group.add(enemy);
+    },	 
+
 	update: function() {
+		if(enemy.alive == false){
+			this.addEnemy(enemygroup);
+		}
     },
     
     render: function () {
