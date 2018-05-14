@@ -133,11 +133,18 @@ Prologue.prototype = {
 var testState = function(game) {};
 testState.prototype = {
 	preload: function() {
+
+        // TESTING OVERLAY GRAPHIC
+        // load a path to save us typing
+        this.load.path = 'assets/img/'; 
+        // load image assets
+        this.load.images(['prolBorder'], ['prologueborder.png']);
     },
 
     create: function() {
         //Start physics
         game.physics.startSystem(Phaser.Physics.ARCADE);
+        game.stage.backgroundColor = "#facade";
         
         //MUSIC
         playMusic();
@@ -165,6 +172,9 @@ testState.prototype = {
         this.addEnemy(enemygroup);
         //enemy = new Enemy(game, 'enemy');
         //game.add.existing(enemy);
+
+        // TESTING OVERLAY GRAPHIC
+        game.add.sprite(0, 0, 'prolBorder');
 
         function playMusic() {
             console.log('Playing music');
