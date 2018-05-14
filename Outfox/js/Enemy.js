@@ -19,13 +19,26 @@ Enemy.prototype.constructor = Player;
 
 // override Phaser.Sprite update (Enemy update function)
 Enemy.prototype.update = function() {
+        //If the enemy and player are overlapped
+        if( this.y == player.y && this.x == player.x){
+            if(player.y == size * 4) {
+                if (player.x == size * 4) {
+                    this.x -= size;
+                } else {
+                    this.x += size;
+                }
+            } else {
+                this.y += size;
+            }
+        }
+    
         if(cursors.up.justPressed()) {
 		//check player x and y position, set to wait for player input beforehand
 		if(this.y == player.y){
 			if(player.x > this.x){
 				//move left
 				this.x = this.x + size;
-			}else{
+			}else if(player.x < this.x){
 				//move right
 				this.x = this.x - size;
 			}
@@ -45,7 +58,7 @@ Enemy.prototype.update = function() {
                         if(player.x > this.x){
                                 //move left
                                 this.x = this.x + size;
-                        }else{  
+                        }else if(player.x < this.x){  
                                 //move right
                                 this.x = this.x - size;
                         }
@@ -65,7 +78,7 @@ Enemy.prototype.update = function() {
                         if(player.x > this.x){
                                 //move left
                                 this.x = this.x + size;
-                        }else{  
+                        }else if(player.x < this.x){  
                                 //move right
                                 this.x = this.x - size;
                         }
@@ -85,7 +98,7 @@ Enemy.prototype.update = function() {
                         if(player.x > this.x){
                                 //move left
                                 this.x = this.x + size;
-                        }else{  
+                        }else if(player.x < this.x){  
                                 //move right
                                 this.x = this.x - size;
                         }
