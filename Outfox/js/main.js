@@ -1,10 +1,11 @@
-var game = new Phaser.Game(64 * 5, 64 * 5, Phaser.AUTO);
+var game = new Phaser.Game(640, 480, Phaser.AUTO);
 var player;
 var enemygroup;
 var enemy;
 var colors = [0x1BE7FF, 0x6EEB83, 0xE4FF1A, 0xE8AA14, 0xE8AA14];
 //Turn on/off debug info
 var debug = false;
+var menuText;
 
 var Boot = function(game){};
 Boot.prototype = {
@@ -53,22 +54,82 @@ MainMenu.prototype = {
         preload: function(){
             console.log('MainMenu: preload');
         },
-        create: function(){
+        create: function() {
             console.log('MainMenu: create');
+            game.stage.backgroundColor = "#F26B1D";
+            console.log('level: ' + this.level);
 
-            game.stage.backgroundColor = "#453987";
-            
-            this.style = {font: "bold 32px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle"};
-            this.text = game.add.text(0, 0, 'Press Space to Start!', this.style);
-		this.text.setShadow(3, 3, 'rgba(0,0,0,0.5', 2);        
-        },
+        // State change instructions and intro text -----------------------------------------------
+        menuText = game.add.text(200, 150, 'Outfox', { fontSize: '48px', fill: '#000' });
+        menuText = game.add.text(240, 200, 'by Cherry Coke Gummies', { fontSize: '22px', fill: '#000' });
+        menuText = game.add.text(150, 250, 'Press space to start', { fontSize: '32px', fill: '#000' });
+    },
         update: function(){
                 //console.log('MainMenu: Update');
             if(this.cache.isSoundDecoded('bgMusic') && game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR) ){
-                this.state.start('test');
+                this.state.start('Prologue');
             }
         },
 }
+
+// define Prologue state and methods
+var Prologue = function(game) {};
+Prologue.prototype = {
+    init: function() {
+        this.level = 1;
+    },
+    preload: function() {
+        console.log('Prologue: preload');
+
+        // Preload Assets -----------------------------------------------------
+
+        // load a path to save us typing
+        this.load.path = 'assets/img/'; 
+        // load image assets
+        this.load.images(['prolBorder', 'prolUpL', 'prolUpMid', 'prolUpR', 'prolLowL', 'prolLowMidTop', 'prolLowMidL', 'prolLowMidR', 'prolLowR'],
+            ['prologueborder.png', 'prologueUpL.png', 'prologueUpMid.png', 'prologueUpR.png', 'prologueLowL.png', 'prologueLowMidTop.png', 'prologueLowMidL.png', 'prologueLowMidR.png', 'prologueLowR.png']);
+    },
+    create: function() {
+        console.log('Prologue: create');
+        game.stage.backgroundColor = "#ffffff";
+        console.log('level: ' + this.level);
+
+        // create background image
+        game.add.sprite(0, 0, 'prolBorder');
+
+        // create upper left comic panel
+        game.add.sprite(10, 10, 'prolUpL');
+
+        // create upper middle comic panel
+        game.add.sprite(101, 10, 'prolUpMid');
+
+        // create upper right comic panel
+        game.add.sprite(414, 10, 'prolUpR');
+
+        // create lower left comic panel
+        game.add.sprite(10, 219, 'prolLowL');
+
+        // create lower middle top comic panel
+        game.add.sprite(230, 219, 'prolLowMidTop');
+
+        // create lower middle left comic panel
+        game.add.sprite(102, 334, 'prolLowMidL');
+
+        // create lower middle right comic panel
+        game.add.sprite(321, 334, 'prolLowMidR');
+
+        // create lower right comic panel
+        game.add.sprite(414, 219, 'prolLowR');
+    },
+    update: function() {
+        // main menu logic
+        if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
+            // pass this.level to next state
+            game.state.start('test');
+        }
+    }
+}
+
 var testState = function(game) {};
 testState.prototype = {
 	preload: function() {
@@ -136,9 +197,99 @@ testState.prototype = {
         }
     }
 }
- game.state.add('test', testState);
- game.state.add('MainMenu', MainMenu);
- game.state.add('Preloader', Preloader);
- game.state.add('Boot', Boot);
- game.state.start('Boot');
+
+// define Congrats state and methods
+var Congrats = function(game) {};
+Congrats.prototype = {
+    init: function(lvl) {
+        this.level = lvl+1;
+    },
+    preload: function() {
+        console.log('MainMenu: preload');
+
+        // Preload Assets -----------------------------------------------------
+
+        // load a path to save us typing
+        this.load.path = 'assets/img/'; 
+        // load image assets
+        this.load.images(['prolMain'], ['prologue640x480.png']);
+    },
+    create: function() {
+        console.log('Congrats: create');
+        game.stage.backgroundColor = "#F28A2E";
+        console.log('level: ' + this.level);
+
+        // create background image
+        //game.add.sprite(0, 0, 'prolBorder');
+
+        // create upper left comic panel
+        //game.add.sprite(10, 10, 'prolUpL');
+
+        /* create logo image
+        game.add.sprite(190, 50, 'logo');*/
+
+        // State change instructions and intro text -----------------------------------------------
+        scoreText = game.add.text(200, 150, 'Outfox', { fontSize: '48px', fill: '#000' });
+        scoreText = game.add.text(240, 200, 'Congratulations you won!', { fontSize: '22px', fill: '#000' });
+        scoreText01 = game.add.text(150, 250, 'Press space to restart', { fontSize: '32px', fill: '#000' });
+    },
+    update: function() {
+        // GameOver logic
+        if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
+            game.state.start('MainMenu');
+        }
+    }
+}
+
+// define GameOver state and methods
+var GameOver = function(game) {};
+GameOver.prototype = {
+    init: function(lvl) {
+        this.level = lvl+1;
+    },
+    preload: function() {
+        console.log('MainMenu: preload');
+
+        // Preload Assets -----------------------------------------------------
+
+        // load a path to save us typing
+        this.load.path = 'assets/img/'; 
+        // load image assets
+        this.load.images(['prolMain'], ['prologue640x480.png']);
+    },
+    create: function() {
+        console.log('MainMenu: create');
+        game.stage.backgroundColor = "#732817";
+        console.log('level: ' + this.level);
+
+        // create background image
+        //game.add.sprite(0, 0, 'prolBorder');
+
+        // create upper left comic panel
+        //game.add.sprite(10, 10, 'prolUpL');
+
+        /* create logo image
+        game.add.sprite(190, 50, 'logo');*/
+
+        // State change instructions and intro text -----------------------------------------------
+        scoreText = game.add.text(200, 150, 'Outfox', { fontSize: '48px', fill: '#000' });
+        scoreText = game.add.text(240, 200, 'You died!', { fontSize: '22px', fill: '#000' });
+        scoreText01 = game.add.text(150, 250, 'Press space to restart', { fontSize: '32px', fill: '#000' });
+    },
+    update: function() {
+        // GameOver logic
+        if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
+            game.state.start('MainMenu');
+        }
+    }
+}
+
+game.state.add('test', testState);
+game.state.add('MainMenu', MainMenu);
+game.state.add('Prologue', Prologue);
+game.state.add('Congrats', Congrats);
+game.state.add('GameOver', GameOver);
+game.state.add('Preloader', Preloader);
+game.state.add('Boot', Boot);
+game.state.start('Boot');
 
