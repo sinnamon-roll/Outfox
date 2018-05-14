@@ -41,14 +41,14 @@ Player.prototype.update = function() {
         }
     
     //ADJ!!!
-    if (enemygroup.alive == true) {
-        if(enemygroup.x == (this.x + size) || enemygroup.x == (this.x - size) ){
-            if (enemygroup.y == this.y) {
+    if (enemy.alive == true) {
+        if(enemy.x == (this.x + size) || enemy.x == (this.x - size) ){
+            if (enemy.y == this.y) {
                 console.log("ADJACENT R/L");
                 this.adj = true;
             }
-        }else if (enemygroup.y == (this.y + size) || enemygroup.y == (this.y - size) ){
-            if (enemygroup.x == this.x) {
+        }else if (enemy.y == (this.y + size) || enemy.y == (this.y - size) ){
+            if (enemy.x == this.x) {
                 console.log("ADJACENT UP/DOWN");
                 this.adj = true;
             }
@@ -64,9 +64,9 @@ Player.prototype.update = function() {
         this.text.visible = true;
         //Keyboard input for Charistma Interaction only available when adjacent
         if (cKey.justPressed()) {
-            console.log("So Charismatic~~~~", enemygroup.health);
+            console.log("So Charismatic~~~~", enemy.health);
             //.damage() will handle the killing of sprite if necessary~
-            enemygroup.damage(this.CHAR);
+            enemy.damage(this.CHAR);
         }
     } else {
         this.text.visible = false;
