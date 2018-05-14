@@ -150,10 +150,10 @@ testState.prototype = {
         playMusic();
 
         // show temp layout image underneath game
-        //game.add.sprite(0, 0, 'tempLayout');
+        game.add.sprite(0, 0, 'tempLayout');
 
         // show temp grid under the game
-        game.add.sprite(0, 0, 'grid');
+        //game.add.sprite(0, 0, 'grid');
         
         //TILEMAP SETUP
         //create new tilemap object
