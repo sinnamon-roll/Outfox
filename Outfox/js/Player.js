@@ -67,6 +67,9 @@ Player.prototype.update = function() {
             console.log("So Charismatic~~~~", enemy.health);
             //.damage() will handle the killing of sprite if necessary~
             enemy.damage(this.CHAR);
+            //play audio
+            var char = game.add.audio('charSound');
+            char.play('',0,0.75,false)
         }
     } else {
         this.text.visible = false;
