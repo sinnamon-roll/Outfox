@@ -1,14 +1,17 @@
 //Enemies with basic Ai that just follow the player
 // prefab constructor function
+var size = 64;
+var CHAR;
 function Enemy(game, key) {
         // call to Phaser.Sprite // new Sprite(game, x, y, key, frame)
-        Phaser.Sprite.call(this, game,4* 64,4* 64, key);
-	this.scale.setTo(0.25, 0.25);
+        Phaser.Sprite.call(this, game,4* size,4* size, key);
         // add custom properties
         cursors = game.input.keyboard.createCursorKeys();
         // put some physics on it
         game.physics.arcade.enable(this);
         this.body.collideWorldBounds = true;
+        this.health = 10;
+        this.CHAR = 5;
 }
 // explicitly define prefab's prototype (Phaser.Sprite) and constructor (Player)
 Enemy.prototype = Object.create(Phaser.Sprite.prototype);
@@ -21,17 +24,17 @@ Enemy.prototype.update = function() {
 		if(this.y == player.y){
 			if(player.x > this.x){
 				//move left
-				this.x = this.x + 32;
+				this.x = this.x + size;
 			}else{
 				//move right
-				this.x = this.x - 32;
+				this.x = this.x - size;
 			}
 		} else if(this.y > player.y){
 			//move up
-			this.y = this.y - 32
+			this.y = this.y - size
 		} else if(this.y < player.y){
 			//move down
-			this.y = this.y + 32
+			this.y = this.y + size
 		} else {
 			console.log("Caught!");
 		}
@@ -41,17 +44,17 @@ Enemy.prototype.update = function() {
                 if(this.y == player.y){
                         if(player.x > this.x){
                                 //move left
-                                this.x = this.x + 32;
+                                this.x = this.x + size;
                         }else{  
                                 //move right
-                                this.x = this.x - 32;
+                                this.x = this.x - size;
                         }
                 } else if(this.y > player.y){
                         //move up
-                        this.y = this.y - 32
+                        this.y = this.y - size
                 } else if(this.y < player.y){
                         //move down
-                        this.y = this.y + 32
+                        this.y = this.y + size
                 } else {
                         console.log("Caught!");
                 }
@@ -61,17 +64,17 @@ Enemy.prototype.update = function() {
                 if(this.y == player.y){
                         if(player.x > this.x){
                                 //move left
-                                this.x = this.x + 32;
+                                this.x = this.x + size;
                         }else{  
                                 //move right
-                                this.x = this.x - 32;
+                                this.x = this.x - size;
                         }
                 } else if(this.y > player.y){
                         //move up
-                        this.y = this.y - 32
+                        this.y = this.y - size
                 } else if(this.y < player.y){
                         //move down
-                        this.y = this.y + 32
+                        this.y = this.y + size
                 } else {
                         console.log("Caught!");
                 }
@@ -81,17 +84,17 @@ Enemy.prototype.update = function() {
                 if(this.y == player.y){
                         if(player.x > this.x){
                                 //move left
-                                this.x = this.x + 32;
+                                this.x = this.x + size;
                         }else{  
                                 //move right
-                                this.x = this.x - 32;
+                                this.x = this.x - size;
                         }
                 } else if(this.y > player.y){
                         //move up
-                        this.y = this.y - 32
+                        this.y = this.y - size
                 } else if(this.y < player.y){
                         //move down
-                        this.y = this.y + 32
+                        this.y = this.y + size
                 } else {
                         console.log("Caught!");
                 }
