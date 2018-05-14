@@ -1,6 +1,6 @@
 var game = new Phaser.Game(64 * 5, 64 * 5, Phaser.AUTO);
 var player;
-var enemy;
+var enemygroup;
 //Turn on/off debug info
 var debug = false;
 
@@ -89,11 +89,24 @@ testState.prototype = {
         game.add.existing(player);
        	
         //ENEMY SETUP
-        enemy = new Enemy(game, 'enemy');
-        game.add.existing(enemy);
+        enemygroup = game.add.group();
+        this.addEnemy(enemygroup);
+        //enemy = new Enemy(game, 'enemy');
+        //game.add.existing(enemy);
     },
 
+    addEnemy: function(group){
+    	//throwing out new enemies into the mix yo
+    	var tintColor = colors[game.rnd.between(0, colors.length-1)]; //for variety, which is the spiciest of meatballs
+    	var enemy = new Enemy(game, 'enemy', tintColor);
+    	game.add.existing(enemy);
+    	group.add(enemy);
+    }	 
+
 	update: function() {
+		if(enemygroup.alive == false){
+			addEnemy(enemygroup);
+		}
     },
     
     render: function () {

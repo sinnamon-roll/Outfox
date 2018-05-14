@@ -2,7 +2,7 @@
 // prefab constructor function
 var size = 64;
 var CHAR;
-function Enemy(game, key) {
+function Enemy(game, key, tintColor) {
         // call to Phaser.Sprite // new Sprite(game, x, y, key, frame)
         Phaser.Sprite.call(this, game,4* size,4* size, key);
         // add custom properties
@@ -12,10 +12,11 @@ function Enemy(game, key) {
         this.body.collideWorldBounds = true;
         this.health = 10;
         this.CHAR = 5;
+        this.tint = tintColor;
 }
 // explicitly define prefab's prototype (Phaser.Sprite) and constructor (Player)
 Enemy.prototype = Object.create(Phaser.Sprite.prototype);
-Enemy.prototype.constructor = Player;
+Enemy.prototype.constructor = Enemy;
 
 // override Phaser.Sprite update (Enemy update function)
 Enemy.prototype.update = function() {
