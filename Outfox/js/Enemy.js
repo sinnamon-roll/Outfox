@@ -2,9 +2,11 @@
 // prefab constructor function
 var size = 64;
 var CHAR;
-function Enemy(game, key) {
+var spawnlocX = size*game.rnd.integerInRange(1, 3);
+var spawnlocY= size*game.rnd.integerInRange(1, 3);
+function Enemy(game, key, tintColor) {
         // call to Phaser.Sprite // new Sprite(game, x, y, key, frame)
-        Phaser.Sprite.call(this, game,4* size,4* size, key);
+        Phaser.Sprite.call(this, game, spawnlocX, spawnlocY, key);
         // add custom properties
         cursors = game.input.keyboard.createCursorKeys();
         // put some physics on it
@@ -12,13 +14,16 @@ function Enemy(game, key) {
         this.body.collideWorldBounds = true;
         this.health = 10;
         this.CHAR = 5;
+        this.tint = tintColor;
 }
 // explicitly define prefab's prototype (Phaser.Sprite) and constructor (Player)
 Enemy.prototype = Object.create(Phaser.Sprite.prototype);
-Enemy.prototype.constructor = Player;
+Enemy.prototype.constructor = Enemy;
 
 // override Phaser.Sprite update (Enemy update function)
 Enemy.prototype.update = function() {
+        spawnlocY = size*game.rnd.integerInRange(1, 3);
+        spawnlocX = size*game.rnd.integerInRange(1, 3);
         //If the enemy and player are overlapped
         if( this.y == player.y && this.x == player.x){
             if(player.y == size * 4) {
@@ -31,8 +36,7 @@ Enemy.prototype.update = function() {
                 this.y += size;
             }
         }
-    
-        if(cursors.up.justPressed()) {
+    if(cursors.up.justPressed()) {
 		//check player x and y position, set to wait for player input beforehand
 		if(this.y == player.y){
 			if(player.x > this.x){
