@@ -9,7 +9,7 @@ function Player(game, key) {
     // add custom properties
 	cursors = game.input.keyboard.createCursorKeys();
     cKey = game.input.keyboard.addKey(Phaser.Keyboard.C);
-    this.health = 10;
+    this.health = settings.playerhealth;
     this.CHAR = 5;
 
 	// put some physics on it
