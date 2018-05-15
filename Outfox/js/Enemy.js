@@ -12,7 +12,7 @@ function Enemy(game, key, tintColor) {
         // put some physics on it
         game.physics.arcade.enable(this);
         this.body.collideWorldBounds = true;
-        this.health = 10;
+        this.health = settings.enemyhealth;
         this.CHAR = 5;
         this.tint = tintColor;
 }
