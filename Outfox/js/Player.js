@@ -33,10 +33,10 @@ Player.prototype.update = function() {
             this.y = this.y + size;
             this.loadTexture('player');
 	    console.log('down pressed');
-        } else if(cursors.left.justPressed() && this.x != size * 3) {
+        } else if(cursors.left.justPressed() && this.x != size * 1) {
             this.x = this.x - size;
 	    console.log('left pressed');
-        } else if(cursors.right.justPressed() && this.x != size * 6) {
+        } else if(cursors.right.justPressed() && this.x != size * 8) {
             this.x = this.x + size;
 	    console.log('right pressed');
         }

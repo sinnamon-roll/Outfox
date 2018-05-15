@@ -175,7 +175,7 @@ testState.prototype = {
         playMusic();
 
         // show temp layout image underneath game
-        game.add.sprite(0, 0, 'tempLayout');
+        //game.add.sprite(0, 0, 'tempLayout');
 
         // show temp grid under the game
         //game.add.sprite(0, 0, 'grid');
@@ -191,9 +191,6 @@ testState.prototype = {
         mapLayer = map.createLayer('Ground Level');
         //set the world size to match the size of the Tilemap Layer
         mapLayer.resizeWorld();
-
-        // show temp grid on top of game
-        //game.add.sprite(0, 0, 'grid');
    
         //PLAYER SETUP
         //this.spawnPlayer();
@@ -203,6 +200,10 @@ testState.prototype = {
         //ENEMY SETUP
         enemygroup = game.add.group();
         this.addEnemy(enemygroup);
+        
+        
+        // show temp grid on top of game
+        game.add.sprite(0, 0, 'tempLayout');
 
         // TESTING OVERLAY GRAPHIC
         game.add.sprite(0, 0, 'prolBorder');
