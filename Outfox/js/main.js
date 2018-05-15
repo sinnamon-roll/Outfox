@@ -190,7 +190,7 @@ testState.prototype = {
         map.setCollision(2);
         mapLayer = map.createLayer('Ground Level');
         //set the world size to match the size of the Tilemap Layer
-        mapLayer.resizeWorld();
+        //mapLayer.resizeWorld();
    
         //PLAYER SETUP
         //this.spawnPlayer();

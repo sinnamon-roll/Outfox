@@ -16,7 +16,7 @@ function Player(game, key) {
 	game.physics.arcade.enable(this);
 	this.body.collideWorldBounds = true;
     this.style = {font: "bold 24px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle"};
-    this.text = game.add.text(112, 362, 'Press C to bark Charismatically!', this.style);
+    this.text = game.add.text(0, 0, 'Press C to bark Charismatically!', this.style);
 }
 // explicitly define prefab's prototype (Phaser.Sprite) and constructor (Player)
 Player.prototype = Object.create(Phaser.Sprite.prototype);
