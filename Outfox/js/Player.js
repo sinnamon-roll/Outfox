@@ -5,7 +5,7 @@ var adj = false;
 var CHAR;
 function Player(game, key) {
 	// call to Phaser.Sprite // new Sprite(game, x, y, key, frame)
-	Phaser.Sprite.call(this, game, size,3 * size, key);
+	Phaser.Sprite.call(this, game, 4 *size,3 * size, key);
     // add custom properties
 	cursors = game.input.keyboard.createCursorKeys();
     cKey = game.input.keyboard.addKey(Phaser.Keyboard.C);
@@ -15,8 +15,8 @@ function Player(game, key) {
 	// put some physics on it
 	game.physics.arcade.enable(this);
 	this.body.collideWorldBounds = true;
-    this.style = {font: "bold 32px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle"};
-    this.text = game.add.text(0, 0, 'C for Charisma!', this.style);
+    this.style = {font: "bold 24px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle"};
+    this.text = game.add.text(112, 362, 'Press C to bark Charismatically!', this.style);
 }
 // explicitly define prefab's prototype (Phaser.Sprite) and constructor (Player)
 Player.prototype = Object.create(Phaser.Sprite.prototype);
@@ -24,18 +24,19 @@ Player.prototype.constructor = Player;
 
 // override Phaser.Sprite update (player update function)
 Player.prototype.update = function() {
-        if(cursors.up.justPressed()) {
+    
+        if(cursors.up.justPressed() && this.y != size) {
             this.y = this.y - size;
             this.loadTexture('back');
 		console.log('up pressed');
-        } else if(cursors.down.justPressed()) {
+        } else if(cursors.down.justPressed() && this.y != size * 4) {
             this.y = this.y + size;
             this.loadTexture('player');
 	    console.log('down pressed');
-        } else if(cursors.left.justPressed()) {
+        } else if(cursors.left.justPressed() && this.x != size * 3) {
             this.x = this.x - size;
 	    console.log('left pressed');
-        } else if(cursors.right.justPressed()) {
+        } else if(cursors.right.justPressed() && this.x != size * 6) {
             this.x = this.x + size;
 	    console.log('right pressed');
         }
