@@ -2,8 +2,8 @@
 // prefab constructor function
 var size = 64;
 var CHAR;
-var spawnlocX = size*game.rnd.integerInRange(1, 3);
-var spawnlocY= size*game.rnd.integerInRange(1, 3);
+var spawnlocX = size*game.rnd.integerInRange(4, 6);
+var spawnlocY= size*game.rnd.integerInRange(2, 4);
 function Enemy(game, key, tintColor) {
         // call to Phaser.Sprite // new Sprite(game, x, y, key, frame)
         Phaser.Sprite.call(this, game, spawnlocX, spawnlocY, key);
@@ -22,8 +22,8 @@ Enemy.prototype.constructor = Enemy;
 
 // override Phaser.Sprite update (Enemy update function)
 Enemy.prototype.update = function() {
-        spawnlocY = size*game.rnd.integerInRange(1, 3);
-        spawnlocX = size*game.rnd.integerInRange(1, 3);
+        spawnlocY = size*game.rnd.integerInRange(4, 6);
+        spawnlocX = size*game.rnd.integerInRange(2, 4);
         //If the enemy and player are overlapped
         if( this.y == player.y && this.x == player.x){
             if(player.y == size * 4) {
@@ -36,7 +36,7 @@ Enemy.prototype.update = function() {
                 this.y += size;
             }
         }
-    if(cursors.up.justPressed()) {
+    if(cursors.up.justPressed() && this.y != size) {
 		//check player x and y position, set to wait for player input beforehand
 		if(this.y == player.y){
 			if(player.x > this.x){
@@ -56,7 +56,7 @@ Enemy.prototype.update = function() {
 			console.log("Caught!");
 		}
         	console.log('up pressed');
-        } else if(cursors.down.justPressed()) {
+        } else if(cursors.down.justPressed() && this.y != size * 4) {
                 //check player x and y position, set to wait for player input beforehand
                 if(this.y == player.y){
                         if(player.x > this.x){
@@ -76,7 +76,7 @@ Enemy.prototype.update = function() {
                         console.log("Caught!");
                 }
         	console.log('down pressed');
-        } else if(cursors.left.justPressed()) {
+        } else if(cursors.left.justPressed() && this.x != size * 3) {
                 //check player x and y position, set to wait for player input beforehand
                 if(this.y == player.y){
                         if(player.x > this.x){
@@ -96,7 +96,7 @@ Enemy.prototype.update = function() {
                         console.log("Caught!");
                 }
         	console.log('left pressed');
-        } else if(cursors.right.justPressed()) {
+        } else if(cursors.right.justPressed() && this.x != size * 6) {
                 //check player x and y position, set to wait for player input beforehand
                 if(this.y == player.y){
                         if(player.x > this.x){

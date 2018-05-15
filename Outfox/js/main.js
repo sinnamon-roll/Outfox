@@ -178,8 +178,6 @@ testState.prototype = {
         //ENEMY SETUP
         enemygroup = game.add.group();
         this.addEnemy(enemygroup);
-        //enemy = new Enemy(game, 'enemy');
-        //game.add.existing(enemy);
 
         // TESTING OVERLAY GRAPHIC
         game.add.sprite(0, 0, 'prolBorder');
