@@ -2,8 +2,8 @@
 // prefab constructor function
 var size = 64;
 var CHAR;
-var spawnlocX = size*game.rnd.integerInRange(0, 4);
-var spawnlocY= size*game.rnd.integerInRange(2, 4);
+var spawnlocX = size*game.rnd.integerInRange(1, 8);
+var spawnlocY= size*game.rnd.integerInRange(1, 4);
 function Enemy(game, key, tintColor) {
         // call to Phaser.Sprite // new Sprite(game, x, y, key, frame)
         Phaser.Sprite.call(this, game, spawnlocX, spawnlocY, key);
@@ -22,8 +22,8 @@ Enemy.prototype.constructor = Enemy;
 
 // override Phaser.Sprite update (Enemy update function)
 Enemy.prototype.update = function() {
-        spawnlocY = size*game.rnd.integerInRange(0, 4);
-        spawnlocX = size*game.rnd.integerInRange(2, 4);
+        spawnlocY = size*game.rnd.integerInRange(1, 4);
+        spawnlocX = size*game.rnd.integerInRange(1, 8);
         //If the enemy and player are overlapped
         if( this.y == player.y && this.x == player.x){
             if(player.y == size * 4) {
