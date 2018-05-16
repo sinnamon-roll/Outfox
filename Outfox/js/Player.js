@@ -26,7 +26,9 @@ function Player(game, key) {
 	game.physics.arcade.enable(this);
 	this.body.collideWorldBounds = true;
     this.style = {font: "bold 24px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle"};
-    this.text = game.add.text(0, 0, 'Press C to bark Charismatically!\nPress S to bark Sarcastically!', this.style);
+    //Cardinal direction map for PC's area of influence
+    this.range = game.add.sprite(this.x - size, this.y - size, 'adj')
+    this.range.visible = false;
 }
 // explicitly define prefab's prototype (Phaser.Sprite) and constructor (Player)
 Player.prototype = Object.create(Phaser.Sprite.prototype);
@@ -60,15 +62,20 @@ Player.prototype.update = function() {
         if (enemy.x == this.x) {
             console.log("ADJACENT UP/DOWN");
             this.adj = true;
-        }else
+        }else {
             this.adj = false;
+        }
     }else {
         this.adj = false;
     }
     
-    //Prompt Charisma
+    //WHEN PLAYER IS ADJACENT TO ANYTHING. . .
     if (this.adj == true) {
-        this.text.visible = true;
+        //DISPLAY INFORMATION
+        this.range.x = this.x - size;
+        this.range.y = this.y - size;
+        this.range.visible = true;
+        
         //Keyboard input only available when adjacent
         if (cKey.justPressed()) {
             //.damage() will handle the killing of sprite if necessary~
@@ -107,7 +114,7 @@ Player.prototype.update = function() {
             sarEmitter.start(true, 2000, null, 20);    // (explode, lifespan, freq, quantity)
         }
     } else {
-        this.text.visible = false;
+        this.range.visible = false;
     }
     
 }
