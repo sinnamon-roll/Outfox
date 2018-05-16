@@ -75,7 +75,7 @@ Player.prototype.update = function() {
             enemy.RPCT += this.CHAR;
             //play audio
             var char = game.add.audio('charSound');
-            char.play('',0,0.75,false)
+            char.play('',0,1,false)
             //emit sprites
             // collision causes particle explosion
             // add.emitter(x, y, maxParticles)
@@ -93,7 +93,7 @@ Player.prototype.update = function() {
             enemy.CTMP += this.SAR;
             //play audio
             var sar = game.add.audio('sarSound');
-            sar.play('',0,0.75,false)
+            sar.play('',0,1,false)
             //emit sprites
             // collision causes particle explosion
             // add.emitter(x, y, maxParticles)
