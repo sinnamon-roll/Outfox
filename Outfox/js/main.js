@@ -169,7 +169,7 @@ testState.prototype = {
     create: function() {
         //Start physics
         game.physics.startSystem(Phaser.Physics.ARCADE);
-        game.stage.backgroundColor = "#ffffff";
+        game.stage.backgroundColor = "#339933";
         
         //MUSIC
         playMusic();
