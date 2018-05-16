@@ -2,6 +2,10 @@
 // prefab constructor function
 var size = 64;
 var CHAR;
+var SAR;
+var CTMP;
+var RPCT;
+
 var spawnlocX = size*game.rnd.integerInRange(1, 8);
 var spawnlocY= size*game.rnd.integerInRange(1, 4);
 function Enemy(game, key, tintColor) {
@@ -14,7 +18,11 @@ function Enemy(game, key, tintColor) {
         this.body.collideWorldBounds = true;
         this.health = settings.enemyhealth;
         this.CHAR = 5;
+        this.CTMP = 0
+        this.RPCT = 0;
         this.tint = tintColor;
+    
+        this.style = {font: "bold 24px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle"};
 }
 // explicitly define prefab's prototype (Phaser.Sprite) and constructor (Player)
 Enemy.prototype = Object.create(Phaser.Sprite.prototype);
@@ -36,6 +44,20 @@ Enemy.prototype.update = function() {
                 this.y += size;
             }
         }
+    
+    //ENEMY DEATH
+    if (this.CTMP >=10) {
+        var result = game.add.sprite(this.x, this.y, 'atlas', 'chat_heart_broken');
+        result.anchor.setTo(.5,.5);
+        game.time.events.add(Phaser.Timer.SECOND, killText, this);
+        this.pendingDestroy = true;
+    }else if(this.RPCT >= 10) {
+        var result = game.add.sprite(this.x, this.y, 'atlas', 'chat_heart_whole');
+        result.anchor.setTo(.5,.5);
+        game.time.events.add(Phaser.Timer.SECOND, killText, this);
+        this.pendingDestroy = true;
+    }
+    
     if(cursors.up.justPressed() && this.y != size) {
 		//check player x and y position, set to wait for player input beforehand
 		if(this.y == player.y){
@@ -117,4 +139,10 @@ Enemy.prototype.update = function() {
                 }
         	console.log('right pressed');
 	}
+    
+    function killText() {
+        console.log("killText");
+        game.add.tween(result).to( { alpha: 0 }, 420, Phaser.Easing.Linear.None, true);
+
+    }
 }

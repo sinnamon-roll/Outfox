@@ -58,13 +58,20 @@ Preloader.prototype = {
             this.load.image('tilesheet','outfox.png',64,64);
             this.load.image('player', 's_fox_red_front.png');
             this.load.image('enemy', 'foxy.png');
-            this.load.image('back', 's_fox_red_back.png')
+            this.load.image('back', 's_fox_red_back.png');
+            this.load.image('adj', 'cardinal.png');
+            //Load Sprite Atlas
+            this.load.atlas('atlas','emoji.png','emoji.json');
+
             
             //MUSIC
             game.load.path = 'assets/audio/';
             //Song obtained from:: freesound.org/people/dobroide/sounds/34580/
             game.load.audio('bgMusic',['BGMusic.mp3']);
-            game.load.audio('charSound',['UpSound.mp3']);
+            game.load.audio('charSound',['gekkering01.mp3']);
+            game.load.audio('sarSound',['fox_alert.mp3']);
+            game.load.audio('boostSound',['vixensScream.mp3']);
+
         },
         create: function(){
                 console.log('Preloader: create');
@@ -200,10 +207,15 @@ testState.prototype = {
         //ENEMY SETUP
         enemygroup = game.add.group();
         this.addEnemy(enemygroup);
-        
+
+        //BFF SETUP
+        BFF = new BFF(game, 'player');
+        game.add.existing(BFF);
         
         // show temp grid on top of game
         game.add.sprite(0, 0, 'tempLayout');
+
+        var instructions = game.add.text(105, 360, 'Convince other foxes to join your escape effort.\nUse the arrow keys to move.\nWhen adjacent to a fox:\nPress C to bark Charismatically!\nPress S to bark Sarcastically!', { fontSize: '12px', fill: '#fff' });
 
         // TESTING OVERLAY GRAPHIC
         game.add.sprite(0, 0, 'prolBorder');
@@ -211,7 +223,7 @@ testState.prototype = {
         function playMusic() {
             console.log('Playing music');
             var firstMusic = game.add.audio('bgMusic');
-            firstMusic.play('', 0, 0.75, true);    // ('marker', start position, volume (0-1), loop)
+            firstMusic.play('', 0, 0.1, true);    // ('marker', start position, volume (0-1), loop)
         }
 
     },
