@@ -6,6 +6,7 @@ var CHAR;
 var SAR;
 var CTMP;
 var RPCT;
+var EXH;
 
 function Player(game, key) {
 	// call to Phaser.Sprite // new Sprite(game, x, y, key, frame)
@@ -15,11 +16,14 @@ function Player(game, key) {
     cursors = game.input.keyboard.createCursorKeys();
     cKey = game.input.keyboard.addKey(Phaser.Keyboard.C);
     sKey = game.input.keyboard.addKey(Phaser.Keyboard.S);
+    bKey = game.input.keyboard.addKey(Phaser.Keyboard.B);
+
 
     //CHARACTER STATS
     this.health = settings.playerhealth;
     this.CHAR = 5;
     this.SAR = 10;
+    this.EXH = 3;
 
 
 	// put some physics on it
@@ -29,6 +33,8 @@ function Player(game, key) {
     //Cardinal direction map for PC's area of influence
     this.range = game.add.sprite(this.x - size, this.y - size, 'adj')
     this.range.visible = false;
+    this.tired = game.add.sprite(this.x + size, this.y - size, 'atlas','chat_dot03')
+    this.tired.visible = false;
 }
 // explicitly define prefab's prototype (Phaser.Sprite) and constructor (Player)
 Player.prototype = Object.create(Phaser.Sprite.prototype);
@@ -77,9 +83,10 @@ Player.prototype.update = function() {
         this.range.visible = true;
         
         //Keyboard input only available when adjacent
-        if (cKey.justPressed()) {
+        if (cKey.justPressed() && this.EXH > 0) {
             //.damage() will handle the killing of sprite if necessary~
             enemy.RPCT += this.CHAR;
+            this.EXH -= 1;
             //play audio
             var char = game.add.audio('charSound');
             char.play('',0,1,false)
@@ -95,9 +102,10 @@ Player.prototype.update = function() {
             charEmitter.setYSpeed(-500,500);            // set min/max vertical speed
             charEmitter.start(true, 2000, null, 20);    // (explode, lifespan, freq, quantity)
         }
-        if (sKey.justPressed()) {
+        if (sKey.justPressed() && this.EXH > 0) {
             //.damage() will handle the killing of sprite if necessary~
             enemy.CTMP += this.SAR;
+            this.EXH -= 1;
             //play audio
             var sar = game.add.audio('sarSound');
             sar.play('',0,1,false)
@@ -115,6 +123,13 @@ Player.prototype.update = function() {
         }
     } else {
         this.range.visible = false;
+    }
+    if(player.EXH == 0) {
+        this.tired.x = this.x + size/2;
+        this.tired.y = this.y - size/2;
+        this.tired.visible = true;
+    }else {
+        this.tired.visible = false;
     }
     
 }

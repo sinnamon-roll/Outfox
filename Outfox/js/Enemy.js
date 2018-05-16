@@ -58,11 +58,6 @@ Enemy.prototype.update = function() {
         this.pendingDestroy = true;
     }
     
-    if (enemy.pendingDestroy == true) {
-        console.log("DestroyPhase");
-    }
-    
-    
     if(cursors.up.justPressed() && this.y != size) {
 		//check player x and y position, set to wait for player input beforehand
 		if(this.y == player.y){

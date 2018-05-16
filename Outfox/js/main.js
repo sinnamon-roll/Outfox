@@ -70,6 +70,7 @@ Preloader.prototype = {
             game.load.audio('bgMusic',['BGMusic.mp3']);
             game.load.audio('charSound',['gekkering01.mp3']);
             game.load.audio('sarSound',['fox_alert.mp3']);
+            game.load.audio('boostSound',['vixensScream.mp3']);
 
         },
         create: function(){
@@ -206,7 +207,10 @@ testState.prototype = {
         //ENEMY SETUP
         enemygroup = game.add.group();
         this.addEnemy(enemygroup);
-        
+
+        //BFF SETUP
+        BFF = new BFF(game, 'player');
+        game.add.existing(BFF);
         
         // show temp grid on top of game
         game.add.sprite(0, 0, 'tempLayout');
