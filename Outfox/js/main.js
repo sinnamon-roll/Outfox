@@ -69,6 +69,8 @@ Preloader.prototype = {
             //Song obtained from:: freesound.org/people/dobroide/sounds/34580/
             game.load.audio('bgMusic',['BGMusic.mp3']);
             game.load.audio('charSound',['UpSound.mp3']);
+            game.load.audio('sarSound',['DownSound.mp3']);
+
         },
         create: function(){
                 console.log('Preloader: create');
