@@ -4,7 +4,7 @@ var enemygroup;
 var enemy;
 var colors = [0x1BE7FF, 0x6EEB83, 0xE4FF1A, 0xE8AA14, 0xE8AA14];
 //Turn on/off debug info
-var debug = true;
+var debug = false;
 var menuText;
 
 var Boot = function(game){};
