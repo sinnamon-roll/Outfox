@@ -4,6 +4,9 @@ var size = 64;
 var adj = false;
 var CHAR;
 var SAR;
+var CTMP;
+var RPCT;
+
 function Player(game, key) {
 	// call to Phaser.Sprite // new Sprite(game, x, y, key, frame)
 	Phaser.Sprite.call(this, game, 4 *size,3 * size, key);
@@ -17,6 +20,7 @@ function Player(game, key) {
     this.health = settings.playerhealth;
     this.CHAR = 5;
     this.SAR = 10;
+
 
 	// put some physics on it
 	game.physics.arcade.enable(this);
@@ -68,7 +72,7 @@ Player.prototype.update = function() {
         //Keyboard input only available when adjacent
         if (cKey.justPressed()) {
             //.damage() will handle the killing of sprite if necessary~
-            enemy.damage(this.CHAR);
+            enemy.RPCT += this.CHAR;
             //play audio
             var char = game.add.audio('charSound');
             char.play('',0,0.75,false)
@@ -86,7 +90,7 @@ Player.prototype.update = function() {
         }
         if (sKey.justPressed()) {
             //.damage() will handle the killing of sprite if necessary~
-            enemy.damage(this.SAR);
+            enemy.CTMP += this.SAR;
             //play audio
             var sar = game.add.audio('sarSound');
             sar.play('',0,0.75,false)
