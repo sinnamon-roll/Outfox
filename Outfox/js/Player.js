@@ -24,7 +24,6 @@ Player.prototype.constructor = Player;
 
 // override Phaser.Sprite update (player update function)
 Player.prototype.update = function() {
-    
         if(cursors.up.justPressed() && this.y != size) {
             this.y = this.y - size;
             this.loadTexture('back');
@@ -40,23 +39,20 @@ Player.prototype.update = function() {
             this.x = this.x + size;
 	    console.log('right pressed');
         }
-    
     //ADJ!!!
-    if (enemy.alive == true) {
-        if(enemy.x == (this.x + size) || enemy.x == (this.x - size) ){
-            if (enemy.y == this.y) {
-                console.log("ADJACENT R/L");
-                this.adj = true;
-            }
-        }else if (enemy.y == (this.y + size) || enemy.y == (this.y - size) ){
-            if (enemy.x == this.x) {
-                console.log("ADJACENT UP/DOWN");
-                this.adj = true;
-            }
-        }else {
+    if(enemy.x == (this.x + size) || enemy.x == (this.x - size) ){
+        if (enemy.y == this.y) {
+            console.log("ADJACENT R/L");
+            this.adj = true;
+        }else
             this.adj = false;
-        }
-    } else {
+    }else if (enemy.y == (this.y + size) || enemy.y == (this.y - size) ){
+        if (enemy.x == this.x) {
+            console.log("ADJACENT UP/DOWN");
+            this.adj = true;
+        }else
+            this.adj = false;
+    }else {
         this.adj = false;
     }
     

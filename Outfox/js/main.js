@@ -58,7 +58,11 @@ Preloader.prototype = {
             this.load.image('tilesheet','outfox.png',64,64);
             this.load.image('player', 's_fox_red_front.png');
             this.load.image('enemy', 'foxy.png');
-            this.load.image('back', 's_fox_red_back.png')
+            this.load.image('back', 's_fox_red_back.png');
+            this.load.image('adj', 'cardinal.png');
+            //Load Sprite Atlas
+            this.load.atlas('atlas','emoji.png','emoji.json');
+
             
             //MUSIC
             game.load.path = 'assets/audio/';
