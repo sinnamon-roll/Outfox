@@ -219,7 +219,7 @@ testState.prototype = {
         function playMusic() {
             console.log('Playing music');
             var firstMusic = game.add.audio('bgMusic');
-            firstMusic.play('', 0, 0.3, true);    // ('marker', start position, volume (0-1), loop)
+            firstMusic.play('', 0, 0.1, true);    // ('marker', start position, volume (0-1), loop)
         }
 
     },
