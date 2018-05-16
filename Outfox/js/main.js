@@ -4,7 +4,7 @@ var enemygroup;
 var enemy;
 var colors = [0x1BE7FF, 0x6EEB83, 0xE4FF1A, 0xE8AA14, 0xE8AA14];
 //Turn on/off debug info
-var debug = false;
+var debug = true;
 var menuText;
 
 var Boot = function(game){};
@@ -58,7 +58,11 @@ Preloader.prototype = {
             this.load.image('tilesheet','outfox.png',64,64);
             this.load.image('player', 's_fox_red_front.png');
             this.load.image('enemy', 'foxy.png');
-            this.load.image('back', 's_fox_red_back.png')
+            this.load.image('back', 's_fox_red_back.png');
+            this.load.image('adj', 'cardinal.png');
+            //Load Sprite Atlas
+            this.load.atlas('atlas','emoji.png','emoji.json');
+
             
             //MUSIC
             game.load.path = 'assets/audio/';
