@@ -69,6 +69,8 @@ Preloader.prototype = {
             //Song obtained from:: freesound.org/people/dobroide/sounds/34580/
             game.load.audio('bgMusic',['BGMusic.mp3']);
             game.load.audio('charSound',['UpSound.mp3']);
+            game.load.audio('sarSound',['DownSound.mp3']);
+
         },
         create: function(){
                 console.log('Preloader: create');
@@ -208,6 +210,8 @@ testState.prototype = {
         
         // show temp grid on top of game
         game.add.sprite(0, 0, 'tempLayout');
+
+        var instructions = game.add.text(105, 350, 'Convince other foxes to join your escape effort.\nUse the arrow keys to move.\nWhen adjacent to a fox:\nPress C to bark Charismatically!\nPress S to bark Sarcastically!\nWhen out of energy, join your Best Friend and hit B to replenish it!', { fontSize: '12px', fill: '#fff' });
 
         // TESTING OVERLAY GRAPHIC
         game.add.sprite(0, 0, 'prolBorder');
