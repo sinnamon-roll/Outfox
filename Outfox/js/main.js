@@ -211,6 +211,8 @@ testState.prototype = {
         // show temp grid on top of game
         game.add.sprite(0, 0, 'tempLayout');
 
+        var instructions = game.add.text(105, 360, 'Convince other foxes to join your escape effort.\nUse the arrow keys to move.\nWhen adjacent to a fox:\nPress C to bark Charismatically!\nPress S to bark Sarcastically!', { fontSize: '12px', fill: '#fff' });
+
         // TESTING OVERLAY GRAPHIC
         game.add.sprite(0, 0, 'prolBorder');
 
