@@ -68,8 +68,8 @@ Preloader.prototype = {
             game.load.path = 'assets/audio/';
             //Song obtained from:: freesound.org/people/dobroide/sounds/34580/
             game.load.audio('bgMusic',['BGMusic.mp3']);
-            game.load.audio('charSound',['UpSound.mp3']);
-            game.load.audio('sarSound',['DownSound.mp3']);
+            game.load.audio('charSound',['gekkering01.mp3']);
+            game.load.audio('sarSound',['fox_alert.mp3']);
 
         },
         create: function(){
@@ -219,7 +219,7 @@ testState.prototype = {
         function playMusic() {
             console.log('Playing music');
             var firstMusic = game.add.audio('bgMusic');
-            firstMusic.play('', 0, 0.75, true);    // ('marker', start position, volume (0-1), loop)
+            firstMusic.play('', 0, 0.3, true);    // ('marker', start position, volume (0-1), loop)
         }
 
     },
