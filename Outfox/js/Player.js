@@ -9,14 +9,14 @@ function Player(game, key) {
     // add custom properties
 	cursors = game.input.keyboard.createCursorKeys();
     cKey = game.input.keyboard.addKey(Phaser.Keyboard.C);
-    this.health = 10;
+    this.health = settings.playerhealth;
     this.CHAR = 5;
 
 	// put some physics on it
 	game.physics.arcade.enable(this);
 	this.body.collideWorldBounds = true;
     this.style = {font: "bold 24px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle"};
-    this.text = game.add.text(112, 362, 'Press C to bark Charismatically!', this.style);
+    this.text = game.add.text(0, 0, 'Press C to bark Charismatically!', this.style);
 }
 // explicitly define prefab's prototype (Phaser.Sprite) and constructor (Player)
 Player.prototype = Object.create(Phaser.Sprite.prototype);
@@ -33,10 +33,10 @@ Player.prototype.update = function() {
             this.y = this.y + size;
             this.loadTexture('player');
 	    console.log('down pressed');
-        } else if(cursors.left.justPressed() && this.x != size * 3) {
+        } else if(cursors.left.justPressed() && this.x != size * 1) {
             this.x = this.x - size;
 	    console.log('left pressed');
-        } else if(cursors.right.justPressed() && this.x != size * 6) {
+        } else if(cursors.right.justPressed() && this.x != size * 8) {
             this.x = this.x + size;
 	    console.log('right pressed');
         }

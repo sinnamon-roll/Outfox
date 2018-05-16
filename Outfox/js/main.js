@@ -18,6 +18,31 @@ Boot.prototype = {
         },
         create: function(){
                 console.log('Boot: create');
+                settings = {
+                //debug controls
+                //add in what you want
+
+                //Character setting
+                playerhealth: 10,
+                playerCHAR: 5,
+                enemyhealth: 10,
+                enemyCHAR: 5
+                }
+
+                this.game.gui = new dat.GUI({
+                    width: 350
+                });
+                this.game.gui.useLocalStorage = true;
+                this.game.gui.remember(settings);
+                //debug folders
+                var stepSize = 1;
+                //character folders
+                this.game.gui.characterFolder = this.game.gui.addFolder('Player');
+                this.game.gui.characterFolder.add(settings, 'playerhealth').min(0).max(1000).step(stepSize).name('Player Health');
+                this.game.gui.characterFolder.add(settings, 'playerCHAR').min(0).max(1000).step(stepSize).name('Player Char');
+                this.game.gui.characterFolder.add(settings, 'enemyhealth').min(0).max(1000).step(stepSize).name('Enemy Health');
+                this.game.gui.characterFolder.add(settings, 'enemyCHAR').min(0).max(1000).step(stepSize).name('Enemy Char');
+                //end of gui code
                 this.state.start('Preloader');
         },
 }
@@ -144,13 +169,13 @@ testState.prototype = {
     create: function() {
         //Start physics
         game.physics.startSystem(Phaser.Physics.ARCADE);
-        game.stage.backgroundColor = "#ffffff";
+        game.stage.backgroundColor = "#339933";
         
         //MUSIC
         playMusic();
 
         // show temp layout image underneath game
-        game.add.sprite(0, 0, 'tempLayout');
+        //game.add.sprite(0, 0, 'tempLayout');
 
         // show temp grid under the game
         //game.add.sprite(0, 0, 'grid');
@@ -165,10 +190,7 @@ testState.prototype = {
         map.setCollision(2);
         mapLayer = map.createLayer('Ground Level');
         //set the world size to match the size of the Tilemap Layer
-        mapLayer.resizeWorld();
-
-        // show temp grid on top of game
-        //game.add.sprite(0, 0, 'grid');
+        //mapLayer.resizeWorld();
    
         //PLAYER SETUP
         //this.spawnPlayer();
@@ -178,6 +200,10 @@ testState.prototype = {
         //ENEMY SETUP
         enemygroup = game.add.group();
         this.addEnemy(enemygroup);
+        
+        
+        // show temp grid on top of game
+        game.add.sprite(0, 0, 'tempLayout');
 
         // TESTING OVERLAY GRAPHIC
         game.add.sprite(0, 0, 'prolBorder');
@@ -202,6 +228,11 @@ testState.prototype = {
 		if(enemy.alive == false){
 			this.addEnemy(enemygroup);
 		}
+        //updates variables to what is in out settings, this is a really shitty place to update the health variable, lol one sec
+        //never put things in here that govern a resource, as it will always put it to max, throw that into the constructor for said resource
+        //ie, player.health = settings.playerhealth
+        player.CHAR = settings.playerCHAR;
+        enemy.CHAR = settings.enemyCHAR;
     },
     
     render: function () {
