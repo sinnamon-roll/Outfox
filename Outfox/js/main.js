@@ -2,6 +2,7 @@ var game = new Phaser.Game(640, 480, Phaser.AUTO);
 var player;
 var enemygroup;
 var enemy;
+var adjacency;
 var colors = [0x1BE7FF, 0x6EEB83, 0xE4FF1A, 0xE8AA14, 0xE8AA14];
 //Turn on/off debug info
 var debug = false;
@@ -240,7 +241,8 @@ testState.prototype = {
 		if(enemy.alive == false){
 			this.addEnemy(enemygroup);
 		}
-        this.isAdjacent();
+		//Checks if these two are adjacent, can be run on any two objects. Probably still way too centered on the player.
+        isAdjacent(player, enemy);
         //updates variables to what is in out settings, this is a really shitty place to update the health variable, lol one sec
         //never put things in here that govern a resource, as it will always put it to max, throw that into the constructor for said resource
         //ie, player.health = settings.playerhealth
@@ -248,80 +250,7 @@ testState.prototype = {
         enemy.CHAR = settings.enemyCHAR;
     },
 
-    isAdjacent: function(){
-    //ADJ!!!
-        if(enemy.x == (player.x + size) || enemy.x == (player.x - size) ){
-            if (enemy.y == player.y) {
-                console.log("ADJACENT R/L");
-                player.adj = true;
-            }else
-                player.adj = false;
-        }else if (enemy.y == (player.y + size) || enemy.y == (player.y - size) ){
-             if (enemy.x == player.x) {
-                console.log("ADJACENT UP/DOWN");
-                player.adj = true;
-             }else {
-                player.adj = false;
-             }
-        }else {
-            player.adj = false;
-        }
-        if (player.adj == true) {
-            //DISPLAY INFORMATION
-            player.range.x = player.x - size;
-            player.range.y = player.y - size;
-            player.range.visible = true;
-        
-            //Keyboard input only available when adjacent
-            if (cKey.justPressed() && player.EXH > 0) {
-                //.damage() will handle the killing of sprite if necessary~
-                enemy.RPCT += player.CHAR;
-                player.EXH -= 1;
-                //play audio
-                var char = game.add.audio('charSound');
-                char.play('',0,1,false)
-                //emit sprites
-                // collision causes particle explosion
-                // add.emitter(x, y, maxParticles)
-                var charEmitter = game.add.emitter(player.x + 32, player.y + 32, 20);
-                charEmitter.makeParticles('atlas','+_green01');        // image used for particles
-                charEmitter.setAlpha(0.5, 1);                // set particle alpha (min, max)
-                charEmitter.minParticleScale = .5;        // set min/max particle size
-                charEmitter.maxParticleScale = 1.5;
-                charEmitter.setXSpeed(-50,500);            // set min/max horizontal speed
-                charEmitter.setYSpeed(-500,500);            // set min/max vertical speed
-                charEmitter.start(true, 2000, null, 20);    // (explode, lifespan, freq, quantity)
-            }
-            if (sKey.justPressed() && player.EXH > 0) {
-                //.damage() will handle the killing of sprite if necessary~
-                enemy.CTMP += player.SAR;
-                player.EXH -= 1;
-                //play audio
-                var sar = game.add.audio('sarSound');
-                sar.play('',0,1,false)
-                //emit sprites
-                // collision causes particle explosion
-                // add.emitter(x, y, maxParticles)
-                var sarEmitter = game.add.emitter(player.x + 32, player.y + 32, 20);
-                sarEmitter.makeParticles('atlas','-_red01');        // image used for particles
-                sarEmitter.setAlpha(0.5, 1);                // set particle alpha (min, max)
-                sarEmitter.minParticleScale = .5;        // set min/max particle size
-                sarEmitter.maxParticleScale = 1.5;
-                sarEmitter.setXSpeed(-50,500);            // set min/max horizontal speed
-                sarEmitter.setYSpeed(-500,500);            // set min/max vertical speed
-                sarEmitter.start(true, 2000, null, 20);    // (explode, lifespan, freq, quantity)
-            }
-        } else {
-            player.range.visible = false;
-        }
-        if(player.EXH == 0) {
-            player.tired.x = player.x + size/2;
-            player.tired.y = player.y - size/2;
-            player.tired.visible = true;
-        }else {
-            player.tired.visible = false;
-        }
-    },
+    
     
     render: function () {
         if(debug == true) {
