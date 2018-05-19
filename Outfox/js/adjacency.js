@@ -1,4 +1,4 @@
-var isAdjacent = function(character, subject){
+isAdjacent = function(character, subject){
     //ADJ!!!
         if(subject.x == (character.x + size) || subject.x == (character.x - size) ){
             if (subject.y == character.y) {
