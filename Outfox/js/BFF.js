@@ -4,8 +4,10 @@ var size = 64;
 var adj = false;
 var CHAR;
 var SAR;
+var EGO;
 var CTMP;
 var RPCT;
+var TYPE; //Ro-Sham-Bo
 
 function BFF(game, key, tintColor) {
         // call to Phaser.Sprite // new Sprite(game, x, y, key, frame)
@@ -16,10 +18,13 @@ function BFF(game, key, tintColor) {
         // put some physics on it
         game.physics.arcade.enable(this);
         this.body.collideWorldBounds = true;
-        this.health = 10;
-        this.CHAR = 5;
-        this.CTMP = 0
+        this.CHAR = 4;
+        this.SAR = 3;
+        this.EGO = 3;
+        this.CTMP = 0;
         this.RPCT = 0;
+        this.TYPE = "Charisma";
+    
         this.tint = 0xE8AA14;
 }
 // explicitly define prefab's prototype (Phaser.Sprite) and constructor (Player)

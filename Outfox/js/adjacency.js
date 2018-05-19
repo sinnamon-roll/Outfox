@@ -24,9 +24,15 @@ isAdjacent = function(character, subject){
         
             //Keyboard input only available when adjacent
             if (cKey.justPressed() && character.EXH > 0) {
-                //.damage() will handle the killing of sprite if necessary~
-                subject.RPCT += character.CHAR;
+                //Determine if weak/resistant
+                if (subject.TYPE == 'Sarcastic') {
+                    subject.RPCT += (character.CHAR / 2);
+                } else if (subject.TYPE == 'Charismatic') {
+                    subject.RPCT += (character.CHAR * 2);
+                } else
+                    subject.RPCT += character.CHAR;
                 character.EXH -= 1;
+                
                 //play audio
                 var char = game.add.audio('charSound');
                 char.play('',0,1,false)
@@ -44,7 +50,13 @@ isAdjacent = function(character, subject){
             }
             if (sKey.justPressed() && character.EXH > 0) {
                 //.damage() will handle the killing of sprite if necessary~
-                subject.CTMP += character.SAR;
+                if (subject.TYPE == 'Sarcastic') {
+                    subject.CTMP += (character.SAR * 2);
+                } else if (subject.TYPE == 'Charismatic') {
+                    subject.CTMP += (character.SAR / 2);
+                } else
+                    subject.CTMP += character.SAR;
+                
                 character.EXH -= 1;
                 //play audio
                 var sar = game.add.audio('sarSound');
