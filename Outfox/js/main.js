@@ -2,6 +2,7 @@ var game = new Phaser.Game(640, 480, Phaser.AUTO);
 var player;
 var enemygroup;
 var enemy;
+var adjacency;
 var colors = [0x1BE7FF, 0x6EEB83, 0xE4FF1A, 0xE8AA14, 0xE8AA14];
 //Turn on/off debug info
 var debug = false;
@@ -240,12 +241,16 @@ testState.prototype = {
 		if(enemy.alive == false){
 			this.addEnemy(enemygroup);
 		}
+		//Checks if these two are adjacent, can be run on any two objects. Probably still way too centered on the player.
+        isAdjacent(player, enemy);
         //updates variables to what is in out settings, this is a really shitty place to update the health variable, lol one sec
         //never put things in here that govern a resource, as it will always put it to max, throw that into the constructor for said resource
         //ie, player.health = settings.playerhealth
         player.CHAR = settings.playerCHAR;
         enemy.CHAR = settings.enemyCHAR;
     },
+
+    
     
     render: function () {
         if(debug == true) {
