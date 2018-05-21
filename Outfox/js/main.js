@@ -216,7 +216,11 @@ testState.prototype = {
         // show temp grid on top of game
         game.add.sprite(0, 0, 'tempLayout');
 
-        gameLog = game.add.text(250, 352, 'Kon Kon!', { fontSize: '12px', fill: '#fff' })
+        gameLog = game.add.text(200, 370, 'Battle Text Log Here', { fontSize: '12px', fill: '#fff' })
+
+        leftName = game.add.text(180, 335, 'PC Name', { fontSize: '15px', fill: '#fff' })
+
+        rightName = game.add.text(380, 335, 'NPC Name', { fontSize: '15px', fill: '#fff' })
 
         instructions = game.add.text(105, 352, 'Convince other foxes to join your escape effort.\nUse the arrow keys to move.\nWhen adjacent to a fox:\nPress C to bark Charismatically!\nPress S to bark Sarcastically!\nWhen out of energy, join your Best Friend and hit B to replenish it!', { fontSize: '12px', fill: '#fff' });
         
