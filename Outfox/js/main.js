@@ -216,9 +216,9 @@ testState.prototype = {
         // show temp grid on top of game
         game.add.sprite(0, 0, 'tempLayout');
 
-        instructions = game.add.text(105, 353, 'Convince other foxes to join your escape effort.\nUse the arrow keys to move.\nWhen adjacent to a fox:\nPress C to bark Charismatically!\nPress S to bark Sarcastically!\nWhen out of energy, join your Best Friend and hit B to replenish it!', { fontSize: '12px', fill: '#fff' });
+        instructions = game.add.text(105, 352, 'Convince other foxes to join your escape effort.\nUse the arrow keys to move.\nWhen adjacent to a fox:\nPress C to bark Charismatically!\nPress S to bark Sarcastically!\nWhen out of energy, join your Best Friend and hit B to replenish it!', { fontSize: '12px', fill: '#fff' });
         
-        enemyStats = game.add.text(435, 353, 'Kon Kon!', { fontSize: '12px', fill: '#fff' })
+        enemyStats = game.add.text(445, 352, 'Kon Kon!', { fontSize: '12px', fill: '#fff' })
 
         // TESTING OVERLAY GRAPHIC
         game.add.sprite(0, 0, 'prolBorder');
