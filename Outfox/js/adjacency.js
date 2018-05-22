@@ -44,7 +44,7 @@ isAdjacent = function(character, subject){
                 if (subject.TYPE == 'Sarcastic') {
                     subject.RPCT += (character.CHAR / 2);
                     gameLog.setText('Your cries fall on deaf ears.');
-                    charEmitter.makeParticles('atlas','-_red01');        // image used for particles
+                    charEmitter.makeParticles('atlas','-_red');        // image used for particles
                 } else if (subject.TYPE == 'Charismatic') {
                     subject.RPCT += (character.CHAR * 2);
                     gameLog.setText('Super Effective!');
@@ -82,11 +82,11 @@ isAdjacent = function(character, subject){
                 } else if (subject.TYPE == 'Charismatic') {
                     subject.CTMP += (character.SAR / 2);
                     gameLog.setText('Your cries fall on deaf ears.');
-                    sarEmitter.makeParticles('atlas','-_red01');        // image used for particles
+                    sarEmitter.makeParticles('atlas','-_red');        // image used for particles
                 } else {
                     subject.CTMP += character.SAR;
                     gameLog.setText('The fox regards you calmly.');
-                    sarEmitter.makeParticles('atlas','-_red01');
+                    sarEmitter.makeParticles('atlas','-_red');
                 }
                 
                 sarEmitter.start(true, 2000, null, 20);    // (explode, lifespan, freq, quantity)
