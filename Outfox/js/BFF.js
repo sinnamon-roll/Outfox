@@ -9,7 +9,7 @@ var CTMP;
 var RPCT;
 var TYPE; //Ro-Sham-Bo
 
-function BFF(game, key, tintColor) {
+function BFF(game, key) {
         // call to Phaser.Sprite // new Sprite(game, x, y, key, frame)
         Phaser.Sprite.call(this, game, size * 3, size * 4, key);
         // add custom properties
