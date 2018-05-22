@@ -3,8 +3,10 @@
 var size = 64;
 var CHAR;
 var SAR;
+var EGO;
 var CTMP;
 var RPCT;
+var TYPE;
 
 var spawnlocX = size*game.rnd.integerInRange(1, 8);
 var spawnlocY= size*game.rnd.integerInRange(1, 4);
@@ -18,12 +20,17 @@ function Enemy(game, key, tintColor) {
 
         this.body.collideWorldBounds = true;
         this.health = settings.enemyhealth;
-        this.CHAR = 5;
+        this.CHAR = 4;
+        this.SAR = 5;
+        this.EGO = 4;
         this.CTMP = 0
         this.RPCT = 0;
+
         this.tint = tintColor;
         this.controlled = false;
         this.style = {font: "bold 24px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle"};
+        this.TYPE = "Sarcastic";
+
 }
 // explicitly define prefab's prototype (Phaser.Sprite) and constructor (Player)
 Enemy.prototype = Object.create(Phaser.Sprite.prototype);
@@ -47,12 +54,12 @@ Enemy.prototype.update = function() {
         }
     
     //ENEMY DEATH
-    if (this.CTMP >=10) {
+    if (this.RPCT >=10) {
         var result = game.add.sprite(this.x, this.y, 'atlas', 'chat_heart_broken');
         result.anchor.setTo(.5,.5);
         game.time.events.add(Phaser.Timer.SECOND, killText, this);
         this.pendingDestroy = true;
-    }else if(this.RPCT >= 10) {
+    }else if(this.CTMP >= 10) {
         var result = game.add.sprite(this.x, this.y, 'atlas', 'chat_heart_whole');
         result.anchor.setTo(.5,.5);
         game.time.events.add(Phaser.Timer.SECOND, killText, this);

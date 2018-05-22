@@ -4,10 +4,12 @@ var size = 64;
 var adj = false;
 var CHAR;
 var SAR;
+var EGO;
 var CTMP;
 var RPCT;
+var TYPE; //Ro-Sham-Bo
 
-function BFF(game, key, tintColor) {
+function BFF(game, key) {
         // call to Phaser.Sprite // new Sprite(game, x, y, key, frame)
         Phaser.Sprite.call(this, game, size * 3, size * 4, key);
         // add custom properties
@@ -16,10 +18,13 @@ function BFF(game, key, tintColor) {
         // put some physics on it
         game.physics.arcade.enable(this);
         this.body.collideWorldBounds = true;
-        this.health = 10;
-        this.CHAR = 5;
-        this.CTMP = 0
+        this.CHAR = 4;
+        this.SAR = 3;
+        this.EGO = 3;
+        this.CTMP = 0;
         this.RPCT = 0;
+        this.TYPE = "Charisma";
+    
         this.tint = 0xE8AA14;
         this.controlled = false;
 }
@@ -81,13 +86,16 @@ BFF.prototype.update = function() {
         this.adj = false;
     }
 
-    if(this.adj == true && player.EXH <=7) {
-        if (bKey.justPressed() ) {
+    if(this.adj == true) {
+        if (bKey.justPressed() && player.EXH <=7) {
             player.EXH += 3;
+            gameLog.setText('The fox who treated you with\nkindness gives you an\n encouraging bark.');
             //play audio
             var bark = game.add.audio('boostSound');
             bark.play('',0,1,false)
+        }else if (bKey.justPressed() && player.EXH >=7) {
+            gameLog.setText('The kind fox has little to say.');
         }
-	}
+    }
     
 }

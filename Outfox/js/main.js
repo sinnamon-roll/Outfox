@@ -7,6 +7,7 @@ var colors = [0x1BE7FF, 0x6EEB83, 0xE4FF1A, 0xE8AA14, 0xE8AA14];
 //Turn on/off debug info
 var debug = false;
 var menuText;
+var firstMusic;
 
 var Boot = function(game){};
 Boot.prototype = {
@@ -57,7 +58,7 @@ Preloader.prototype = {
             this.load.tilemap('level', 'outfox.json', null, Phaser.Tilemap.TILED_JSON);
             //Load tilemap spritesheet (key, url, frameWidth, frameHeight)
             this.load.image('tilesheet','outfox.png',64,64);
-            this.load.image('player', 's_fox_red_front.png');
+            this.load.spritesheet('player', 's_fox_sheet.png', 64, 64);
             this.load.image('enemy', 'foxy.png');
             this.load.image('back', 's_fox_red_back.png');
             this.load.image('adj', 'cardinal.png');
@@ -90,8 +91,6 @@ MainMenu.prototype = {
         create: function() {
             console.log('MainMenu: create');
             game.stage.backgroundColor = "#F26B1D";
-            console.log('level: ' + this.level);
-
         // State change instructions and intro text -----------------------------------------------
         menuText = game.add.text(200, 150, 'Outfox', { fontSize: '48px', fill: '#000' });
         menuText = game.add.text(240, 200, 'by Cherry Coke Gummies', { fontSize: '22px', fill: '#000' });
@@ -211,20 +210,28 @@ testState.prototype = {
 
         //BFF SETUP
         BFF = new BFF(game, 'player');
-        game.add.existing(BFF);
+        this.game.add.existing(BFF);
         
         // show temp grid on top of game
         game.add.sprite(0, 0, 'tempLayout');
 
-        var instructions = game.add.text(105, 350, 'Convince other foxes to join your escape effort.\nUse the arrow keys to move.\nWhen adjacent to a fox:\nPress C to bark Charismatically!\nPress S to bark Sarcastically!\nWhen out of energy, join your Best Friend and hit B to replenish it!', { fontSize: '12px', fill: '#fff' });
+        leftName = game.add.text(180, 335, 'PC Name', { fontSize: '15px', fill: '#fff' })
+
+        gameLog = game.add.text(200, 370, 'Arrived in a strange field.\n', { fontSize: '10px', fill: '#fff' });
+        
+        rightName = game.add.text(380, 335, 'NPC Name', { fontSize: '15px', fill: '#fff' })
+
+        instructions = game.add.text(105, 352, 'Convince other foxes to join your escape effort.\nUse the arrow keys to move.\nWhen adjacent to a fox:\nPress C to bark Charismatically!\nPress S to bark Sarcastically!\nWhen out of energy, join your Best Friend and hit B to replenish it!', { fontSize: '12px', fill: '#fff' });
+        
+        enemyStats = game.add.text(447, 352, 'Kon Kon!', { fontSize: '12px', fill: '#fff' })
 
         // TESTING OVERLAY GRAPHIC
         game.add.sprite(0, 0, 'prolBorder');
 
         function playMusic() {
             console.log('Playing music');
-            var firstMusic = game.add.audio('bgMusic');
-            firstMusic.play('', 0, 0.1, true);    // ('marker', start position, volume (0-1), loop)
+            this.firstMusic = game.add.audio('bgMusic');
+            this.firstMusic.play('', 0, 0.1, true);    // ('marker', start position, volume (0-1), loop)
         }
 
     },
@@ -239,7 +246,11 @@ testState.prototype = {
 
 	update: function() {
 		if(enemy.alive == false){
-			this.addEnemy(enemygroup);
+			//this.addEnemy(enemygroup);
+            game.time.events.add(Phaser.Timer.SECOND * 1, function() {
+                    firstMusic.stop();
+                    game.state.start('Congrats')
+                });
 		}
 		//Checks if these two are adjacent, can be run on any two objects. Probably still way too centered on the player.
         isAdjacent(player, enemy);
@@ -248,6 +259,28 @@ testState.prototype = {
         //ie, player.health = settings.playerhealth
         player.CHAR = settings.playerCHAR;
         enemy.CHAR = settings.enemyCHAR;
+        
+        instructions.text = 'Type: ' + player.TYPE + '\n' +
+                            'Charisma: ' + player.CHAR + '\n' +
+                            'Sarcasm: ' + player.SAR + '\n' +
+                            'Ego: ' + player.EGO + '\n' +
+                            'Resolve: ' + player.EXH + '\n'
+        ;
+        if (player.adj == true) {
+            //display stats
+            enemyStats.visible = true;
+            enemyStats.text = 'Type: ' + enemy.TYPE + '\n' +
+                                'Charisma: ' + enemy.CHAR + '\n' +
+                                'Sarcasm: ' + enemy.SAR + '\n' +
+                                'Ego: ' + enemy.EGO + '\n' +
+                                //'Resolve: ' + enemy.EXH + '\n' +
+                                'Respect: ' + enemy.RPCT + '\n' +
+                                'Contempt: ' + enemy.CTMP + '\n'
+            ;
+            
+        } else {
+            enemyStats.visible = false;
+        }
     },
 
     
@@ -269,19 +302,12 @@ Congrats.prototype = {
         this.level = lvl+1;
     },
     preload: function() {
-        console.log('MainMenu: preload');
+        console.log('Congrats: preload');
 
-        // Preload Assets -----------------------------------------------------
-
-        // load a path to save us typing
-        this.load.path = 'assets/img/'; 
-        // load image assets
-        this.load.images(['prolMain'], ['prologue640x480.png']);
     },
     create: function() {
         console.log('Congrats: create');
         game.stage.backgroundColor = "#F28A2E";
-        console.log('level: ' + this.level);
 
         // create background image
         //game.add.sprite(0, 0, 'prolBorder');
@@ -295,13 +321,11 @@ Congrats.prototype = {
         // State change instructions and intro text -----------------------------------------------
         scoreText = game.add.text(200, 150, 'Outfox', { fontSize: '48px', fill: '#000' });
         scoreText = game.add.text(240, 200, 'Congratulations you won!', { fontSize: '22px', fill: '#000' });
-        scoreText01 = game.add.text(150, 250, 'Press space to restart', { fontSize: '32px', fill: '#000' });
+//        scoreText01 = game.add.text(150, 250, 'Press space to restart', { fontSize: '32px', fill: '#000' });
     },
     update: function() {
-        // GameOver logic
-        if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
-            game.state.start('MainMenu');
-        }
+        // End Game Here. Debugging issues with restarting world.
+
     }
 }
 
@@ -343,6 +367,9 @@ GameOver.prototype = {
     update: function() {
         // GameOver logic
         if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
+            player.kill();
+            enemy.kill()
+            BFF.kill();
             game.state.start('MainMenu');
         }
     }
