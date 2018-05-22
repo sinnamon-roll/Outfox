@@ -58,7 +58,7 @@ Preloader.prototype = {
             this.load.tilemap('level', 'outfox.json', null, Phaser.Tilemap.TILED_JSON);
             //Load tilemap spritesheet (key, url, frameWidth, frameHeight)
             this.load.image('tilesheet','outfox.png',64,64);
-            this.load.image('player', 's_fox_red_front.png');
+            this.load.spritesheet('player', 's_fox_sheet.png', 64, 64);
             this.load.image('enemy', 'foxy.png');
             this.load.image('back', 's_fox_red_back.png');
             this.load.image('adj', 'cardinal.png');
