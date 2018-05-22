@@ -21,6 +21,7 @@ function BFF(game, key, tintColor) {
         this.CTMP = 0
         this.RPCT = 0;
         this.tint = 0xE8AA14;
+        this.controlled = false;
 }
 // explicitly define prefab's prototype (Phaser.Sprite) and constructor (Player)
 BFF.prototype = Object.create(Phaser.Sprite.prototype);
@@ -28,7 +29,31 @@ BFF.prototype.constructor = BFF;
 
 // override Phaser.Sprite update (Enemy update function)
 BFF.prototype.update = function() {
-    
+    if(this.controlled == true){
+        if(cursors.up.justPressed() && this.y != size) {
+            this.y = this.y - size;
+            this.loadTexture('back');
+            this.controlled = false;
+            enemy.controlled = true;
+        console.log('up pressed');
+        } else if(cursors.down.justPressed() && this.y != size * 4) {
+            this.y = this.y + size;
+            this.loadTexture('player');
+            this.controlled = false;
+            enemy.controlled = true;
+        console.log('down pressed');
+        } else if(cursors.left.justPressed() && this.x != size * 1) {
+            this.x = this.x - size;
+            this.controlled = false;
+            enemy.controlled = true;
+        console.log('left pressed');
+        } else if(cursors.right.justPressed() && this.x != size * 8) {
+            this.x = this.x + size;
+            this.controlled = false;
+            enemy.controlled = true;
+        console.log('right pressed');
+        }
+    }
     //If the BFF and player are overlapped
         if( this.y == player.y && this.x == player.x){
             if(player.y == size * 4) {

@@ -15,13 +15,14 @@ function Enemy(game, key, tintColor) {
         cursors = game.input.keyboard.createCursorKeys();
         // put some physics on it
         game.physics.arcade.enable(this);
+
         this.body.collideWorldBounds = true;
         this.health = settings.enemyhealth;
         this.CHAR = 5;
         this.CTMP = 0
         this.RPCT = 0;
         this.tint = tintColor;
-    
+        this.controlled = false;
         this.style = {font: "bold 24px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle"};
 }
 // explicitly define prefab's prototype (Phaser.Sprite) and constructor (Player)
@@ -58,91 +59,126 @@ Enemy.prototype.update = function() {
         this.pendingDestroy = true;
     }
     
-    if(cursors.up.justPressed() && this.y != size) {
-		//check player x and y position, set to wait for player input beforehand
-		if(this.y == player.y){
-			if(player.x > this.x){
-				//move left
-				this.x = this.x + size;
-			}else if(player.x < this.x){
-				//move right
-				this.x = this.x - size;
-			}
-		} else if(this.y > player.y){
-			//move up
-			this.y = this.y - size
-		} else if(this.y < player.y){
-			//move down
-			this.y = this.y + size
-		} else {
-			console.log("Caught!");
-		}
-        	console.log('up pressed');
-        } else if(cursors.down.justPressed() && this.y != size * 4) {
-                //check player x and y position, set to wait for player input beforehand
-                if(this.y == player.y){
-                        if(player.x > this.x){
-                                //move left
-                                this.x = this.x + size;
-                        }else if(player.x < this.x){  
-                                //move right
-                                this.x = this.x - size;
-                        }
-                } else if(this.y > player.y){
-                        //move up
-                        this.y = this.y - size
-                } else if(this.y < player.y){
-                        //move down
-                        this.y = this.y + size
-                } else {
-                        console.log("Caught!");
-                }
-        	console.log('down pressed');
-        } else if(cursors.left.justPressed() && this.x != size * 3) {
-                //check player x and y position, set to wait for player input beforehand
-                if(this.y == player.y){
-                        if(player.x > this.x){
-                                //move left
-                                this.x = this.x + size;
-                        }else if(player.x < this.x){  
-                                //move right
-                                this.x = this.x - size;
-                        }
-                } else if(this.y > player.y){
-                        //move up
-                        this.y = this.y - size
-                } else if(this.y < player.y){
-                        //move down
-                        this.y = this.y + size
-                } else {
-                        console.log("Caught!");
-                }
-        	console.log('left pressed');
-        } else if(cursors.right.justPressed() && this.x != size * 6) {
-                //check player x and y position, set to wait for player input beforehand
-                if(this.y == player.y){
-                        if(player.x > this.x){
-                                //move left
-                                this.x = this.x + size;
-                        }else if(player.x < this.x){  
-                                //move right
-                                this.x = this.x - size;
-                        }
-                } else if(this.y > player.y){
-                        //move up
-                        this.y = this.y - size
-                } else if(this.y < player.y){
-                        //move down
-                        this.y = this.y + size
-                } else {
-                        console.log("Caught!");
-                }
-        	console.log('right pressed');
-	}
-    
     function killText() {
         console.log("killText");
         game.add.tween(result).to( { alpha: 0 }, 420, Phaser.Easing.Linear.None, true);
-
+        this.controlled == false;
+        player.controlled == true;
+        player.moveable == true;
     }
+    //trying to make a delay between enemy actions and yours, see if you can get it to work.
+    if(this.controlled == true){
+        //delay();
+        delayOver();
+    }
+
+//function delay(){
+  //  game.time.events.add(Phaser.Timer.SECOND * 4, delayOver, this);
+//}
+function delayOver(){
+    if(this.controlled == true && this.y != size) {
+        //check player x and y position, set to wait for player input beforehand
+        this.controlled = false;
+        player.controlled = true;
+        player.moveable = true;
+        if(this.y == player.y){
+            if(player.x > this.x){
+                //move left
+                this.x = this.x + size;
+             
+            }else if(player.x < this.x){
+                //move right
+                this.x = this.x - size;
+             
+            }
+        } else if(this.y > player.y){
+            //move up
+            this.y = this.y - size;
+            
+        } else if(this.y < player.y){
+            //move down
+            this.y = this.y + size;
+        
+        } else {
+            console.log("Caught!");
+           
+        }
+            console.log('up pressed');
+        } else if(this.controlled == true && this.y != size * 4) {
+                //check player x and y position, set to wait for player input beforehand
+                if(this.y == player.y){
+                        if(player.x > this.x){
+                                //move left
+                                this.x = this.x + size;
+                               
+                        }else if(player.x < this.x){  
+                                //move right
+                                this.x = this.x - size;
+                               
+                        }
+                } else if(this.y > player.y){
+                        //move up
+                        this.y = this.y - size
+                    
+                } else if(this.y < player.y){
+                        //move down
+                        this.y = this.y + size
+                  
+                } else {
+                        console.log("Caught!");
+                    
+                }
+            console.log('down pressed');
+        } else if(this.controlled == true && this.x != size * 3) {
+                //check player x and y position, set to wait for player input beforehand
+                if(this.y == player.y){
+                        if(player.x > this.x){
+                                //move left
+                                this.x = this.x + size;
+                                
+                        }else if(player.x < this.x){  
+                                //move right
+                                this.x = this.x - size;
+                           
+                        }
+                } else if(this.y > player.y){
+                        //move up
+                        this.y = this.y - size;
+                 
+                } else if(this.y < player.y){
+                        //move down
+                        this.y = this.y + size;
+                    
+                } else {
+                        console.log("Caught!");
+                        
+                    
+                }
+            console.log('left pressed');
+        } else if(this.controlled == true && this.x != size * 6) {
+                //check player x and y position, set to wait for player input beforehand
+                if(this.y == player.y){
+                        if(player.x > this.x){
+                                //move left
+                                this.x = this.x + size;
+                            
+                        }else if(player.x < this.x){  
+                                //move right
+                                this.x = this.x - size;
+                            
+                        }
+                } else if(this.y > player.y){
+                        //move up
+                       
+                } else if(this.y < player.y){
+                        //move down
+                        this.y = this.y + size;
+                     
+                } else {
+                        console.log("Caught!");
+                    
+                }
+            console.log('right pressed');
+    }
+}
 }

@@ -24,6 +24,9 @@ function Player(game, key) {
     this.CHAR = 5;
     this.SAR = 10;
     this.EXH = 3;
+    this.controlled = true;
+    this.moveable = true;
+    game.time.events.add(Phaser.Timer.SECOND*5, this.delayOver, this);
 
 
 	// put some physics on it
@@ -42,21 +45,41 @@ Player.prototype.constructor = Player;
 
 // override Phaser.Sprite update (player update function)
 Player.prototype.update = function() {
+	
+	if (this.moveable == true){
         if(cursors.up.justPressed() && this.y != size) {
             this.y = this.y - size;
             this.loadTexture('back');
-		console.log('up pressed');
+            this.moveable = false;
+			console.log('up pressed');
         } else if(cursors.down.justPressed() && this.y != size * 4) {
             this.y = this.y + size;
             this.loadTexture('player');
-	    console.log('down pressed');
+            this.moveable = false;
+	    	console.log('down pressed');
         } else if(cursors.left.justPressed() && this.x != size * 1) {
             this.x = this.x - size;
-	    console.log('left pressed');
+	    	console.log('left pressed');
+	    	this.moveable = false;
         } else if(cursors.right.justPressed() && this.x != size * 8) {
             this.x = this.x + size;
-	    console.log('right pressed');
+	    	console.log('right pressed');
+	    	this.moveable = false;
         }
+    }
+    if (this.controlled == true){
+    	if (cKey.justPressed()){
+    		this.controlled = false;
+    		BFF.controlled = true;
+    	}else if(sKey.justPressed()){
+    		this.controlled = false;
+    		BFF.controlled = true;
+    	}else if(bKey.justPressed()){
+    		this.controlled = false;
+    		BFF.controlled = true;
+    	}
+
+    }
     // //ADJ!!!
     // if(enemy.x == (this.x + size) || enemy.x == (this.x - size) ){
     //     if (enemy.y == this.y) {
