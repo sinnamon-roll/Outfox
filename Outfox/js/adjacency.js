@@ -36,8 +36,8 @@ isAdjacent = function(character, subject){
                 charEmitter.setAlpha(0.5, 1);                // set particle alpha (min, max)
                 charEmitter.minParticleScale = .5;        // set min/max particle size
                 charEmitter.maxParticleScale = 1.5;
-                charEmitter.setXSpeed(-50,500);            // set min/max horizontal speed
-                charEmitter.setYSpeed(-500,500);            // set min/max vertical speed
+                charEmitter.setXSpeed(-50,50);            // set min/max horizontal speed
+                charEmitter.setYSpeed(-50,50);            // set min/max vertical speed
 
                 
                 //Determine if weak/resistant
@@ -71,8 +71,8 @@ isAdjacent = function(character, subject){
                 sarEmitter.setAlpha(0.5, 1);                // set particle alpha (min, max)
                 sarEmitter.minParticleScale = .5;        // set min/max particle size
                 sarEmitter.maxParticleScale = 1.5;
-                sarEmitter.setXSpeed(-50,500);            // set min/max horizontal speed
-                sarEmitter.setYSpeed(-500,500);            // set min/max vertical speed
+                sarEmitter.setXSpeed(-50,50);            // set min/max horizontal speed
+                sarEmitter.setYSpeed(-50,50);            // set min/max vertical speed
 
                 //Ro-Sham-Bo
                 if (subject.TYPE == 'Sarcastic') {
@@ -92,7 +92,7 @@ isAdjacent = function(character, subject){
                 sarEmitter.start(true, 2000, null, 20);    // (explode, lifespan, freq, quantity)
             }
         } else {
-            character.range.visible = false;
+            //character.range.visible = false;
         }
         if(character.EXH == 0) {
             character.tired.x = character.x + size/2;

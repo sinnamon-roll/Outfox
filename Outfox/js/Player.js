@@ -35,10 +35,18 @@ function Player(game, key) {
 	this.body.collideWorldBounds = true;
     this.style = {font: "bold 24px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle"};
     //Cardinal direction map for PC's area of influence
-    this.range = game.add.sprite(this.x - size, this.y - size, 'adj')
-    this.range.visible = false;
+    //this.range = game.add.sprite(this.x - size, this.y - size, 'adj')
+    //this.range.visible = false;
+    
+    //EXHAUSTION
     this.tired = game.add.sprite(this.x + size, this.y - size, 'atlas','chat_dot03')
     this.tired.visible = false;
+    
+    //ANIMATIONS
+    this.animations.add('left', [6,7,8], false);
+    this.animations.add('right', [9,10,11], false);
+    this.animations.add('up', [3,4,5], false);
+    this.animations.add('down', [0,1,2], false);
 }
 // explicitly define prefab's prototype (Phaser.Sprite) and constructor (Player)
 Player.prototype = Object.create(Phaser.Sprite.prototype);
@@ -48,17 +56,23 @@ Player.prototype.constructor = Player;
 Player.prototype.update = function() {
         if(cursors.up.justPressed() && this.y != size) {
             this.y = this.y - size;
-            this.loadTexture('back');
+            this.animations.play('up');
+            this.frame = 4;
 		console.log('up pressed');
         } else if(cursors.down.justPressed() && this.y != size * 4) {
             this.y = this.y + size;
-            this.loadTexture('player');
+            this.animations.play('down');
+            this.frame = 1;
 	    console.log('down pressed');
         } else if(cursors.left.justPressed() && this.x != size * 1) {
             this.x = this.x - size;
+            this.animations.play('left');
+            this.frame = 7;
 	    console.log('left pressed');
         } else if(cursors.right.justPressed() && this.x != size * 8) {
             this.x = this.x + size;
+            this.animations.play('right');
+            this.frame = 10;
 	    console.log('right pressed');
         }
     
