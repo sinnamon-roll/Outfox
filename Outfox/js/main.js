@@ -217,7 +217,7 @@ testState.prototype = {
 
         leftName = game.add.text(180, 335, 'PC Name', { fontSize: '15px', fill: '#fff' })
 
-        gameLog = game.add.text(200, 370, 'Arrived in a strange field.\n', { fontSize: '15px', fill: '#000' });
+        gameLog = game.add.text(200, 370, 'Arrived in a strange field.\n', { fontSize: '10px', fill: '#fff' });
         
         rightName = game.add.text(380, 335, 'NPC Name', { fontSize: '15px', fill: '#fff' })
 
