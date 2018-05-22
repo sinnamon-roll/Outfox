@@ -61,13 +61,16 @@ BFF.prototype.update = function() {
         this.adj = false;
     }
 
-    if(this.adj == true && player.EXH <=7) {
-        if (bKey.justPressed() ) {
+    if(this.adj == true) {
+        if (bKey.justPressed() && player.EXH <=7) {
             player.EXH += 3;
+            gameLog.setText('The fox who treated you with\nkindness gives you an\n encouraging bark.');
             //play audio
             var bark = game.add.audio('boostSound');
             bark.play('',0,1,false)
+        }else if (bKey.justPressed() && player.EXH >=7) {
+            gameLog.setText('The kind fox has little to say.');
         }
-	}
+    }
     
 }

@@ -27,8 +27,10 @@ isAdjacent = function(character, subject){
                 //Determine if weak/resistant
                 if (subject.TYPE == 'Sarcastic') {
                     subject.RPCT += (character.CHAR / 2);
+                    gameLog.setText('The bark seems ineffective.');
                 } else if (subject.TYPE == 'Charismatic') {
                     subject.RPCT += (character.CHAR * 2);
+                    gameLog.setText('Super Effective!');
                 } else
                     subject.RPCT += character.CHAR;
                 character.EXH -= 1;
@@ -52,8 +54,10 @@ isAdjacent = function(character, subject){
                 //.damage() will handle the killing of sprite if necessary~
                 if (subject.TYPE == 'Sarcastic') {
                     subject.CTMP += (character.SAR * 2);
+                    gameLog.setText('The bark is Super Effective');
                 } else if (subject.TYPE == 'Charismatic') {
                     subject.CTMP += (character.SAR / 2);
+                    gameLog.setText('The bark seems ineffective');
                 } else
                     subject.CTMP += character.SAR;
                 
