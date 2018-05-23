@@ -62,7 +62,8 @@ Preloader.prototype = {
             this.load.image('enemy', 'foxy.png');
             this.load.image('back', 's_fox_red_back.png');
             this.load.image('adj', 'cardinal.png');
-            this.load.image('playerIcon', 's_nar_PC.png')
+            this.load.image('playerIcon', 's_nar_PC.png');
+            this.load.image('s_interfaceR_edge', 's_interfaceR_edge.png');
             //Load Sprite Atlas
             this.load.atlas('atlas','emoji.png','emoji.json');
             this.load.atlas('UI','ui.png','ui.json');
@@ -216,6 +217,7 @@ testState.prototype = {
         
         //UI SETUP
         game.add.sprite(0, 322, 'UI','s_interfaceL');
+        game.add.sprite(383, 369,'s_interfaceR_edge');
         enemyUI = game.add.sprite(351, 322, 'UI','s_interfaceR');
         enemyUI.visible = false;
         game.add.sprite(198, 369, 'UI','s_log');

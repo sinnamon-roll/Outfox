@@ -63,14 +63,24 @@ BFF.prototype.update = function() {
 
     if(this.adj == true) {
         if (bKey.justPressed() && player.EXH <=7) {
+            //Boost Player
             player.EXH += 3;
+            //Update GameLog
             gameLog.setText('The fox who treated you with\nkindness gives you an\n encouraging bark.');
             //play audio
             var bark = game.add.audio('boostSound');
             bark.play('',0,1,false)
+            //Animate Battery
+            var popup = game.add.sprite(player.x, player.y, 'atlas', 's_batteryFull');
+            popup.anchor.setTo(.5,.5);
+            game.time.events.add(Phaser.Timer.SECOND * 0.5, killPop, this);
+            
         }else if (bKey.justPressed() && player.EXH >=7) {
             gameLog.setText('The kind fox has little to say.');
         }
     }
-    
+    function killPop() {
+        console.log("killPop");
+        game.add.tween(popup).to( { alpha: 0 }, 420, Phaser.Easing.Linear.None, true);
+    }
 }

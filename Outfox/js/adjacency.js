@@ -31,10 +31,10 @@ isAdjacent = function(character, subject){
                 char.play('',0,1,false)
                 
                 //Show popup
-                var popup = game.add.sprite(character.x, character.y, 'atlas', 'chat_heart_whole');
+                var popup = game.add.sprite(character.x, character.y, 'atlas', 's_charisma');
                 popup.anchor.setTo(.5,.5);
-                popup.animations.add('beat', [4, 5], 10,true);
-                popup.play('beat');
+                //popup.animations.add('beat', [4, 5], 10,true);
+                //popup.play('beat');
                 game.time.events.add(Phaser.Timer.SECOND * 0.5, killPop, this);
                 
                 
@@ -73,10 +73,10 @@ isAdjacent = function(character, subject){
                 var sar = game.add.audio('sarSound');
                 sar.play('',0,1,false)
                 
-                var popup = game.add.sprite(character.x, character.y, 'atlas', 's_charisma');
+                var popup = game.add.sprite(character.x, character.y, 'atlas', 's_sarcasm');
                 popup.anchor.setTo(.5,.5);
-                popup.animations.add('smirk', [12, 13], 10,true);
-                popup.play('smirk');
+                //popup.animations.add('smirk', [12, 13], 10,true);
+                //popup.play('smirk');
                 game.time.events.add(Phaser.Timer.SECOND * 0.5, killPop, this);
                 
                 //emit sprites
