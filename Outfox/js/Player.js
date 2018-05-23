@@ -76,4 +76,13 @@ Player.prototype.update = function() {
 	    console.log('right pressed');
         }
     
+    if(this.EXH == 0) {
+        this.tired.frame = 8;
+        this.tired.x = this.x + size/2;
+        this.tired.y = this.y - size/2;
+        this.tired.visible = true;
+    }else {
+        this.tired.visible = false;
+    }
+    
 }
