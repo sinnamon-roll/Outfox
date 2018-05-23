@@ -13,7 +13,7 @@ function BFF(game, key) {
         // call to Phaser.Sprite // new Sprite(game, x, y, key, frame)
         Phaser.Sprite.call(this, game, size * 3, size * 4, key);
         // add custom properties
-        cursors = game.input.keyboard.createCursorKeys();
+        //cursors = game.input.keyboard.createCursorKeys();
 
         // put some physics on it
         game.physics.arcade.enable(this);
@@ -26,6 +26,7 @@ function BFF(game, key) {
         this.TYPE = "Charisma";
     
         this.tint = 0xE8AA14;
+        this.moveable = false;
         this.controlled = false;
 }
 // explicitly define prefab's prototype (Phaser.Sprite) and constructor (Player)
@@ -34,28 +35,30 @@ BFF.prototype.constructor = BFF;
 
 // override Phaser.Sprite update (Enemy update function)
 BFF.prototype.update = function() {
-    if(this.controlled == true){
+    //IF it is BFF's turn to move
+    if(this.moveable == true){
+        console.log("BFF NO MOVEMENT");
         if(cursors.up.justPressed() && this.y != size) {
             this.y = this.y - size;
             this.loadTexture('back');
-            this.controlled = false;
-            enemy.controlled = true;
+            this.moveable = false;
+            this.controlled = true;
         console.log('up pressed');
         } else if(cursors.down.justPressed() && this.y != size * 4) {
             this.y = this.y + size;
             this.loadTexture('player');
-            this.controlled = false;
-            enemy.controlled = true;
+            this.moveable = false;
+            this.controlled = true;
         console.log('down pressed');
         } else if(cursors.left.justPressed() && this.x != size * 1) {
             this.x = this.x - size;
-            this.controlled = false;
-            enemy.controlled = true;
+            this.moveable = false;
+            this.controlled = true;
         console.log('left pressed');
         } else if(cursors.right.justPressed() && this.x != size * 8) {
             this.x = this.x + size;
-            this.controlled = false;
-            enemy.controlled = true;
+            this.moveable = false;
+            this.controlled = true;
         console.log('right pressed');
         }
     }
@@ -93,8 +96,26 @@ BFF.prototype.update = function() {
             //play audio
             var bark = game.add.audio('boostSound');
             bark.play('',0,1,false)
+            this.controlled = false;
+            enemy.controlled = true;
         }else if (bKey.justPressed() && player.EXH >=7) {
             gameLog.setText('The kind fox has little to say.');
+            this.controlled = false;
+            enemy.controlled = true;
+        }
+    }
+    if (this.controlled == true){
+        console.log("BFF NO ACTION");
+        if (cKey.justPressed()){
+            this.controlled = false;
+            enemy.controlled = true;
+        }else if(sKey.justPressed()){
+            this.controlled = false;
+            enemy.controlled = true;
+        }else if(wKey.justPressed()){
+            console.log("Waiting");
+            this.controlled = false;
+            enemy.controlled = true;
         }
     }
     

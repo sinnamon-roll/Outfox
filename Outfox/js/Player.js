@@ -19,6 +19,7 @@ function Player(game, key) {
     cKey = game.input.keyboard.addKey(Phaser.Keyboard.C);
     sKey = game.input.keyboard.addKey(Phaser.Keyboard.S);
     bKey = game.input.keyboard.addKey(Phaser.Keyboard.B);
+    wKey = game.input.keyboard.addKey(Phaser.Keyboard.W);
 
 
     //CHARACTER STATS
@@ -28,9 +29,9 @@ function Player(game, key) {
     this.EGO = 4;
     this.EXH = 3;
 
-    this.controlled = true;
+    this.controlled = false;
     this.moveable = true;
-    game.time.events.add(Phaser.Timer.SECOND*5, this.delayOver, this);
+    //game.time.events.add(Phaser.Timer.SECOND*5, this.delayOver, this);
 
     this.TYPE = "Egotistic";
 
@@ -62,43 +63,53 @@ Player.prototype.constructor = Player;
 Player.prototype.update = function() {
 	
 	if (this.moveable == true){
+        console.log("Player NO Movement");
         if(cursors.up.justPressed() && this.y != size) {
             this.y = this.y - size;
             this.animations.play('up');
             this.frame = 4;
             this.moveable = false;
-		        console.log('up pressed');
+            this.controlled = true;
+		    console.log('up pressed');
         } else if(cursors.down.justPressed() && this.y != size * 4) {
-            this.moveable = false;
             this.y = this.y + size;
             this.animations.play('down');
             this.frame = 1;
-	    console.log('down pressed');
-        } else if(cursors.left.justPressed() && this.x != size * 1) {
             this.moveable = false;
+            this.controlled = true;
+            console.log('down pressed');
+        } else if(cursors.left.justPressed() && this.x != size * 1) {
             this.x = this.x - size;
             this.animations.play('left');
             this.frame = 7;
-	    console.log('left pressed');
-        } else if(cursors.right.justPressed() && this.x != size * 8) {
             this.moveable = false;
+            this.controlled = true;
+            console.log('left pressed');
+        } else if(cursors.right.justPressed() && this.x != size * 8) {
             this.x = this.x + size;
             this.animations.play('right');
             this.frame = 10;
-	    console.log('right pressed');
+            this.moveable = false;
+            this.controlled = true;
+            console.log('right pressed');
         }
   }
   if (this.controlled == true){
-    	if (cKey.justPressed()){
-    		this.controlled = false;
-    		BFF.controlled = true;
+      console.log("Player no Action");
+        if (cKey.justPressed()){
+    		BFF.moveable = true;
+            this.controlled = false;
     	}else if(sKey.justPressed()){
-    		this.controlled = false;
-    		BFF.controlled = true;
+    		BFF.moveable = true;
+            this.controlled = false;
     	}else if(bKey.justPressed()){
-    		this.controlled = false;
-    		BFF.controlled = true;
-    	}
+    		BFF.moveable = true;
+            this.controlled = false;
+        }else if(wKey.justPressed()){
+            console.log("Waiting");
+            BFF.moveable = true;
+            this.controlled = false;
+        }
   }
     
 }
