@@ -39,7 +39,7 @@ function Player(game, key) {
     //this.range.visible = false;
     
     //EXHAUSTION
-    this.tired = game.add.sprite(this.x + size, this.y - size, 'atlas','s_batteryOut')
+    this.tired = game.add.sprite(this.x + size, this.y - size, 'atlas','s_batteryOut');
     this.tired.visible = false;
     
     //ANIMATIONS

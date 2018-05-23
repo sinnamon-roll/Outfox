@@ -62,8 +62,10 @@ Preloader.prototype = {
             this.load.image('enemy', 'foxy.png');
             this.load.image('back', 's_fox_red_back.png');
             this.load.image('adj', 'cardinal.png');
+            this.load.image('playerIcon', 's_nar_PC.png')
             //Load Sprite Atlas
             this.load.atlas('atlas','emoji.png','emoji.json');
+            this.load.atlas('UI','ui.png','ui.json');
 
             
             //MUSIC
@@ -212,14 +214,21 @@ testState.prototype = {
         BFF = new BFF(game, 'player');
         this.game.add.existing(BFF);
         
-        // show temp grid on top of game
-        game.add.sprite(0, 0, 'tempLayout');
+        //UI SETUP
+        game.add.sprite(0, 322, 'UI','s_interfaceL');
+        enemyUI = game.add.sprite(351, 322, 'UI','s_interfaceR');
+        enemyUI.visible = false;
+        game.add.sprite(198, 369, 'UI','s_log');
+        playerIcon = game.add.sprite(0, 290, 'UI','s_nar_PC');
+        enemyIcon = game.add.sprite(499, 290, 'UI','s_nar_NPC01')
+        enemyIcon.visible = false;
 
         leftName = game.add.text(180, 335, 'PC Name', { fontSize: '15px', fill: '#fff' })
 
         gameLog = game.add.text(200, 370, 'Arrived in a strange field.\n', { fontSize: '10px', fill: '#fff' });
         
         rightName = game.add.text(380, 335, 'NPC Name', { fontSize: '15px', fill: '#fff' })
+        rightName.visible = false;
 
         instructions = game.add.text(105, 352, 'Convince other foxes to join your escape effort.\nUse the arrow keys to move.\nWhen adjacent to a fox:\nPress C to bark Charismatically!\nPress S to bark Sarcastically!\nWhen out of energy, join your Best Friend and hit B to replenish it!', { fontSize: '12px', fill: '#fff' });
         
@@ -269,6 +278,10 @@ testState.prototype = {
         if (player.adj == true) {
             //display stats
             enemyStats.visible = true;
+            enemyIcon.visible = true;
+            enemyUI.visible = true;
+            rightName.setText(enemy.NAME);
+            rightName.visible = true;
             enemyStats.text = 'Type: ' + enemy.TYPE + '\n' +
                                 'Charisma: ' + enemy.CHAR + '\n' +
                                 'Sarcasm: ' + enemy.SAR + '\n' +
@@ -280,6 +293,9 @@ testState.prototype = {
             
         } else {
             enemyStats.visible = false;
+            enemyIcon.visible = false;
+            rightName.visible = false;
+            enemyUI.visible = false;
         }
     },
 
@@ -383,4 +399,3 @@ game.state.add('GameOver', GameOver);
 game.state.add('Preloader', Preloader);
 game.state.add('Boot', Boot);
 game.state.start('Boot');
-

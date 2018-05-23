@@ -7,6 +7,7 @@ var EGO;
 var CTMP;
 var RPCT;
 var TYPE;
+var NAME;
 
 var spawnlocX = size*game.rnd.integerInRange(1, 8);
 var spawnlocY= size*game.rnd.integerInRange(1, 4);
@@ -25,6 +26,7 @@ function Enemy(game, key, tintColor) {
         this.CTMP = 0
         this.RPCT = 0;
         this.TYPE = "Sarcastic";
+        this.NAME = "Reynard";
     
         this.tint = tintColor;
 }
