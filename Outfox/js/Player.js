@@ -27,7 +27,13 @@ function Player(game, key) {
     this.SAR = 1;
     this.EGO = 4;
     this.EXH = 3;
+
+    this.controlled = true;
+    this.moveable = true;
+    game.time.events.add(Phaser.Timer.SECOND*5, this.delayOver, this);
+
     this.TYPE = "Egotistic";
+
 
 
 	// put some physics on it
@@ -54,26 +60,45 @@ Player.prototype.constructor = Player;
 
 // override Phaser.Sprite update (player update function)
 Player.prototype.update = function() {
+	
+	if (this.moveable == true){
         if(cursors.up.justPressed() && this.y != size) {
             this.y = this.y - size;
             this.animations.play('up');
             this.frame = 4;
-		console.log('up pressed');
+            this.moveable = false;
+		        console.log('up pressed');
         } else if(cursors.down.justPressed() && this.y != size * 4) {
+            this.moveable = false;
             this.y = this.y + size;
             this.animations.play('down');
             this.frame = 1;
 	    console.log('down pressed');
         } else if(cursors.left.justPressed() && this.x != size * 1) {
+            this.moveable = false;
             this.x = this.x - size;
             this.animations.play('left');
             this.frame = 7;
 	    console.log('left pressed');
         } else if(cursors.right.justPressed() && this.x != size * 8) {
+            this.moveable = false;
             this.x = this.x + size;
             this.animations.play('right');
             this.frame = 10;
 	    console.log('right pressed');
         }
+  }
+  if (this.controlled == true){
+    	if (cKey.justPressed()){
+    		this.controlled = false;
+    		BFF.controlled = true;
+    	}else if(sKey.justPressed()){
+    		this.controlled = false;
+    		BFF.controlled = true;
+    	}else if(bKey.justPressed()){
+    		this.controlled = false;
+    		BFF.controlled = true;
+    	}
+  }
     
 }
