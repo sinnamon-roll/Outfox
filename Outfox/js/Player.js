@@ -54,11 +54,17 @@ Player.prototype.constructor = Player;
 
 // override Phaser.Sprite update (player update function)
 Player.prototype.update = function() {
-        if(cursors.up.justPressed() && this.y != size) {
+        if(cursors.up.justPressed() ) {
+            if(this.y == size){
+                gameLog.setText('Your path is blocked.');
+            }else if(enemy.y ==(this.y - size) && this.adj == true ){
+                gameLog.setText('Your path is blocked.');
+            }else
             this.y = this.y - size;
             this.animations.play('up');
             this.frame = 4;
-		console.log('up pressed');
+            console.log('up pressed');
+               
         } else if(cursors.down.justPressed() && this.y != size * 4) {
             this.y = this.y + size;
             this.animations.play('down');
@@ -81,6 +87,7 @@ Player.prototype.update = function() {
         this.tired.x = this.x + size/2;
         this.tired.y = this.y - size/2;
         this.tired.visible = true;
+        this.tired.bringToTop();
     }else {
         this.tired.visible = false;
     }
