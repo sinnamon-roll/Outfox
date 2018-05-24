@@ -95,14 +95,19 @@ MainMenu.prototype = {
             console.log('MainMenu: create');
             game.stage.backgroundColor = "#F26B1D";
         // State change instructions and intro text -----------------------------------------------
-        menuText = game.add.text(200, 150, 'Outfox', { fontSize: '48px', fill: '#000' });
-        menuText = game.add.text(240, 200, 'by Cherry Coke Gummies', { fontSize: '22px', fill: '#000' });
-        menuText = game.add.text(150, 250, 'Press space to start', { fontSize: '32px', fill: '#000' });
+            menuText = game.add.text(200, 150, 'Outfox', { font: 'Fira Sans', fontSize: '48px', fill: '#000' });
+        menuText = game.add.text(240, 200, 'by Cherry Coke Gummies', { font: 'Fira Sans', fontSize: '22px', fill: '#000' });
+        menuText = game.add.text(150, 300, 'Press space to start', { font: 'Fira Sans', fontSize: '30px', fill: '#000' });
+            menuText = game.add.text(150, 350, 'Press enter to see the Foxes Responsible', { font: 'Fira Sans', fontSize: '30px', fill: '#000', wordWrapWidth: '400', wordWrap: 'true' });
+            
     },
         update: function(){
                 //console.log('MainMenu: Update');
             if(this.cache.isSoundDecoded('bgMusic') && game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR) ){
                 this.state.start('Prologue');
+            }
+            if(game.input.keyboard.justPressed(Phaser.Keyboard.ENTER) ){
+                this.state.start('Credits');
             }
         },
 }
@@ -400,4 +405,5 @@ game.state.add('Congrats', Congrats);
 game.state.add('GameOver', GameOver);
 game.state.add('Preloader', Preloader);
 game.state.add('Boot', Boot);
+game.state.add('Credits', credits);
 game.state.start('Boot');

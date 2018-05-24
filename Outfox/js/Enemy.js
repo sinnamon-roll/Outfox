@@ -9,9 +9,11 @@ var RPCT;
 var TYPE;
 var NAME;
 
-var spawnlocX = size*game.rnd.integerInRange(1, 8);
-var spawnlocY= size*game.rnd.integerInRange(1, 4);
+var spawnlocX;
+var spawnlocY;
 function Enemy(game, key, tintColor) {
+    spawnlocX = size*game.rnd.integerInRange(1, 8);
+    spawnlocY= size*game.rnd.integerInRange(1, 4);
         // call to Phaser.Sprite // new Sprite(game, x, y, key, frame)
         Phaser.Sprite.call(this, game, spawnlocX, spawnlocY, key);
         // add custom properties
