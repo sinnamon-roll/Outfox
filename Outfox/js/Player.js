@@ -56,9 +56,9 @@ Player.prototype.constructor = Player;
 Player.prototype.update = function() {
         if(cursors.up.justPressed() ) {
             if(this.y == size){
-                gameLog.setText('Your path is blocked.');
+                gameLog.setText('The laboratory wall prevents you from going further.');
             }else if(enemy.y ==(this.y - size) && this.adj == true ){
-                gameLog.setText('Your path is blocked.');
+                gameLog.setText(enemy.NAME + ' blocks your path.');
             }else
             this.y = this.y - size;
             this.animations.play('up');

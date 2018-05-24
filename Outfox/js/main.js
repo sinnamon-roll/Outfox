@@ -230,16 +230,25 @@ testState.prototype = {
         enemyIcon = game.add.sprite(499, 290, 'UI','s_nar_NPC01')
         enemyIcon.visible = false;
 
-        leftName = game.add.text(180, 335, 'PC Name', { fontSize: '15px', fill: '#fff' })
-
-        gameLog = game.add.text(200, 370, 'Arrived in a strange field.\n', { fontSize: '10px', fill: '#fff' });
+        leftName = game.add.text(180, 335, 'PC Name', { font: 'Fira Sans', fontSize: '15px', fill: '#fff', fontWeight: '700' })
         
-        rightName = game.add.text(380, 335, 'NPC Name', { fontSize: '15px', fill: '#fff' })
+        //GAMELOG SETUP
+        var logStyle = {
+        font: 'Fira Sans',
+        fontSize: '16px',
+        wordWrapWidth: '250',
+        wordWrap: 'true',
+        fontWeight: '420',
+        fill: '#fff'
+        }
+        gameLog = game.add.text(200, 370, 'Arrived in a strange field.\n', logStyle);
+        
+        rightName = game.add.text(380, 335, 'NPC Name', { font: 'Fira Sans', fontSize: '15px', fill: '#fff', fontWeight: '700' })
         rightName.visible = false;
 
-        instructions = game.add.text(105, 352, 'Convince other foxes to join your escape effort.\nUse the arrow keys to move.\nWhen adjacent to a fox:\nPress C to bark Charismatically!\nPress S to bark Sarcastically!\nWhen out of energy, join your Best Friend and hit B to replenish it!', { fontSize: '12px', fill: '#fff' });
+        playerStats = game.add.text(105, 350, 'Convince other foxes to join your escape effort.\nUse the arrow keys to move.\nWhen adjacent to a fox:\nPress C to bark Charismatically!\nPress S to bark Sarcastically!\nWhen out of energy, join your Best Friend and hit B to replenish it!', {font: 'Fira Sans', fontSize: '13px', fill: '#fff', fontWeight: '700' });
         
-        enemyStats = game.add.text(447, 352, 'Kon Kon!', { fontSize: '12px', fill: '#fff' })
+        enemyStats = game.add.text(447, 350, 'Kon Kon!', { font: 'Fira Sans', fontSize: '13px', fill: '#fff', fontWeight: '700' })
 
         // TESTING OVERLAY GRAPHIC
         game.add.sprite(0, 0, 'prolBorder');
@@ -276,7 +285,7 @@ testState.prototype = {
         player.CHAR = settings.playerCHAR;
         enemy.CHAR = settings.enemyCHAR;
         
-        instructions.text = 'Type: ' + player.TYPE + '\n' +
+        playerStats.text = 'Type: ' + player.TYPE + '\n' +
                             'Charisma: ' + player.CHAR + '\n' +
                             'Sarcasm: ' + player.SAR + '\n' +
                             'Ego: ' + player.EGO + '\n' +
