@@ -8,6 +8,7 @@ var EGO;
 var CTMP;
 var RPCT;
 var TYPE; //Ro-Sham-Bo
+var NAME;
 
 function BFF(game, key) {
         // call to Phaser.Sprite // new Sprite(game, x, y, key, frame)
@@ -24,6 +25,7 @@ function BFF(game, key) {
         this.CTMP = 0;
         this.RPCT = 0;
         this.TYPE = "Charisma";
+        this.NAME = "The Patient Fox";
     
         this.tint = 0xE8AA14;
 }

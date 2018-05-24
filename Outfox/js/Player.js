@@ -59,27 +59,52 @@ Player.prototype.update = function() {
                 gameLog.setText('The laboratory wall prevents you from going further.');
             }else if(enemy.y ==(this.y - size) && this.adj == true ){
                 gameLog.setText(enemy.NAME + ' blocks your path.');
+            }else if(BFF.y ==(this.y - size) && BFF.adj == true ){
+                gameLog.setText(BFF.NAME + ' blocks your path.');
             }else
             this.y = this.y - size;
             this.animations.play('up');
             this.frame = 4;
             console.log('up pressed');
                
-        } else if(cursors.down.justPressed() && this.y != size * 4) {
+        } else if(cursors.down.justPressed() ) {
+            if(this.y == size * 4){
+                gameLog.setText('The laboratory wall prevents you from going further.');
+            }else if(enemy.y ==(this.y + size) && this.adj == true ){
+                gameLog.setText(enemy.NAME + ' blocks your path.');
+            }else if(BFF.y ==(this.y + size) && BFF.adj == true ){
+                gameLog.setText(BFF.NAME + ' blocks your path.');
+            }else
             this.y = this.y + size;
             this.animations.play('down');
             this.frame = 1;
-	    console.log('down pressed');
-        } else if(cursors.left.justPressed() && this.x != size * 1) {
+            console.log('down pressed');
+            
+        } else if(cursors.left.justPressed() ) {
+            if (this.x == size) {
+                gameLog.setText('The laboratory wall prevents you from going further.');
+            }else if(enemy.x ==(this.x - size) && this.adj == true ){
+                gameLog.setText(enemy.NAME + ' blocks your path.');
+            }else if(BFF.y ==(this.x - size) && BFF.adj == true ){
+                gameLog.setText(BFF.NAME + ' blocks your path.');
+            }else
             this.x = this.x - size;
             this.animations.play('left');
             this.frame = 7;
-	    console.log('left pressed');
-        } else if(cursors.right.justPressed() && this.x != size * 8) {
+            console.log('left pressed');
+            
+        } else if(cursors.right.justPressed() ) {
+            if (this.x == size * 8) {
+                gameLog.setText('The laboratory wall prevents you from going further.');
+            }else if(enemy.x ==(this.x + size) && this.adj == true ){
+                gameLog.setText(enemy.NAME + ' blocks your path.');
+            }else if(BFF.y ==(this.x + size) && BFF.adj == true ){
+                gameLog.setText(BFF.NAME + ' blocks your path.');
+            }else
             this.x = this.x + size;
             this.animations.play('right');
             this.frame = 10;
-	    console.log('right pressed');
+            console.log('right pressed');
         }
     
     if(this.EXH == 0) {
