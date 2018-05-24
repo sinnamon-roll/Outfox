@@ -28,22 +28,24 @@ Boot.prototype = {
                 playerhealth: 10,
                 playerCHAR: 5,
                 enemyhealth: 10,
-                enemyCHAR: 5
+                enemyCHAR: 5,
+                enemyCONTROL: false
                 }
 
-                this.game.gui = new dat.GUI({
+                var gui = new dat.GUI({
                     width: 350
                 });
-                this.game.gui.useLocalStorage = true;
-                this.game.gui.remember(settings);
+                gui.useLocalStorage = true;
+                gui.remember(settings);
                 //debug folders
                 var stepSize = 1;
                 //character folders
-                this.game.gui.characterFolder = this.game.gui.addFolder('Player');
-                this.game.gui.characterFolder.add(settings, 'playerhealth').min(0).max(1000).step(stepSize).name('Player Health');
-                this.game.gui.characterFolder.add(settings, 'playerCHAR').min(0).max(1000).step(stepSize).name('Player Char');
-                this.game.gui.characterFolder.add(settings, 'enemyhealth').min(0).max(1000).step(stepSize).name('Enemy Health');
-                this.game.gui.characterFolder.add(settings, 'enemyCHAR').min(0).max(1000).step(stepSize).name('Enemy Char');
+                gui.characterFolder = gui.addFolder('Player');
+                gui.characterFolder.add(settings, 'playerhealth').min(0).max(1000).step(stepSize).name('Player Health');
+                gui.characterFolder.add(settings, 'playerCHAR').min(0).max(1000).step(stepSize).name('Player Char');
+                gui.characterFolder.add(settings, 'enemyhealth').min(0).max(1000).step(stepSize).name('Enemy Health');
+                gui.characterFolder.add(settings, 'enemyCHAR').min(0).max(1000).step(stepSize).name('Enemy Char');
+                //gui.characterFolder.add(settings, 'enemyCONTROL').min().max().step(stepSize).name('Enemy Controlled');
                 //end of gui code
                 this.state.start('Preloader');
         },
@@ -205,8 +207,12 @@ testState.prototype = {
         game.add.existing(player);
        	
         //ENEMY SETUP
-        enemygroup = game.add.group();
-        this.addEnemy(enemygroup);
+        //gonna take enemy out of the group, now that the game ends when one is done
+        //enemygroup = game.add.group();
+        //this.addEnemy(enemygroup);
+        var tintColor = colors[game.rnd.between(0, colors.length-1)]; //for variety, which is the spiciest of meatballs
+        enemy = new Enemy(game, 'enemy', tintColor);
+        game.add.existing(enemy);
 
         //BFF SETUP
         BFF = new BFF(game, 'player');
@@ -236,13 +242,13 @@ testState.prototype = {
 
     },
 
-    addEnemy: function(group){
+    //addEnemy: function(group){
     	//throwing out new enemies into the mix yo
-    	var tintColor = colors[game.rnd.between(0, colors.length-1)]; //for variety, which is the spiciest of meatballs
-    	enemy = new Enemy(game, 'enemy', tintColor);
-    	game.add.existing(enemy);
-    	group.add(enemy);
-    },	 
+    	
+    //	enemy = new Enemy(game, 'enemy', tintColor);
+    //	game.add.existing(enemy);
+    //	group.add(enemy);
+    //},	 
 
 	update: function() {
 		if(enemy.alive == false){
@@ -254,6 +260,7 @@ testState.prototype = {
 		}
 		//Checks if these two are adjacent, can be run on any two objects. Probably still way too centered on the player.
         isAdjacent(player, enemy);
+        //isAdjacent(BFF, enemy);
         //updates variables to what is in out settings, this is a really shitty place to update the health variable, lol one sec
         //never put things in here that govern a resource, as it will always put it to max, throw that into the constructor for said resource
         //ie, player.health = settings.playerhealth

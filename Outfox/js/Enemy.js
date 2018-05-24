@@ -7,6 +7,7 @@ var EGO;
 var CTMP;
 var RPCT;
 var TYPE;
+var iterator = 0;
 
 var spawnlocX = size*game.rnd.integerInRange(1, 8);
 var spawnlocY= size*game.rnd.integerInRange(1, 4);
@@ -27,7 +28,8 @@ function Enemy(game, key, tintColor) {
         this.RPCT = 0;
 
         this.tint = tintColor;
-        this.controlled = false;
+        this.controlled = settings.enemyCONTROL;
+        this.moveable = false;
         this.style = {font: "bold 24px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle"};
         this.TYPE = "Sarcastic";
 
@@ -52,47 +54,96 @@ Enemy.prototype.update = function() {
                 this.y += size;
             }
         }
-    
-    //ENEMY DEATH
-    if (this.RPCT >=10) {
-        var result = game.add.sprite(this.x, this.y, 'atlas', 'chat_heart_broken');
-        result.anchor.setTo(.5,.5);
-        game.time.events.add(Phaser.Timer.SECOND, killText, this);
-        this.pendingDestroy = true;
-    }else if(this.CTMP >= 10) {
-        var result = game.add.sprite(this.x, this.y, 'atlas', 'chat_heart_whole');
-        result.anchor.setTo(.5,.5);
-        game.time.events.add(Phaser.Timer.SECOND, killText, this);
-        this.pendingDestroy = true;
-    }
-    
-    function killText() {
-        console.log("killText");
-        game.add.tween(result).to( { alpha: 0 }, 420, Phaser.Easing.Linear.None, true);
-        this.controlled == false;
-        player.moveable == true;
-    }
+        //test to see if i can get the turns to actually work if i made the enemy player controlled. yup
+        // if(this.controlled == true){
+        
+        //     if(cursors.up.justPressed() && this.y != size) {
+        //         this.y = this.y - size;
+        //         this.controlled = false;
+        //         player.controlled = true;
+        //         player.moveable = true;
+        //         console.log('up pressed');
+        //     } else if(cursors.down.justPressed() && this.y != size * 4) {
+        //         this.y = this.y + size;
+        //         this.controlled = false;
+        //         player.controlled = true;
+        //         player.moveable = true;
+        //         console.log('down pressed');
+        //     } else if(cursors.left.justPressed() && this.x != size * 1) {
+        //         this.x = this.x - size;
+        //         this.controlled = false;
+        //         player.controlled = true;
+        //         player.moveable = true;
+        //         console.log('left pressed');
+        //     } else if(cursors.right.justPressed() && this.x != size * 8) {
+        //         this.x = this.x + size;
+        //         this.controlled = false;
+        //         player.controlled = true;
+        //         player.moveable = true;
+        //         console.log('right pressed');
+        //     }
+        // }
+        if(this.controlled == true) {
+            if(Math.floor(iterator) == 1){
+                if(this.y == player.y){
+                    if(player.x > this.x){
+                        this.x = this.x + size;
+                        this.controlled = false;
+                        iterator = 0;
+                        player.controlled = true;
+                        player.moveable = true;
+                    }else if(player.x < this.x){
+                        this.x = this.x - size;
+                        this.controlled = false;
+                        iterator = 0;
+                        player.controlled = true;
+                        player.moveable = true;
+                    }
+                }else if(this.y < player.y){
+                    this.y = this.y + size;
+                    this.controlled = false;
+                    iterator = 0;
+                    player.controlled = true;
+                    player.moveable = true;
+                }else if(this.y > player.y){
+                    this.y = this.y - size;
+                    this.controlled = false;
+                    iterator = 0;
+                    player.controlled = true;
+                    player.moveable = true;
+                }
+            }
+            console.log('hey we hit this at least')
+            iterator += 0.01;
+        }
+
+        //ENEMY DEATH
+        if (this.RPCT >=10) {
+            var result = game.add.sprite(this.x, this.y, 'atlas', 'chat_heart_broken');
+            result.anchor.setTo(.5,.5);
+            game.time.events.add(Phaser.Timer.SECOND, killText, this);
+            this.pendingDestroy = true;
+        }else if(this.CTMP >= 10) {
+            var result = game.add.sprite(this.x, this.y, 'atlas', 'chat_heart_whole');
+            result.anchor.setTo(.5,.5);
+            game.time.events.add(Phaser.Timer.SECOND, killText, this);
+            this.pendingDestroy = true;
+        }
+        
+        function killText() {
+            console.log("killText");
+            game.add.tween(result).to( { alpha: 0 }, 420, Phaser.Easing.Linear.None, true);
+            this.controlled == false;
+            player.moveable == true;
+        }
     //trying to make a delay between enemy actions and yours, see if you can get it to work.
-    if(this.controlled == true){
+    //if(this.controlled == true){
         //delay();
-        console.log("ENEMY NO TURN");
-        delayOver();
-    }
+    //    console.log("ENEMY NO TURN");
+
+    //}
 
 //function delay(){
   //  game.time.events.add(Phaser.Timer.SECOND * 4, delayOver, this);
 //}
-function delayOver(){
-    if(enemy.y == size) {
-        enemy.y += size;
-    } else if(enemy.y == size * 4) {
-        enemy.y -= size;
-    }else {
-        enemy.y += (size * game.rnd.integerInRange(-1, 1) );
-    }
-    //Update Turn
-    player.moveable = true;
-    enemy.controlled = false;
-    console.log('Enemy Moved!');
-}
 }
