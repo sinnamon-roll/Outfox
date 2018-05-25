@@ -21,7 +21,7 @@ isAdjacent = function(character, subject){
             //character.range.x = character.x - size;
             //character.range.y = character.y - size;
             //character.range.visible = true;
-        
+            if(character.controlled == true){
             //Keyboard input only available when adjacent
             if (cKey.justPressed() && character.EXH > 0) {
                 //Exhaust Player
@@ -103,11 +103,10 @@ isAdjacent = function(character, subject){
                     gameLog.setText('The fox regards you calmly.');
                     sarEmitter.makeParticles('atlas','x_red');
                 }
-                
-                sarEmitter.start(true, 2000, null, 20);    // (explode, lifespan, freq, quantity)
-            }
-        } else {
+            } 
+        }else {
             //character.range.visible = false;
+
         }
     
     function killPop() {

@@ -19,6 +19,7 @@ function Player(game, key) {
     cKey = game.input.keyboard.addKey(Phaser.Keyboard.C);
     sKey = game.input.keyboard.addKey(Phaser.Keyboard.S);
     bKey = game.input.keyboard.addKey(Phaser.Keyboard.B);
+    wKey = game.input.keyboard.addKey(Phaser.Keyboard.W);
 
 
     //CHARACTER STATS
@@ -27,7 +28,14 @@ function Player(game, key) {
     this.SAR = 1;
     this.EGO = 4;
     this.EXH = 3;
+
+    this.controlled = true;
+    this.moveable = true;
+    this.acted = false;
+    //game.time.events.add(Phaser.Timer.SECOND*5, this.delayOver, this);
+
     this.TYPE = "Egotistic";
+
 
 
 	// put some physics on it
@@ -54,58 +62,55 @@ Player.prototype.constructor = Player;
 
 // override Phaser.Sprite update (player update function)
 Player.prototype.update = function() {
-        if(cursors.up.justPressed() ) {
-            if(this.y == size){
-                gameLog.setText('The laboratory wall prevents you from going further.');
-            }else if(enemy.y ==(this.y - size) && this.adj == true ){
-                gameLog.setText(enemy.NAME + ' blocks your path.');
-            }else if(BFF.y ==(this.y - size) && BFF.adj == true ){
-                gameLog.setText(BFF.NAME + ' blocks your path.');
-            }else
+	if (this.moveable == true){
+        if(cursors.up.justPressed() && this.y != size) {
             this.y = this.y - size;
             this.animations.play('up');
             this.frame = 4;
-            console.log('up pressed');
-               
-        } else if(cursors.down.justPressed() ) {
-            if(this.y == size * 4){
-                gameLog.setText('The laboratory wall prevents you from going further.');
-            }else if(enemy.y ==(this.y + size) && this.adj == true ){
-                gameLog.setText(enemy.NAME + ' blocks your path.');
-            }else if(BFF.y ==(this.y + size) && BFF.adj == true ){
-                gameLog.setText(BFF.NAME + ' blocks your path.');
-            }else
+            this.moveable = false;
+		    console.log('up pressed');
+        } else if(cursors.down.justPressed() && this.y != size * 4) {
             this.y = this.y + size;
             this.animations.play('down');
             this.frame = 1;
+            this.moveable = false;
             console.log('down pressed');
-            
-        } else if(cursors.left.justPressed() ) {
-            if (this.x == size) {
-                gameLog.setText('The laboratory wall prevents you from going further.');
-            }else if(enemy.x ==(this.x - size) && this.adj == true ){
-                gameLog.setText(enemy.NAME + ' blocks your path.');
-            }else if(BFF.y ==(this.x - size) && BFF.adj == true ){
-                gameLog.setText(BFF.NAME + ' blocks your path.');
-            }else
+        } else if(cursors.left.justPressed() && this.x != size * 1) {
             this.x = this.x - size;
             this.animations.play('left');
             this.frame = 7;
+            this.moveable = false;
             console.log('left pressed');
-            
-        } else if(cursors.right.justPressed() ) {
-            if (this.x == size * 8) {
-                gameLog.setText('The laboratory wall prevents you from going further.');
-            }else if(enemy.x ==(this.x + size) && this.adj == true ){
-                gameLog.setText(enemy.NAME + ' blocks your path.');
-            }else if(BFF.y ==(this.x + size) && BFF.adj == true ){
-                gameLog.setText(BFF.NAME + ' blocks your path.');
-            }else
+        } else if(cursors.right.justPressed() && this.x != size * 8) {
             this.x = this.x + size;
             this.animations.play('right');
             this.frame = 10;
+            this.moveable = false;
             console.log('right pressed');
         }
+  }
+  if (this.controlled == true){
+        if (cKey.justPressed()){
+            this.controlled = false;
+            this.acted = true;
+    	}else if(sKey.justPressed()){
+            this.controlled = false;
+            this.acted = true;
+    	}else if(bKey.justPressed()){
+            this.controlled = false;
+            this.acted = true;
+        }else if(wKey.justPressed()){
+            console.log("Waiting");
+            this.controlled = false;
+            this.moveable = false;
+            this.acted = true;
+        }
+  }
+  if(this.controlled == false && this.moveable == false && this.acted == true){
+        BFF.controlled = true;
+        BFF.moveable = true;
+        this.acted = false;
+  }
     
     if(this.EXH == 0) {
         this.tired.frame = 8;
