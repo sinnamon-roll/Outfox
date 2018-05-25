@@ -59,35 +59,7 @@ Enemy.prototype.update = function() {
                 this.y += size;
             }
         }
-        //test to see if i can get the turns to actually work if i made the enemy player controlled. yup
-        // if(this.controlled == true){
-        
-        //     if(cursors.up.justPressed() && this.y != size) {
-        //         this.y = this.y - size;
-        //         this.controlled = false;
-        //         player.controlled = true;
-        //         player.moveable = true;
-        //         console.log('up pressed');
-        //     } else if(cursors.down.justPressed() && this.y != size * 4) {
-        //         this.y = this.y + size;
-        //         this.controlled = false;
-        //         player.controlled = true;
-        //         player.moveable = true;
-        //         console.log('down pressed');
-        //     } else if(cursors.left.justPressed() && this.x != size * 1) {
-        //         this.x = this.x - size;
-        //         this.controlled = false;
-        //         player.controlled = true;
-        //         player.moveable = true;
-        //         console.log('left pressed');
-        //     } else if(cursors.right.justPressed() && this.x != size * 8) {
-        //         this.x = this.x + size;
-        //         this.controlled = false;
-        //         player.controlled = true;
-        //         player.moveable = true;
-        //         console.log('right pressed');
-        //     }
-        // }
+
         if(this.controlled == true) {
             if(Math.floor(iterator) == 1){
                 if(this.y == player.y){
@@ -141,14 +113,5 @@ Enemy.prototype.update = function() {
             this.controlled == false;
             player.moveable == true;
         }
-    //trying to make a delay between enemy actions and yours, see if you can get it to work.
-    //if(this.controlled == true){
-        //delay();
-    //    console.log("ENEMY NO TURN");
 
-    //}
-
-//function delay(){
-  //  game.time.events.add(Phaser.Timer.SECOND * 4, delayOver, this);
-//}
 }

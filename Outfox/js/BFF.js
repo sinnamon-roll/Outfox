@@ -96,10 +96,16 @@ BFF.prototype.update = function() {
 	            //play audio
 	            var bark = game.add.audio('boostSound');
 	            bark.play('',0,1,false)
+                //Animate Battery
+                var popup = game.add.sprite(player.x, player.y, 'atlas', 's_batteryFull');
+                popup.anchor.setTo(.5,.5);
+                game.time.events.add(Phaser.Timer.SECOND * 0.5, killPop, this);
 	            this.controlled = false;
+                this.acted = true;
 	        }else if (bKey.justPressed() && player.EXH >=7) {
 	            gameLog.setText('The kind fox has little to say.');
 	            this.controlled = false;
+                this.acted = true;
 	        }
 	    }
 	}

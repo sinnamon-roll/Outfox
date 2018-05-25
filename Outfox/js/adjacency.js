@@ -103,6 +103,7 @@ isAdjacent = function(character, subject){
                     gameLog.setText('The fox regards you calmly.');
                     sarEmitter.makeParticles('atlas','x_red');
                 }
+                sarEmitter.start(true, 2000, null, 20);    // (explode, lifespan, freq, quantity)
             } 
         }else {
             //character.range.visible = false;
@@ -114,3 +115,4 @@ isAdjacent = function(character, subject){
         game.add.tween(popup).to( { alpha: 0 }, 420, Phaser.Easing.Linear.None, true);
     }
     }
+}
