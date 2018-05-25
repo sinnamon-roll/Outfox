@@ -51,7 +51,7 @@ isAdjacent = function(character, subject){
                 
                 //Determine if weak/resistant
                 if (subject.TYPE == 'Sarcastic') {
-                    subject.RPCT += (character.CHAR / 2);
+                    subject.RPCT += Math.floor(character.CHAR / 2);
                     gameLog.setText('Your cries fall on deaf ears.');
                     charEmitter.makeParticles('atlas','-_red');        // image used for particles
                 } else if (subject.TYPE == 'Charismatic') {
@@ -95,7 +95,7 @@ isAdjacent = function(character, subject){
                     gameLog.setText('The bark is Super Effective');
                     sarEmitter.makeParticles('atlas','+_green');        // image used for particles
                 } else if (subject.TYPE == 'Charismatic') {
-                    subject.CTMP += (character.SAR / 2);
+                    subject.CTMP += Math.floor(character.SAR / 2);
                     gameLog.setText('Your cries fall on deaf ears.');
                     sarEmitter.makeParticles('atlas','-_red');        // image used for particles
                 } else {

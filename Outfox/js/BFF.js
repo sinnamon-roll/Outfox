@@ -7,6 +7,7 @@ var SAR;
 var EGO;
 var CTMP;
 var RPCT;
+var EXH;
 var TYPE; //Ro-Sham-Bo
 var NAME;
 
@@ -24,6 +25,7 @@ function BFF(game, key) {
         this.EGO = 3;
         this.CTMP = 0;
         this.RPCT = 0;
+        this.EXH = 9999;
         this.TYPE = "Charisma";
         this.NAME = "The Patient Fox";
 
@@ -89,7 +91,16 @@ BFF.prototype.update = function() {
     }
     
     if(this.controlled == true){
-	    if(this.adj == true) {
+        //DISPLAY STATS
+        leftName.setText(this.NAME);
+        playerIcon.tint = this.tint;
+        playerStats.text = 'Type: ' + this.TYPE + '\n' +
+        'Charisma: ' + this.CHAR + '\n' +
+        'Sarcasm: ' + this.SAR + '\n' +
+        'Ego: ' + this.EGO + '\n' +
+        'Resolve: ' + this.EXH + '\n'
+        ;
+        if(this.adj == true) {
 	        if (bKey.justPressed() && player.EXH <=7) {
 	            player.EXH += 3;
 	            gameLog.setText('The fox who treated you with\nkindness gives you an\n encouraging bark.');
@@ -118,9 +129,8 @@ BFF.prototype.update = function() {
             this.acted = true;
         }else if(wKey.justPressed()){
             console.log("Waiting");
-            this.controlled = false;
-            this.moveable = false;
-            this.acted = true;
+            gameLog.setText(this.NAME + ' takes a moment to compose a thought.');
+            game.time.events.add(Phaser.Timer.SECOND * 3, changeTurn, this);
         }
     }
     if(this.controlled == false && this.moveable == false && this.acted == true){
@@ -132,6 +142,12 @@ BFF.prototype.update = function() {
     function killPop() {
         console.log("killPop");
         game.add.tween(popup).to( { alpha: 0 }, 420, Phaser.Easing.Linear.None, true);
+    }
+    function changeTurn() {
+        console.log("switching");
+        this.controlled = false;
+        this.moveable = false;
+        this.acted = true;
     }
 
 }

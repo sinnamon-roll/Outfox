@@ -278,7 +278,7 @@ testState.prototype = {
 	update: function() {
 		if(enemy.alive == false){
 			//this.addEnemy(enemygroup);
-            game.time.events.add(Phaser.Timer.SECOND * 1, function() {
+            game.time.events.add(Phaser.Timer.SECOND * 7, function() {
                     firstMusic.stop();
                     game.state.start('Congrats')
                 });
@@ -292,12 +292,6 @@ testState.prototype = {
         player.CHAR = settings.playerCHAR;
         enemy.CHAR = settings.enemyCHAR;
         
-        playerStats.text = 'Type: ' + player.TYPE + '\n' +
-                            'Charisma: ' + player.CHAR + '\n' +
-                            'Sarcasm: ' + player.SAR + '\n' +
-                            'Ego: ' + player.EGO + '\n' +
-                            'Resolve: ' + player.EXH + '\n'
-        ;
         if (player.adj == true) {
             //display stats
             enemyStats.visible = true;

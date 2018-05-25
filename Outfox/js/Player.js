@@ -9,6 +9,7 @@ var CTMP;
 var RPCT;
 var EXH;
 var TYPE; //Ro-Sham-Bo
+var NAME;
 
 function Player(game, key) {
 	// call to Phaser.Sprite // new Sprite(game, x, y, key, frame)
@@ -28,6 +29,7 @@ function Player(game, key) {
     this.SAR = 1;
     this.EGO = 4;
     this.EXH = 3;
+    this.NAME = "Player Fox";
 
     this.controlled = true;
     this.moveable = true;
@@ -94,9 +96,9 @@ Player.prototype.update = function() {
         } else if(cursors.left.justPressed() ) {
             if (this.x == size) {
                 gameLog.setText('The laboratory wall prevents you from going further.');
-            }else if(enemy.x ==(this.x - size) && this.adj == true ){
+            }else if(enemy.x ==(this.x - size) && enemy.y == this.y){
                 gameLog.setText(enemy.NAME + ' blocks your path.');
-            }else if(BFF.y ==(this.x - size) && BFF.adj == true ){
+            }else if(BFF.y ==(this.x - size) && BFF.adj == true){
                 gameLog.setText(BFF.NAME + ' blocks your path.');
             }else
                 this.x = this.x - size;
@@ -121,6 +123,16 @@ Player.prototype.update = function() {
         }
   }
   if (this.controlled == true){
+      //DISPLAY STATS
+      playerIcon.tint = 0xFFFFFF; //default value
+      leftName.setText(this.NAME);
+      playerStats.text = 'Type: ' + this.TYPE + '\n' +
+      'Charisma: ' + this.CHAR + '\n' +
+      'Sarcasm: ' + this.SAR + '\n' +
+      'Ego: ' + this.EGO + '\n' +
+      'Resolve: ' + this.EXH + '\n'
+      ;
+      
         if (cKey.justPressed()){
             this.controlled = false;
             this.acted = true;
@@ -132,6 +144,7 @@ Player.prototype.update = function() {
             this.acted = true;
         }else if(wKey.justPressed()){
             console.log("Waiting");
+            gameLog.setText(this.NAME + ' takes a moment to compose a thought.');
             this.controlled = false;
             this.moveable = false;
             this.acted = true;

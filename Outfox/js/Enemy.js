@@ -61,6 +61,7 @@ Enemy.prototype.update = function() {
         }
 
         if(this.controlled == true) {
+            gameLog.setText(this.NAME +'\'s turn.');
             if(Math.floor(iterator) == 1){
                 if(this.y == player.y){
                     if(player.x > this.x){
@@ -89,6 +90,7 @@ Enemy.prototype.update = function() {
                     player.controlled = true;
                     player.moveable = true;
                 }
+                gameLog.setText(this.NAME +' runs around!');
             }
             console.log('hey we hit this at least')
             iterator += 0.01;
@@ -96,11 +98,13 @@ Enemy.prototype.update = function() {
 
         //ENEMY DEATH
         if (this.RPCT >=10) {
+            gameLog.setText(this.NAME +', overwhelmed by your zeal, got intimidated and ran.');
             var result = game.add.sprite(this.x, this.y, 'atlas', 'chat_heart_broken');
             result.anchor.setTo(.5,.5);
             game.time.events.add(Phaser.Timer.SECOND, killText, this);
             this.pendingDestroy = true;
         }else if(this.CTMP >= 10) {
+            gameLog.setText(this.NAME +' walked away convinced to join your escape effort.');
             var result = game.add.sprite(this.x, this.y, 'atlas', 'chat_heart_whole');
             result.anchor.setTo(.5,.5);
             game.time.events.add(Phaser.Timer.SECOND, killText, this);
