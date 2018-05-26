@@ -169,6 +169,7 @@ BFF.prototype.update = function() {
         if(wKey.justPressed()){
             console.log("Waiting");
             gameLog.setText(this.NAME + ' takes a moment to compose a thought.');
+            this.controlled = false;
             game.time.events.add(Phaser.Timer.SECOND * 3, changeTurn, this);
         }
     }
@@ -193,7 +194,6 @@ BFF.prototype.update = function() {
     }
     function changeTurn() {
         console.log("switching");
-        this.controlled = false;
         this.moveable = false;
         this.acted = true;
     }
