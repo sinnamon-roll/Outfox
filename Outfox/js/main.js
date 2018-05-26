@@ -8,6 +8,7 @@ var colors = [0x1BE7FF, 0x6EEB83, 0xE4FF1A, 0xE8AA14, 0xE8AA14];
 var debug = false;
 var menuText;
 var firstMusic;
+var logoSound;
 
 var Boot = function(game){};
 Boot.prototype = {
@@ -67,12 +68,14 @@ Preloader.prototype = {
             //Load Sprite Atlas
             this.load.atlas('atlas','emoji.png','emoji.json');
             this.load.atlas('UI','ui.png','ui.json');
+            this.load.image('logo', 'CCGLogo.png');
 
             
             //MUSIC
             game.load.path = 'assets/audio/';
             //Song obtained from:: freesound.org/people/dobroide/sounds/34580/
             game.load.audio('bgMusic',['BGMusic.mp3']);
+            game.load.audio('logoSound',['logoSound.mp3']);
             game.load.audio('charSound',['gekkering01.mp3']);
             game.load.audio('sarSound',['fox_alert.mp3']);
             game.load.audio('boostSound',['vixensScream.mp3']);
@@ -83,21 +86,66 @@ Preloader.prototype = {
         },
         update: function(){
                 console.log('Preloader: Update');
-                this.state.start('MainMenu');
+                this.state.start('logoScreen');
         },
 }
+
+var logoScreen = function(game) {};
+logoScreen.prototype = {
+        preload: function(){
+            console.log('logoScreen: preload');
+            
+        },
+        create: function() {
+            console.log('logoScreen: create');
+            var CCGLogo = game.add.sprite(0,0, 'logo');
+
+            CCGLogo.anchor.setTo(0, 0);
+            CCGLogo.alpha = 0;
+
+            //game.add.tween(sprite).to( { alpha: 1 }, 3000, Phaser.Easing.Linear.None, true, 0, 1000, true);
+            //game.add.tween(sprite).to( { alpha: 1 }, 2000, Phaser.Easing.Linear.None, true, 0, 1000, false);
+            game.add.tween(CCGLogo).to( { alpha: 1 }, 1500, Phaser.Easing.Linear.None, true);
+            this.logoUp = game.add.audio('logoSound');
+            game.time.events.add(1500, logoSound, this);
+            game.time.events.add(3000, fadeOut, this);
+
+            function logoSound() {
+                this.logoUp.play('', 0, 0.1, false);
+            }
+            
+            function fadeOut() {
+                game.add.tween(CCGLogo).to( { alpha: 0 }, 1500, Phaser.Easing.Linear.None, true);
+            }
+
+            game.time.events.add(5250, changeState, this, 'MainMenu');
+
+            function changeState(stateID) {
+                game.state.start('MainMenu');
+            }
+            
+    },
+        update: function(){
+            if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR) ){
+                this.state.start('MainMenu');
+            }
+
+        },
+}
+
 var MainMenu = function(game) {};
 MainMenu.prototype = {
         preload: function(){
             console.log('MainMenu: preload');
+            
         },
         create: function() {
             console.log('MainMenu: create');
             game.stage.backgroundColor = "#F26B1D";
-        // State change instructions and intro text -----------------------------------------------
+            // State change instructions and intro text -----------------------------------------------
             menuText = game.add.text(200, 150, 'Outfox', { font: 'Fira Sans', fontSize: '48px', fill: '#000' });
-        menuText = game.add.text(240, 200, 'by Cherry Coke Gummies', { font: 'Fira Sans', fontSize: '22px', fill: '#000' });
-        menuText = game.add.text(150, 300, 'Press space to start', { font: 'Fira Sans', fontSize: '30px', fill: '#000' });
+            menuText = game.add.text(240, 200, 'by Cherry Coke Gummies', { font: 'Fira Sans', fontSize: '22px', fill: '#000' });
+            menuText = game.add.text(150, 300, 'Press space to start', { font: 'Fira Sans', fontSize: '30px', fill: '#000' });
             menuText = game.add.text(150, 350, 'Press enter to see the Foxes Responsible', { font: 'Fira Sans', fontSize: '30px', fill: '#000', wordWrapWidth: '400', wordWrap: 'true' });
             
     },
@@ -179,6 +227,7 @@ testState.prototype = {
         this.load.path = 'assets/img/'; 
         // load image assets
         this.load.images(['tempLayout', 'grid'], ['tempLayout.png', 'tempGrid.png']);
+        this.load.image('playField', 'playField.png', 0, 0);
     },
 
     create: function() {
@@ -206,6 +255,7 @@ testState.prototype = {
         mapLayer = map.createLayer('Ground Level');
         //set the world size to match the size of the Tilemap Layer
         //mapLayer.resizeWorld();
+        game.add.sprite(0, 0, 'playField');
    
         //PLAYER SETUP
         //this.spawnPlayer();
@@ -408,6 +458,7 @@ GameOver.prototype = {
 }
 
 game.state.add('test', testState);
+game.state.add('logoScreen', logoScreen);
 game.state.add('MainMenu', MainMenu);
 game.state.add('Prologue', Prologue);
 game.state.add('Congrats', Congrats);
