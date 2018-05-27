@@ -52,11 +52,16 @@ function Player(game, key) {
     this.tired = game.add.sprite(this.x + size, this.y - size, 'atlas','s_batteryOut');
     this.tired.visible = false;
     
+    //SILENCE
+    this.popup = game.add.sprite(this.x + size, this.y - size, 'atlas','s_batteryOut');
+    this.popup.visible = false;
+    
     //ANIMATIONS
     this.animations.add('left', [6,7,8], false);
     this.animations.add('right', [9,10,11], false);
     this.animations.add('up', [3,4,5], false);
     this.animations.add('down', [0,1,2], false);
+    this.popup.animations.add('silent', [2,3,9], 1, false);
 }
 // explicitly define prefab's prototype (Phaser.Sprite) and constructor (Player)
 Player.prototype = Object.create(Phaser.Sprite.prototype);
@@ -98,7 +103,7 @@ Player.prototype.update = function() {
                 gameLog.setText('The laboratory wall prevents you from going further.');
             }else if(enemy.x ==(this.x - size) && enemy.y == this.y){
                 gameLog.setText(enemy.NAME + ' blocks your path.');
-            }else if(BFF.y ==(this.x - size) && BFF.adj == true){
+            }else if(BFF.x ==(this.x - size) && BFF.adj == true){
                 gameLog.setText(BFF.NAME + ' blocks your path.');
             }else
                 this.x = this.x - size;
@@ -112,7 +117,7 @@ Player.prototype.update = function() {
                 gameLog.setText('The laboratory wall prevents you from going further.');
             }else if(enemy.x ==(this.x + size) && this.adj == true ){
                 gameLog.setText(enemy.NAME + ' blocks your path.');
-            }else if(BFF.y ==(this.x + size) && BFF.adj == true ){
+            }else if(BFF.x ==(this.x + size) && BFF.adj == true ){
                 gameLog.setText(BFF.NAME + ' blocks your path.');
             }else
                 this.x = this.x + size;
@@ -155,6 +160,15 @@ Player.prototype.update = function() {
         BFF.moveable = true;
         this.acted = false;
   }
+    if (this.controlled == false) {
+        this.popup.x = this.x + size/2;
+        this.popup.y = this.y - size/2;
+        this.popup.animations.play('silent');
+        this.popup.visible = true;
+        this.popup.bringToTop();
+    }else {
+        this.popup.visible = false;
+    }
     
     if(this.EXH == 0) {
         this.tired.frame = 8;

@@ -33,6 +33,14 @@ function BFF(game, key) {
         this.moveable = false;
         this.controlled = false;
         this.acted = false;
+    
+        //EXHAUSTION
+        this.popup = game.add.sprite(this.x + size, this.y - size, 'atlas','s_batteryOut');
+        this.popup.visible = false;
+    
+        //ANIMATIONS
+        this.popup.animations.add('silent', [2,3,9], 1, false);
+
 }
 // explicitly define prefab's prototype (Phaser.Sprite) and constructor (Player)
 BFF.prototype = Object.create(Phaser.Sprite.prototype);
@@ -43,28 +51,66 @@ BFF.prototype.update = function() {
     //IF it is BFF's turn to move
     if(this.moveable == true){
         
-        if(cursors.up.justPressed() && this.y != size) {
-            this.y = this.y - size;
-            this.loadTexture('back');
+        if(cursors.up.justPressed() ) {
+            if(this.y == size){
+                gameLog.setText('The laboratory wall prevents you from going further.');
+            }else if(enemy.y ==(this.y - size) && enemy.x == this.x ){
+                gameLog.setText(enemy.NAME + ' blocks ' + this.NAME +'\'s path.');
+            }else if(player.y ==(this.y - size) && player.x == this.x ){
+                gameLog.setText(player.NAME + ' blocks ' + this.NAME +'\'s path.');
+            }else
+                this.y = this.y - size;
+            this.animations.play('up');
+            this.frame = 4;
             this.moveable = false;
-        console.log('up pressed');
-        } else if(cursors.down.justPressed() && this.y != size * 4) {
-            this.y = this.y + size;
-            this.loadTexture('player');
+            console.log('up pressed');
+            
+        } else if(cursors.down.justPressed() ) {
+            if(this.y == size * 4){
+                gameLog.setText('The laboratory wall prevents you from going further.');
+            }else if(enemy.y ==(this.y + size) && enemy.x == this.x ){
+                gameLog.setText(enemy.NAME + ' blocks ' + this.NAME +'\'s path.');
+            }else if(player.y ==(this.y + size) && player.x == this.x ){
+                gameLog.setText(player.NAME + ' blocks ' + this.NAME +'\'s path.');
+            }else
+                this.y = this.y + size;
+            this.animations.play('down');
+            this.frame = 1;
             this.moveable = false;
-        console.log('down pressed');
-        } else if(cursors.left.justPressed() && this.x != size * 1) {
-            this.x = this.x - size;
+            console.log('down pressed');
+            
+        } else if(cursors.left.justPressed() ) {
+            if (this.x == size) {
+                gameLog.setText('The laboratory wall prevents you from going further.');
+            }else if(enemy.x ==(this.x - size) && enemy.y == this.y){
+                gameLog.setText(enemy.NAME + ' blocks ' + this.NAME +'\'s path.');
+            }else if(player.x ==(this.x - size) && player.y == this.y){
+                gameLog.setText(player.NAME + ' blocks ' + this.NAME +'\'s path.');
+            }else
+                this.x = this.x - size;
+            this.animations.play('left');
+            this.frame = 7;
             this.moveable = false;
-        console.log('left pressed');
-        } else if(cursors.right.justPressed() && this.x != size * 8) {
-            this.x = this.x + size;
+            console.log('left pressed');
+            
+        } else if(cursors.right.justPressed() ) {
+            if (this.x == size * 8) {
+                gameLog.setText('The laboratory wall prevents you from going further.');
+            }else if(enemy.x ==(this.x + size) && enemy.y == this.y ){
+                gameLog.setText(enemy.NAME + ' blocks ' + this.NAME +'\'s path.');
+            }else if(player.x ==(this.x + size) && player.y == this.y ){
+                gameLog.setText(player.NAME + ' blocks ' + this.NAME +'\'s path.');
+            }else
+                this.x = this.x + size;
+            this.animations.play('right');
+            this.frame = 10;
             this.moveable = false;
-        console.log('right pressed');
+            console.log('right pressed');
         }
     }
     //If the BFF and player are overlapped
         if( this.y == player.y && this.x == player.x){
+            console.log("Player Overlap");
             if(player.y == size * 4) {
                 if (player.x == size * 4) {
                     this.x -= size;
@@ -115,21 +161,15 @@ BFF.prototype.update = function() {
                 this.acted = true;
 	        }else if (bKey.justPressed() && player.EXH >=7) {
 	            gameLog.setText('The kind fox has little to say.');
-	            this.controlled = false;
-                this.acted = true;
+                game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
 	        }
 	    }
 	}
     if (this.controlled == true){
-        if (cKey.justPressed()){
-            this.controlled = false;
-            this.acted = true;
-        }else if(sKey.justPressed()){
-            this.controlled = false;
-            this.acted = true;
-        }else if(wKey.justPressed()){
+        if(wKey.justPressed()){
             console.log("Waiting");
             gameLog.setText(this.NAME + ' takes a moment to compose a thought.');
+            this.controlled = false;
             game.time.events.add(Phaser.Timer.SECOND * 3, changeTurn, this);
         }
     }
@@ -138,6 +178,15 @@ BFF.prototype.update = function() {
         this.acted = false;
 
   	}
+    if (this.controlled == false) {
+        this.popup.x = this.x + size/2;
+        this.popup.y = this.y - size/2;
+        this.popup.animations.play('silent');
+        this.popup.visible = true;
+        this.popup.bringToTop();
+    }else {
+        this.popup.visible = false;
+    }
 
     function killPop() {
         console.log("killPop");
@@ -145,8 +194,12 @@ BFF.prototype.update = function() {
     }
     function changeTurn() {
         console.log("switching");
-        this.controlled = false;
         this.moveable = false;
+        this.acted = true;
+    }
+    function useAction() {
+        console.log("using your action");
+        this.controlled = false;
         this.acted = true;
     }
 
