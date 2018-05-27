@@ -36,7 +36,7 @@ isAdjacent = function(character, subject){
                 //popup.animations.add('beat', [4, 5], 10,true);
                 //popup.play('beat');
                 game.time.events.add(Phaser.Timer.SECOND * 0.5, killPop, this);
-                
+                game.time.events.add(Phaser.Timer.SECOND * 3, cBark, this);
                 
                 //emit sprites
                 // collision causes particle explosion
@@ -47,28 +47,15 @@ isAdjacent = function(character, subject){
                 charEmitter.maxParticleScale = 1.5;
                 charEmitter.setXSpeed(-50,50);            // set min/max horizontal speed
                 charEmitter.setYSpeed(-50,50);            // set min/max vertical speed
-
                 
-                //Determine if weak/resistant
-                if (subject.TYPE == 'Sarcastic') {
-                    subject.RPCT += Math.floor(character.CHAR / 2);
-                    gameLog.setText('Your cries fall on deaf ears.');
-                    charEmitter.makeParticles('atlas','-_red');        // image used for particles
-                } else if (subject.TYPE == 'Charismatic') {
-                    subject.RPCT += (character.CHAR * 2);
-                    gameLog.setText('Super Effective!');
-                    charEmitter.makeParticles('atlas','+_green');
-                } else {
-                    subject.RPCT += character.CHAR;
-                    gameLog.setText('The fox regards you calmly.');
-                    charEmitter.makeParticles('atlas','x_red');
-                }
-
-                charEmitter.start(true, 2000, null, 20);    // (explode, lifespan, freq, quantity)
             }
             if (sKey.justPressed() && character.EXH > 0) {
                 //Exhaust Player
                 character.EXH -= 1;
+                
+                //Display GameLog
+                gameLog.setText('"Don\'t you just love eating dog food every day?"');
+                
                 //play audio
                 var sar = game.add.audio('sarSound');
                 sar.play('',0,1,false)
@@ -78,6 +65,7 @@ isAdjacent = function(character, subject){
                 //popup.animations.add('smirk', [12, 13], 10,true);
                 //popup.play('smirk');
                 game.time.events.add(Phaser.Timer.SECOND * 0.5, killPop, this);
+                game.time.events.add(Phaser.Timer.SECOND * 3, sBark, this);
                 
                 //emit sprites
                 // collision causes particle explosion
@@ -88,7 +76,17 @@ isAdjacent = function(character, subject){
                 sarEmitter.maxParticleScale = 1.5;
                 sarEmitter.setXSpeed(-50,50);            // set min/max horizontal speed
                 sarEmitter.setYSpeed(-50,50);            // set min/max vertical speed
+            }
+        }else {
+            //character.range.visible = false;
 
+        }
+    
+    function killPop() {
+        console.log("killPop");
+        game.add.tween(popup).to( { alpha: 0 }, 420, Phaser.Easing.Linear.None, true);
+    }
+    function sBark() {
                 //Ro-Sham-Bo
                 if (subject.TYPE == 'Sarcastic') {
                     subject.CTMP += (character.SAR * 2);
@@ -104,15 +102,23 @@ isAdjacent = function(character, subject){
                     sarEmitter.makeParticles('atlas','x_red');
                 }
                 sarEmitter.start(true, 2000, null, 20);    // (explode, lifespan, freq, quantity)
-            } 
-        }else {
-            //character.range.visible = false;
-
+    }
+    function cBark() {
+        //Determine if weak/resistant
+        if (subject.TYPE == 'Sarcastic') {
+            subject.RPCT += Math.floor(character.CHAR / 2);
+            gameLog.setText('Your cries fall on deaf ears.');
+            charEmitter.makeParticles('atlas','-_red');        // image used for particles
+        } else if (subject.TYPE == 'Charismatic') {
+            subject.RPCT += (character.CHAR * 2);
+            gameLog.setText('Super Effective!');
+            charEmitter.makeParticles('atlas','+_green');
+        } else {
+            subject.RPCT += character.CHAR;
+            gameLog.setText('The fox regards you calmly.');
+            charEmitter.makeParticles('atlas','x_red');
         }
-    
-    function killPop() {
-        console.log("killPop");
-        game.add.tween(popup).to( { alpha: 0 }, 420, Phaser.Easing.Linear.None, true);
+        charEmitter.start(true, 2000, null, 20);    // (explode, lifespan, freq, quantity)
     }
     }
 }

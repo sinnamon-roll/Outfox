@@ -58,8 +58,10 @@ BFF.prototype.update = function() {
                 gameLog.setText(enemy.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else if(player.y ==(this.y - size) && player.x == this.x ){
                 gameLog.setText(player.NAME + ' blocks ' + this.NAME +'\'s path.');
-            }else
+            }else {
                 this.y = this.y - size;
+                gameLog.setText(this.NAME + ' takes a step.');
+            }
             this.animations.play('up');
             this.frame = 4;
             this.moveable = false;
@@ -72,8 +74,10 @@ BFF.prototype.update = function() {
                 gameLog.setText(enemy.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else if(player.y ==(this.y + size) && player.x == this.x ){
                 gameLog.setText(player.NAME + ' blocks ' + this.NAME +'\'s path.');
-            }else
+            }else {
                 this.y = this.y + size;
+                gameLog.setText(this.NAME + ' takes a step.');
+            }
             this.animations.play('down');
             this.frame = 1;
             this.moveable = false;
@@ -86,8 +90,10 @@ BFF.prototype.update = function() {
                 gameLog.setText(enemy.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else if(player.x ==(this.x - size) && player.y == this.y){
                 gameLog.setText(player.NAME + ' blocks ' + this.NAME +'\'s path.');
-            }else
+            }else {
                 this.x = this.x - size;
+                gameLog.setText(this.NAME + ' takes a step.');
+            }
             this.animations.play('left');
             this.frame = 7;
             this.moveable = false;
@@ -100,8 +106,10 @@ BFF.prototype.update = function() {
                 gameLog.setText(enemy.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else if(player.x ==(this.x + size) && player.y == this.y ){
                 gameLog.setText(player.NAME + ' blocks ' + this.NAME +'\'s path.');
-            }else
+            }else {
                 this.x = this.x + size;
+                gameLog.setText(this.NAME + ' takes a step.');
+            }
             this.animations.play('right');
             this.frame = 10;
             this.moveable = false;

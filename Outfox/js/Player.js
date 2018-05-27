@@ -77,8 +77,10 @@ Player.prototype.update = function() {
                 gameLog.setText(enemy.NAME + ' blocks your path.');
             }else if(BFF.y ==(this.y - size) && BFF.adj == true ){
                 gameLog.setText(BFF.NAME + ' blocks your path.');
-            }else
+            }else {
                 this.y = this.y - size;
+                gameLog.setText(this.NAME + ' takes a step.');
+            }
             this.animations.play('up');
             this.frame = 4;
             this.moveable = false;
@@ -91,8 +93,10 @@ Player.prototype.update = function() {
                 gameLog.setText(enemy.NAME + ' blocks your path.');
             }else if(BFF.y ==(this.y + size) && BFF.adj == true ){
                 gameLog.setText(BFF.NAME + ' blocks your path.');
-            }else
+            }else {
                 this.y = this.y + size;
+                gameLog.setText(this.NAME + ' takes a step.');
+            }
             this.animations.play('down');
             this.frame = 1;
             this.moveable = false;
@@ -105,8 +109,10 @@ Player.prototype.update = function() {
                 gameLog.setText(enemy.NAME + ' blocks your path.');
             }else if(BFF.x ==(this.x - size) && BFF.adj == true){
                 gameLog.setText(BFF.NAME + ' blocks your path.');
-            }else
+            }else {
                 this.x = this.x - size;
+                gameLog.setText(this.NAME + ' takes a step.');
+            }
             this.animations.play('left');
             this.frame = 7;
             this.moveable = false;
@@ -119,8 +125,10 @@ Player.prototype.update = function() {
                 gameLog.setText(enemy.NAME + ' blocks your path.');
             }else if(BFF.x ==(this.x + size) && BFF.adj == true ){
                 gameLog.setText(BFF.NAME + ' blocks your path.');
-            }else
+            }else {
                 this.x = this.x + size;
+                gameLog.setText(this.NAME + ' takes a step.');
+            }
             this.animations.play('right');
             this.frame = 10;
             this.moveable = false;
@@ -138,21 +146,15 @@ Player.prototype.update = function() {
       'Resolve: ' + this.EXH + '\n'
       ;
       
-        if (cKey.justPressed()){
-            this.controlled = false;
-            this.acted = true;
-    	}else if(sKey.justPressed()){
-            this.controlled = false;
-            this.acted = true;
-    	}else if(bKey.justPressed()){
-            this.controlled = false;
-            this.acted = true;
+        if (cKey.justPressed() && this.adj == true){
+            game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
+    	}else if(sKey.justPressed() && this.adj == true){
+            game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
         }else if(wKey.justPressed()){
             console.log("Waiting");
             gameLog.setText(this.NAME + ' takes a moment to compose a thought.');
-            this.controlled = false;
             this.moveable = false;
-            this.acted = true;
+            game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
         }
   }
   if(this.controlled == false && this.moveable == false && this.acted == true){
@@ -178,6 +180,12 @@ Player.prototype.update = function() {
         this.tired.bringToTop();
     }else {
         this.tired.visible = false;
+    }
+    
+    function useAction() {
+        console.log("using Player's action");
+        this.controlled = false;
+        this.acted = true;
     }
     
 }

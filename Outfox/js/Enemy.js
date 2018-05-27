@@ -14,7 +14,7 @@ var iterator = 0;
 var spawnlocX;
 var spawnlocY;
 function Enemy(game, key, tintColor) {
-    spawnlocX = size*game.rnd.integerInRange(1, 8);
+    spawnlocX = size*game.rnd.integerInRange(5, 8);
     spawnlocY= size*game.rnd.integerInRange(1, 4);
         // call to Phaser.Sprite // new Sprite(game, x, y, key, frame)
         Phaser.Sprite.call(this, game, spawnlocX, spawnlocY, key);
@@ -92,7 +92,7 @@ Enemy.prototype.update = function() {
                 }
                 gameLog.setText(this.NAME +' runs around!');
             }
-            console.log('hey we hit this at least')
+            console.log('NPC Turn');
             iterator += 0.01;
         }
 
