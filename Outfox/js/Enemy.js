@@ -40,7 +40,7 @@ function Enemy(game, key) {
         //ANIMATIONS
         this.animations.add('left', [6,7,8], false);
         this.animations.add('right', [9,10,11], false);
-        this.animations.add('up', [3,4,5], false);
+        this.animations.add('up', [3,4,5,3], false);
         this.animations.add('down', [0,1,2], false);
 }
 // explicitly define prefab's prototype (Phaser.Sprite) and constructor (Player)
@@ -52,7 +52,7 @@ Enemy.prototype.update = function() {
         spawnlocY = size*game.rnd.integerInRange(1, 4);
         spawnlocX = size*game.rnd.integerInRange(1, 8);
         //If the enemy and player are overlapped
-        if( this.y == player.y && this.x == player.x){
+        if( (this.y == player.y && this.x == player.x) || (this.y == BFF.y && this.x == BFF.x)){
             if(player.y == size * 4) {
                 if (player.x == size * 4) {
                     this.x -= size;

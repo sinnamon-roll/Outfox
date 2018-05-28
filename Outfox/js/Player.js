@@ -57,10 +57,10 @@ function Player(game, key) {
     this.popup.visible = false;
     
     //ANIMATIONS
-    this.animations.add('left', [6,7,8], false);
-    this.animations.add('right', [9,10,11], false);
-    this.animations.add('up', [3,4,5], false);
-    this.animations.add('down', [0,1,2], false);
+    this.animations.add('left', [6,7,8], 10,false);
+    this.animations.add('right', [9,10,11], 10,false);
+    this.animations.add('up', [3,4,5], 10,false);
+    this.animations.add('down', [0,1,2], 10,false);
     this.popup.animations.add('silent', [2,3,9], 1, false);
 }
 // explicitly define prefab's prototype (Phaser.Sprite) and constructor (Player)
@@ -82,7 +82,6 @@ Player.prototype.update = function() {
                 gameLog.setText(this.NAME + ' takes a step.');
             }
             this.animations.play('up');
-            this.frame = 4;
             this.moveable = false;
             console.log('up pressed');
             

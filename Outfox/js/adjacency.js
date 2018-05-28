@@ -26,6 +26,10 @@ isAdjacent = function(character, subject){
             if (cKey.justPressed() && character.EXH > 0) {
                 //Exhaust Player
                 character.EXH -= 1;
+                
+                //Display GameLog
+                gameLog.setText('"What\'s a fox like you doing in a place like this"');
+                
                 //play audio
                 var char = game.add.audio('charSound');
                 char.play('',0,1,false)
@@ -35,7 +39,7 @@ isAdjacent = function(character, subject){
                 popup.anchor.setTo(.5,.5);
                 //popup.animations.add('beat', [4, 5], 10,true);
                 //popup.play('beat');
-                game.time.events.add(Phaser.Timer.SECOND * 0.5, killPop, this);
+                game.time.events.add(Phaser.Timer.SECOND * 3, killPop, this);
                 game.time.events.add(Phaser.Timer.SECOND * 3, cBark, this);
                 
                 //emit sprites
@@ -64,7 +68,7 @@ isAdjacent = function(character, subject){
                 popup.anchor.setTo(.5,.5);
                 //popup.animations.add('smirk', [12, 13], 10,true);
                 //popup.play('smirk');
-                game.time.events.add(Phaser.Timer.SECOND * 0.5, killPop, this);
+                game.time.events.add(Phaser.Timer.SECOND * 3, killPop, this);
                 game.time.events.add(Phaser.Timer.SECOND * 3, sBark, this);
                 
                 //emit sprites
