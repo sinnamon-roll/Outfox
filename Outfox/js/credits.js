@@ -39,6 +39,7 @@ create: function() {
     header = game.add.text(115, 320, 'Art', headerSyle);
     header = game.add.text(350, 15, 'A Special Thank You', headerSyle);
     header = game.add.text(380, 165, 'Music & SFX', headerSyle);
+    header = game.add.text(420, 320, 'Fonts', headerSyle);
     
     var creditSyle =  {
     font: 'Fira Sans',
@@ -46,15 +47,18 @@ create: function() {
     wordWrapWidth: '500',
     wordWrap: 'true'
     };
+    creditText = game.add.text(300,50, 'Thank you text here', creditSyle);
+
     creditText = game.add.text(58,200, 'Nichole Boothroyd', creditSyle);
     creditText = game.add.text(73,235, 'Courtney Hunt', creditSyle);
     creditText = game.add.text(63,270, 'Gavin Thompson', creditSyle);
     
     creditText = game.add.text(73,355, 'Courtney Hunt', creditSyle);
 
-    creditText = game.add.text(300,50, 'Thank you text here', creditSyle);
-    
     creditText = game.add.text(290,200, 'Authentic Fox sounds - Courtney Hunt', {fontSize: '20px', font: 'Fira Sans'});
+
+    creditText = game.add.text(300,355, 'Outfox logo - Lobster - Google Fonts', creditSyle);
+
     creditText = game.add.text(115, 410, 'Press Enter to return to the Main Menu', {fontSize: '26px', font: 'Fira Sans'});
     
 },
