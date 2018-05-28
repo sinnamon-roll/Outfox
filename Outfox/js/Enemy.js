@@ -13,7 +13,7 @@ var iterator = 0;
 
 var spawnlocX;
 var spawnlocY;
-function Enemy(game, key, tintColor) {
+function Enemy(game, key) {
     spawnlocX = size*game.rnd.integerInRange(5, 8);
     spawnlocY= size*game.rnd.integerInRange(1, 4);
         // call to Phaser.Sprite // new Sprite(game, x, y, key, frame)
@@ -33,11 +33,15 @@ function Enemy(game, key, tintColor) {
         this.TYPE = "Sarcastic";
         this.NAME = "Reynard";
     
-        this.tint = tintColor;
         this.controlled = settings.enemyCONTROL;
         this.moveable = false;
         this.style = {font: "bold 24px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle"};
-
+    
+        //ANIMATIONS
+        this.animations.add('left', [6,7,8], false);
+        this.animations.add('right', [9,10,11], false);
+        this.animations.add('up', [3,4,5], false);
+        this.animations.add('down', [0,1,2], false);
 }
 // explicitly define prefab's prototype (Phaser.Sprite) and constructor (Player)
 Enemy.prototype = Object.create(Phaser.Sprite.prototype);
@@ -66,12 +70,16 @@ Enemy.prototype.update = function() {
                 if(this.y == player.y){
                     if(player.x > this.x){
                         this.x = this.x + size;
+                        this.animations.play('right');
+                        this.frame = 10;
                         this.controlled = false;
                         iterator = 0;
                         player.controlled = true;
                         player.moveable = true;
                     }else if(player.x < this.x){
                         this.x = this.x - size;
+                        this.animations.play('left');
+                        this.frame = 7;
                         this.controlled = false;
                         iterator = 0;
                         player.controlled = true;
@@ -79,12 +87,16 @@ Enemy.prototype.update = function() {
                     }
                 }else if(this.y < player.y){
                     this.y = this.y + size;
+                    this.animations.play('down');
+                    this.frame = 1;
                     this.controlled = false;
                     iterator = 0;
                     player.controlled = true;
                     player.moveable = true;
                 }else if(this.y > player.y){
                     this.y = this.y - size;
+                    this.animations.play('up');
+                    this.frame = 4;
                     this.controlled = false;
                     iterator = 0;
                     player.controlled = true;

@@ -62,9 +62,8 @@ Preloader.prototype = {
             //Load tilemap spritesheet (key, url, frameWidth, frameHeight)
             this.load.image('tilesheet','outfox.png',64,64);
             this.load.spritesheet('player', 's_fox_sheet.png', 64, 64);
-            this.load.image('enemy', 'foxy.png');
-            this.load.image('back', 's_fox_red_back.png');
-            this.load.image('adj', 'cardinal.png');
+            this.load.spritesheet('BFF', 's_fox_sheet04.png',64,64);
+            this.load.spritesheet('enemy', 's_fox_sheet01.png',64,64);
             this.load.image('playerIcon', 's_nar_PC.png');
             this.load.image('s_interfaceR_edge', 's_interfaceR_edge.png');
             //Load Sprite Atlas
@@ -269,11 +268,11 @@ testState.prototype = {
         //enemygroup = game.add.group();
         //this.addEnemy(enemygroup);
         var tintColor = colors[game.rnd.between(0, colors.length-1)]; //for variety, which is the spiciest of meatballs
-        enemy = new Enemy(game, 'enemy', tintColor);
+        enemy = new Enemy(game, 'enemy');
         game.add.existing(enemy);
 
         //BFF SETUP
-        BFF = new BFF(game, 'player');
+        BFF = new BFF(game, 'BFF');
         this.game.add.existing(BFF);
         
         //UI SETUP
@@ -283,7 +282,8 @@ testState.prototype = {
         enemyUI.visible = false;
         game.add.sprite(198, 369, 'UI','s_log');
         playerIcon = game.add.sprite(0, 290, 'UI','s_nar_PC');
-        enemyIcon = game.add.sprite(499, 290, 'UI','s_nar_NPC01')
+        enemyIcon = game.add.sprite(645, 290, 'UI','s_nar_NPC01')
+        enemyIcon.scale.x *= -1;
         enemyIcon.visible = false;
 
         leftName = game.add.text(180, 335, 'PC Name', { font: 'Fira Sans', fontSize: '15px', fill: '#fff', fontWeight: '700' })

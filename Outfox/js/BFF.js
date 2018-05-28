@@ -27,9 +27,8 @@ function BFF(game, key) {
         this.RPCT = 0;
         this.EXH = 9999;
         this.TYPE = "Charisma";
-        this.NAME = "The Patient Fox";
+        this.NAME = "Zerda";
 
-        this.tint = 0xE8AA14;
         this.moveable = false;
         this.controlled = false;
         this.acted = false;
@@ -38,7 +37,11 @@ function BFF(game, key) {
         this.popup = game.add.sprite(this.x + size, this.y - size, 'atlas','s_batteryOut');
         this.popup.visible = false;
     
-        //ANIMATIONS
+    //ANIMATIONS
+        this.animations.add('left', [6,7,8], 120, false);
+        this.animations.add('right', [9,10,11], 120, false);
+        this.animations.add('up', [3,4,5], 120, false);
+        this.animations.add('down', [0,1,2], 120, false);
         this.popup.animations.add('silent', [2,3,9], 1, false);
 
 }
@@ -147,7 +150,7 @@ BFF.prototype.update = function() {
     if(this.controlled == true){
         //DISPLAY STATS
         leftName.setText(this.NAME);
-        playerIcon.tint = this.tint;
+        playerIcon.loadTexture('UI','s_nar_NPC04');
         playerStats.text = 'Type: ' + this.TYPE + '\n' +
         'Charisma: ' + this.CHAR + '\n' +
         'Sarcasm: ' + this.SAR + '\n' +

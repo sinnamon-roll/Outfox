@@ -137,7 +137,7 @@ Player.prototype.update = function() {
   }
   if (this.controlled == true){
       //DISPLAY STATS
-      playerIcon.tint = 0xFFFFFF; //default value
+      playerIcon.loadTexture('UI','s_nar_PC');
       leftName.setText(this.NAME);
       playerStats.text = 'Type: ' + this.TYPE + '\n' +
       'Charisma: ' + this.CHAR + '\n' +
