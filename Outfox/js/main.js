@@ -69,7 +69,9 @@ Preloader.prototype = {
             //Load Sprite Atlas
             this.load.atlas('atlas','emoji.png','emoji.json');
             this.load.atlas('UI','ui.png','ui.json');
-            this.load.image('logo', 'CCGLogo.png');
+            this.load.image('CCGlogo', 'CCGLogo.png');
+            this.load.image('OFlogo', 's_Outfox_logo.png');
+
 
             
             //MUSIC
@@ -99,13 +101,11 @@ logoScreen.prototype = {
         },
         create: function() {
             console.log('logoScreen: create');
-            var CCGLogo = game.add.sprite(0,0, 'logo');
+            var CCGLogo = game.add.sprite(0,0, 'CCGlogo');
 
             CCGLogo.anchor.setTo(0, 0);
             CCGLogo.alpha = 0;
 
-            //game.add.tween(sprite).to( { alpha: 1 }, 3000, Phaser.Easing.Linear.None, true, 0, 1000, true);
-            //game.add.tween(sprite).to( { alpha: 1 }, 2000, Phaser.Easing.Linear.None, true, 0, 1000, false);
             game.add.tween(CCGLogo).to( { alpha: 1 }, 1500, Phaser.Easing.Linear.None, true);
             this.logoUp = game.add.audio('logoSound');
             game.time.events.add(1500, logoSound, this);
@@ -125,7 +125,7 @@ logoScreen.prototype = {
                 game.state.start('MainMenu');
             }
             
-    },
+        },
         update: function(){
             if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR) ){
                 this.state.start('MainMenu');
@@ -142,14 +142,34 @@ MainMenu.prototype = {
         },
         create: function() {
             console.log('MainMenu: create');
-            game.stage.backgroundColor = "#F26B1D";
-            // State change instructions and intro text -----------------------------------------------
-            menuText = game.add.text(200, 150, 'Outfox', { font: 'Fira Sans', fontSize: '48px', fill: '#000' });
-            menuText = game.add.text(240, 200, 'by Cherry Coke Gummies', { font: 'Fira Sans', fontSize: '22px', fill: '#000' });
-            menuText = game.add.text(150, 300, 'Press space to start', { font: 'Fira Sans', fontSize: '30px', fill: '#000' });
-            menuText = game.add.text(150, 350, 'Press enter to see the Foxes Responsible', { font: 'Fira Sans', fontSize: '30px', fill: '#000', wordWrapWidth: '400', wordWrap: 'true' });
+            game.stage.backgroundColor = "#000000";
+            var OFLogo = game.add.sprite(0,0, 'OFlogo');
+
+            OFLogo.anchor.setTo(0, 0);
+            OFLogo.alpha = 0;
+
+            game.add.tween(OFLogo).to( { alpha: 1 }, 1500, Phaser.Easing.Linear.None, true);
+            //this.logoUp = game.add.audio('logoSound');
+            //game.time.events.add(1500, logoSound, this);
+            //game.time.events.add(3000, fadeOut, this);
+
+            function logoSound() {
+                this.logoUp.play('', 0, 0.1, false);
+            }
             
-    },
+            function fadeOut() {
+                game.add.tween(OFLogo).to( { alpha: 0 }, 1500, Phaser.Easing.Linear.None, true);
+            }
+
+            function switchState() {
+                game.add.tween(OFLogo).to( { alpha: 0 }, 1500, Phaser.Easing.Linear.None, true);
+            }
+            
+            // State change instructions and intro text -----------------------------------------------
+            menuText = game.add.text(215, 320, 'Press space to start', { font: 'Fira Sans', fontSize: '28px', fill: '#000' });
+            menuText = game.add.text(115, 370, 'Press enter to see the Foxes Responsible', { font: 'Fira Sans', fontSize: '26px', fill: '#000', wordWrapWidth: '470', wordWrap: 'false' });
+            
+        },
         update: function(){
                 //console.log('MainMenu: Update');
             if(this.cache.isSoundDecoded('bgMusic') && game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR) ){
