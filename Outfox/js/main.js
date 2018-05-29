@@ -9,6 +9,24 @@ var debug = false;
 var menuText;
 var firstMusic;
 var logoSound;
+var startScene = 0;
+var scene;
+var scenes = [{key:"BFF00"},{key:"BFF01"},{key:"BFF01"},{key:"BFF02"},{key:"BFF03"},{key:"BFF04"},{key:"BFF05"},{key:"BFF06"},{key:"BFF07"},{key:"BFF08"},{key:"BFF09"},{key:"BFF10"},{key:"BFF11"}];
+var narratives = [  'As your consciousness stirs, the instinct to repeatedly blink and paw gently at your eyes kicks in. Despite your best efforts, your sight is having trouble adjusting in the pitch black darkness that surrounding you.',
+                    'Turning your head, your eyes squint taking in a faint, glowing, red light. You comtemplate, "is that the sun beginning to rise? I must have wandered deeper within my den."',
+                    'Attempting to disregard the atrophy you feel in your muscles, you stand. \* wham\! \* Rising so suddenly, your ears had little time to warn you of the low ceiling you just made contact with. You wonder, "why is the den ceiling so cold\? It\'s nowhere near wintertime yet..."',
+                    'Panicking from this unfamiliar sensation, you lunge forward, all four paws scurrying for your den entrance. To your continued surprise, your body is met with more cold and unforgiving objects blocking your escape. Perplexed, you ponder, "where did all of these hard branches come from?!"',
+                    'Shaking your head to attempt to remain conscious from the impact, your eyes come into focus. The red light illuminates the "branches," as well as the "den\'s" ceiling and floor. Fear welling up inside, you wimper in quite a low voice, "oh, no\! I\'m in a hunter\'s cage\!"',
+                    'You find it quite peculiar that you can JUST make out grass outside of the cage below, but you smell nothing. A neighboring read light slightly further away catches your eye.',
+                    'As your pupils bring the distant area into view, you confirm it is another hunter\s cage. Bittersweet in its revelation, you think "It\'s calming that I am not alone but it means another creature is trapped here with me."',
+                    'Pushing your snout as far as you can between the cage\'s "branches", you gekker imploringly. "Bright day! Is there another fox about?" The echos of your call resonating as they bounce inside your cage frighten you slightly.',
+                    'Perking up your ears, you close your eyes and take slow, deep breaths, hopefully anticipating a response...\nHowever, no sound could be heard...\n"Whatever shall I do now?" you lament.',
+                    'But wait! Was that a yawn you heard? "It can\'t possibly be morning catch yet. Who is making all that noise?" gekkered a voice travelling from the adjacent cage.',
+                    'narrative about discovering each other is there and introductions. may need this scene background for more than one scene. may need to cut down on text at beginning. Reuse this scene to explain escape and becoming friends.',
+                    'final thoughts and sounds before falling asleep',
+                    'issue getting rid of log graphic here when the final scene fades, ask for help. should just be black and fade for effect before going to gameplay'];
+var talkText;
+var logImg;
 
 var Boot = function(game){};
 Boot.prototype = {
@@ -72,6 +90,19 @@ Preloader.prototype = {
             this.load.atlas('UI','ui.png','ui.json');
             this.load.image('CCGlogo', 'CCGLogo.png');
             this.load.image('OFlogo', 's_Outfox_logo.png');
+            this.load.image('BFF00', 's_BFF00.png');
+            this.load.image('BFF01', 's_BFF01.png');
+            this.load.image('BFF02', 's_BFF02.png');
+            this.load.image('BFF03', 's_BFF03.png');
+            this.load.image('BFF04', 's_BFF04.png');
+            this.load.image('BFF05', 's_BFF05.png');
+            this.load.image('BFF06', 's_BFF06.png');
+            this.load.image('BFF07', 's_BFF07.png');
+            this.load.image('BFF08', 's_BFF08.png');
+            this.load.image('BFF09', 's_BFF09.png');
+            this.load.image('BFF10', 's_BFF10.png');
+            this.load.image('BFF11', 's_BFF11.png');
+            this.load.image('logImg', 's_BFFlog.png');
 
 
             
@@ -121,10 +152,6 @@ logoScreen.prototype = {
             }
 
             game.time.events.add(5250, changeState, this, 'MainMenu');
-
-            function changeState(stateID) {
-                game.state.start('MainMenu');
-            }
             
         },
         update: function(){
@@ -133,6 +160,10 @@ logoScreen.prototype = {
             }
 
         },
+}
+
+function changeState(stateID) {
+    game.state.start(stateID);
 }
 
 var MainMenu = function(game) {};
@@ -235,9 +266,61 @@ Prologue.prototype = {
         // main menu logic
         if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
             // pass this.level to next state
-            game.state.start('test');
+            game.state.start('BFFmeet');
         }
     }
+}
+
+var BFFmeet = function(game) {};
+BFFmeet.prototype = {
+        preload: function(){
+            console.log('BFFmeet: preload');
+            
+        },
+        create: function() {
+            console.log('BFFmeet: create');
+            game.stage.backgroundColor = "#000000";
+            switchScene(startScene);
+            
+        },
+        update: function(){
+            if(this.cache.isSoundDecoded('bgMusic') && game.input.keyboard.justPressed(Phaser.Keyboard.ENTER) ){
+                if (startScene != scenes.length) {
+                    console.log('1st Enter IF. startScene: ' + startScene);
+                    game.add.tween(scene).to( { alpha: 0 }, 1500, Phaser.Easing.Linear.None, true);
+                    //game.add.tween(talkText).to( { alpha: 0 }, 50, Phaser.Easing.Linear.None, true);
+                    //scene.alpha = 0;
+                    talkText.alpha = 0;
+                    switchScene(startScene);
+                } else if (startScene == scenes.length) {
+                    talkText.alpha = 0;
+                    logImg.alpha = 0;
+                    console.log('2nd Enter IF. startScene: ' + startScene);
+                    game.add.tween(scene).to( { alpha: 0 }, 1500, Phaser.Easing.Linear.None, true);
+                    game.add.tween(talkText).to( { alpha: 0 }, 1500, Phaser.Easing.Linear.None, true);
+                    game.time.events.add(1500, changeState, this, 'test');
+                }
+            }
+            //console.log('MainMenu: test');
+            if(this.cache.isSoundDecoded('bgMusic') && game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR) ){
+                this.state.start('test');
+            }
+        },
+}
+
+function switchScene(num) {
+    console.log('Scene switch start. startScene: ' + startScene);
+    scene = game.add.sprite(0,0,scenes[num].key);
+    scene.alpha = 0;
+    game.add.tween(scene).to( { alpha: 1 }, 1500, Phaser.Easing.Linear.None, true);
+    if (num > 0 && num < scenes.length - 1) {
+        logImg = game.add.sprite(79,306,'logImg');   
+    }
+    talkText = game.add.text(108, 315, narratives[num], { font: 'Fira Sans', fontSize: '16px', fill: '#eed6c3', wordWrapWidth: '440', wordWrap: 'true' });
+    talkText.alpha = 0;
+    game.add.tween(talkText).to( { alpha: 1 }, 1500, Phaser.Easing.Linear.None, true);
+    startScene++;
+        
 }
 
 var testState = function(game) {};
@@ -483,6 +566,7 @@ game.state.add('test', testState);
 game.state.add('logoScreen', logoScreen);
 game.state.add('MainMenu', MainMenu);
 game.state.add('Prologue', Prologue);
+game.state.add('BFFmeet', BFFmeet);
 game.state.add('Congrats', Congrats);
 game.state.add('GameOver', GameOver);
 game.state.add('Preloader', Preloader);
