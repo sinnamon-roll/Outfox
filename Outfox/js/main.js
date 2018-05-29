@@ -66,6 +66,7 @@ Preloader.prototype = {
             this.load.spritesheet('enemy', 's_fox_sheet01.png',64,64);
             this.load.image('playerIcon', 's_nar_PC.png');
             this.load.image('s_interfaceR_edge', 's_interfaceR_edge.png');
+            this.load.image('cursor', 's_active.png');
             //Load Sprite Atlas
             this.load.atlas('atlas','emoji.png','emoji.json');
             this.load.atlas('UI','ui.png','ui.json');

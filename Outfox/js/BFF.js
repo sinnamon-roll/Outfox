@@ -37,6 +37,10 @@ function BFF(game, key) {
         this.popup = game.add.sprite(this.x + size, this.y - size, 'atlas','s_batteryOut');
         this.popup.visible = false;
     
+    //CURSOR
+    this.cursor = game.add.sprite(this.x, this.y, 'cursor');
+    this.cursor.visible = false;
+    
     //ANIMATIONS
         this.animations.add('left', [6,7,8], 120, false);
         this.animations.add('right', [9,10,11], 120, false);
@@ -63,6 +67,7 @@ BFF.prototype.update = function() {
                 gameLog.setText(player.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else {
                 this.y = this.y - size;
+                this.cursor.y = this.cursor.y - size;
                 gameLog.setText(this.NAME + ' takes a step.');
             }
             this.animations.play('up');
@@ -79,6 +84,7 @@ BFF.prototype.update = function() {
                 gameLog.setText(player.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else {
                 this.y = this.y + size;
+                this.cursor.y = this.cursor.y + size;
                 gameLog.setText(this.NAME + ' takes a step.');
             }
             this.animations.play('down');
@@ -95,6 +101,7 @@ BFF.prototype.update = function() {
                 gameLog.setText(player.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else {
                 this.x = this.x - size;
+                this.cursor.x = this.cursor.x - size;
                 gameLog.setText(this.NAME + ' takes a step.');
             }
             this.animations.play('left');
@@ -111,6 +118,7 @@ BFF.prototype.update = function() {
                 gameLog.setText(player.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else {
                 this.x = this.x + size;
+                this.cursor.x = this.cursor.x + size;
                 gameLog.setText(this.NAME + ' takes a step.');
             }
             this.animations.play('right');
@@ -149,6 +157,7 @@ BFF.prototype.update = function() {
     
     if(this.controlled == true){
         //DISPLAY STATS
+        this.cursor.visible = true;
         leftName.setText(this.NAME);
         playerIcon.loadTexture('UI','s_nar_NPC04');
         playerStats.text = 'Type: ' + this.TYPE + '\n' +
@@ -185,6 +194,7 @@ BFF.prototype.update = function() {
         }
     }
     if(this.controlled == false && this.moveable == false && this.acted == true){
+        this.cursor.visible = false;
         enemy.controlled = true;
         this.acted = false;
 

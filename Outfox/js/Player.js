@@ -56,6 +56,9 @@ function Player(game, key) {
     this.popup = game.add.sprite(this.x + size, this.y - size, 'atlas','s_batteryOut');
     this.popup.visible = false;
     
+    //CURSOR
+    this.cursor = game.add.sprite(this.x, this.y, 'cursor');
+    
     //ANIMATIONS
     this.animations.add('left', [6,7,8], 10,false);
     this.animations.add('right', [9,10,11], 10,false);
@@ -79,6 +82,7 @@ Player.prototype.update = function() {
                 gameLog.setText(BFF.NAME + ' blocks your path.');
             }else {
                 this.y = this.y - size;
+                this.cursor.y = this.cursor.y - size;
                 gameLog.setText(this.NAME + ' takes a step.');
             }
             this.animations.play('up');
@@ -94,6 +98,7 @@ Player.prototype.update = function() {
                 gameLog.setText(BFF.NAME + ' blocks your path.');
             }else {
                 this.y = this.y + size;
+                this.cursor.y = this.cursor.y + size;
                 gameLog.setText(this.NAME + ' takes a step.');
             }
             this.animations.play('down');
@@ -109,6 +114,7 @@ Player.prototype.update = function() {
             }else if(BFF.x ==(this.x - size) && BFF.adj == true){
                 gameLog.setText(BFF.NAME + ' blocks your path.');
             }else {
+                this.x = this.x - size;
                 this.x = this.x - size;
                 gameLog.setText(this.NAME + ' takes a step.');
             }
@@ -126,6 +132,7 @@ Player.prototype.update = function() {
                 gameLog.setText(BFF.NAME + ' blocks your path.');
             }else {
                 this.x = this.x + size;
+                this.cursor.x = this.cursor.x + size;
                 gameLog.setText(this.NAME + ' takes a step.');
             }
             this.animations.play('right');
@@ -136,6 +143,7 @@ Player.prototype.update = function() {
   }
   if (this.controlled == true){
       //DISPLAY STATS
+      this.cursor.visible = true;
       playerIcon.loadTexture('UI','s_nar_PC');
       leftName.setText(this.NAME);
       playerStats.text = 'Type: ' + this.TYPE + '\n' +
@@ -157,6 +165,7 @@ Player.prototype.update = function() {
         }
   }
   if(this.controlled == false && this.moveable == false && this.acted == true){
+        this.cursor.visible = false;
         BFF.controlled = true;
         BFF.moveable = true;
         this.acted = false;
