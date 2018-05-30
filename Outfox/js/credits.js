@@ -30,7 +30,7 @@ create: function() {
     var headerSyle = {
                 font: 'Fira Sans',
                 fontSize: '24px',
-                color: 'red',
+                fill: '#fff',
                 wordWrapWidth: '500',
                 wordWrap: 'true'
     };
