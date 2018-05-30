@@ -176,35 +176,35 @@ BFF.prototype.update = function() {
             enemyTarget.loadTexture('UI', 's_foxTarget');
             rightName.setText(enemy.NAME);
             rightName.visible = true;
-            enemyStats.text = 'Type: ' + player.TYPE + '\n' +
+            aura();
+            rightName.setText(player.NAME);
+            enemyStats.setText('Type: ' + player.TYPE + '\n' +
             'Charisma: ' + player.CHAR + '\n' +
             'Sarcasm: ' + player.SAR + '\n' +
             'Ego: ' + player.EGO + '\n' +
-            'Resolve: ' + player.EXH + '\n'
+            'Resolve: ' + player.EXH + '\n')
             ;
-            
-            
-            
-            if (bKey.justPressed() && player.EXH <=7) {
-	            player.EXH += 3;
-	            gameLog.setText('The fox who treated you with\nkindness gives you an\n encouraging bark.');
-	            //play audio
-	            var bark = game.add.audio('boostSound');
-	            bark.play('',0,1,false)
-                //Animate Battery
-                var popup = game.add.sprite(player.x, player.y, 'atlas', 's_batteryFull');
-                popup.anchor.setTo(.5,.5);
-                game.time.events.add(Phaser.Timer.SECOND * 0.5, killPop, this);
-                game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
-	        }else if (bKey.justPressed() && player.EXH >=7) {
-	            gameLog.setText('The kind fox has little to say.');
-                game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
-	        }
+                if (bKey.justPressed() && player.EXH <=7) {
+                    player.EXH += 3;
+                    gameLog.setText('The fox who treated you with\nkindness gives you an\n encouraging bark.');
+                    //play audio
+                    var bark = game.add.audio('boostSound');
+                    bark.play('',0,1,false)
+                    //Animate Battery
+                    var popup = game.add.sprite(player.x, player.y, 'atlas', 's_batteryFull');
+                    popup.anchor.setTo(.5,.5);
+                    game.time.events.add(Phaser.Timer.SECOND * 0.5, killPop, this);
+                    game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
+                }else if (bKey.justPressed() && player.EXH >=7) {
+                    gameLog.setText('The kind fox has little to say.');
+                    game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
+                }
         } else {
             enemyIcon.visible = false;
             enemyUI.visible = false;
             rightName.visible = false;
             enemyStats.visible = false;
+            player.CHAR -+ 1;
         }
 	}
     if (this.controlled == true){
@@ -244,6 +244,9 @@ BFF.prototype.update = function() {
         console.log("using your action");
         this.controlled = false;
         this.acted = true;
+    }
+    function aura() {
+        player.CHAR += 1;
     }
 
 }

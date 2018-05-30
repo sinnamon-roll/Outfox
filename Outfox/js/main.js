@@ -390,7 +390,7 @@ testState.prototype = {
         enemyUI.visible = false;
         game.add.sprite(198, 349, 'UI','s_log');
         playerIcon = game.add.sprite(0, 290, 'UI','s_nar_NPC04');
-        enemyIcon = game.add.sprite(645, 290, 'UI','s_nar_NPC01')
+        enemyIcon = game.add.sprite(645, 290, 'UI','s_Fox_NPC01')
         enemyIcon.scale.x *= -1;
         enemyIcon.visible = false;
         playerTarget = game.add.sprite(0, 450,'UI','s_activeFox');

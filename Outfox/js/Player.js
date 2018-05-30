@@ -178,13 +178,13 @@ Player.prototype.update = function() {
           enemyTarget.loadTexture('UI', 's_foxTarget');
           rightName.setText(enemy.NAME);
           rightName.visible = true;
-          enemyStats.text = 'Type: ' + enemy.TYPE + '\n' +
+          enemyStats.setText('Type: ' + enemy.TYPE + '\n' +
           'Charisma: ' + enemy.CHAR + '\n' +
           'Sarcasm: ' + enemy.SAR + '\n' +
           'Ego: ' + enemy.EGO + '\n' +
           //'Resolve: ' + enemy.EXH + '\n' +
           'Respect: ' + enemy.RPCT + '\n' +
-          'Contempt: ' + enemy.CTMP + '\n'
+          'Contempt: ' + enemy.CTMP + '\n')
           ;
           
       } else {

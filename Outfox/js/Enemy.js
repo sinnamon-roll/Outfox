@@ -69,11 +69,20 @@ Enemy.prototype.update = function() {
             playerStats.visible = false;
             leftName.visible = false;
             playerUI.visible = false;
-            enemyIcon.loadTexture('UI','s_nar_NPC01');
+            enemyIcon.loadTexture('UI','s_Fox_NPC01');
             enemyIcon.visible = true;
             enemyUI.visible = true;
+            rightName.setText(enemy.NAME);
             rightName.visible = true;
             playerTarget.loadTexture('UI', 's_noTarget');
+            enemyStats.setText('Type: ' + enemy.TYPE + '\n' +
+                            'Charisma: ' + enemy.CHAR + '\n' +
+                            'Sarcasm: ' + enemy.SAR + '\n' +
+                            'Ego: ' + enemy.EGO + '\n' +
+                            'Respect: ' + enemy.RPCT + '\n' +
+                            'Contempt: ' + enemy.CTMP + '\n');
+            enemyStats.visible = true;
+
             if (player.adj == true) {
                 playerTarget.loadTexture('UI','s_foxTarget');
                 playerIcon.visible = true;
@@ -84,6 +93,10 @@ Enemy.prototype.update = function() {
             enemyTarget.loadTexture('UI','s_activeFox');
             enemyUI.visible = true;
             gameLog.setText(this.NAME +'\'s turn.');
+            
+            
+            
+            //ENEMY TURN
             if(Math.floor(iterator) == 1){
                 if(this.y == size){
                     moveDown();
