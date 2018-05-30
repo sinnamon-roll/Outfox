@@ -65,6 +65,24 @@ Enemy.prototype.update = function() {
         }
 
         if(this.controlled == true) {
+            playerIcon.visible = false;
+            playerStats.visible = false;
+            leftName.visible = false;
+            playerUI.visible = false;
+            enemyIcon.loadTexture('UI','s_nar_NPC01');
+            enemyIcon.visible = true;
+            enemyUI.visible = true;
+            rightName.visible = true;
+            playerTarget.loadTexture('UI', 's_noTarget');
+            if (player.adj == true) {
+                playerTarget.loadTexture('UI','s_foxTarget');
+                playerIcon.visible = true;
+                playerStats.visible = true;
+                leftName.visible = true;
+                playerUI.visible = true;
+            } else
+            enemyTarget.loadTexture('UI','s_activeFox');
+            enemyUI.visible = true;
             gameLog.setText(this.NAME +'\'s turn.');
             if(Math.floor(iterator) == 1){
                 if(this.y == size){
@@ -80,7 +98,12 @@ Enemy.prototype.update = function() {
                         moveDown();
                     }
                 }
+                //END ENEMY TURN
                 gameLog.setText(this.NAME +' runs around!');
+                enemyTarget.loadTexture('UI','s_foxTarget');
+                rightName.visible = false;
+                enemyUI.visible = false;
+                enemyStats.visible = false;
             }
             console.log('NPC Turn');
             iterator += 0.01;

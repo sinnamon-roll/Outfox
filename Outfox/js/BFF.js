@@ -167,7 +167,25 @@ BFF.prototype.update = function() {
         'Resolve: ' + this.EXH + '\n'
         ;
         if(this.adj == true) {
-	        if (bKey.justPressed() && player.EXH <=7) {
+            //DISPLAY FOX TARGET INFO
+            enemyTarget.loadTexture('UI', 's_foxTarget');
+            enemyIcon.loadTexture('UI', 's_nar_NPC04');
+            enemyIcon.visible = true;
+            enemyStats.visible = true;
+            enemyUI.visible = true;
+            enemyTarget.loadTexture('UI', 's_foxTarget');
+            rightName.setText(enemy.NAME);
+            rightName.visible = true;
+            enemyStats.text = 'Type: ' + player.TYPE + '\n' +
+            'Charisma: ' + player.CHAR + '\n' +
+            'Sarcasm: ' + player.SAR + '\n' +
+            'Ego: ' + player.EGO + '\n' +
+            'Resolve: ' + player.EXH + '\n'
+            ;
+            
+            
+            
+            if (bKey.justPressed() && player.EXH <=7) {
 	            player.EXH += 3;
 	            gameLog.setText('The fox who treated you with\nkindness gives you an\n encouraging bark.');
 	            //play audio
@@ -182,7 +200,12 @@ BFF.prototype.update = function() {
 	            gameLog.setText('The kind fox has little to say.');
                 game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
 	        }
-	    }
+        } else {
+            enemyIcon.visible = false;
+            enemyUI.visible = false;
+            rightName.visible = false;
+            enemyStats.visible = false;
+        }
 	}
     if (this.controlled == true){
         if(wKey.justPressed()){

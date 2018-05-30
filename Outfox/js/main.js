@@ -384,7 +384,7 @@ testState.prototype = {
         game.add.sprite(443, 359, 'UI','s_stats');
         game.add.sprite(0,350, 'UI', 's_title');
         game.add.sprite(353,350, 'UI', 's_title');
-        game.add.sprite(85,322,'UI','s_name');
+        playerUI = game.add.sprite(85,322,'UI','s_name');
         enemyUI = game.add.sprite(555, 322, 'UI','s_name');
         enemyUI.scale.x *= -1;
         enemyUI.visible = false;
@@ -393,9 +393,8 @@ testState.prototype = {
         enemyIcon = game.add.sprite(645, 290, 'UI','s_nar_NPC01')
         enemyIcon.scale.x *= -1;
         enemyIcon.visible = false;
-        game.add.sprite(0, 450,'UI','s_activeFox');
-        enemyTarget = game.add.sprite(550,450, 'UI', 's_foxTarget');
-        enemyTarget.visible = false;
+        playerTarget = game.add.sprite(0, 450,'UI','s_activeFox');
+        enemyTarget = game.add.sprite(550,450, 'UI', 's_noTarget');
         
 
         leftName = game.add.text(187, 335, 'PC Name', { font: 'Fira Sans', fontSize: '15px', fill: '#fff', fontWeight: '700' })
@@ -453,31 +452,6 @@ testState.prototype = {
         //ie, player.health = settings.playerhealth
         player.CHAR = settings.playerCHAR;
         enemy.CHAR = settings.enemyCHAR;
-        
-        if (player.adj == true) {
-            //display stats
-            enemyStats.visible = true;
-            enemyIcon.visible = true;
-            enemyTarget.visible = true;
-            enemyUI.visible = true;
-            rightName.setText(enemy.NAME);
-            rightName.visible = true;
-            enemyStats.text = 'Type: ' + enemy.TYPE + '\n' +
-                                'Charisma: ' + enemy.CHAR + '\n' +
-                                'Sarcasm: ' + enemy.SAR + '\n' +
-                                'Ego: ' + enemy.EGO + '\n' +
-                                //'Resolve: ' + enemy.EXH + '\n' +
-                                'Respect: ' + enemy.RPCT + '\n' +
-                                'Contempt: ' + enemy.CTMP + '\n'
-            ;
-            
-        } else {
-            enemyStats.visible = false;
-            enemyIcon.visible = false;
-            enemyTarget.visible = false;
-            rightName.visible = false;
-            enemyUI.visible = false;
-        }
     },
 
     
