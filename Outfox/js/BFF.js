@@ -159,7 +159,7 @@ BFF.prototype.update = function() {
         //DISPLAY STATS
         this.cursor.visible = true;
         leftName.setText(this.NAME);
-        playerIcon.loadTexture('UI','s_nar_NPC04');
+        playerIcon.loadTexture('UI','s_nar_PC');
         playerStats.text = 'Type: ' + this.TYPE + '\n' +
         'Charisma: ' + this.CHAR + '\n' +
         'Sarcasm: ' + this.SAR + '\n' +
@@ -177,8 +177,7 @@ BFF.prototype.update = function() {
                 var popup = game.add.sprite(player.x, player.y, 'atlas', 's_batteryFull');
                 popup.anchor.setTo(.5,.5);
                 game.time.events.add(Phaser.Timer.SECOND * 0.5, killPop, this);
-	            this.controlled = false;
-                this.acted = true;
+                game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
 	        }else if (bKey.justPressed() && player.EXH >=7) {
 	            gameLog.setText('The kind fox has little to say.');
                 game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);

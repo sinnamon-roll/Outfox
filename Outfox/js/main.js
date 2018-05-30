@@ -79,15 +79,15 @@ Preloader.prototype = {
             this.load.tilemap('level', 'outfox.json', null, Phaser.Tilemap.TILED_JSON);
             //Load tilemap spritesheet (key, url, frameWidth, frameHeight)
             this.load.image('tilesheet','outfox.png',64,64);
-            this.load.spritesheet('player', 's_fox_sheet.png', 64, 64);
-            this.load.spritesheet('BFF', 's_fox_sheet04.png',64,64);
+            this.load.spritesheet('player', 's_fox_sheet04.png', 64, 64);
+            this.load.spritesheet('BFF', 's_fox_sheet.png',64,64);
             this.load.spritesheet('enemy', 's_fox_sheet01.png',64,64);
-            this.load.image('playerIcon', 's_nar_PC.png');
             this.load.image('s_interfaceR_edge', 's_interfaceR_edge.png');
             this.load.image('cursor', 's_active.png');
             //Load Sprite Atlas
             this.load.atlas('atlas','emoji.png','emoji.json');
             this.load.atlas('UI','ui.png','ui.json');
+            
             this.load.image('CCGlogo', 'CCGLogo.png');
             this.load.image('OFlogo', 's_Outfox_logo.png');
             this.load.image('BFF00', 's_BFF00.png');
@@ -385,7 +385,7 @@ testState.prototype = {
         enemyUI = game.add.sprite(351, 322, 'UI','s_interfaceR');
         enemyUI.visible = false;
         game.add.sprite(198, 369, 'UI','s_log');
-        playerIcon = game.add.sprite(0, 290, 'UI','s_nar_PC');
+        playerIcon = game.add.sprite(0, 290, 'UI','s_nar_NPC04');
         enemyIcon = game.add.sprite(645, 290, 'UI','s_nar_NPC01')
         enemyIcon.scale.x *= -1;
         enemyIcon.visible = false;

@@ -144,7 +144,7 @@ Player.prototype.update = function() {
   if (this.controlled == true){
       //DISPLAY STATS
       this.cursor.visible = true;
-      playerIcon.loadTexture('UI','s_nar_PC');
+      playerIcon.loadTexture('UI','s_nar_NPC04');
       leftName.setText(this.NAME);
       playerStats.text = 'Type: ' + this.TYPE + '\n' +
       'Charisma: ' + this.CHAR + '\n' +
