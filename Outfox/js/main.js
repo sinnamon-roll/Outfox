@@ -380,11 +380,15 @@ testState.prototype = {
         this.game.add.existing(BFF);
         
         //UI SETUP
-        game.add.sprite(0, 322, 'UI','s_interfaceL');
-        game.add.sprite(383, 369,'s_interfaceR_edge');
-        enemyUI = game.add.sprite(351, 322, 'UI','s_interfaceR');
+        game.add.sprite(0, 359, 'UI','s_stats');
+        game.add.sprite(443, 359, 'UI','s_stats');
+        game.add.sprite(0,350, 'UI', 's_title');
+        game.add.sprite(353,350, 'UI', 's_title');
+        game.add.sprite(85,322,'UI','s_name');
+        enemyUI = game.add.sprite(555, 322, 'UI','s_name');
+        enemyUI.scale.x *= -1;
         enemyUI.visible = false;
-        game.add.sprite(198, 369, 'UI','s_log');
+        game.add.sprite(198, 349, 'UI','s_log');
         playerIcon = game.add.sprite(0, 290, 'UI','s_nar_NPC04');
         enemyIcon = game.add.sprite(645, 290, 'UI','s_nar_NPC01')
         enemyIcon.scale.x *= -1;
