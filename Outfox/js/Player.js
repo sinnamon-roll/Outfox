@@ -115,7 +115,7 @@ Player.prototype.update = function() {
                 gameLog.setText(BFF.NAME + ' blocks your path.');
             }else {
                 this.x = this.x - size;
-                this.x = this.x - size;
+                this.cursor.x = this.cursor.x - size;
                 gameLog.setText(this.NAME + ' takes a step.');
             }
             this.animations.play('left');

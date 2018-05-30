@@ -393,8 +393,12 @@ testState.prototype = {
         enemyIcon = game.add.sprite(645, 290, 'UI','s_nar_NPC01')
         enemyIcon.scale.x *= -1;
         enemyIcon.visible = false;
+        game.add.sprite(0, 450,'UI','s_activeFox');
+        enemyTarget = game.add.sprite(550,450, 'UI', 's_foxTarget');
+        enemyTarget.visible = false;
+        
 
-        leftName = game.add.text(180, 335, 'PC Name', { font: 'Fira Sans', fontSize: '15px', fill: '#fff', fontWeight: '700' })
+        leftName = game.add.text(187, 335, 'PC Name', { font: 'Fira Sans', fontSize: '15px', fill: '#fff', fontWeight: '700' })
         
         //GAMELOG SETUP
         var logStyle = {
@@ -454,6 +458,7 @@ testState.prototype = {
             //display stats
             enemyStats.visible = true;
             enemyIcon.visible = true;
+            enemyTarget.visible = true;
             enemyUI.visible = true;
             rightName.setText(enemy.NAME);
             rightName.visible = true;
@@ -469,6 +474,7 @@ testState.prototype = {
         } else {
             enemyStats.visible = false;
             enemyIcon.visible = false;
+            enemyTarget.visible = false;
             rightName.visible = false;
             enemyUI.visible = false;
         }
