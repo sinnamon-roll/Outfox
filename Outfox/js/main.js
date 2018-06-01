@@ -48,7 +48,17 @@ Boot.prototype = {
                 playerCHAR: 5,
                 enemyhealth: 10,
                 enemyCHAR: 5,
-                enemyCONTROL: false
+                enemyCONTROL: false,
+
+                //Button setting
+				barklocX: 64,
+				barklocY: 64,
+				movelocX: 64,
+				movelocY: 128,
+				facelocX: 64,
+				facelocY: 256,
+				endlocX: 64,
+				endlocY: 192
                 }
 
                 var gui = new dat.GUI({
@@ -61,9 +71,18 @@ Boot.prototype = {
                 //character folders
                 gui.characterFolder = gui.addFolder('Player');
                 gui.characterFolder.add(settings, 'playerhealth').min(0).max(1000).step(stepSize).name('Player Health');
-                gui.characterFolder.add(settings, 'playerCHAR').min(0).max(1000).step(stepSize).name('Player Char');
                 gui.characterFolder.add(settings, 'enemyhealth').min(0).max(1000).step(stepSize).name('Enemy Health');
-                gui.characterFolder.add(settings, 'enemyCHAR').min(0).max(1000).step(stepSize).name('Enemy Char');
+                
+
+                gui.characterFolder = gui.addFolder('Buttons');
+                gui.characterFolder.add(settings, 'movelocX').min(0).max(1000).step(stepSize).name('Move Location X: ')
+                gui.characterFolder.add(settings, 'movelocY').min(0).max(1000).step(stepSize).name('Move Location Y: ');
+                gui.characterFolder.add(settings, 'barklocX').min(0).max(1000).step(stepSize).name('Bark Location X: ');
+                gui.characterFolder.add(settings, 'barklocY').min(0).max(1000).step(stepSize).name('Bark Location Y: ');
+                gui.characterFolder.add(settings, 'facelocX').min(0).max(1000).step(stepSize).name('Face Location X: ');
+                gui.characterFolder.add(settings, 'facelocY').min(0).max(1000).step(stepSize).name('Face Location Y: ');
+                gui.characterFolder.add(settings, 'endlocX').min(0).max(1000).step(stepSize).name('End Location X: ');
+                gui.characterFolder.add(settings, 'endlocY').min(0).max(1000).step(stepSize).name('End Location Y: ');
                 //gui.characterFolder.add(settings, 'enemyCONTROL').min().max().step(stepSize).name('Enemy Controlled');
                 //end of gui code
                 this.state.start('Preloader');
@@ -364,6 +383,7 @@ testState.prototype = {
    
         //PLAYER SETUP
         //this.spawnPlayer();
+        console.log('yo about to construct player');
         player = new Player(game, 'player'); 
         game.add.existing(player);
        	
@@ -376,9 +396,26 @@ testState.prototype = {
         game.add.existing(enemy);
 
         //BFF SETUP
+        console.log('yo about to construct BFF');
         BFF = new BFF(game, 'BFF');
         this.game.add.existing(BFF);
-        
+
+        console.log('yo about to construct move');
+        movebutt = new moveButton(game, 'move');
+        this.game.add.existing(movebutt);
+
+		console.log('yo about to construct bark');
+        barkbutt = new barkButton(game, 'bark');
+        this.game.add.existing(barkbutt);
+
+        console.log('yo about to construct face');
+        facebutt = new faceButton(game, 'face');
+        this.game.add.existing(facebutt);
+
+        console.log('yo about to construct end');
+        endbutt = new endButton(game, 'end');
+        this.game.add.existing(endbutt);
+
         //UI SETUP
         game.add.sprite(0, 359, 'UI','s_stats');
         game.add.sprite(443, 359, 'UI','s_stats');
@@ -420,6 +457,8 @@ testState.prototype = {
         // TESTING OVERLAY GRAPHIC
         game.add.sprite(0, 0, 'prolBorder');
 
+
+
         function playMusic() {
             console.log('Playing music');
             this.firstMusic = game.add.audio('bgMusic');
@@ -450,8 +489,8 @@ testState.prototype = {
         //updates variables to what is in out settings, this is a really shitty place to update the health variable, lol one sec
         //never put things in here that govern a resource, as it will always put it to max, throw that into the constructor for said resource
         //ie, player.health = settings.playerhealth
-        player.CHAR = settings.playerCHAR;
-        enemy.CHAR = settings.enemyCHAR;
+        // player.CHAR = settings.playerCHAR;
+        // enemy.CHAR = settings.enemyCHAR;
     },
 
     

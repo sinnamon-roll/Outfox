@@ -70,7 +70,7 @@ function Player(game, key) {
 Player.prototype = Object.create(Phaser.Sprite.prototype);
 Player.prototype.constructor = Player;
 
-// override Phaser.Sprite update (player update function)
+//override Phaser.Sprite update (player update function)
 Player.prototype.update = function() {
 	if (this.moveable == true){
         if(cursors.up.justPressed() ) {
