@@ -28,6 +28,11 @@ var narratives = [  'As your consciousness stirs, the instinct to repeatedly bli
                     'issue getting rid of log graphic here when the final scene fades, ask for help. should just be black and fade for effect before going to gameplay'];
 var talkText;
 var logImg;
+var freeFox00 = false;
+var freeFox01 = false;
+var freeFox02 = false;
+var freeFox03 = false;
+
 
 var Boot = function(game){};
 Boot.prototype = {
@@ -135,6 +140,10 @@ Preloader.prototype = {
             game.load.audio('charSound',['gekkering01.mp3']);
             game.load.audio('sarSound',['fox_alert.mp3']);
             game.load.audio('boostSound',['vixensScream.mp3']);
+            game.load.audio('birdGuitar',['birdguitar.mp3']);
+            game.load.audio('uhOh',['uhoh.mp3']);
+            game.load.audio('cage',['cage.mp3']);
+            game.load.audio('piano',['pianoloop.mp3']);
 
         },
         create: function(){
@@ -165,7 +174,7 @@ logoScreen.prototype = {
             game.time.events.add(3000, fadeOut, this);
 
             function logoSound() {
-                this.logoUp.play('', 0, 0.1, false);
+                this.logoUp.play('', 0, 0.3, false);
             }
             
             function fadeOut() {
@@ -253,6 +262,20 @@ Prologue.prototype = {
         game.stage.backgroundColor = "#ffffff";
         console.log('level: ' + this.level);
 
+        this.logoUp = game.add.audio('birdGuitar');
+        game.time.events.add(1500, logoSound, this);
+
+        function logoSound() {
+            this.logoUp.play('', 0, 0.5, false);
+        }
+
+        this.cageDown = game.add.audio('uhOh');
+        game.time.events.add(21500, cageSound, this);
+
+        function cageSound() {
+            this.cageDown.play('', 0, 0.5, false);
+        }
+
         // create background image
         game.add.sprite(0, 0, 'prolBorder');
 
@@ -299,9 +322,23 @@ BFFmeet.prototype = {
         },
         create: function() {
             console.log('BFFmeet: create');
+            game.sound.stopAll();
             game.stage.backgroundColor = "#000000";
             switchScene(startScene);
             
+            this.logoUp = game.add.audio('piano');
+            game.time.events.add(1500, logoSound, this);
+
+            function logoSound() {
+                this.logoUp.play('', 0, 0.5, true);
+            }
+
+            this.cageDown = game.add.audio('cage');
+
+            function cageSound() {
+                this.cageDown.play('', 0, 0.5, false);
+            }
+
         },
         update: function(){
             if(this.cache.isSoundDecoded('bgMusic') && game.input.keyboard.justPressed(Phaser.Keyboard.ENTER) ){
@@ -330,6 +367,10 @@ BFFmeet.prototype = {
 
 function switchScene(num) {
     console.log('Scene switch start. startScene: ' + startScene);
+    this.cageDown = game.add.audio('cage');
+    if (num == 3){
+        this.cageDown.play('', 0, 0.5, false);
+    }
     scene = game.add.sprite(0,0,scenes[num].key);
     scene.alpha = 0;
     game.add.tween(scene).to( { alpha: 1 }, 1500, Phaser.Easing.Linear.None, true);
@@ -356,6 +397,7 @@ testState.prototype = {
     },
 
     create: function() {
+        game.sound.stopAll();
         //Start physics
         game.physics.startSystem(Phaser.Physics.ARCADE);
         game.stage.backgroundColor = "#339933";
@@ -522,6 +564,8 @@ Congrats.prototype = {
 
         // create background image
         game.add.sprite(0, 0, 'Congrats');
+
+
     },
     update: function() {
         // End Game Here. Debugging issues with restarting world.
