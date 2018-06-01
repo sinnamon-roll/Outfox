@@ -10,10 +10,14 @@ var menuText;
 var firstMusic;
 var logoSound;
 var startScene = 0;
+var panelTime = 4;
 var scene;
+var panels = [{key:"panel00"},{key:"panel01"},{key:"panel02"},{key:"panel03"},{key:"panel04"},{key:"panel05"},{key:"panel06"},{key:"panel07"}];
+var panelX = [10,101,414,10,230,102,321,414];
+var panelY = [10,10,10,219,219,334,334,219];
 var scenes = [{key:"BFF00"},{key:"BFF01"},{key:"BFF01"},{key:"BFF02"},{key:"BFF03"},{key:"BFF04"},{key:"BFF05"},{key:"BFF06"},{key:"BFF07"},{key:"BFF08"},{key:"BFF09"},{key:"BFF10"},{key:"BFF11"}];
-var narratives = [  'As your consciousness stirs, the instinct to repeatedly blink and paw gently at your eyes kicks in. Despite your best efforts, your sight is having trouble adjusting in the pitch black darkness that surrounding you.',
-                    'Turning your head, your eyes squint taking in a faint, glowing, red light. You comtemplate, "is that the sun beginning to rise? I must have wandered deeper within my den."',
+var narratives = [  'As your consciousness stirs, the instinct to repeatedly blink and paw gently at your eyes kicks in. Despite your best efforts, your sight struggles to adjust in the pitch black darkness that surrounding you.',
+                    'Turning your head, your eyes squint taking in a faint, glowing, red light. "Is that the sun beginning to rise? I must have wandered deeper within my den," you rationalize.',
                     'Attempting to disregard the atrophy you feel in your muscles, you stand. \* wham\! \* Rising so suddenly, your ears had little time to warn you of the low ceiling you just made contact with. You wonder, "why is the den ceiling so cold\? It\'s nowhere near wintertime yet..."',
                     'Panicking from this unfamiliar sensation, you lunge forward, all four paws scurrying for your den entrance. To your continued surprise, your body is met with more cold and unforgiving objects blocking your escape. Perplexed, you ponder, "where did all of these hard branches come from?!"',
                     'Shaking your head to attempt to remain conscious from the impact, your eyes come into focus. The red light illuminates the "branches," as well as the "den\'s" ceiling and floor. Fear welling up inside, you wimper in quite a low voice, "oh, no\! I\'m in a hunter\'s cage\!"',
@@ -200,9 +204,6 @@ MainMenu.prototype = {
             OFLogo.alpha = 0;
 
             game.add.tween(OFLogo).to( { alpha: 1 }, 1500, Phaser.Easing.Linear.None, true);
-            //this.logoUp = game.add.audio('logoSound');
-            //game.time.events.add(1500, logoSound, this);
-            //game.time.events.add(3000, fadeOut, this);
 
             function logoSound() {
                 this.logoUp.play('', 0, 0.1, false);
@@ -246,7 +247,7 @@ Prologue.prototype = {
         // load a path to save us typing
         this.load.path = 'assets/img/'; 
         // load image assets
-        this.load.images(['prolBorder', 'prolUpL', 'prolUpMid', 'prolUpR', 'prolLowL', 'prolLowMidTop', 'prolLowMidL', 'prolLowMidR', 'prolLowR'],
+        this.load.images(['prolBorder', 'panel00', 'panel01', 'panel02', 'panel03', 'panel04', 'panel05', 'panel06', 'panel07'],
             ['prologueborder.png', 'prologueUpL.png', 'prologueUpMid.png', 'prologueUpR.png', 'prologueLowL.png', 'prologueLowMidTop.png', 'prologueLowMidL.png', 'prologueLowMidR.png', 'prologueLowR.png']);
     },
     create: function() {
@@ -257,29 +258,17 @@ Prologue.prototype = {
         // create background image
         game.add.sprite(0, 0, 'prolBorder');
 
-        // create upper left comic panel
-        game.add.sprite(10, 10, 'prolUpL');
+        for (var i = 0; i <= panels.length - 1; i++) {
+            game.time.events.add(Phaser.Timer.SECOND * panelTime, fadePanel(panelX[i], panelY[i], i), this);
+        }
+        
+        function fadePanel(panelX, panelY, num) {
+            panel = game.add.sprite(panelX, panelY, panels[num].key);
+            panel.alpha = 0;
+            game.add.tween(panel).to( { alpha: 1 }, 1500, Phaser.Easing.Linear.None, true);
+            panelTime++;
+        }
 
-        // create upper middle comic panel
-        game.add.sprite(101, 10, 'prolUpMid');
-
-        // create upper right comic panel
-        game.add.sprite(414, 10, 'prolUpR');
-
-        // create lower left comic panel
-        game.add.sprite(10, 219, 'prolLowL');
-
-        // create lower middle top comic panel
-        game.add.sprite(230, 219, 'prolLowMidTop');
-
-        // create lower middle left comic panel
-        game.add.sprite(102, 334, 'prolLowMidL');
-
-        // create lower middle right comic panel
-        game.add.sprite(321, 334, 'prolLowMidR');
-
-        // create lower right comic panel
-        game.add.sprite(414, 219, 'prolLowR');
     },
     update: function() {
         // main menu logic
