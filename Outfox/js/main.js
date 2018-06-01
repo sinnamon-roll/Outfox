@@ -12,9 +12,6 @@ var logoSound;
 var startScene = 0;
 var panelTime = 4;
 var scene;
-var panels = [{key:"panel00"},{key:"panel01"},{key:"panel02"},{key:"panel03"},{key:"panel04"},{key:"panel05"},{key:"panel06"},{key:"panel07"}];
-var panelX = [10,101,414,10,230,102,321,414];
-var panelY = [10,10,10,219,219,334,334,219];
 var scenes = [{key:"BFF00"},{key:"BFF01"},{key:"BFF01"},{key:"BFF02"},{key:"BFF03"},{key:"BFF04"},{key:"BFF05"},{key:"BFF06"},{key:"BFF07"},{key:"BFF08"},{key:"BFF09"},{key:"BFF10"},{key:"BFF11"}];
 var narratives = [  'As your consciousness stirs, the instinct to repeatedly blink and paw gently at your eyes kicks in. Despite your best efforts, your sight struggles to adjust in the pitch black darkness that surrounding you.',
                     'Turning your head, your eyes squint taking in a faint, glowing, red light. "Is that the sun beginning to rise? I must have wandered deeper within my den," you rationalize.',
@@ -126,6 +123,7 @@ Preloader.prototype = {
             this.load.image('BFF10', 's_BFF10.png');
             this.load.image('BFF11', 's_BFF11.png');
             this.load.image('logImg', 's_BFFlog.png');
+            this.load.image('Congrats', 's_congrats.png');
 
 
             
@@ -258,15 +256,29 @@ Prologue.prototype = {
         // create background image
         game.add.sprite(0, 0, 'prolBorder');
 
-        for (var i = 0; i <= panels.length - 1; i++) {
-            game.time.events.add(Phaser.Timer.SECOND * panelTime, fadePanel(panelX[i], panelY[i], i), this);
-        }
-        
-        function fadePanel(panelX, panelY, num) {
-            panel = game.add.sprite(panelX, panelY, panels[num].key);
+        var panel00 = game.add.sprite(10, 10, 'panel00');
+        var panel01 = game.add.sprite(101, 10, 'panel01');
+        var panel02 = game.add.sprite(414, 10, 'panel02');
+        var panel03 = game.add.sprite(10, 219, 'panel03');
+        var panel04 = game.add.sprite(230, 219, 'panel04');
+        var panel05 = game.add.sprite(102, 334, 'panel05');
+        var panel06 = game.add.sprite(321, 334, 'panel06');
+        var panel07 = game.add.sprite(414, 219, 'panel07');
+
+        var panels = [panel00,panel01,panel02,panel03,panel04,panel05,panel06,panel07];
+
+        var i = 0;
+        panels.forEach(function(panel) {
+
             panel.alpha = 0;
+
+            game.time.events.add(1000 + (i * 3000), fadePanel, this, panel);
+            i++;
+
+        });
+        
+        function fadePanel(panel) {
             game.add.tween(panel).to( { alpha: 1 }, 1500, Phaser.Easing.Linear.None, true);
-            panelTime++;
         }
 
     },
@@ -506,21 +518,10 @@ Congrats.prototype = {
     },
     create: function() {
         console.log('Congrats: create');
-        game.stage.backgroundColor = "#F28A2E";
+        game.stage.backgroundColor = "#000000";
 
         // create background image
-        //game.add.sprite(0, 0, 'prolBorder');
-
-        // create upper left comic panel
-        //game.add.sprite(10, 10, 'prolUpL');
-
-        /* create logo image
-        game.add.sprite(190, 50, 'logo');*/
-
-        // State change instructions and intro text -----------------------------------------------
-        scoreText = game.add.text(200, 150, 'Outfox', { fontSize: '48px', fill: '#000' });
-        scoreText = game.add.text(240, 200, 'Congratulations you won!', { fontSize: '22px', fill: '#000' });
-//        scoreText01 = game.add.text(150, 250, 'Press space to restart', { fontSize: '32px', fill: '#000' });
+        game.add.sprite(0, 0, 'Congrats');
     },
     update: function() {
         // End Game Here. Debugging issues with restarting world.
