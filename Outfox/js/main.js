@@ -225,7 +225,7 @@ MainMenu.prototype = {
             }
             
             // State change instructions and intro text -----------------------------------------------
-            menuText = game.add.text(200, 320, 'Press space to start', { font: 'Fira Sans', fontSize: '28px', fill: '#270201' });
+            menuText = game.add.text(95, 320, 'Press space to start your adventure', { font: 'Fira Sans', fontSize: '28px', fill: '#270201' });
             menuText = game.add.text(80, 370, 'Press enter to see the Foxes Responsible', { font: 'Fira Sans', fontSize: '26px', fill: '#270201', wordWrapWidth: '640', wordWrap: 'false' });
             
         },
