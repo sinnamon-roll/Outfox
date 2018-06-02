@@ -288,7 +288,7 @@ Prologue.prototype = {
         // main menu logic
         if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
             // pass this.level to next state
-            game.state.start('GameOver');
+            game.state.start('BFFmeet');
         }
     }
 }
@@ -590,8 +590,13 @@ Congrats.prototype = {
 
     },
     update: function() {
-        // End Game Here. Debugging issues with restarting world.
-
+        // GameOver logic
+        if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
+            //player.kill();
+            //enemy.kill()
+            //BFF.kill();
+            game.state.start('MainMenu');
+        }
     }
 }
 
@@ -626,7 +631,7 @@ GameOver.prototype = {
             //player.kill();
             //enemy.kill()
             //BFF.kill();
-            game.state.start('Congrats');
+            game.state.start('MainMenu');
         }
     }
 }
