@@ -11,7 +11,7 @@ var EXH;
 var TYPE; //Ro-Sham-Bo
 var NAME;
 
-function BFF(game, key) {
+function Bff(game, key) {
         // call to Phaser.Sprite // new Sprite(game, x, y, key, frame)
         Phaser.Sprite.call(this, game, size * 3, size * 4, key);
         // add custom properties
@@ -50,11 +50,11 @@ function BFF(game, key) {
 
 }
 // explicitly define prefab's prototype (Phaser.Sprite) and constructor (Player)
-BFF.prototype = Object.create(Phaser.Sprite.prototype);
-BFF.prototype.constructor = BFF;
+Bff.prototype = Object.create(Phaser.Sprite.prototype);
+Bff.prototype.constructor = Bff;
 
 // override Phaser.Sprite update (Enemy update function)
-BFF.prototype.update = function() {
+Bff.prototype.update = function() {
     //IF it is BFF's turn to move
     if(this.moveable == true){
         

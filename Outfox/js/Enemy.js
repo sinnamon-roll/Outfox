@@ -28,7 +28,7 @@ function Enemy(game, key) {
         this.CHAR = 4;
         this.SAR = 5;
         this.EGO = 4;
-        this.CTMP = 0
+        this.CTMP = 0;
         this.RPCT = 0;
         this.TYPE = "Sarcastic";
         this.NAME = "Reynard";

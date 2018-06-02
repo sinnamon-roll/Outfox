@@ -2,6 +2,7 @@ var game = new Phaser.Game(640, 480, Phaser.AUTO);
 var player;
 var enemygroup;
 var enemy;
+var BFF;
 var adjacency;
 var colors = [0x1BE7FF, 0x6EEB83, 0xE4FF1A, 0xE8AA14, 0xE8AA14];
 //Turn on/off debug info
@@ -415,8 +416,8 @@ testState.prototype = {
 
         //BFF SETUP
         console.log('yo about to construct BFF');
-        BFF = new BFF(game, 'BFF');
-        this.game.add.existing(BFF);
+        BFF = new Bff(game, 'BFF');
+        game.add.existing(BFF);
 
         console.log('yo about to construct move');
         movebutt = new moveButton(game, 'move');
@@ -526,9 +527,6 @@ testState.prototype = {
 // define Congrats state and methods
 var Congrats = function(game) {};
 Congrats.prototype = {
-    init: function(lvl) {
-        this.level = lvl+1;
-    },
     preload: function() {
         console.log('Congrats: preload');
 
@@ -544,7 +542,12 @@ Congrats.prototype = {
     },
     update: function() {
         // End Game Here. Debugging issues with restarting world.
-
+        if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR) ){
+            player.kill();
+            enemy.kill()
+            BFF.kill();
+            game.state.start('MainMenu');
+        }
     }
 }
 
