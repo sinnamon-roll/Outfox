@@ -34,7 +34,7 @@ function Bff(game, key) {
         this.acted = false;
     
         //EXHAUSTION
-        this.popup = game.add.sprite(this.x + size, this.y - size, 'atlas','s_batteryOut');
+        this.popup = game.add.sprite(this.x + 19, this.y - 18, 'atlas','s_batteryOut');
         this.popup.visible = false;
     
     //CURSOR
@@ -190,8 +190,7 @@ Bff.prototype.update = function() {
                     var bark = game.add.audio('boostSound');
                     bark.play('',0,1,false)
                     //Animate Battery
-                    var popup = game.add.sprite(player.x, player.y, 'atlas', 's_batteryFull');
-                    popup.anchor.setTo(.5,.5);
+                    var popup = game.add.sprite(player.x +19, player.y - 18, 'atlas', 's_batteryFull');
                     game.time.events.add(Phaser.Timer.SECOND * 0.5, killPop, this);
                     game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
                 }else if (bKey.justPressed() && player.EXH >=7) {
@@ -219,9 +218,9 @@ Bff.prototype.update = function() {
         this.acted = false;
 
   	}
-    if (this.controlled == false) {
-        this.popup.x = this.x + size/2;
-        this.popup.y = this.y - size/2;
+    if (this.controlled == true) {
+        this.popup.x = this.x + 19;
+        this.popup.y = this.y - 18;
         this.popup.animations.play('silent');
         this.popup.visible = true;
         this.popup.bringToTop();
