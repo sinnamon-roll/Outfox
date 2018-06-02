@@ -27,7 +27,7 @@ function Bff(game, key) {
         this.RPCT = 0;
         this.EXH = 9999;
         this.TYPE = "Charisma";
-        this.NAME = "Zerda";
+        this.NAME = "Tod";
 
         this.moveable = false;
         this.controlled = false;

@@ -29,7 +29,8 @@ var narratives = [  'As your consciousness stirs, the instinct to repeatedly bli
                     'issue getting rid of log graphic here when the final scene fades, ask for help. should just be black and fade for effect before going to gameplay'];
 var talkText;
 var logImg;
-var freeFox = [true,false,true,false];
+//Array for credits: Who to display as recruited
+var freeFox = [false,false,false,false];
 
 
 var Boot = function(game){};
@@ -328,7 +329,6 @@ BFFmeet.prototype = {
                     game.add.tween(scene).to( { alpha: 0 }, 1500, Phaser.Easing.Linear.None, true);
                     talkText.alpha = 0;
                     switchScene(startScene);
-<<<<<<< HEAD
                 }
                 if(startScene == (scenes.length - 1)) {
                     talkText.kill();
@@ -336,15 +336,6 @@ BFFmeet.prototype = {
                     game.add.tween(talkText).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
                     game.time.events.add(4000, changeState, this, 'test');
                     game.add.tween(--scene).to( { alpha: 0 }, 1500, Phaser.Easing.Linear.None, true);
-=======
-                } else if (startScene == scenes.length) {
-                    talkText.alpha = 0;
-                    //logImg.alpha = 0;
-                    console.log('2nd Enter IF. startScene: ' + startScene);
-                    game.add.tween(scene).to( { alpha: 0 }, 1500, Phaser.Easing.Linear.None, true);
-                    game.add.tween(talkText).to( { alpha: 0 }, 1500, Phaser.Easing.Linear.None, true);
-                    game.time.events.add(1500, changeState, this, 'test');
->>>>>>> origin/fox-BFF-Polish
                 }
             }
             //console.log('MainMenu: test');
@@ -509,11 +500,17 @@ testState.prototype = {
 
 	update: function() {
 		if(enemy.alive == false){
-			//this.addEnemy(enemygroup);
-            game.time.events.add(Phaser.Timer.SECOND * 7, function() {
-                    firstMusic.stop();
-                    game.state.start('Congrats')
-                });
+            if (freeFox[0] == true) {
+                game.time.events.add(Phaser.Timer.SECOND * 7, function() {
+                        firstMusic.stop();
+                        game.state.start('Congrats')
+                        });
+            }else {
+                game.time.events.add(Phaser.Timer.SECOND * 7, function() {
+                        firstMusic.stop();
+                        game.state.start('GameOver')
+                        });
+            }
 		}
 		//Checks if these two are adjacent, can be run on any two objects. Probably still way too centered on the player.
         isAdjacent(player, enemy);
@@ -561,8 +558,8 @@ Congrats.prototype = {
         var bar03 = game.add.sprite(320, 335, 'barGreen');
         var bar04 = game.add.sprite(320, 435, 'barGreen');
 
-        var name01 = game.add.text(330, 144, 'PC Name', { font: 'Fira Sans', fontSize: '18px', fill: '#eed6c3', fontWeight: '700' })
-        var name02 = game.add.text(330, 244, 'PC Name', { font: 'Fira Sans', fontSize: '18px', fill: '#eed6c3', fontWeight: '700' })
+        var name01 = game.add.text(330, 144, BFF.NAME, { font: 'Fira Sans', fontSize: '18px', fill: '#eed6c3', fontWeight: '700' })
+        var name02 = game.add.text(330, 244, enemy.NAME, { font: 'Fira Sans', fontSize: '18px', fill: '#eed6c3', fontWeight: '700' })
         var name03 = game.add.text(330, 344, 'PC Name', { font: 'Fira Sans', fontSize: '18px', fill: '#eed6c3', fontWeight: '700' })
         var name04 = game.add.text(330, 444, 'PC Name', { font: 'Fira Sans', fontSize: '18px', fill: '#eed6c3', fontWeight: '700' })
 

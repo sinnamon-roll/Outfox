@@ -29,7 +29,7 @@ function Player(game, key) {
     this.SAR = 1;
     this.EGO = 4;
     this.EXH = 3;
-    this.NAME = "Player Fox";
+    this.NAME = "Zerda";
 
     this.controlled = true;
     this.moveable = true;
