@@ -13,7 +13,7 @@ var logoSound;
 var startScene = 0;
 var panelTime = 4;
 var scene;
-var scenes = [{key:"BFF00"},{key:"BFF01"},{key:"BFF01"},{key:"BFF02"},{key:"BFF03"},{key:"BFF04"},{key:"BFF05"},{key:"BFF06"},{key:"BFF07"},{key:"BFF08"},{key:"BFF09"},{key:"BFF10"},{key:"BFF11"}];
+var scenes = [{key:"BFF00"},{key:"BFF01"},{key:"BFF01"},{key:"BFF02"},{key:"BFF03"},{key:"BFF04"},{key:"BFF05"},{key:"BFF06"},{key:"BFF07"},{key:"BFF08"},{key:"BFF09"},{key:"BFF10"},{key:"BFF11"},{key:"BFF12"}];
 var narratives = [  'As your consciousness stirs, the instinct to repeatedly blink and paw gently at your eyes kicks in. Despite your best efforts, your sight struggles to adjust in the pitch black darkness that surrounding you.',
                     'Turning your head, your eyes squint taking in a faint, glowing, red light. "Is that the sun beginning to rise? I must have wandered deeper within my den," you rationalize.',
                     'Attempting to disregard the atrophy you feel in your muscles, you stand. \* wham\! \* Rising so suddenly, your ears had little time to warn you of the low ceiling you just made contact with. You wonder, "why is the den ceiling so cold\? It\'s nowhere near wintertime yet..."',
@@ -103,6 +103,7 @@ Preloader.prototype = {
             this.load.image('BFF09', 's_BFF09.png');
             this.load.image('BFF10', 's_BFF10.png');
             this.load.image('BFF11', 's_BFF11.png');
+            this.load.image('BFF12', 'Mockup.png');
             this.load.image('logImg', 's_BFFlog.png');
             this.load.image('Congrats', 's_congrats.png');
 
@@ -317,18 +318,19 @@ BFFmeet.prototype = {
 
         },
         update: function(){
-            if(game.input.keyboard.justPressed(Phaser.Keyboard.ENTER) ){
-                if (startScene != scenes.length) {
+            if( game.input.keyboard.justPressed(Phaser.Keyboard.ENTER) ){
+                if (startScene < scenes.length) {
                     console.log('1st Enter IF. startScene: ' + startScene);
                     game.add.tween(scene).to( { alpha: 0 }, 1500, Phaser.Easing.Linear.None, true);
                     talkText.alpha = 0;
                     switchScene(startScene);
                 }
-                if (startScene == scenes.length) {
-                      game.add.tween(talkText).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
+                if(startScene == (scenes.length - 1)) {
                     talkText.kill();
-                    game.add.tween(--scene).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
-                    game.time.events.add(3000, changeState, this, 'test');
+                    logImg.kill();
+                    game.add.tween(talkText).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
+                    game.time.events.add(4000, changeState, this, 'test');
+                    game.add.tween(--scene).to( { alpha: 0 }, 1500, Phaser.Easing.Linear.None, true);
                 }
             }
             //console.log('MainMenu: test');
