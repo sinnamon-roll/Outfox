@@ -288,7 +288,7 @@ Prologue.prototype = {
         // main menu logic
         if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
             // pass this.level to next state
-            game.state.start('Congrats');
+            game.state.start('GameOver');
         }
     }
 }
@@ -609,34 +609,24 @@ GameOver.prototype = {
         // load a path to save us typing
         this.load.path = 'assets/img/'; 
         // load image assets
-        this.load.images(['prolMain'], ['prologue640x480.png']);
+        this.load.images(['gameOver'], ['s_gameOver.png']);
     },
     create: function() {
         console.log('MainMenu: create');
-        game.stage.backgroundColor = "#732817";
+        game.stage.backgroundColor = "#250001";
         console.log('level: ' + this.level);
 
         // create background image
-        //game.add.sprite(0, 0, 'prolBorder');
+        game.add.sprite(0, 0, 'gameOver');
 
-        // create upper left comic panel
-        //game.add.sprite(10, 10, 'prolUpL');
-
-        /* create logo image
-        game.add.sprite(190, 50, 'logo');*/
-
-        // State change instructions and intro text -----------------------------------------------
-        scoreText = game.add.text(200, 150, 'Outfox', { fontSize: '48px', fill: '#000' });
-        scoreText = game.add.text(240, 200, 'You died!', { fontSize: '22px', fill: '#000' });
-        scoreText01 = game.add.text(150, 250, 'Press space to restart', { fontSize: '32px', fill: '#000' });
     },
     update: function() {
         // GameOver logic
         if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
-            player.kill();
-            enemy.kill()
-            BFF.kill();
-            game.state.start('MainMenu');
+            //player.kill();
+            //enemy.kill()
+            //BFF.kill();
+            game.state.start('Congrats');
         }
     }
 }
