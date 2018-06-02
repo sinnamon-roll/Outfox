@@ -66,31 +66,6 @@ Boot.prototype = {
 				endlocX: 64,
 				endlocY: 192
                 }
-
-                var gui = new dat.GUI({
-                    width: 350
-                });
-                gui.useLocalStorage = true;
-                gui.remember(settings);
-                //debug folders
-                var stepSize = 1;
-                //character folders
-                gui.characterFolder = gui.addFolder('Player');
-                gui.characterFolder.add(settings, 'playerhealth').min(0).max(1000).step(stepSize).name('Player Health');
-                gui.characterFolder.add(settings, 'enemyhealth').min(0).max(1000).step(stepSize).name('Enemy Health');
-                
-
-                gui.characterFolder = gui.addFolder('Buttons');
-                gui.characterFolder.add(settings, 'movelocX').min(0).max(1000).step(stepSize).name('Move Location X: ')
-                gui.characterFolder.add(settings, 'movelocY').min(0).max(1000).step(stepSize).name('Move Location Y: ');
-                gui.characterFolder.add(settings, 'barklocX').min(0).max(1000).step(stepSize).name('Bark Location X: ');
-                gui.characterFolder.add(settings, 'barklocY').min(0).max(1000).step(stepSize).name('Bark Location Y: ');
-                gui.characterFolder.add(settings, 'facelocX').min(0).max(1000).step(stepSize).name('Face Location X: ');
-                gui.characterFolder.add(settings, 'facelocY').min(0).max(1000).step(stepSize).name('Face Location Y: ');
-                gui.characterFolder.add(settings, 'endlocX').min(0).max(1000).step(stepSize).name('End Location X: ');
-                gui.characterFolder.add(settings, 'endlocY').min(0).max(1000).step(stepSize).name('End Location Y: ');
-                //gui.characterFolder.add(settings, 'enemyCONTROL').min().max().step(stepSize).name('Enemy Controlled');
-                //end of gui code
                 this.state.start('Preloader');
         },
 }

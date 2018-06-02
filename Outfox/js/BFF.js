@@ -176,7 +176,6 @@ BFF.prototype.update = function() {
             enemyTarget.loadTexture('UI', 's_foxTarget');
             rightName.setText(enemy.NAME);
             rightName.visible = true;
-            aura();
             rightName.setText(player.NAME);
             enemyStats.setText('Type: ' + player.TYPE + '\n' +
             'Charisma: ' + player.CHAR + '\n' +
@@ -204,7 +203,6 @@ BFF.prototype.update = function() {
             enemyUI.visible = false;
             rightName.visible = false;
             enemyStats.visible = false;
-            player.CHAR -+ 1;
         }
 	}
     if (this.controlled == true){
@@ -245,8 +243,6 @@ BFF.prototype.update = function() {
         this.controlled = false;
         this.acted = true;
     }
-    function aura() {
-        player.CHAR += 1;
-    }
+
 
 }
