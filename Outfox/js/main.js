@@ -317,21 +317,18 @@ BFFmeet.prototype = {
 
         },
         update: function(){
-            if(this.cache.isSoundDecoded('bgMusic') && game.input.keyboard.justPressed(Phaser.Keyboard.ENTER) ){
+            if(game.input.keyboard.justPressed(Phaser.Keyboard.ENTER) ){
                 if (startScene != scenes.length) {
                     console.log('1st Enter IF. startScene: ' + startScene);
                     game.add.tween(scene).to( { alpha: 0 }, 1500, Phaser.Easing.Linear.None, true);
-                    //game.add.tween(talkText).to( { alpha: 0 }, 50, Phaser.Easing.Linear.None, true);
-                    //scene.alpha = 0;
                     talkText.alpha = 0;
                     switchScene(startScene);
-                } else if (startScene == scenes.length) {
-                    talkText.alpha = 0;
-                    logImg.alpha = 0;
-                    console.log('2nd Enter IF. startScene: ' + startScene);
-                    game.add.tween(scene).to( { alpha: 0 }, 1500, Phaser.Easing.Linear.None, true);
-                    game.add.tween(talkText).to( { alpha: 0 }, 1500, Phaser.Easing.Linear.None, true);
-                    game.time.events.add(1500, changeState, this, 'test');
+                }
+                if (startScene == scenes.length) {
+                      game.add.tween(talkText).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
+                    talkText.kill();
+                    game.add.tween(--scene).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
+                    game.time.events.add(3000, changeState, this, 'test');
                 }
             }
             //console.log('MainMenu: test');
