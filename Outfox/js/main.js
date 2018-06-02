@@ -29,10 +29,7 @@ var narratives = [  'As your consciousness stirs, the instinct to repeatedly bli
                     'issue getting rid of log graphic here when the final scene fades, ask for help. should just be black and fade for effect before going to gameplay'];
 var talkText;
 var logImg;
-var freeFox00 = false;
-var freeFox01 = false;
-var freeFox02 = false;
-var freeFox03 = false;
+var freeFox = [true,false,true,false];
 
 
 var Boot = function(game){};
@@ -106,6 +103,13 @@ Preloader.prototype = {
             this.load.image('BFF12', 'Mockup.png');
             this.load.image('logImg', 's_BFFlog.png');
             this.load.image('Congrats', 's_congrats.png');
+            this.load.image('fox00', 's_congrats00.png');
+            this.load.image('fox01', 's_congrats01.png');
+            this.load.image('fox02', 's_congrats02.png');
+            this.load.image('fox03', 's_congrats03.png');
+            this.load.image('fox04', 's_congrats04.png');
+            this.load.image('barGreen', 's_freed.png');
+            this.load.image('barRed', 's_stayed.png');
 
 
             
@@ -324,6 +328,7 @@ BFFmeet.prototype = {
                     game.add.tween(scene).to( { alpha: 0 }, 1500, Phaser.Easing.Linear.None, true);
                     talkText.alpha = 0;
                     switchScene(startScene);
+<<<<<<< HEAD
                 }
                 if(startScene == (scenes.length - 1)) {
                     talkText.kill();
@@ -331,6 +336,15 @@ BFFmeet.prototype = {
                     game.add.tween(talkText).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
                     game.time.events.add(4000, changeState, this, 'test');
                     game.add.tween(--scene).to( { alpha: 0 }, 1500, Phaser.Easing.Linear.None, true);
+=======
+                } else if (startScene == scenes.length) {
+                    talkText.alpha = 0;
+                    //logImg.alpha = 0;
+                    console.log('2nd Enter IF. startScene: ' + startScene);
+                    game.add.tween(scene).to( { alpha: 0 }, 1500, Phaser.Easing.Linear.None, true);
+                    game.add.tween(talkText).to( { alpha: 0 }, 1500, Phaser.Easing.Linear.None, true);
+                    game.time.events.add(1500, changeState, this, 'test');
+>>>>>>> origin/fox-BFF-Polish
                 }
             }
             //console.log('MainMenu: test');
@@ -349,9 +363,9 @@ function switchScene(num) {
     scene = game.add.sprite(0,0,scenes[num].key);
     scene.alpha = 0;
     game.add.tween(scene).to( { alpha: 1 }, 1500, Phaser.Easing.Linear.None, true);
-    if (num > 0 && num < scenes.length - 1) {
+    /*if (num > 0 && num < scenes.length - 1) {
         logImg = game.add.sprite(79,306,'logImg');   
-    }
+    }*/
     talkText = game.add.text(108, 315, narratives[num], { font: 'Fira Sans', fontSize: '16px', fill: '#eed6c3', wordWrapWidth: '440', wordWrap: 'true' });
     talkText.alpha = 0;
     game.add.tween(talkText).to( { alpha: 1 }, 1500, Phaser.Easing.Linear.None, true);
@@ -532,19 +546,62 @@ Congrats.prototype = {
     },
     create: function() {
         console.log('Congrats: create');
-        game.stage.backgroundColor = "#000000";
+        game.stage.backgroundColor = "#270201";
 
         // create background image
         game.add.sprite(0, 0, 'Congrats');
 
+        game.add.sprite(320, 135, 'barRed');
+        game.add.sprite(320, 235, 'barRed');
+        game.add.sprite(320, 335, 'barRed');
+        game.add.sprite(320, 435, 'barRed');
+
+        var bar01 = game.add.sprite(320, 135, 'barGreen');
+        var bar02 = game.add.sprite(320, 235, 'barGreen');
+        var bar03 = game.add.sprite(320, 335, 'barGreen');
+        var bar04 = game.add.sprite(320, 435, 'barGreen');
+
+        var name01 = game.add.text(330, 144, 'PC Name', { font: 'Fira Sans', fontSize: '18px', fill: '#eed6c3', fontWeight: '700' })
+        var name02 = game.add.text(330, 244, 'PC Name', { font: 'Fira Sans', fontSize: '18px', fill: '#eed6c3', fontWeight: '700' })
+        var name03 = game.add.text(330, 344, 'PC Name', { font: 'Fira Sans', fontSize: '18px', fill: '#eed6c3', fontWeight: '700' })
+        var name04 = game.add.text(330, 444, 'PC Name', { font: 'Fira Sans', fontSize: '18px', fill: '#eed6c3', fontWeight: '700' })
+
+        var names = [name01,name02,name03,name04];
+
+        game.add.sprite(415, 50, 'fox00');
+        var fox01 = game.add.sprite(415, 50, 'fox01');
+        game.add.sprite(415, 150, 'fox00');
+        var fox02 = game.add.sprite(415, 150, 'fox02');
+        game.add.sprite(415, 250, 'fox00');
+        var fox03 = game.add.sprite(415, 250, 'fox03');
+        game.add.sprite(415, 350, 'fox00');
+        var fox04 = game.add.sprite(415, 350, 'fox04');
+        
+        var foxes = [fox01,fox02,fox03,fox04];
+        var bars = [bar01,bar02,bar03,bar04];
+
+        var i = 0;
+        foxes.forEach(function(fox) {
+            if(freeFox[i] == true){
+                fox.alpha = 1;
+                bars[i].alpha = 1;
+            }else {
+                fox.alpha = 0;
+                bars[i].alpha = 0;
+                names[i].text = '???';
+            }
+            i++;
+        });
+
+
 
     },
     update: function() {
-        // End Game Here. Debugging issues with restarting world.
-        if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR) ){
-            player.kill();
-            enemy.kill()
-            BFF.kill();
+        // GameOver logic
+        if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
+            //player.kill();
+            //enemy.kill()
+            //BFF.kill();
             game.state.start('MainMenu');
         }
     }
@@ -564,33 +621,23 @@ GameOver.prototype = {
         // load a path to save us typing
         this.load.path = 'assets/img/'; 
         // load image assets
-        this.load.images(['prolMain'], ['prologue640x480.png']);
+        this.load.images(['gameOver'], ['s_gameOver.png']);
     },
     create: function() {
         console.log('MainMenu: create');
-        game.stage.backgroundColor = "#732817";
+        game.stage.backgroundColor = "#250001";
         console.log('level: ' + this.level);
 
         // create background image
-        //game.add.sprite(0, 0, 'prolBorder');
+        game.add.sprite(0, 0, 'gameOver');
 
-        // create upper left comic panel
-        //game.add.sprite(10, 10, 'prolUpL');
-
-        /* create logo image
-        game.add.sprite(190, 50, 'logo');*/
-
-        // State change instructions and intro text -----------------------------------------------
-        scoreText = game.add.text(200, 150, 'Outfox', { fontSize: '48px', fill: '#000' });
-        scoreText = game.add.text(240, 200, 'You died!', { fontSize: '22px', fill: '#000' });
-        scoreText01 = game.add.text(150, 250, 'Press space to restart', { fontSize: '32px', fill: '#000' });
     },
     update: function() {
         // GameOver logic
         if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
-            player.kill();
-            enemy.kill()
-            BFF.kill();
+            //player.kill();
+            //enemy.kill()
+            //BFF.kill();
             game.state.start('MainMenu');
         }
     }
