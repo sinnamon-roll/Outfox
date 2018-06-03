@@ -13,11 +13,11 @@ var iterator = 0;
 
 var spawnlocX;
 var spawnlocY;
-function Enemy(game, key) {
-    spawnlocX = size*game.rnd.integerInRange(5, 8);
-    spawnlocY= size*game.rnd.integerInRange(1, 4);
+function Enemy(game, x, y, key, name) {
+//    spawnlocX = size*game.rnd.integerInRange(5, 8);
+//    spawnlocY= size*game.rnd.integerInRange(1, 4);
         // call to Phaser.Sprite // new Sprite(game, x, y, key, frame)
-        Phaser.Sprite.call(this, game, spawnlocX, spawnlocY, key);
+        Phaser.Sprite.call(this, game, x, y, key);
         // add custom properties
         cursors = game.input.keyboard.createCursorKeys();
         // put some physics on it
@@ -31,7 +31,7 @@ function Enemy(game, key) {
         this.CTMP = 0;
         this.RPCT = 0;
         this.TYPE = "Sarcastic";
-        this.NAME = "Reynard";
+        this.NAME = name;
     
         this.controlled = settings.enemyCONTROL;
         this.moveable = false;
@@ -72,7 +72,7 @@ Enemy.prototype.update = function() {
             enemyIcon.loadTexture('UI','s_Fox_NPC01');
             enemyIcon.visible = true;
             enemyUI.visible = true;
-            rightName.setText(enemy.NAME);
+            rightName.setText(this.NAME);
             rightName.visible = true;
             playerTarget.loadTexture('UI', 's_noTarget');
             enemyStats.setText('Type: ' + enemy.TYPE + '\n' +

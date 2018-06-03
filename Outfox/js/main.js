@@ -1,7 +1,7 @@
 var game = new Phaser.Game(640, 480, Phaser.AUTO);
 var player;
 var enemygroup;
-var enemy;
+var enemy, enemy2;
 var BFF;
 var adjacency;
 var colors = [0x1BE7FF, 0x6EEB83, 0xE4FF1A, 0xE8AA14, 0xE8AA14];
@@ -81,6 +81,7 @@ Preloader.prototype = {
             this.load.spritesheet('player', 's_fox_sheet04.png', 64, 64);
             this.load.spritesheet('BFF', 's_fox_sheet.png',64,64);
             this.load.spritesheet('enemy', 's_fox_sheet01.png',64,64);
+            this.load.spritesheet('enemy2', 's_fox_sheet03.png',64,64);
             this.load.image('s_interfaceR_edge', 's_interfaceR_edge.png');
             this.load.image('cursor', 's_active.png');
             //Load Sprite Atlas
@@ -415,9 +416,12 @@ testState.prototype = {
         //enemygroup = game.add.group();
         //this.addEnemy(enemygroup);
         var tintColor = colors[game.rnd.between(0, colors.length-1)]; //for variety, which is the spiciest of meatballs
-        enemy = new Enemy(game, 'enemy');
+        enemy = new Enemy(game,(64 * 5), (64* 4), 'enemy', "Reynard");
         game.add.existing(enemy);
 
+        enemy2 = new Enemy(game,(64 * 3), (64* 3), 'enemy2', "Reynard");
+        game.add.existing(enemy2);
+        
         //BFF SETUP
         console.log('yo about to construct BFF');
         BFF = new Bff(game, 'BFF');
@@ -514,7 +518,7 @@ testState.prototype = {
 		}
 		//Checks if these two are adjacent, can be run on any two objects. Probably still way too centered on the player.
         isAdjacent(player, enemy);
-        //isAdjacent(BFF, enemy);
+        //isAdjacent(player, enemy2);
         //updates variables to what is in out settings, this is a really shitty place to update the health variable, lol one sec
         //never put things in here that govern a resource, as it will always put it to max, throw that into the constructor for said resource
         //ie, player.health = settings.playerhealth
