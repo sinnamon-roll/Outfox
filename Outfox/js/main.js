@@ -18,6 +18,7 @@ var talkText;
 var logImg;
 //Array for credits: Who to display as recruited
 var freeFox = [false,false,false,false];
+var namePC = '';
 
 
 var Boot = function(game){};
@@ -129,8 +130,7 @@ logoScreen.prototype = {
         preload: function(){
             console.log('logoScreen: preload');
             
-        },
-        create: function() {
+        },create: function() {
             console.log('logoScreen: create');
             var CCGLogo = game.add.sprite(0,0, 'CCGlogo');
 
@@ -206,6 +206,29 @@ MainMenu.prototype = {
             if(game.input.keyboard.justPressed(Phaser.Keyboard.ENTER) ){
                 this.state.start('Credits');
             }
+        },
+}
+
+var namePC = function(game) {};
+namePC.prototype = {
+        namePC: function(){
+            console.log('logoScreen: namePC');
+        /*},
+        create: function(){
+            game.stage.backgroundColor = "#d88748";
+    
+            myInput = createInput(this.game.world.centerX, 200);
+            myInput.anchor.set(0.5);
+            myInput.canvasInput.value('Please name your fox.');
+            myInput.canvasInput.focus();
+        },
+        update: function() {
+            if(game.input.keyboard.justPressed(Phaser.Keyboard.ENTER) ){
+                namePC.alpha = 0;
+                namePC = game.add.text(80, 370, document.getElementsByTagName("input")[0].value, { font: 'Fira Sans', fontSize: '26px', fill: '#270201', wordWrapWidth: '640', wordWrap: 'false' });
+                namePC.alpha = 1;
+            }*/
+    
         },
 }
 
@@ -350,17 +373,17 @@ BFFmeet.prototype = {
                     lettersPerSec: perSec, // letters per second
                 },
                 {        
-                    text: "final thoughts and sounds before falling asleep", // the text you want to play
+                    text: "Every day for a few hours, the humans allow us out into an observation area. One day, I discovered the perfect spot to dig. If you could help me convince the other foxes to join our efforts, perhaps we can make our way through!\nDon't rush your decision, sleep on it.\"\n[ ENTER ]", // the text you want to play
                     lettersPerSec: perSec, // letters per second
                 },
                 {        
-                    text: "issue getting rid of log graphic here when the final scene fades, ask for help. should just be black and fade for effect before going to gameplay", // the text you want to play
+                    text: "As you settle in to save up your strength for the next day, you contemplate Tod's offer.\n\"Can I, of all foxes, convince others to join me?\"\nThe red cage lights seem to dim as you drift off...\n\n[ PRESS SPACE TO START ]", // the text you want to play
                     lettersPerSec: perSec, // letters per second
                 },
 
 
             ],
-            function(){console.log("all texts in the list has been played!")}
+            function(){console.log("all text in the list has been played!")}
             );
 
         controller.playNext();
@@ -404,7 +427,7 @@ function _setupKeys(controller){
                     //logImg.kill();
                     //game.add.tween(talkText).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
                     //game.time.events.add(4000, changeState, this, 'test');
-                    g//ame.add.tween(--scene).to( { alpha: 0 }, 1500, Phaser.Easing.Linear.None, true);
+                    //ame.add.tween(--scene).to( { alpha: 0 }, 1500, Phaser.Easing.Linear.None, true);
                 }
             }
             //console.log('MainMenu: test');
@@ -713,6 +736,7 @@ GameOver.prototype = {
 
 game.state.add('test', testState);
 game.state.add('logoScreen', logoScreen);
+game.state.add('namePC', namePC);
 game.state.add('MainMenu', MainMenu);
 game.state.add('Prologue', Prologue);
 game.state.add('BFFmeet', BFFmeet);
