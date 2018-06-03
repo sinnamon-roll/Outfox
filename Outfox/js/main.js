@@ -373,11 +373,11 @@ BFFmeet.prototype = {
                     lettersPerSec: perSec, // letters per second
                 },
                 {        
-                    text: "final thoughts and sounds before falling asleep", // the text you want to play
+                    text: "Every day for a few hours, the humans allow us out into an observation area. One day, I discovered the perfect spot to dig. If you could help me convince the other foxes to join our efforts, perhaps we can make our way through!\nDon't rush your decision, sleep on it.\"\n[ ENTER ]", // the text you want to play
                     lettersPerSec: perSec, // letters per second
                 },
                 {        
-                    text: "issue getting rid of log graphic here when the final scene fades, ask for help. should just be black and fade for effect before going to gameplay", // the text you want to play
+                    text: "As you settle in to save up your strength for the next day, you contemplate Tod's offer.\n\"Can I, of all foxes, convince others to join me?\"\nThe red cage lights seem to dim as you drift off...\n\n[ PRESS SPACE TO START ]", // the text you want to play
                     lettersPerSec: perSec, // letters per second
                 },
 
