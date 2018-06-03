@@ -24,7 +24,6 @@ function Player(game, key) {
 
 
     //CHARACTER STATS
-    this.health = settings.playerhealth;
     this.CHAR = 3;
     this.SAR = 1;
     this.EGO = 4;
@@ -80,6 +79,8 @@ Player.prototype.update = function() {
                 gameLog.setText(enemy.NAME + ' blocks your path.');
             }else if(BFF.y ==(this.y - size) && BFF.adj == true ){
                 gameLog.setText(BFF.NAME + ' blocks your path.');
+            }else if(enemy2.y ==(this.y - size) && this.x == enemy2.x ){
+                gameLog.setText(enemy2.NAME + ' blocks your path.');
             }else {
                 this.y = this.y - size;
                 this.cursor.y = this.cursor.y - size;
@@ -96,6 +97,8 @@ Player.prototype.update = function() {
                 gameLog.setText(enemy.NAME + ' blocks your path.');
             }else if(BFF.y ==(this.y + size) && BFF.adj == true ){
                 gameLog.setText(BFF.NAME + ' blocks your path.');
+            }else if(enemy2.y ==(this.y + size) && this.x == enemy2.x ){
+                gameLog.setText(enemy2.NAME + ' blocks your path.');
             }else {
                 this.y = this.y + size;
                 this.cursor.y = this.cursor.y + size;
@@ -113,6 +116,8 @@ Player.prototype.update = function() {
                 gameLog.setText(enemy.NAME + ' blocks your path.');
             }else if(BFF.x ==(this.x - size) && BFF.adj == true){
                 gameLog.setText(BFF.NAME + ' blocks your path.');
+            }else if(enemy2.x ==(this.x - size) && this.y == enemy2.y){
+                gameLog.setText(enemy2.NAME + ' blocks your path.');
             }else {
                 this.x = this.x - size;
                 this.cursor.x = this.cursor.x - size;
@@ -130,6 +135,8 @@ Player.prototype.update = function() {
                 gameLog.setText(enemy.NAME + ' blocks your path.');
             }else if(BFF.x ==(this.x + size) && BFF.adj == true ){
                 gameLog.setText(BFF.NAME + ' blocks your path.');
+            }else if(enemy2.x ==(this.x + size) && this.y == enemy2.y ){
+                gameLog.setText(enemy2.NAME + ' blocks your path.');
             }else {
                 this.x = this.x + size;
                 this.cursor.x = this.cursor.x + size;
@@ -159,11 +166,7 @@ Player.prototype.update = function() {
       'Resolve: ' + this.EXH + '\n'
       ;
       
-        if (cKey.justPressed() && this.adj == true){
-            game.time.events.add(Phaser.Timer.SECOND * 4, useAction, this);
-    	}else if(sKey.justPressed() && this.adj == true){
-            game.time.events.add(Phaser.Timer.SECOND * 4, useAction, this);
-        }else if(wKey.justPressed()){
+      if(wKey.justPressed()){
             console.log("Waiting");
             gameLog.setText(this.NAME + ' takes a moment to compose a thought.');
             this.moveable = false;

@@ -18,11 +18,11 @@ isAdjacent = function(character, subject){
         }
         if (character.adj == true) {
             //DISPLAY INFORMATION
-            if(character.controlled == true){
+            if(subject.controlled == true){
             //Keyboard input only available when adjacent
-            if (cKey.justPressed() && character.EXH > 0) {
+            if (cKey.justPressed() && subject.EXH > 0) {
                 //Exhaust Player
-                character.EXH -= 1;
+                subject.EXH -= 1;
                 
                 //Display GameLog
                 gameLog.setText('"What\'s a fox like you doing in a place like this"');
@@ -32,7 +32,7 @@ isAdjacent = function(character, subject){
                 char.play('',0,1,false)
                 
                 //Show popup
-                var popup = game.add.sprite(character.x + 19, character.y - 38, 'atlas', 's_charisma');
+                var popup = game.add.sprite(subject.x + 19, subject.y - 38, 'atlas', 's_charisma');
                 //popup.animations.add('beat', [4, 5], 10,true);
                 //popup.play('beat');
                 game.time.events.add(Phaser.Timer.SECOND * 2, killPop, this);
@@ -41,17 +41,19 @@ isAdjacent = function(character, subject){
                 //emit sprites
                 // collision causes particle explosion
                 // add.emitter(x, y, maxParticles)
-                var charEmitter = game.add.emitter(subject.x + 32, subject.y + 32, 20);
+                var charEmitter = game.add.emitter(character.x + 32, character.y + 32, 20);
                 charEmitter.setAlpha(0.5, 1);                // set particle alpha (min, max)
                 charEmitter.minParticleScale = .5;        // set min/max particle size
                 charEmitter.maxParticleScale = 1.5;
                 charEmitter.setXSpeed(-50,50);            // set min/max horizontal speed
                 charEmitter.setYSpeed(-50,50);            // set min/max vertical speed
                 
+                //useAction()
+                game.time.events.add(Phaser.Timer.SECOND * 4, useAction, this);
             }
-            if (sKey.justPressed() && character.EXH > 0) {
+            if (sKey.justPressed() && subject.EXH > 0) {
                 //Exhaust Player
-                character.EXH -= 1;
+                subject.EXH -= 1;
                 
                 //Display GameLog
                 gameLog.setText('"Don\'t you just love eating dog food every day?"');
@@ -60,7 +62,7 @@ isAdjacent = function(character, subject){
                 var sar = game.add.audio('sarSound');
                 sar.play('',0,1,false)
                 
-                var popup = game.add.sprite(character.x + 19, character.y - 38, 'atlas', 's_sarcasm');
+                var popup = game.add.sprite(subject.x + 19, subject.y - 38, 'atlas', 's_sarcasm');
                 //popup.animations.add('smirk', [12, 13], 10,true);
                 //popup.play('smirk');
                 game.time.events.add(Phaser.Timer.SECOND * 2, killPop, this);
@@ -69,7 +71,7 @@ isAdjacent = function(character, subject){
                 //emit sprites
                 // collision causes particle explosion
                 // add.emitter(x, y, maxParticles)
-                var sarEmitter = game.add.emitter(subject.x + 32, subject.y + 32, 20);
+                var sarEmitter = game.add.emitter(character.x + 32, character.y + 32, 20);
                 sarEmitter.setAlpha(0.5, 1);                // set particle alpha (min, max)
                 sarEmitter.minParticleScale = .5;        // set min/max particle size
                 sarEmitter.maxParticleScale = 1.5;
@@ -119,5 +121,9 @@ isAdjacent = function(character, subject){
         }
         charEmitter.start(true, 2000, null, 20);    // (explode, lifespan, freq, quantity)
     }
+            function useAction() {
+                subject.controlled = false;
+                subject.acted = true;
+            }
     }
 }

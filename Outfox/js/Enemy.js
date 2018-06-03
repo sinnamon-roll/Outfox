@@ -8,6 +8,7 @@ var CTMP;
 var RPCT;
 var TYPE;
 var NAME;
+var adj;
 
 var iterator = 0;
 
@@ -24,7 +25,6 @@ function Enemy(game, x, y, key, name) {
         game.physics.arcade.enable(this);
 
         this.body.collideWorldBounds = true;
-        this.health = settings.enemyhealth;
         this.CHAR = 4;
         this.SAR = 5;
         this.EGO = 4;
@@ -32,8 +32,9 @@ function Enemy(game, x, y, key, name) {
         this.RPCT = 0;
         this.TYPE = "Sarcastic";
         this.NAME = name;
+        this.adj = false;
     
-        this.controlled = settings.enemyCONTROL;
+        this.controlled = false;
         this.moveable = false;
         this.style = {font: "bold 24px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle"};
     

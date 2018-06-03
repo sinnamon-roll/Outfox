@@ -33,41 +33,6 @@ var logImg;
 var freeFox = [false,false,false,false];
 
 
-var Boot = function(game){};
-Boot.prototype = {
-  init: function(){
-                console.log('Boot: init');
-                this.stage.disableVisibilityChange = true;
-        },
-        preload: function(){
-                console.log('Boot: preload');
-        },
-        create: function(){
-                console.log('Boot: create');
-                settings = {
-                //debug controls
-                //add in what you want
-
-                //Character setting
-                playerhealth: 10,
-                playerCHAR: 5,
-                enemyhealth: 10,
-                enemyCHAR: 5,
-                enemyCONTROL: false,
-
-                //Button setting
-				barklocX: 64,
-				barklocY: 64,
-				movelocX: 64,
-				movelocY: 128,
-				facelocX: 64,
-				facelocY: 256,
-				endlocX: 64,
-				endlocY: 192
-                }
-                this.state.start('Preloader');
-        },
-}
 var Preloader = function(game){};
 Preloader.prototype = {
         preload: function(){
@@ -380,7 +345,6 @@ testState.prototype = {
     create: function() {
         game.sound.stopAll();
         //Start physics
-        game.physics.startSystem(Phaser.Physics.ARCADE);
         game.stage.backgroundColor = "#339933";
         
         //MUSIC
@@ -419,7 +383,7 @@ testState.prototype = {
         enemy = new Enemy(game,(64 * 5), (64* 4), 'enemy', "Reynard");
         game.add.existing(enemy);
 
-        enemy2 = new Enemy(game,(64 * 3), (64* 3), 'enemy2', "Reynard");
+        enemy2 = new Enemy(game,(64 * 3), (64* 3), 'enemy2', "Choco Fox");
         game.add.existing(enemy2);
         
         //BFF SETUP
@@ -517,8 +481,8 @@ testState.prototype = {
             }
 		}
 		//Checks if these two are adjacent, can be run on any two objects. Probably still way too centered on the player.
-        isAdjacent(player, enemy);
-        //isAdjacent(player, enemy2);
+        isAdjacent(enemy, player);
+        isAdjacent(enemy2, player);
         //updates variables to what is in out settings, this is a really shitty place to update the health variable, lol one sec
         //never put things in here that govern a resource, as it will always put it to max, throw that into the constructor for said resource
         //ie, player.health = settings.playerhealth
@@ -641,7 +605,7 @@ GameOver.prototype = {
             //BFF.kill();
             game.state.start('MainMenu');
         }
-    }
+    },
 }
 
 game.state.add('test', testState);
@@ -652,6 +616,5 @@ game.state.add('BFFmeet', BFFmeet);
 game.state.add('Congrats', Congrats);
 game.state.add('GameOver', GameOver);
 game.state.add('Preloader', Preloader);
-game.state.add('Boot', Boot);
 game.state.add('Credits', credits);
-game.state.start('Boot');
+game.state.start('Preloader');
