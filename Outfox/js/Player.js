@@ -29,7 +29,7 @@ function Player(game, key) {
     this.SAR = 1;
     this.EGO = 4;
     this.EXH = 3;
-    this.NAME = "Player Fox";
+    this.NAME = "Zerda";
 
     this.controlled = true;
     this.moveable = true;
@@ -53,7 +53,7 @@ function Player(game, key) {
     this.tired.visible = false;
     
     //SILENCE
-    this.popup = game.add.sprite(this.x + size, this.y - size, 'atlas','s_batteryOut');
+    this.popup = game.add.sprite(this.x + 19, this.y - 18, 'atlas','s_batteryOut');
     this.popup.visible = false;
     
     //CURSOR
@@ -160,9 +160,9 @@ Player.prototype.update = function() {
       ;
       
         if (cKey.justPressed() && this.adj == true){
-            game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
+            game.time.events.add(Phaser.Timer.SECOND * 4, useAction, this);
     	}else if(sKey.justPressed() && this.adj == true){
-            game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
+            game.time.events.add(Phaser.Timer.SECOND * 4, useAction, this);
         }else if(wKey.justPressed()){
             console.log("Waiting");
             gameLog.setText(this.NAME + ' takes a moment to compose a thought.');
@@ -201,9 +201,9 @@ Player.prototype.update = function() {
         BFF.moveable = true;
         this.acted = false;
   }
-    if (this.controlled == false) {
-        this.popup.x = this.x + size/2;
-        this.popup.y = this.y - size/2;
+    if (this.controlled == true) {
+        this.popup.x = this.x + 19;
+        this.popup.y = this.y - 18;
         this.popup.animations.play('silent');
         this.popup.visible = true;
         this.popup.bringToTop();
@@ -213,14 +213,13 @@ Player.prototype.update = function() {
     
     if(this.EXH == 0) {
         this.tired.frame = 8;
-        this.tired.x = this.x + size/2;
-        this.tired.y = this.y - size/2;
+        this.tired.x = this.x + 19;
+        this.tired.y = this.y - 18;
         this.tired.visible = true;
         this.tired.bringToTop();
     }else {
         this.tired.visible = false;
     }
-
     
     function useAction() {
         console.log("using Player's action");

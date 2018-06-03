@@ -28,7 +28,7 @@ function Enemy(game, key) {
         this.CHAR = 4;
         this.SAR = 5;
         this.EGO = 4;
-        this.CTMP = 0
+        this.CTMP = 0;
         this.RPCT = 0;
         this.TYPE = "Sarcastic";
         this.NAME = "Reynard";
@@ -125,15 +125,24 @@ Enemy.prototype.update = function() {
         //ENEMY DEATH
         if (this.RPCT >=10) {
             gameLog.setText(this.NAME +', overwhelmed by your zeal, got intimidated and ran.');
-            var result = game.add.sprite(this.x, this.y, 'atlas', 'chat_heart_broken');
-            result.anchor.setTo(.5,.5);
+            var result = game.add.sprite(this.x+19, this.y-18, 'atlas', 'chat_heart_broken');
+            result.animations.add('break', [4,5,6,7,6], 7,true);
+            result.play('break');
             game.time.events.add(Phaser.Timer.SECOND, killText, this);
             this.pendingDestroy = true;
         }else if(this.CTMP >= 10) {
+            //MARK AS SUCCESSFULLY RECRUITED FOR CREDITS
+            freeFox[0] = true;
+            console.log(freeFox);
+            freeFox[1] = true;
+            console.log(freeFox);
+            //GAMELOG TEXT
             gameLog.setText(this.NAME +' walked away convinced to join your escape effort.');
-            var result = game.add.sprite(this.x, this.y, 'atlas', 'chat_heart_whole');
-            result.anchor.setTo(.5,.5);
-            game.time.events.add(Phaser.Timer.SECOND, killText, this);
+            //SPRITE EFFECT
+            var result = game.add.sprite(this.x +19, this.y-18, 'atlas', 'chat_heart_whole');
+            result.animations.add('beat', [4, 5], 7,true);
+            result.play('beat');
+            game.time.events.add(Phaser.Timer.SECOND * 1.5, killText, this);
             this.pendingDestroy = true;
         }
         
