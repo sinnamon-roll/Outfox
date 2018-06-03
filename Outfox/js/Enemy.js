@@ -65,44 +65,58 @@ Enemy.prototype.update = function() {
         }
 
         if(this.controlled == true) {
+            playerIcon.visible = false;
+            playerStats.visible = false;
+            leftName.visible = false;
+            playerUI.visible = false;
+            enemyIcon.loadTexture('UI','s_Fox_NPC01');
+            enemyIcon.visible = true;
+            enemyUI.visible = true;
+            rightName.setText(enemy.NAME);
+            rightName.visible = true;
+            playerTarget.loadTexture('UI', 's_noTarget');
+            enemyStats.setText('Type: ' + enemy.TYPE + '\n' +
+                            'Charisma: ' + enemy.CHAR + '\n' +
+                            'Sarcasm: ' + enemy.SAR + '\n' +
+                            'Ego: ' + enemy.EGO + '\n' +
+                            'Respect: ' + enemy.RPCT + '\n' +
+                            'Contempt: ' + enemy.CTMP + '\n');
+            enemyStats.visible = true;
+
+            if (player.adj == true) {
+                playerTarget.loadTexture('UI','s_foxTarget');
+                playerIcon.visible = true;
+                playerStats.visible = true;
+                leftName.visible = true;
+                playerUI.visible = true;
+            } else
+            enemyTarget.loadTexture('UI','s_activeFox');
+            enemyUI.visible = true;
             gameLog.setText(this.NAME +'\'s turn.');
+            
+            
+            
+            //ENEMY TURN
             if(Math.floor(iterator) == 1){
-                if(this.y == player.y){
-                    if(player.x > this.x){
-                        this.x = this.x + size;
-                        this.animations.play('right');
-                        this.frame = 10;
-                        this.controlled = false;
-                        iterator = 0;
-                        player.controlled = true;
-                        player.moveable = true;
-                    }else if(player.x < this.x){
-                        this.x = this.x - size;
-                        this.animations.play('left');
-                        this.frame = 7;
-                        this.controlled = false;
-                        iterator = 0;
-                        player.controlled = true;
-                        player.moveable = true;
+                if(this.y == size){
+                    moveDown();
+                }else if(this.y == size * 4){
+                    moveUp();
+                }else {
+                    rnd = game.rnd.integerInRange(-1, 1);
+                    if (rnd == -1) {
+                        moveUp();
                     }
-                }else if(this.y < player.y){
-                    this.y = this.y + size;
-                    this.animations.play('down');
-                    this.frame = 1;
-                    this.controlled = false;
-                    iterator = 0;
-                    player.controlled = true;
-                    player.moveable = true;
-                }else if(this.y > player.y){
-                    this.y = this.y - size;
-                    this.animations.play('up');
-                    this.frame = 4;
-                    this.controlled = false;
-                    iterator = 0;
-                    player.controlled = true;
-                    player.moveable = true;
+                    else {
+                        moveDown();
+                    }
                 }
+                //END ENEMY TURN
                 gameLog.setText(this.NAME +' runs around!');
+                enemyTarget.loadTexture('UI','s_foxTarget');
+                rightName.visible = false;
+                enemyUI.visible = false;
+                enemyStats.visible = false;
             }
             console.log('NPC Turn');
             iterator += 0.01;
@@ -129,5 +143,41 @@ Enemy.prototype.update = function() {
             this.controlled == false;
             player.moveable == true;
         }
+    function moveRight() {
+        enemy.x = enemy.x + size;
+        enemy.animations.play('right');
+        enemy.frame = 10;
+        enemy.controlled = false;
+        iterator = 0;
+        player.controlled = true;
+        player.moveable = true;
+    }
+    function moveLeft() {
+        enemy.x = enemy.x - size;
+        enemy.animations.play('left');
+        enemy.frame = 7;
+        enemy.controlled = false;
+        iterator = 0;
+        player.controlled = true;
+        player.moveable = true;
+    }
+    function moveDown () {
+        enemy.y = enemy.y + size;
+        enemy.animations.play('down');
+        enemy.frame = 1;
+        enemy.controlled = false;
+        iterator = 0;
+        player.controlled = true;
+        player.moveable = true;
+    }
+    function moveUp() {
+        enemy.y = enemy.y - size;
+        enemy.animations.play('up');
+        enemy.frame = 4;
+        enemy.controlled = false;
+        iterator = 0;
+        player.controlled = true;
+        player.moveable = true;
+    }
 
 }

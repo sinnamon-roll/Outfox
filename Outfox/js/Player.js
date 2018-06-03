@@ -56,6 +56,9 @@ function Player(game, key) {
     this.popup = game.add.sprite(this.x + size, this.y - size, 'atlas','s_batteryOut');
     this.popup.visible = false;
     
+    //CURSOR
+    this.cursor = game.add.sprite(this.x, this.y, 'cursor');
+    
     //ANIMATIONS
     this.animations.add('left', [6,7,8], 10,false);
     this.animations.add('right', [9,10,11], 10,false);
@@ -67,7 +70,7 @@ function Player(game, key) {
 Player.prototype = Object.create(Phaser.Sprite.prototype);
 Player.prototype.constructor = Player;
 
-// override Phaser.Sprite update (player update function)
+//override Phaser.Sprite update (player update function)
 Player.prototype.update = function() {
 	if (this.moveable == true){
         if(cursors.up.justPressed() ) {
@@ -79,6 +82,7 @@ Player.prototype.update = function() {
                 gameLog.setText(BFF.NAME + ' blocks your path.');
             }else {
                 this.y = this.y - size;
+                this.cursor.y = this.cursor.y - size;
                 gameLog.setText(this.NAME + ' takes a step.');
             }
             this.animations.play('up');
@@ -94,6 +98,7 @@ Player.prototype.update = function() {
                 gameLog.setText(BFF.NAME + ' blocks your path.');
             }else {
                 this.y = this.y + size;
+                this.cursor.y = this.cursor.y + size;
                 gameLog.setText(this.NAME + ' takes a step.');
             }
             this.animations.play('down');
@@ -110,6 +115,7 @@ Player.prototype.update = function() {
                 gameLog.setText(BFF.NAME + ' blocks your path.');
             }else {
                 this.x = this.x - size;
+                this.cursor.x = this.cursor.x - size;
                 gameLog.setText(this.NAME + ' takes a step.');
             }
             this.animations.play('left');
@@ -126,6 +132,7 @@ Player.prototype.update = function() {
                 gameLog.setText(BFF.NAME + ' blocks your path.');
             }else {
                 this.x = this.x + size;
+                this.cursor.x = this.cursor.x + size;
                 gameLog.setText(this.NAME + ' takes a step.');
             }
             this.animations.play('right');
@@ -136,8 +143,15 @@ Player.prototype.update = function() {
   }
   if (this.controlled == true){
       //DISPLAY STATS
-      playerIcon.loadTexture('UI','s_nar_PC');
+      this.cursor.visible = true;
+      playerStats.visible = true;
+      playerIcon.loadTexture('UI','s_nar_NPC04');
+      playerIcon.visible = true;
+      playerTarget.loadTexture('UI','s_activeFox');
+      playerTarget.visible = true;
       leftName.setText(this.NAME);
+      leftName.visible = true;
+      playerUI.visible = true;
       playerStats.text = 'Type: ' + this.TYPE + '\n' +
       'Charisma: ' + this.CHAR + '\n' +
       'Sarcasm: ' + this.SAR + '\n' +
@@ -155,8 +169,34 @@ Player.prototype.update = function() {
             this.moveable = false;
             game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
         }
+      
+      if (player.adj == true) {
+          //display stats
+          enemyStats.visible = true;
+          enemyIcon.visible = true;
+          enemyUI.visible = true;
+          enemyTarget.loadTexture('UI', 's_foxTarget');
+          rightName.setText(enemy.NAME);
+          rightName.visible = true;
+          enemyStats.setText('Type: ' + enemy.TYPE + '\n' +
+          'Charisma: ' + enemy.CHAR + '\n' +
+          'Sarcasm: ' + enemy.SAR + '\n' +
+          'Ego: ' + enemy.EGO + '\n' +
+          //'Resolve: ' + enemy.EXH + '\n' +
+          'Respect: ' + enemy.RPCT + '\n' +
+          'Contempt: ' + enemy.CTMP + '\n')
+          ;
+          
+      } else {
+          enemyStats.visible = false;
+          enemyIcon.visible = false;
+          rightName.visible = false;
+          enemyUI.visible = false;
+          enemyTarget.loadTexture('UI', 's_noTarget');
+      }
   }
   if(this.controlled == false && this.moveable == false && this.acted == true){
+        this.cursor.visible = false;
         BFF.controlled = true;
         BFF.moveable = true;
         this.acted = false;
@@ -180,6 +220,7 @@ Player.prototype.update = function() {
     }else {
         this.tired.visible = false;
     }
+
     
     function useAction() {
         console.log("using Player's action");

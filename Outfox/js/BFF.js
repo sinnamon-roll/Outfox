@@ -37,6 +37,10 @@ function BFF(game, key) {
         this.popup = game.add.sprite(this.x + size, this.y - size, 'atlas','s_batteryOut');
         this.popup.visible = false;
     
+    //CURSOR
+    this.cursor = game.add.sprite(this.x, this.y, 'cursor');
+    this.cursor.visible = false;
+    
     //ANIMATIONS
         this.animations.add('left', [6,7,8], 120, false);
         this.animations.add('right', [9,10,11], 120, false);
@@ -63,6 +67,7 @@ BFF.prototype.update = function() {
                 gameLog.setText(player.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else {
                 this.y = this.y - size;
+                this.cursor.y = this.cursor.y - size;
                 gameLog.setText(this.NAME + ' takes a step.');
             }
             this.animations.play('up');
@@ -79,6 +84,7 @@ BFF.prototype.update = function() {
                 gameLog.setText(player.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else {
                 this.y = this.y + size;
+                this.cursor.y = this.cursor.y + size;
                 gameLog.setText(this.NAME + ' takes a step.');
             }
             this.animations.play('down');
@@ -95,6 +101,7 @@ BFF.prototype.update = function() {
                 gameLog.setText(player.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else {
                 this.x = this.x - size;
+                this.cursor.x = this.cursor.x - size;
                 gameLog.setText(this.NAME + ' takes a step.');
             }
             this.animations.play('left');
@@ -111,6 +118,7 @@ BFF.prototype.update = function() {
                 gameLog.setText(player.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else {
                 this.x = this.x + size;
+                this.cursor.x = this.cursor.x + size;
                 gameLog.setText(this.NAME + ' takes a step.');
             }
             this.animations.play('right');
@@ -149,8 +157,9 @@ BFF.prototype.update = function() {
     
     if(this.controlled == true){
         //DISPLAY STATS
+        this.cursor.visible = true;
         leftName.setText(this.NAME);
-        playerIcon.loadTexture('UI','s_nar_NPC04');
+        playerIcon.loadTexture('UI','s_nar_PC');
         playerStats.text = 'Type: ' + this.TYPE + '\n' +
         'Charisma: ' + this.CHAR + '\n' +
         'Sarcasm: ' + this.SAR + '\n' +
@@ -158,23 +167,43 @@ BFF.prototype.update = function() {
         'Resolve: ' + this.EXH + '\n'
         ;
         if(this.adj == true) {
-	        if (bKey.justPressed() && player.EXH <=7) {
-	            player.EXH += 3;
-	            gameLog.setText('The fox who treated you with\nkindness gives you an\n encouraging bark.');
-	            //play audio
-	            var bark = game.add.audio('boostSound');
-	            bark.play('',0,1,false)
-                //Animate Battery
-                var popup = game.add.sprite(player.x, player.y, 'atlas', 's_batteryFull');
-                popup.anchor.setTo(.5,.5);
-                game.time.events.add(Phaser.Timer.SECOND * 0.5, killPop, this);
-	            this.controlled = false;
-                this.acted = true;
-	        }else if (bKey.justPressed() && player.EXH >=7) {
-	            gameLog.setText('The kind fox has little to say.');
-                game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
-	        }
-	    }
+            //DISPLAY FOX TARGET INFO
+            enemyTarget.loadTexture('UI', 's_foxTarget');
+            enemyIcon.loadTexture('UI', 's_nar_NPC04');
+            enemyIcon.visible = true;
+            enemyStats.visible = true;
+            enemyUI.visible = true;
+            enemyTarget.loadTexture('UI', 's_foxTarget');
+            rightName.setText(enemy.NAME);
+            rightName.visible = true;
+            rightName.setText(player.NAME);
+            enemyStats.setText('Type: ' + player.TYPE + '\n' +
+            'Charisma: ' + player.CHAR + '\n' +
+            'Sarcasm: ' + player.SAR + '\n' +
+            'Ego: ' + player.EGO + '\n' +
+            'Resolve: ' + player.EXH + '\n')
+            ;
+                if (bKey.justPressed() && player.EXH <=7) {
+                    player.EXH += 3;
+                    gameLog.setText('The fox who treated you with\nkindness gives you an\n encouraging bark.');
+                    //play audio
+                    var bark = game.add.audio('boostSound');
+                    bark.play('',0,1,false)
+                    //Animate Battery
+                    var popup = game.add.sprite(player.x, player.y, 'atlas', 's_batteryFull');
+                    popup.anchor.setTo(.5,.5);
+                    game.time.events.add(Phaser.Timer.SECOND * 0.5, killPop, this);
+                    game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
+                }else if (bKey.justPressed() && player.EXH >=7) {
+                    gameLog.setText('The kind fox has little to say.');
+                    game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
+                }
+        } else {
+            enemyIcon.visible = false;
+            enemyUI.visible = false;
+            rightName.visible = false;
+            enemyStats.visible = false;
+        }
 	}
     if (this.controlled == true){
         if(wKey.justPressed()){
@@ -185,6 +214,7 @@ BFF.prototype.update = function() {
         }
     }
     if(this.controlled == false && this.moveable == false && this.acted == true){
+        this.cursor.visible = false;
         enemy.controlled = true;
         this.acted = false;
 
@@ -213,5 +243,6 @@ BFF.prototype.update = function() {
         this.controlled = false;
         this.acted = true;
     }
+
 
 }

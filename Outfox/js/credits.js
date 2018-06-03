@@ -27,39 +27,41 @@ create: function() {
         game.add.tween(CreditsBG).to( { alpha: 0 }, 1500, Phaser.Easing.Linear.None, true);
     }
     
-    var headerSyle = {
+    var headerStyle = {
                 font: 'Fira Sans',
                 fontSize: '24px',
-                color: 'red',
+                fill: '#270201',
+                fontWeight: 'bold',
                 wordWrapWidth: '500',
                 wordWrap: 'true'
     };
 
-    header = game.add.text(25, 165, 'Design & Programming', headerSyle);
-    header = game.add.text(115, 320, 'Art', headerSyle);
-    header = game.add.text(350, 15, 'A Special Thank You', headerSyle);
-    header = game.add.text(380, 165, 'Music & SFX', headerSyle);
-    header = game.add.text(420, 320, 'Fonts', headerSyle);
+    header = game.add.text(25, 165, 'Design & Programming', headerStyle);
+    header = game.add.text(115, 320, 'Art', headerStyle);
+    header = game.add.text(350, 15, 'A Special Thank You', headerStyle);
+    header = game.add.text(380, 165, 'Music & SFX', headerStyle);
+    header = game.add.text(420, 320, 'Fonts', headerStyle);
     
-    var creditSyle =  {
+    var creditStyle =  {
     font: 'Fira Sans',
     fontSize: '20px',
+    fill: '#270201',
     wordWrapWidth: '500',
     wordWrap: 'true'
     };
-    creditText = game.add.text(300,50, 'Thank you text here', creditSyle);
+    creditText = game.add.text(300,50, 'Thank you text here', creditStyle);
 
-    creditText = game.add.text(58,200, 'Nichole Boothroyd', creditSyle);
-    creditText = game.add.text(73,235, 'Courtney Hunt', creditSyle);
-    creditText = game.add.text(63,270, 'Gavin Thompson', creditSyle);
+    creditText = game.add.text(58,200, 'Nichole Boothroyd', creditStyle);
+    creditText = game.add.text(73,235, 'Courtney Hunt', creditStyle);
+    creditText = game.add.text(63,270, 'Gavin Thompson', creditStyle);
     
-    creditText = game.add.text(73,355, 'Courtney Hunt', creditSyle);
+    creditText = game.add.text(73,355, 'Courtney Hunt', creditStyle);
 
-    creditText = game.add.text(290,200, 'Authentic Fox sounds - Courtney Hunt', {fontSize: '20px', font: 'Fira Sans'});
+    creditText = game.add.text(290,200, 'Authentic Fox sounds - Courtney Hunt', creditStyle);
 
-    creditText = game.add.text(300,355, 'Outfox logo - Lobster - Google Fonts', creditSyle);
+    creditText = game.add.text(350,355, 'Lobster - Google Fonts', creditStyle);
 
-    creditText = game.add.text(115, 410, 'Press Enter to return to the Main Menu', {fontSize: '26px', font: 'Fira Sans'});
+    creditText = game.add.text(115, 410, 'Press Enter to return to the Main Menu', headerStyle);
     
 },
 update: function() {

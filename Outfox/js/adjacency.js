@@ -18,9 +18,6 @@ isAdjacent = function(character, subject){
         }
         if (character.adj == true) {
             //DISPLAY INFORMATION
-            //character.range.x = character.x - size;
-            //character.range.y = character.y - size;
-            //character.range.visible = true;
             if(character.controlled == true){
             //Keyboard input only available when adjacent
             if (cKey.justPressed() && character.EXH > 0) {
@@ -83,7 +80,7 @@ isAdjacent = function(character, subject){
             }
         }else {
             //character.range.visible = false;
-
+                enemyTarget.loadTexture('UI', 's_noTarget');
         }
     
     function killPop() {
