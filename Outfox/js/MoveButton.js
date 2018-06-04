@@ -22,7 +22,11 @@ moveButton.prototype.constructor = moveButton;
 moveButton.prototype.update = function() {
 	if(movesel == true){
 		if(Math.floor(this.i) == 1){
-			this.usable = true;
+			if(enemy.controlled == true){
+				this.usable = false;
+			}else{
+				this.usable = true;
+			}
 		}
 		if(this.usable == true){
 			this.animations.play('MoveOn');
@@ -40,6 +44,12 @@ moveButton.prototype.update = function() {
 				this.animations.play('MoveOff');
 				this.i = 0;
 				this.usable = false;
+			}else if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)){
+				if(BFF.displayed == true){
+					BFF.moveable = true;
+				}else{
+					player.moveable = true;
+				}
 			}
 		}
 		this.i += 0.1;

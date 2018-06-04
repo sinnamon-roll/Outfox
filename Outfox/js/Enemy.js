@@ -33,7 +33,7 @@ function Enemy(game, key) {
         this.TYPE = "Sarcastic";
         this.NAME = "Reynard";
     
-        this.controlled = settings.enemyCONTROL;
+        this.controlled = false;
         this.moveable = false;
         this.style = {font: "bold 24px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle"};
     
@@ -149,8 +149,8 @@ Enemy.prototype.update = function() {
         enemy.frame = 10;
         enemy.controlled = false;
         iterator = 0;
-        player.controlled = true;
-        player.moveable = true;
+        player.displayed = true;
+        
     }
     function moveLeft() {
         enemy.x = enemy.x - size;
@@ -158,8 +158,8 @@ Enemy.prototype.update = function() {
         enemy.frame = 7;
         enemy.controlled = false;
         iterator = 0;
-        player.controlled = true;
-        player.moveable = true;
+        player.displayed = true;
+        
     }
     function moveDown () {
         enemy.y = enemy.y + size;
@@ -167,8 +167,8 @@ Enemy.prototype.update = function() {
         enemy.frame = 1;
         enemy.controlled = false;
         iterator = 0;
-        player.controlled = true;
-        player.moveable = true;
+        player.displayed = true;
+        
     }
     function moveUp() {
         enemy.y = enemy.y - size;
@@ -176,8 +176,12 @@ Enemy.prototype.update = function() {
         enemy.frame = 4;
         enemy.controlled = false;
         iterator = 0;
-        player.controlled = true;
-        player.moveable = true;
+        player.displayed = true;
+        movebutt.usable = true;
+        barkbutt.usable = true;
+        facebutt.usable = true;
+        endbutt.usable = true;
+
     }
 
 }

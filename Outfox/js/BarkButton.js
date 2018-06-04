@@ -41,6 +41,12 @@ barkButton.prototype.update = function() {
 				this.animations.play('BarkOff');
 				this.i = 0;
 				this.usable = false;
+			}else if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)){
+				if(BFF.displayed == true){
+					BFF.controlled = true;
+				}else{
+					player.controlled = true;
+				}
 			}
 		}
 		this.i += 0.1;

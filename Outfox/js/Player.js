@@ -31,9 +31,10 @@ function Player(game, key) {
     this.EXH = 3;
     this.NAME = "Player Fox";
 
-    this.controlled = true;
-    this.moveable = true;
+    this.controlled = false;
+    this.moveable = false;
     this.acted = false;
+    this.displayed = true;
     //game.time.events.add(Phaser.Timer.SECOND*5, this.delayOver, this);
 
     this.TYPE = "Egotistic";
@@ -143,21 +144,6 @@ Player.prototype.update = function() {
   }
   if (this.controlled == true){
       //DISPLAY STATS
-      this.cursor.visible = true;
-      playerStats.visible = true;
-      playerIcon.loadTexture('UI','s_nar_NPC04');
-      playerIcon.visible = true;
-      playerTarget.loadTexture('UI','s_activeFox');
-      playerTarget.visible = true;
-      leftName.setText(this.NAME);
-      leftName.visible = true;
-      playerUI.visible = true;
-      playerStats.text = 'Type: ' + this.TYPE + '\n' +
-      'Charisma: ' + this.CHAR + '\n' +
-      'Sarcasm: ' + this.SAR + '\n' +
-      'Ego: ' + this.EGO + '\n' +
-      'Resolve: ' + this.EXH + '\n'
-      ;
       
         if (cKey.justPressed() && this.adj == true){
             game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
@@ -198,10 +184,11 @@ Player.prototype.update = function() {
   if(this.controlled == false && this.moveable == false && this.acted == true){
         this.cursor.visible = false;
         BFF.controlled = true;
-        BFF.moveable = true;
         this.acted = false;
+        this.displayed = false;
+        BFF.displayed = true;
   }
-    if (this.controlled == false) {
+    if (this.displayed == false){
         this.popup.x = this.x + size/2;
         this.popup.y = this.y - size/2;
         this.popup.animations.play('silent');
@@ -226,6 +213,23 @@ Player.prototype.update = function() {
         console.log("using Player's action");
         this.controlled = false;
         this.acted = true;
+    }
+    if(this.displayed == true){
+        this.cursor.visible = true;
+        playerStats.visible = true;
+        playerIcon.loadTexture('UI','s_nar_NPC04');
+        playerIcon.visible = true;
+        playerTarget.loadTexture('UI','s_activeFox');
+        playerTarget.visible = true;
+        leftName.setText(this.NAME);
+        leftName.visible = true;
+        playerUI.visible = true;
+        playerStats.text = 'Type: ' + this.TYPE + '\n' +
+        'Charisma: ' + this.CHAR + '\n' +
+        'Sarcasm: ' + this.SAR + '\n' +
+        'Ego: ' + this.EGO + '\n' +
+        'Resolve: ' + this.EXH + '\n'
+        ;
     }
     
 }

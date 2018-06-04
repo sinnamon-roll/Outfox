@@ -32,6 +32,7 @@ function BFF(game, key) {
         this.moveable = false;
         this.controlled = false;
         this.acted = false;
+        this.displayed = false;
     
         //EXHAUSTION
         this.popup = game.add.sprite(this.x + size, this.y - size, 'atlas','s_batteryOut');
@@ -219,6 +220,7 @@ BFF.prototype.update = function() {
         this.cursor.visible = false;
         enemy.controlled = true;
         this.acted = false;
+        this.displayed = false;
 
   	}
     if (this.controlled == false) {
