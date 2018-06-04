@@ -14,7 +14,7 @@ var iterator = 0;
 
 var spawnlocX;
 var spawnlocY;
-function Enemy(game, x, y, key, name) {
+function Enemy(game, x, y, key, name, char, sar, ego, type) {
 //    spawnlocX = size*game.rnd.integerInRange(5, 8);
 //    spawnlocY= size*game.rnd.integerInRange(1, 4);
         // call to Phaser.Sprite // new Sprite(game, x, y, key, frame)
@@ -25,12 +25,12 @@ function Enemy(game, x, y, key, name) {
         game.physics.arcade.enable(this);
 
         this.body.collideWorldBounds = true;
-        this.CHAR = 4;
-        this.SAR = 5;
-        this.EGO = 4;
+        this.CHAR = char;
+        this.SAR = sar;
+        this.EGO = ego;
         this.CTMP = 0;
         this.RPCT = 0;
-        this.TYPE = "Sarcastic";
+        this.TYPE = type;
         this.NAME = name;
         this.adj = false;
     

@@ -75,7 +75,7 @@ Player.prototype.update = function() {
         if(cursors.up.justPressed() ) {
             if(this.y == size){
                 gameLog.setText('The laboratory wall prevents you from going further.');
-            }else if(enemy.y ==(this.y - size) && this.adj == true ){
+            }else if(enemy.y ==(this.y - size) && enemy.adj == true ){
                 gameLog.setText(enemy.NAME + ' blocks your path.');
             }else if(BFF.y ==(this.y - size) && BFF.adj == true ){
                 gameLog.setText(BFF.NAME + ' blocks your path.');
@@ -93,7 +93,7 @@ Player.prototype.update = function() {
         } else if(cursors.down.justPressed() ) {
             if(this.y == size * 4){
                 gameLog.setText('The laboratory wall prevents you from going further.');
-            }else if(enemy.y ==(this.y + size) && this.adj == true ){
+            }else if(enemy.y ==(this.y + size) && enemy.adj == true ){
                 gameLog.setText(enemy.NAME + ' blocks your path.');
             }else if(BFF.y ==(this.y + size) && BFF.adj == true ){
                 gameLog.setText(BFF.NAME + ' blocks your path.');
@@ -131,7 +131,7 @@ Player.prototype.update = function() {
         } else if(cursors.right.justPressed() ) {
             if (this.x == size * 8) {
                 gameLog.setText('The laboratory wall prevents you from going further.');
-            }else if(enemy.x ==(this.x + size) && this.adj == true ){
+            }else if(enemy.x ==(this.x + size) && enemy.adj == true ){
                 gameLog.setText(enemy.NAME + ' blocks your path.');
             }else if(BFF.x ==(this.x + size) && BFF.adj == true ){
                 gameLog.setText(BFF.NAME + ' blocks your path.');
@@ -173,9 +173,10 @@ Player.prototype.update = function() {
             game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
         }
       
-      if (player.adj == true) {
+      if (enemy.adj == true) {
           //display stats
           enemyStats.visible = true;
+          enemyIcon.loadTexture('UI', 's_Fox_NPC01');
           enemyIcon.visible = true;
           enemyUI.visible = true;
           enemyTarget.loadTexture('UI', 's_foxTarget');
@@ -188,6 +189,23 @@ Player.prototype.update = function() {
           //'Resolve: ' + enemy.EXH + '\n' +
           'Respect: ' + enemy.RPCT + '\n' +
           'Contempt: ' + enemy.CTMP + '\n')
+          ;
+          
+      } else if (enemy2.adj == true) {
+          //display stats
+          enemyStats.visible = true;
+          enemyIcon.loadTexture('UI', 's_nar_NPC03');
+          enemyIcon.visible = true;
+          enemyUI.visible = true;
+          enemyTarget.loadTexture('UI', 's_foxTarget');
+          rightName.setText(enemy2.NAME);
+          rightName.visible = true;
+          enemyStats.setText('Type: ' + enemy2.TYPE + '\n' +
+            'Charisma: ' + enemy2.CHAR + '\n' +
+            'Sarcasm: ' + enemy2.SAR + '\n' +
+            'Ego: ' + enemy2.EGO + '\n' +
+            'Respect: ' + enemy2.RPCT + '\n' +
+            'Contempt: ' + enemy2.CTMP + '\n')
           ;
           
       } else {

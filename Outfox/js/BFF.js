@@ -65,6 +65,8 @@ Bff.prototype.update = function() {
                 gameLog.setText(enemy.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else if(player.y ==(this.y - size) && player.x == this.x ){
                 gameLog.setText(player.NAME + ' blocks ' + this.NAME +'\'s path.');
+            }else if(enemy2.y ==(this.y - size) && enemy2.x == this.x ){
+                gameLog.setText(enemy2.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else {
                 this.y = this.y - size;
                 this.cursor.y = this.cursor.y - size;
@@ -82,6 +84,8 @@ Bff.prototype.update = function() {
                 gameLog.setText(enemy.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else if(player.y ==(this.y + size) && player.x == this.x ){
                 gameLog.setText(player.NAME + ' blocks ' + this.NAME +'\'s path.');
+            }else if(enemy2.y ==(this.y + size) && enemy2.x == this.x ){
+                gameLog.setText(enemy2.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else {
                 this.y = this.y + size;
                 this.cursor.y = this.cursor.y + size;
@@ -99,6 +103,8 @@ Bff.prototype.update = function() {
                 gameLog.setText(enemy.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else if(player.x ==(this.x - size) && player.y == this.y){
                 gameLog.setText(player.NAME + ' blocks ' + this.NAME +'\'s path.');
+            }else if(enemy2.x ==(this.x - size) && enemy2.y == this.y){
+                gameLog.setText(enemy2.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else {
                 this.x = this.x - size;
                 this.cursor.x = this.cursor.x - size;
@@ -116,6 +122,8 @@ Bff.prototype.update = function() {
                 gameLog.setText(enemy.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else if(player.x ==(this.x + size) && player.y == this.y ){
                 gameLog.setText(player.NAME + ' blocks ' + this.NAME +'\'s path.');
+            }else if(enemy2.x ==(this.x + size) && enemy2.y == this.y ){
+                gameLog.setText(enemy2.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else {
                 this.x = this.x + size;
                 this.cursor.x = this.cursor.x + size;

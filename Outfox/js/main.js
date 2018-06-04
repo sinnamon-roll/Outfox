@@ -380,10 +380,11 @@ testState.prototype = {
         //enemygroup = game.add.group();
         //this.addEnemy(enemygroup);
         var tintColor = colors[game.rnd.between(0, colors.length-1)]; //for variety, which is the spiciest of meatballs
-        enemy = new Enemy(game,(64 * 5), (64* 4), 'enemy', "Reynard");
+        //Enemy(game, x, y, key, name, char, sar, ego, type)
+        enemy = new Enemy(game,(64 * 5), (64* 4), 'enemy', "Reynard", 4, 5, 4, "Sarcastic");
         game.add.existing(enemy);
 
-        enemy2 = new Enemy(game,(64 * 3), (64* 3), 'enemy2', "Choco Fox");
+        enemy2 = new Enemy(game,(64 * 3), (64* 3), 'enemy2', "Choco Fox", 6, 2, 1, "Charismatic");
         game.add.existing(enemy2);
         
         //BFF SETUP
