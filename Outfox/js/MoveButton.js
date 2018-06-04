@@ -12,6 +12,7 @@ function moveButton(game, type) {
 	Phaser.Sprite.call(this, game, moveloX, moveloY, atlas, movekey);
 	this.animations.add('MoveOn', ['s_Move_act'], 60, true, false);
 	this.animations.add('MoveOff', ['s_Move_inact'], 60, true, false);
+	this.animations.add('Used', [''])
 	movesel = true;
 	cursors = game.input.keyboard.createCursorKeys();
 
@@ -47,9 +48,9 @@ moveButton.prototype.update = function() {
 			}else if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)){
 				if(BFF.displayed == true){
 					BFF.moveable = true;
-				}else{
+				}else if(player.displayed == true){
 					player.moveable = true;
-				}
+				}else if
 			}
 		}
 		this.i += 0.1;
