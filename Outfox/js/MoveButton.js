@@ -8,11 +8,11 @@ var atlas = 'UI';
 
 function moveButton(game, type) {
 	this.i = 0;
-	this.useable = false;
-	Phaser.Sprite.call(this, game, moveloX, moveloY, atlas, movekey);
+	this.usable = true;
+		Phaser.Sprite.call(this, game, moveloX, moveloY, atlas, movekey);
 	this.animations.add('MoveOn', ['s_Move_act'], 60, true, false);
 	this.animations.add('MoveOff', ['s_Move_inact'], 60, true, false);
-	this.animations.add('Used', [''])
+	this.animations.add('Used', ['s_Move_used'], 60, true, false)
 	movesel = true;
 	cursors = game.input.keyboard.createCursorKeys();
 
@@ -21,38 +21,98 @@ function moveButton(game, type) {
 moveButton.prototype = Object.create(Phaser.Sprite.prototype);
 moveButton.prototype.constructor = moveButton;
 moveButton.prototype.update = function() {
-	if(movesel == true){
-		if(Math.floor(this.i) == 1){
-			if(enemy.controlled == true){
-				this.usable = false;
-			}else{
-				this.usable = true;
+	// if(movesel == true){
+	// 	if(Math.floor(this.i) == 1){
+	// 		if(enemy.controlled == true){
+	// 			this.usable = false;
+	// 		}else if(player.displayed == true){
+	// 			this.usable = true;
+	// 		}else if(BFF.displayed == true){
+	// 			this.usable = true;
+	// 		}
+	// 	}
+	// 	if(this.usable == true){
+	// 		this.animations.play('MoveOn');
+	// 		if(cursors.up.justPressed()){
+	// 			endsel = true;
+	// 			movesel = false;
+	// 			console.log("up from move");
+	// 			this.animations.play('MoveOff');
+	// 			this.i = 0;
+	// 			this.usable = false;
+	// 		}else if(cursors.down.justPressed()){
+	// 			barksel = true;
+	// 			movesel = false;
+	// 			console.log(" down from move");
+	// 			this.animations.play('MoveOff');
+	// 			this.i = 0;
+	// 			this.usable = false;
+	// 		}else if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)){
+	// 			if (this.unusable == false){
+	// 			if(BFF.displayed == true){
+	// 				BFF.moveable = true;
+	// 				this.unusable = true;
+	// 				this.animations.play('Used');
+	// 			}else if(player.displayed == true){
+	// 				player.moveable = true;
+	// 				this.unusable = true;
+	// 				this.animations.play('Used');
+	// 			}
+	// 			}
+	// 		}
+	// 	}
+	// 	this.i += 0.1;
+		
+ //  	}
+  	if(this.usable == true){
+  		if(movesel == true){
+  			this.animations.play('MoveOn');
+  			if(Math.floor(this.i)==1){
+				if(cursors.up.justPressed()){
+					endsel = true;
+					movesel = false;
+					console.log("up from move");
+					this.animations.play('MoveOff');
+					this.i = 0;
+					this.usable = false;
+				}else if(cursors.down.justPressed()){
+					barksel = true;
+					movesel = false;
+					console.log(" down from move");
+					this.animations.play('MoveOff');
+					this.i = 0;
+					this.usable = false;
+				}else if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)){
+					if(player.displayed == true){
+						player.moveable = true;
+						this.usable = false;
+					}else if(BFF.displayed == true){
+						BFF.moveable = true;
+						this.usable = false;
+					}
+				}
 			}
-		}
-		if(this.usable == true){
-			this.animations.play('MoveOn');
-			if(cursors.up.justPressed()){
-				endsel = true;
-				movesel = false;
-				console.log("up from move");
-				this.animations.play('MoveOff');
-				this.i = 0;
-				this.usable = false;
-			}else if(cursors.down.justPressed()){
-				barksel = true;
-				movesel = false;
-				console.log(" down from move");
-				this.animations.play('MoveOff');
-				this.i = 0;
-				this.usable = false;
-			}else if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)){
-				if(BFF.displayed == true){
-					BFF.moveable = true;
-				}else if(player.displayed == true){
-					player.moveable = true;
-				}else if
+			this.i += 0.1;
+  		}
+  	}else{
+  		if(movesel == true){
+  			this.animations.play('MoveOn');
+  			if(Math.floor(this.i)==1){
+				if(cursors.up.justPressed()){
+					endsel = true;
+					movesel = false;
+					console.log("up from move");
+					this.animations.play('Used');
+					this.i = 0;
+				}else if(cursors.down.justPressed()){
+					barksel = true;
+					movesel = false;
+					console.log(" down from move");
+					this.animations.play('Used');
+					this.i = 0;
+				}
 			}
-		}
-		this.i += 0.1;
-	}
+			this.i += 0.1;
+  		}
+  	}
 }

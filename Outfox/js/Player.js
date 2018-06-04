@@ -187,6 +187,7 @@ Player.prototype.update = function() {
         this.acted = false;
         this.displayed = false;
         BFF.displayed = true;
+        movebutt.usable = true;
   }
     if (this.displayed == false){
         this.popup.x = this.x + size/2;

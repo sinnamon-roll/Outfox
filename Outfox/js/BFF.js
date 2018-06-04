@@ -221,6 +221,7 @@ BFF.prototype.update = function() {
         enemy.controlled = true;
         this.acted = false;
         this.displayed = false;
+        movebutt.usable = true;;
 
   	}
     if (this.controlled == false) {

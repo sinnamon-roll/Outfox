@@ -150,6 +150,7 @@ Enemy.prototype.update = function() {
         enemy.controlled = false;
         iterator = 0;
         player.displayed = true;
+        movebutt.usable = true;
         
     }
     function moveLeft() {
@@ -159,6 +160,7 @@ Enemy.prototype.update = function() {
         enemy.controlled = false;
         iterator = 0;
         player.displayed = true;
+        movebutt.usable = true;
         
     }
     function moveDown () {
@@ -168,6 +170,7 @@ Enemy.prototype.update = function() {
         enemy.controlled = false;
         iterator = 0;
         player.displayed = true;
+        movebutt.usable = true;
         
     }
     function moveUp() {
@@ -178,9 +181,6 @@ Enemy.prototype.update = function() {
         iterator = 0;
         player.displayed = true;
         movebutt.usable = true;
-        barkbutt.usable = true;
-        facebutt.usable = true;
-        endbutt.usable = true;
 
     }
 
