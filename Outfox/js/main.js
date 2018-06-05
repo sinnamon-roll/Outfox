@@ -1,4 +1,4 @@
-var game = new Phaser.Game(640, 480, Phaser.AUTO);
+var game = new Phaser.Game(640, 480, Phaser.AUTO, 'phaser-window');
 var player;
 var enemygroup;
 var enemy;
@@ -133,6 +133,9 @@ logoScreen.prototype = {
         },create: function() {
             console.log('logoScreen: create');
             var CCGLogo = game.add.sprite(0,0, 'CCGlogo');
+            setBgColorById('main-page','#250001');
+           
+
 
             CCGLogo.anchor.setTo(0, 0);
             CCGLogo.alpha = 0;
@@ -175,6 +178,8 @@ MainMenu.prototype = {
             console.log('MainMenu: create');
             game.stage.backgroundColor = "#000000";
             var OFLogo = game.add.sprite(0,0, 'OFlogo');
+            setBgColorById('main-page','#250001');
+            setBgImageById('main-page','');
 
             OFLogo.anchor.setTo(0, 0);
             OFLogo.alpha = 0;
@@ -183,14 +188,6 @@ MainMenu.prototype = {
 
             function logoSound() {
                 this.logoUp.play('', 0, 0.1, false);
-            }
-            
-            function fadeOut() {
-                game.add.tween(OFLogo).to( { alpha: 0 }, 1500, Phaser.Easing.Linear.None, true);
-            }
-
-            function switchState() {
-                game.add.tween(OFLogo).to( { alpha: 0 }, 1500, Phaser.Easing.Linear.None, true);
             }
             
             // State change instructions and intro text -----------------------------------------------
@@ -240,6 +237,8 @@ Prologue.prototype = {
     },
     preload: function() {
         console.log('Prologue: preload');
+        setBgColorById('main-page','#facade');
+        setBgImageById('main-page','url("assets/img/prologueBG.png")');
 
         // Preload Assets -----------------------------------------------------
 
@@ -250,6 +249,12 @@ Prologue.prototype = {
             ['prologueborder.png', 'prologueUpL.png', 'prologueUpMid.png', 'prologueUpR.png', 'prologueLowL.png', 'prologueLowMidTop.png', 'prologueLowMidL.png', 'prologueLowMidR.png', 'prologueLowR.png']);
     },
     create: function() {
+        // create background image
+        var proBG = game.add.sprite(0, 0, 'prolBorder');
+        proBG.alpha = 0;
+
+        game.add.tween(proBG).to( { alpha: 1 }, 1500, Phaser.Easing.Linear.None, true);
+
         console.log('Prologue: create');
         game.stage.backgroundColor = "#ffffff";
         console.log('level: ' + this.level);
@@ -268,8 +273,7 @@ Prologue.prototype = {
             this.cageDown.play('', 0, 0.5, false);
         }
 
-        // create background image
-        game.add.sprite(0, 0, 'prolBorder');
+        
 
         var panel00 = game.add.sprite(10, 10, 'panel00');
         var panel01 = game.add.sprite(101, 10, 'panel01');
@@ -314,6 +318,11 @@ BFFmeet.prototype = {
         },
         create: function() {
             console.log('BFFmeet: create');
+
+            setBgColorById('main-page','#000000');
+            setBgImageById('main-page','');
+            game.sound.stopAll();
+
             game.stage.backgroundColor = "#000000";
             //switchScene(startScene);
 
@@ -443,6 +452,12 @@ function switchScene(num) {
     this.cageDown = game.add.audio('cage');
     if (num == 3){
         this.cageDown.play('', 0, 0.5, false);
+    }
+    if (num == 4) {
+        setBgColorById('main-page','#242323');
+    }
+    if (num == 5) {
+        setBgColorById('main-page','#615f5f');
     }
     scene = game.add.sprite(0,0,scenes[num].key);
     scene.alpha = 0;
@@ -732,6 +747,35 @@ GameOver.prototype = {
             game.state.start('MainMenu');
         }
     }
+}
+
+// change css background color
+// code help from http://www.javascripter.net/
+function setBgColorById(id,sColor) {
+ var elem;
+ if (document.getElementById) {
+  if (elem=document.getElementById(id)) {
+   if (elem.style) {
+    elem.style.backgroundColor=sColor;
+    return 1;  // success
+   }
+  }
+ }
+ return 0;  // failure
+}
+
+// change css background image
+function setBgImageById(id,sImage) {
+ var elem;
+ if (document.getElementById) {
+  if (elem=document.getElementById(id)) {
+   if (elem.style) {
+    elem.style.backgroundImage=sImage;
+    return 1;  // success
+   }
+  }
+ }
+ return 0;  // failure
 }
 
 game.state.add('test', testState);

@@ -1,19 +1,34 @@
+html,
 body {
-	font-family: Helvetica;
-	margin: 0 auto;
+  	margin: 0 auto;
+  	height: 100%;
+  	width: 100%;
+  	overflow: hidden;
+  	position: fixed;
 }
 
-<div id=”gameArea”>
-  <canvas id=”gameCanvas”></canvas>
-  <div id=”statsPanel”></div>
-</div>
+/*canvas {
+    padding: 0;
+    border: 5px solid #000000;
+    margin: auto;
+    display: block;
+    width: 640px;
+    height: 480px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}*/
 
-#gameArea {
-  position: absolute;
-  left:     50%;
-  top:      50%;
+.mydiv {
+  margin: 0 auto;
+  animation: myanimation;
+  animation-iteration-count: 1;
+  animation-duration: 17s;
 }
 
-canvas {
-	border: 5px solid #270201;
-}
+/*@keyframes myanimation {
+  from {background-image: url("../assets/img/CCGbg.png");}
+  to {background-color:#250001;}
+}*/
