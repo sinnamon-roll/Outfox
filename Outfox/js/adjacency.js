@@ -32,11 +32,10 @@ isAdjacent = function(character, subject){
                 char.play('',0,1,false)
                 
                 //Show popup
-                var popup = game.add.sprite(character.x, character.y, 'atlas', 's_charisma');
-                popup.anchor.setTo(.5,.5);
+                var popup = game.add.sprite(character.x + 19, character.y - 38, 'atlas', 's_charisma');
                 //popup.animations.add('beat', [4, 5], 10,true);
                 //popup.play('beat');
-                game.time.events.add(Phaser.Timer.SECOND * 3, killPop, this);
+                game.time.events.add(Phaser.Timer.SECOND * 2, killPop, this);
                 game.time.events.add(Phaser.Timer.SECOND * 3, cBark, this);
                 
                 //emit sprites
@@ -61,11 +60,10 @@ isAdjacent = function(character, subject){
                 var sar = game.add.audio('sarSound');
                 sar.play('',0,1,false)
                 
-                var popup = game.add.sprite(character.x, character.y, 'atlas', 's_sarcasm');
-                popup.anchor.setTo(.5,.5);
+                var popup = game.add.sprite(character.x + 19, character.y - 38, 'atlas', 's_sarcasm');
                 //popup.animations.add('smirk', [12, 13], 10,true);
                 //popup.play('smirk');
-                game.time.events.add(Phaser.Timer.SECOND * 3, killPop, this);
+                game.time.events.add(Phaser.Timer.SECOND * 2, killPop, this);
                 game.time.events.add(Phaser.Timer.SECOND * 3, sBark, this);
                 
                 //emit sprites
