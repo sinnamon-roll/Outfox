@@ -474,7 +474,7 @@ testState.prototype = {
     //},	 
 
 	update: function() {
-		if(enemy.alive == false){
+		if(enemygroup.length == 0){
             if (freeFox[0] == true) {
                 game.time.events.add(Phaser.Timer.SECOND * 7, function() {
                         firstMusic.stop();

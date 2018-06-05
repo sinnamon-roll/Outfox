@@ -130,7 +130,9 @@ Enemy.prototype.update = function() {
             result.animations.add('break', [4,5,6,7,6], 7,true);
             result.play('break');
             game.time.events.add(Phaser.Timer.SECOND, killText, this);
-            this.pendingDestroy = true;
+            this.x = 0;
+            this.y = 0;
+            this.pendingDestroy = true;    
         }else if(this.CTMP >= 10) {
             //MARK AS SUCCESSFULLY RECRUITED FOR CREDITS
             freeFox[0] = true;
@@ -144,6 +146,8 @@ Enemy.prototype.update = function() {
             result.animations.add('beat', [4, 5], 7,true);
             result.play('beat');
             game.time.events.add(Phaser.Timer.SECOND * 1.5, killText, this);
+            this.x = 0;
+            this.y = 0;
             this.pendingDestroy = true;
         }
         
