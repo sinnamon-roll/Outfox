@@ -13,7 +13,7 @@ var logoSound;
 var startScene = 0;
 var panelTime = 4;
 var scene;
-var scenes = [{key:"BFF00"},{key:"BFF01"},{key:"BFF01"},{key:"BFF02"},{key:"BFF03"},{key:"BFF05"},{key:"BFF06"},{key:"BFF07"},{key:"BFF08"},{key:"BFF09"},{key:"BFF09"},{key:"BFF10"},{key:"BFF11"},{key:"BFF12"}];
+var scenes = [{key:"BFF00"},{key:"BFF01"},{key:"BFF01"},{key:"BFF02"},{key:"BFF03"},{key:"BFF05"},{key:"BFF06"},{key:"BFF07"},{key:"BFF08"},{key:"BFF09"},{key:"BFF09"},{key:"BFF07"},{key:"BFF11"},{key:"BFF12"}];
 var talkText;
 var logImg;
 //Array for credits: Who to display as recruited
@@ -133,7 +133,7 @@ logoScreen.prototype = {
         },create: function() {
             console.log('logoScreen: create');
             var CCGLogo = game.add.sprite(0,0, 'CCGlogo');
-            setBgColorById('main-page','#250001');
+            setBgColorById('main-page','#880700');
            
 
 
@@ -440,7 +440,7 @@ function switchScene(num) {
     if (num == 4) {
         setBgColorById('main-page','#242323');
     }
-    if (num == 5) {
+    if (num == 8) {
         setBgColorById('main-page','#615f5f');
     }
     scene = game.add.sprite(0,0,scenes[num].key);
