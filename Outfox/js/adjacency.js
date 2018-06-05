@@ -1,4 +1,5 @@
-isAdjacent = function(character, subject){
+isAdjacent = function(characterGroup, subject){
+    characterGroup.forEach(function(character) {
     //ADJ!!!
         if(subject.x == (character.x + size) || subject.x == (character.x - size) ){
             if (subject.y == character.y) {
@@ -16,6 +17,7 @@ isAdjacent = function(character, subject){
         }else {
             character.adj = false;
         }
+                           //});
         if (character.adj == true) {
             //DISPLAY INFORMATION
             if(subject.controlled == true){
@@ -91,7 +93,8 @@ isAdjacent = function(character, subject){
     }
     function sBark() {
                 //Ro-Sham-Bo
-                if (character.TYPE == 'Sarcastic') {
+        console.log("sBark", character);
+            if (character.TYPE == 'Sarcastic') {
                     character.CTMP += (subject.SAR * 2);
                     gameLog.setText('The bark is Super Effective');
                     sarEmitter.makeParticles('atlas','+_green');        // image used for particles
@@ -104,7 +107,7 @@ isAdjacent = function(character, subject){
                     gameLog.setText('The fox regards you calmly.');
                     sarEmitter.makeParticles('atlas','x_red');
                 }
-                sarEmitter.start(true, 2000, null, 20);    // (explode, lifespan, freq, quantity)
+                sarEmitter.start(true, 4000, null, 20);    // (explode, lifespan, freq, quantity)
     }
     function cBark() {
         //Determine if weak/resistant
@@ -115,17 +118,18 @@ isAdjacent = function(character, subject){
         } else if (character.TYPE == 'Charismatic') {
             character.RPCT += (subject.CHAR * 2);
             gameLog.setText('Super Effective!');
-            character.makeParticles('atlas','+_green');
+            charEmitter.makeParticles('atlas','+_green');
         } else {
             character.RPCT += character.CHAR;
             gameLog.setText('The fox regards you calmly.');
             charEmitter.makeParticles('atlas','x_red');
         }
-        charEmitter.start(true, 2000, null, 20);    // (explode, lifespan, freq, quantity)
+        charEmitter.start(true, 4000, null, 20);    // (explode, lifespan, freq, quantity)
     }
             function useAction() {
                 subject.controlled = false;
                 subject.acted = true;
             }
     }
+                           });
 }

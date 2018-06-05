@@ -28,7 +28,7 @@ function Enemy(game, x, y, key, name, char, sar, ego, type) {
         this.CHAR = char;
         this.SAR = sar;
         this.EGO = ego;
-        this.CTMP = 0;
+        this.CTMP = 8;
         this.RPCT = 0;
         this.TYPE = type;
         this.NAME = name;
@@ -76,12 +76,12 @@ Enemy.prototype.update = function() {
             rightName.setText(this.NAME);
             rightName.visible = true;
             playerTarget.loadTexture('UI', 's_noTarget');
-            enemyStats.setText('Type: ' + enemy.TYPE + '\n' +
-                            'Charisma: ' + enemy.CHAR + '\n' +
-                            'Sarcasm: ' + enemy.SAR + '\n' +
-                            'Ego: ' + enemy.EGO + '\n' +
-                            'Respect: ' + enemy.RPCT + '\n' +
-                            'Contempt: ' + enemy.CTMP + '\n');
+            enemyStats.setText('Type: ' + this.TYPE + '\n' +
+                            'Charisma: ' + this.CHAR + '\n' +
+                            'Sarcasm: ' + this.SAR + '\n' +
+                            'Ego: ' + this.EGO + '\n' +
+                            'Respect: ' + this.RPCT + '\n' +
+                            'Contempt: ' + this.CTMP + '\n');
             enemyStats.visible = true;
 
             if (player.adj == true) {
@@ -159,7 +159,7 @@ Enemy.prototype.update = function() {
         enemy.frame = 10;
         enemy.controlled = false;
         iterator = 0;
-        player.controlled = true;
+        enemy.controlled = true;
         player.moveable = true;
     }
     function moveLeft() {
