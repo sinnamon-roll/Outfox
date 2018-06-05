@@ -7,28 +7,9 @@ body {
   	position: fixed;
 }
 
-/*canvas {
-    padding: 0;
-    border: 5px solid #000000;
-    margin: auto;
-    display: block;
-    width: 640px;
-    height: 480px;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-}*/
-
 .mydiv {
   margin: 0 auto;
   animation: myanimation;
   animation-iteration-count: 1;
   animation-duration: 17s;
 }
-
-/*@keyframes myanimation {
-  from {background-image: url("../assets/img/CCGbg.png");}
-  to {background-color:#250001;}
-}*/
