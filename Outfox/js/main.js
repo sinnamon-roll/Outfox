@@ -179,7 +179,6 @@ MainMenu.prototype = {
             game.stage.backgroundColor = "#000000";
             var OFLogo = game.add.sprite(0,0, 'OFlogo');
             setBgColorById('main-page','#250001');
-            setBgImageById('main-page','');
 
             OFLogo.anchor.setTo(0, 0);
             OFLogo.alpha = 0;
@@ -210,21 +209,6 @@ var namePC = function(game) {};
 namePC.prototype = {
         namePC: function(){
             console.log('logoScreen: namePC');
-        /*},
-        create: function(){
-            game.stage.backgroundColor = "#d88748";
-    
-            myInput = createInput(this.game.world.centerX, 200);
-            myInput.anchor.set(0.5);
-            myInput.canvasInput.value('Please name your fox.');
-            myInput.canvasInput.focus();
-        },
-        update: function() {
-            if(game.input.keyboard.justPressed(Phaser.Keyboard.ENTER) ){
-                namePC.alpha = 0;
-                namePC = game.add.text(80, 370, document.getElementsByTagName("input")[0].value, { font: 'Fira Sans', fontSize: '26px', fill: '#270201', wordWrapWidth: '640', wordWrap: 'false' });
-                namePC.alpha = 1;
-            }*/
     
         },
 }
