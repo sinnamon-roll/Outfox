@@ -13,7 +13,7 @@ var logoSound;
 var startScene = 0;
 var panelTime = 4;
 var scene;
-var scenes = [{key:"BFF00"},{key:"BFF01"},{key:"BFF01"},{key:"BFF02"},{key:"BFF03"},{key:"BFF05"},{key:"BFF06"},{key:"BFF07"},{key:"BFF08"},{key:"BFF09"},{key:"BFF09"},{key:"BFF07"},{key:"BFF11"},{key:"BFF12"}];
+var scenes = [{key:"BFF00"},{key:"BFF01"},{key:"BFF01"},{key:"BFF02"},{key:"BFF03"},{key:"BFF05"},{key:"BFF06"},{key:"BFF07"},{key:"BFF08"},{key:"BFF09"},{key:"BFF09"},{key:"BFF09"},{key:"BFF11"},{key:"BFF12"}];
 var talkText;
 var logImg;
 //Array for credits: Who to display as recruited
