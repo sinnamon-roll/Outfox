@@ -1,4 +1,4 @@
-var game = new Phaser.Game(640, 480, Phaser.AUTO);
+var game = new Phaser.Game(640, 480, Phaser.AUTO, 'phaser-window');
 var player;
 var enemygroup;
 var enemy;
@@ -13,16 +13,39 @@ var startScene = 0;
 var panelTime = 4;
 var scene;
 var scenes = [{key:"BFF00"},{key:"BFF01"},{key:"BFF01"},{key:"BFF02"},{key:"BFF03"},{key:"BFF04"},{key:"BFF05"},{key:"BFF06"},{key:"BFF07"},{key:"BFF08"},{key:"BFF09"},{key:"BFF10"},{key:"BFF11"}];
-var narratives = [  'As your consciousness stirs, the instinct to repeatedly blink and paw gently at your eyes kicks in. Despite your best efforts, your sight struggles to adjust in the pitch black darkness that surrounding you.',
-                    'Turning your head, your eyes squint taking in a faint, glowing, red light. "Is that the sun beginning to rise? I must have wandered deeper within my den," you rationalize.',
-                    'Attempting to disregard the atrophy you feel in your muscles, you stand. \* wham\! \* Rising so suddenly, your ears had little time to warn you of the low ceiling you just made contact with. You wonder, "why is the den ceiling so cold\? It\'s nowhere near wintertime yet..."',
-                    'Panicking from this unfamiliar sensation, you lunge forward, all four paws scurrying for your den entrance. To your continued surprise, your body is met with more cold and unforgiving objects blocking your escape. Perplexed, you ponder, "where did all of these hard branches come from?!"',
-                    'Shaking your head to attempt to remain conscious from the impact, your eyes come into focus. The red light illuminates the "branches," as well as the "den\'s" ceiling and floor. Fear welling up inside, you wimper in quite a low voice, "oh, no\! I\'m in a hunter\'s cage\!"',
-                    'You find it quite peculiar that you can JUST make out grass outside of the cage below, but you smell nothing. A neighboring read light slightly further away catches your eye.',
-                    'As your pupils bring the distant area into view, you confirm it is another hunter\s cage. Bittersweet in its revelation, you think "It\'s calming that I am not alone but it means another creature is trapped here with me."',
-                    'Pushing your snout as far as you can between the cage\'s "branches", you gekker imploringly. "Bright day! Is there another fox about?" The echos of your call resonating as they bounce inside your cage frighten you slightly.',
-                    'Perking up your ears, you close your eyes and take slow, deep breaths, hopefully anticipating a response...\nHowever, no sound could be heard...\n"Whatever shall I do now?" you lament.',
-                    'But wait! Was that a yawn you heard? "It can\'t possibly be morning catch yet. Who is making all that noise?" gekkered a voice travelling from the adjacent cage.',
+var narratives = [  'As your consciousness stirs, the instinct to repeatedly blink and paw gently at your eyes kicks in.'
+                    + ' Despite your best efforts, your sight struggles to adjust in the pitch black darkness that surrounding you.',
+
+                    'Turning your head, your eyes squint taking in a faint, glowing, red light. "Is that the sun beginning to rise?'
+                    + ' I must have wandered deeper within my den," you rationalize.',
+
+                    'Attempting to disregard the atrophy you feel in your muscles, you stand. \* wham\! \* Rising so suddenly, your'
+                    + 'ears had little time to warn you of the low ceiling you just made contact with. You wonder, "why is the den'
+                    + ' ceiling so cold\? It\'s nowhere near wintertime yet..."',
+
+                    'Panicking from this unfamiliar sensation, you lunge forward, all four paws scurrying for your den entrance.'
+                    + 'To your continued surprise, your body is met with more cold and unforgiving objects blocking your escape.'
+                    + ' Perplexed, you ponder, "where did all of these hard branches come from?!"',
+
+                    'Shaking your head to attempt to remain conscious from the impact, your eyes come into focus. The red light'
+                    + 'illuminates the "branches," as well as the "den\'s" ceiling and floor. Fear welling up inside, you wimper'
+                    + ' in quite a low voice, "oh, no\! I\'m in a hunter\'s cage\!"',
+
+                    'You find it quite peculiar that you can JUST make out grass outside of the cage below, but you smell nothing.'
+                    + ' A neighboring read light slightly further away catches your eye.',
+
+                    'As your pupils bring the distant area into view, you confirm it is another hunter\s cage. Bittersweet in its'
+                    + ' revelation, you think "It\'s calming that I am not alone but it means another creature is trapped here with me."',
+
+                    'Pushing your snout as far as you can between the cage\'s "branches", you gekker imploringly. "Bright day! Is there'
+                    + ' another fox about?" The echos of your call resonating as they bounce inside your cage frighten you slightly.',
+
+                    'Perking up your ears, you close your eyes and take slow, deep breaths, hopefully anticipating a response...\nHowever,'
+                    + ' no sound could be heard...\n"Whatever shall I do now?" you lament.',
+
+                    'But wait! Was that a yawn you heard?\n\n"It can\'t possibly be morning catch yet. Who is making all that noise?"'
+                    + ' gekkered a voice travelling from the adjacent cage.',
+
                     'narrative about discovering each other is there and introductions. may need this scene background for more than one scene. may need to cut down on text at beginning. Reuse this scene to explain escape and becoming friends.',
                     'final thoughts and sounds before falling asleep',
                     'issue getting rid of log graphic here when the final scene fades, ask for help. should just be black and fade for effect before going to gameplay'];
@@ -143,6 +166,9 @@ logoScreen.prototype = {
         create: function() {
             console.log('logoScreen: create');
             var CCGLogo = game.add.sprite(0,0, 'CCGlogo');
+            setBgColorById('main-page','#250001');
+           
+
 
             CCGLogo.anchor.setTo(0, 0);
             CCGLogo.alpha = 0;
@@ -185,6 +211,8 @@ MainMenu.prototype = {
             console.log('MainMenu: create');
             game.stage.backgroundColor = "#000000";
             var OFLogo = game.add.sprite(0,0, 'OFlogo');
+            setBgColorById('main-page','#250001');
+            setBgImageById('main-page','');
 
             OFLogo.anchor.setTo(0, 0);
             OFLogo.alpha = 0;
@@ -193,14 +221,6 @@ MainMenu.prototype = {
 
             function logoSound() {
                 this.logoUp.play('', 0, 0.1, false);
-            }
-            
-            function fadeOut() {
-                game.add.tween(OFLogo).to( { alpha: 0 }, 1500, Phaser.Easing.Linear.None, true);
-            }
-
-            function switchState() {
-                game.add.tween(OFLogo).to( { alpha: 0 }, 1500, Phaser.Easing.Linear.None, true);
             }
             
             // State change instructions and intro text -----------------------------------------------
@@ -227,6 +247,8 @@ Prologue.prototype = {
     },
     preload: function() {
         console.log('Prologue: preload');
+        setBgColorById('main-page','#facade');
+        setBgImageById('main-page','url("assets/img/prologueBG.png")');
 
         // Preload Assets -----------------------------------------------------
 
@@ -237,6 +259,12 @@ Prologue.prototype = {
             ['prologueborder.png', 'prologueUpL.png', 'prologueUpMid.png', 'prologueUpR.png', 'prologueLowL.png', 'prologueLowMidTop.png', 'prologueLowMidL.png', 'prologueLowMidR.png', 'prologueLowR.png']);
     },
     create: function() {
+        // create background image
+        var proBG = game.add.sprite(0, 0, 'prolBorder');
+        proBG.alpha = 0;
+
+        game.add.tween(proBG).to( { alpha: 1 }, 1500, Phaser.Easing.Linear.None, true);
+
         console.log('Prologue: create');
         game.stage.backgroundColor = "#ffffff";
         console.log('level: ' + this.level);
@@ -255,8 +283,7 @@ Prologue.prototype = {
             this.cageDown.play('', 0, 0.5, false);
         }
 
-        // create background image
-        game.add.sprite(0, 0, 'prolBorder');
+        
 
         var panel00 = game.add.sprite(10, 10, 'panel00');
         var panel01 = game.add.sprite(101, 10, 'panel01');
@@ -301,6 +328,8 @@ BFFmeet.prototype = {
         },
         create: function() {
             console.log('BFFmeet: create');
+            setBgColorById('main-page','#000000');
+            setBgImageById('main-page','');
             game.sound.stopAll();
             game.stage.backgroundColor = "#000000";
             switchScene(startScene);
@@ -349,6 +378,12 @@ function switchScene(num) {
     this.cageDown = game.add.audio('cage');
     if (num == 3){
         this.cageDown.play('', 0, 0.5, false);
+    }
+    if (num == 4) {
+        setBgColorById('main-page','#242323');
+    }
+    if (num == 5) {
+        setBgColorById('main-page','#615f5f');
     }
     scene = game.add.sprite(0,0,scenes[num].key);
     scene.alpha = 0;
@@ -634,6 +669,35 @@ GameOver.prototype = {
             game.state.start('MainMenu');
         }
     }
+}
+
+// change css background color
+// code help from http://www.javascripter.net/
+function setBgColorById(id,sColor) {
+ var elem;
+ if (document.getElementById) {
+  if (elem=document.getElementById(id)) {
+   if (elem.style) {
+    elem.style.backgroundColor=sColor;
+    return 1;  // success
+   }
+  }
+ }
+ return 0;  // failure
+}
+
+// change css background image
+function setBgImageById(id,sImage) {
+ var elem;
+ if (document.getElementById) {
+  if (elem=document.getElementById(id)) {
+   if (elem.style) {
+    elem.style.backgroundImage=sImage;
+    return 1;  // success
+   }
+  }
+ }
+ return 0;  // failure
 }
 
 game.state.add('test', testState);
