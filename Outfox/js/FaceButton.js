@@ -15,7 +15,7 @@ function faceButton(game, type) {
 	this.animations.add('Used', ['s_Face_used'], 60, true, false)
 	facesel = false;
 	this.usable = false;
-	this.faceb;
+	this.faceb = 'lolwut';
 	cursors = game.input.keyboard.createCursorKeys();
 
 
@@ -53,37 +53,60 @@ faceButton.prototype.update = function() {
 					this.i = 0;
 					this.usable = false;
 				}else if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)){
-					pressed = true;
 					if(player.displayed == true){
+						console.log("facing a way kinda")
 						this.faceb = 'player';
+						pressed = true;
 					}else if(BFF.displayed == true){
 						this.faceb = 'BFF';
+						pressed = true;
+
 					}
 				}
 			}
 			this.i += 0.1;
 		}
 	}else if(this.faceb == 'player'){
-		changeFace(player);
-		this.faceb = 'lolwut';
+		if(this.faceb != 'lolwut'){
+			console.log("not lolwut?");
+			if(cursors.up.justPressed()){
+				player.animations.play('up');
+				pressed = false;
+				this.faceb = 'lolwut';
+			}else if(cursors.down.justPressed()){
+				player.animations.play('down');
+				pressed = false;
+				this.faceb = 'lolwut';
+			}else if(cursors.left.justPressed()){
+				player.animations.play('left');
+				pressed = false;
+				this.faceb = 'lolwut';
+			}else if(cursors.right.justPressed()){
+				player.animations.play('right');	
+				pressed = false;
+				this.faceb = 'lolwut';
+			}
+		}
 	}else if(this.faceb == 'BFF'){
-		changeFace(BFF);
-		this.faceb = 'lolwut';
-	}
-
-	function changeFace(character){
-		if(cursors.up.justPressed()){
-			character.animations.play('up');
-			pressed = false;
-		}else if(cursors.down.justPressed()){
-			character.animations.play('down');
-			pressed = false;
-		}else if(cursors.left.justPressed()){
-			character.animations.play('left');
-			pressed = false;
-		}else if(cursors.right.justPressed()){
-			character.animations.play('right');	
-			pressed = false;
+		if(this.faceb != 'lolwut'){
+			console.log("not lolwut?");
+			if(cursors.up.justPressed()){
+				BFF.animations.play('up');
+				pressed = false;
+				this.faceb = 'lolwut';
+			}else if(cursors.down.justPressed()){
+				BFF.animations.play('down');
+				pressed = false;
+				this.faceb = 'lolwut';
+			}else if(cursors.left.justPressed()){
+				BFF.animations.play('left');
+				pressed = false;
+				this.faceb = 'lolwut';
+			}else if(cursors.right.justPressed()){
+				BFF.animations.play('right');	
+				pressed = false;
+				this.faceb = 'lolwut';
+			}
 		}
 	}
 }

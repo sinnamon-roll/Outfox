@@ -238,6 +238,7 @@ BFF.prototype.update = function() {
         movebutt.pressed = false;
         barkbutt.usable = true;
         barkbutt.unusable = false;
+        pressed = false;
 
   	}
     if (this.controlled == false) {

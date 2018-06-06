@@ -59,12 +59,14 @@ moveButton.prototype.update = function() {
 						if(BFF.displayed == true){
 							BFF.moveable = true;
 							this.unusable = true;
+							pressed = true;
 							this.animations.play('Used');
 							// pressed = true;
 							// barksel = true;
 						}else if(player.displayed == true){
 							player.moveable = true;
 							this.unusable = true;
+							pressed = true;
 							this.animations.play('Used');
 							// pressed = true;
 							// barksel = true;
