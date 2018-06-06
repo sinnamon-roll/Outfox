@@ -1,7 +1,8 @@
 var game = new Phaser.Game(640, 480, Phaser.AUTO);
 var player;
 var enemygroup;
-var enemy;
+var enemy, enemy2;
+var BFF;
 var adjacency;
 var colors = [0x1BE7FF, 0x6EEB83, 0xE4FF1A, 0xE8AA14, 0xE8AA14];
 //Turn on/off debug info
@@ -10,10 +11,11 @@ var menuText;
 var firstMusic;
 var logoSound;
 var startScene = 0;
+var panelTime = 4;
 var scene;
-var scenes = [{key:"BFF00"},{key:"BFF01"},{key:"BFF01"},{key:"BFF02"},{key:"BFF03"},{key:"BFF04"},{key:"BFF05"},{key:"BFF06"},{key:"BFF07"},{key:"BFF08"},{key:"BFF09"},{key:"BFF10"},{key:"BFF11"}];
-var narratives = [  'As your consciousness stirs, the instinct to repeatedly blink and paw gently at your eyes kicks in. Despite your best efforts, your sight is having trouble adjusting in the pitch black darkness that surrounding you.',
-                    'Turning your head, your eyes squint taking in a faint, glowing, red light. You comtemplate, "is that the sun beginning to rise? I must have wandered deeper within my den."',
+var scenes = [{key:"BFF00"},{key:"BFF01"},{key:"BFF01"},{key:"BFF02"},{key:"BFF03"},{key:"BFF04"},{key:"BFF05"},{key:"BFF06"},{key:"BFF07"},{key:"BFF08"},{key:"BFF09"},{key:"BFF10"},{key:"BFF11"},{key:"BFF12"}];
+var narratives = [  'As your consciousness stirs, the instinct to repeatedly blink and paw gently at your eyes kicks in. Despite your best efforts, your sight struggles to adjust in the pitch black darkness that surrounding you.',
+                    'Turning your head, your eyes squint taking in a faint, glowing, red light. "Is that the sun beginning to rise? I must have wandered deeper within my den," you rationalize.',
                     'Attempting to disregard the atrophy you feel in your muscles, you stand. \* wham\! \* Rising so suddenly, your ears had little time to warn you of the low ceiling you just made contact with. You wonder, "why is the den ceiling so cold\? It\'s nowhere near wintertime yet..."',
                     'Panicking from this unfamiliar sensation, you lunge forward, all four paws scurrying for your den entrance. To your continued surprise, your body is met with more cold and unforgiving objects blocking your escape. Perplexed, you ponder, "where did all of these hard branches come from?!"',
                     'Shaking your head to attempt to remain conscious from the impact, your eyes come into focus. The red light illuminates the "branches," as well as the "den\'s" ceiling and floor. Fear welling up inside, you wimper in quite a low voice, "oh, no\! I\'m in a hunter\'s cage\!"',
@@ -27,67 +29,10 @@ var narratives = [  'As your consciousness stirs, the instinct to repeatedly bli
                     'issue getting rid of log graphic here when the final scene fades, ask for help. should just be black and fade for effect before going to gameplay'];
 var talkText;
 var logImg;
+//Array for credits: Who to display as recruited
+var freeFox = [false,false,false,false];
 
-var Boot = function(game){};
-Boot.prototype = {
-  init: function(){
-                console.log('Boot: init');
-                this.stage.disableVisibilityChange = true;
-        },
-        preload: function(){
-                console.log('Boot: preload');
-        },
-        create: function(){
-                console.log('Boot: create');
-                settings = {
-                //debug controls
-                //add in what you want
 
-                //Character setting
-                playerhealth: 10,
-                playerCHAR: 5,
-                enemyhealth: 10,
-                enemyCHAR: 5,
-                enemyCONTROL: false,
-
-                //Button setting
-				barklocX: 64,
-				barklocY: 64,
-				movelocX: 64,
-				movelocY: 128,
-				facelocX: 64,
-				facelocY: 256,
-				endlocX: 64,
-				endlocY: 192
-                }
-
-                var gui = new dat.GUI({
-                    width: 350
-                });
-                gui.useLocalStorage = true;
-                gui.remember(settings);
-                //debug folders
-                var stepSize = 1;
-                //character folders
-                gui.characterFolder = gui.addFolder('Player');
-                gui.characterFolder.add(settings, 'playerhealth').min(0).max(1000).step(stepSize).name('Player Health');
-                gui.characterFolder.add(settings, 'enemyhealth').min(0).max(1000).step(stepSize).name('Enemy Health');
-                
-
-                gui.characterFolder = gui.addFolder('Buttons');
-                gui.characterFolder.add(settings, 'movelocX').min(0).max(1000).step(stepSize).name('Move Location X: ')
-                gui.characterFolder.add(settings, 'movelocY').min(0).max(1000).step(stepSize).name('Move Location Y: ');
-                gui.characterFolder.add(settings, 'barklocX').min(0).max(1000).step(stepSize).name('Bark Location X: ');
-                gui.characterFolder.add(settings, 'barklocY').min(0).max(1000).step(stepSize).name('Bark Location Y: ');
-                gui.characterFolder.add(settings, 'facelocX').min(0).max(1000).step(stepSize).name('Face Location X: ');
-                gui.characterFolder.add(settings, 'facelocY').min(0).max(1000).step(stepSize).name('Face Location Y: ');
-                gui.characterFolder.add(settings, 'endlocX').min(0).max(1000).step(stepSize).name('End Location X: ');
-                gui.characterFolder.add(settings, 'endlocY').min(0).max(1000).step(stepSize).name('End Location Y: ');
-                //gui.characterFolder.add(settings, 'enemyCONTROL').min().max().step(stepSize).name('Enemy Controlled');
-                //end of gui code
-                this.state.start('Preloader');
-        },
-}
 var Preloader = function(game){};
 Preloader.prototype = {
         preload: function(){
@@ -101,6 +46,7 @@ Preloader.prototype = {
             this.load.spritesheet('player', 's_fox_sheet04.png', 64, 64);
             this.load.spritesheet('BFF', 's_fox_sheet.png',64,64);
             this.load.spritesheet('enemy', 's_fox_sheet01.png',64,64);
+            this.load.spritesheet('enemy2', 's_fox_sheet03.png',64,64);
             this.load.image('s_interfaceR_edge', 's_interfaceR_edge.png');
             this.load.image('cursor', 's_active.png');
             //Load Sprite Atlas
@@ -121,7 +67,16 @@ Preloader.prototype = {
             this.load.image('BFF09', 's_BFF09.png');
             this.load.image('BFF10', 's_BFF10.png');
             this.load.image('BFF11', 's_BFF11.png');
+            this.load.image('BFF12', 'Mockup.png');
             this.load.image('logImg', 's_BFFlog.png');
+            this.load.image('Congrats', 's_congrats.png');
+            this.load.image('fox00', 's_congrats00.png');
+            this.load.image('fox01', 's_congrats01.png');
+            this.load.image('fox02', 's_congrats02.png');
+            this.load.image('fox03', 's_congrats03.png');
+            this.load.image('fox04', 's_congrats04.png');
+            this.load.image('barGreen', 's_freed.png');
+            this.load.image('barRed', 's_stayed.png');
 
 
             
@@ -133,6 +88,10 @@ Preloader.prototype = {
             game.load.audio('charSound',['gekkering01.mp3']);
             game.load.audio('sarSound',['fox_alert.mp3']);
             game.load.audio('boostSound',['vixensScream.mp3']);
+            game.load.audio('birdGuitar',['birdguitar.mp3']);
+            game.load.audio('uhOh',['uhoh.mp3']);
+            game.load.audio('cage',['cage.mp3']);
+            game.load.audio('piano',['pianoloop.mp3']);
 
         },
         create: function(){
@@ -163,7 +122,7 @@ logoScreen.prototype = {
             game.time.events.add(3000, fadeOut, this);
 
             function logoSound() {
-                this.logoUp.play('', 0, 0.1, false);
+                this.logoUp.play('', 0, 0.3, false);
             }
             
             function fadeOut() {
@@ -200,9 +159,6 @@ MainMenu.prototype = {
             OFLogo.alpha = 0;
 
             game.add.tween(OFLogo).to( { alpha: 1 }, 1500, Phaser.Easing.Linear.None, true);
-            //this.logoUp = game.add.audio('logoSound');
-            //game.time.events.add(1500, logoSound, this);
-            //game.time.events.add(3000, fadeOut, this);
 
             function logoSound() {
                 this.logoUp.play('', 0, 0.1, false);
@@ -217,8 +173,8 @@ MainMenu.prototype = {
             }
             
             // State change instructions and intro text -----------------------------------------------
-            menuText = game.add.text(200, 320, 'Press space to start', { font: 'Fira Sans', fontSize: '28px', fill: '#000' });
-            menuText = game.add.text(80, 370, 'Press enter to see the Foxes Responsible', { font: 'Fira Sans', fontSize: '26px', fill: '#000', wordWrapWidth: '640', wordWrap: 'false' });
+            menuText = game.add.text(95, 320, 'Press space to start your adventure', { font: 'Fira Sans', fontSize: '28px', fill: '#270201' });
+            menuText = game.add.text(80, 370, 'Press enter to see the Foxes Responsible', { font: 'Fira Sans', fontSize: '26px', fill: '#270201', wordWrapWidth: '640', wordWrap: 'false' });
             
         },
         update: function(){
@@ -246,7 +202,7 @@ Prologue.prototype = {
         // load a path to save us typing
         this.load.path = 'assets/img/'; 
         // load image assets
-        this.load.images(['prolBorder', 'prolUpL', 'prolUpMid', 'prolUpR', 'prolLowL', 'prolLowMidTop', 'prolLowMidL', 'prolLowMidR', 'prolLowR'],
+        this.load.images(['prolBorder', 'panel00', 'panel01', 'panel02', 'panel03', 'panel04', 'panel05', 'panel06', 'panel07'],
             ['prologueborder.png', 'prologueUpL.png', 'prologueUpMid.png', 'prologueUpR.png', 'prologueLowL.png', 'prologueLowMidTop.png', 'prologueLowMidL.png', 'prologueLowMidR.png', 'prologueLowR.png']);
     },
     create: function() {
@@ -254,32 +210,48 @@ Prologue.prototype = {
         game.stage.backgroundColor = "#ffffff";
         console.log('level: ' + this.level);
 
+        this.logoUp = game.add.audio('birdGuitar');
+        game.time.events.add(1500, logoSound, this);
+
+        function logoSound() {
+            this.logoUp.play('', 0, 0.5, false);
+        }
+
+        this.cageDown = game.add.audio('uhOh');
+        game.time.events.add(21500, cageSound, this);
+
+        function cageSound() {
+            this.cageDown.play('', 0, 0.5, false);
+        }
+
         // create background image
         game.add.sprite(0, 0, 'prolBorder');
 
-        // create upper left comic panel
-        game.add.sprite(10, 10, 'prolUpL');
+        var panel00 = game.add.sprite(10, 10, 'panel00');
+        var panel01 = game.add.sprite(101, 10, 'panel01');
+        var panel02 = game.add.sprite(414, 10, 'panel02');
+        var panel03 = game.add.sprite(10, 219, 'panel03');
+        var panel04 = game.add.sprite(230, 219, 'panel04');
+        var panel05 = game.add.sprite(102, 334, 'panel05');
+        var panel06 = game.add.sprite(321, 334, 'panel06');
+        var panel07 = game.add.sprite(414, 219, 'panel07');
 
-        // create upper middle comic panel
-        game.add.sprite(101, 10, 'prolUpMid');
+        var panels = [panel00,panel01,panel02,panel03,panel04,panel05,panel06,panel07];
 
-        // create upper right comic panel
-        game.add.sprite(414, 10, 'prolUpR');
+        var i = 0;
+        panels.forEach(function(panel) {
 
-        // create lower left comic panel
-        game.add.sprite(10, 219, 'prolLowL');
+            panel.alpha = 0;
 
-        // create lower middle top comic panel
-        game.add.sprite(230, 219, 'prolLowMidTop');
+            game.time.events.add(1000 + (i * 3000), fadePanel, this, panel);
+            i++;
 
-        // create lower middle left comic panel
-        game.add.sprite(102, 334, 'prolLowMidL');
+        });
+        
+        function fadePanel(panel) {
+            game.add.tween(panel).to( { alpha: 1 }, 1500, Phaser.Easing.Linear.None, true);
+        }
 
-        // create lower middle right comic panel
-        game.add.sprite(321, 334, 'prolLowMidR');
-
-        // create lower right comic panel
-        game.add.sprite(414, 219, 'prolLowR');
     },
     update: function() {
         // main menu logic
@@ -298,26 +270,38 @@ BFFmeet.prototype = {
         },
         create: function() {
             console.log('BFFmeet: create');
+            game.sound.stopAll();
             game.stage.backgroundColor = "#000000";
             switchScene(startScene);
             
+            this.logoUp = game.add.audio('piano');
+            game.time.events.add(1500, logoSound, this);
+
+            function logoSound() {
+                this.logoUp.play('', 0, 0.5, true);
+            }
+
+            this.cageDown = game.add.audio('cage');
+
+            function cageSound() {
+                this.cageDown.play('', 0, 0.5, false);
+            }
+
         },
         update: function(){
-            if(this.cache.isSoundDecoded('bgMusic') && game.input.keyboard.justPressed(Phaser.Keyboard.ENTER) ){
-                if (startScene != scenes.length) {
+            if( game.input.keyboard.justPressed(Phaser.Keyboard.ENTER) ){
+                if (startScene < scenes.length) {
                     console.log('1st Enter IF. startScene: ' + startScene);
                     game.add.tween(scene).to( { alpha: 0 }, 1500, Phaser.Easing.Linear.None, true);
-                    //game.add.tween(talkText).to( { alpha: 0 }, 50, Phaser.Easing.Linear.None, true);
-                    //scene.alpha = 0;
                     talkText.alpha = 0;
                     switchScene(startScene);
-                } else if (startScene == scenes.length) {
-                    talkText.alpha = 0;
-                    logImg.alpha = 0;
-                    console.log('2nd Enter IF. startScene: ' + startScene);
-                    game.add.tween(scene).to( { alpha: 0 }, 1500, Phaser.Easing.Linear.None, true);
-                    game.add.tween(talkText).to( { alpha: 0 }, 1500, Phaser.Easing.Linear.None, true);
-                    game.time.events.add(1500, changeState, this, 'test');
+                }
+                if(startScene == (scenes.length - 1)) {
+                    talkText.kill();
+                    logImg.kill();
+                    game.add.tween(talkText).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
+                    game.time.events.add(4000, changeState, this, 'test');
+                    game.add.tween(--scene).to( { alpha: 0 }, 1500, Phaser.Easing.Linear.None, true);
                 }
             }
             //console.log('MainMenu: test');
@@ -329,12 +313,16 @@ BFFmeet.prototype = {
 
 function switchScene(num) {
     console.log('Scene switch start. startScene: ' + startScene);
+    this.cageDown = game.add.audio('cage');
+    if (num == 3){
+        this.cageDown.play('', 0, 0.5, false);
+    }
     scene = game.add.sprite(0,0,scenes[num].key);
     scene.alpha = 0;
     game.add.tween(scene).to( { alpha: 1 }, 1500, Phaser.Easing.Linear.None, true);
-    if (num > 0 && num < scenes.length - 1) {
+    /*if (num > 0 && num < scenes.length - 1) {
         logImg = game.add.sprite(79,306,'logImg');   
-    }
+    }*/
     talkText = game.add.text(108, 315, narratives[num], { font: 'Fira Sans', fontSize: '16px', fill: '#eed6c3', wordWrapWidth: '440', wordWrap: 'true' });
     talkText.alpha = 0;
     game.add.tween(talkText).to( { alpha: 1 }, 1500, Phaser.Easing.Linear.None, true);
@@ -355,8 +343,8 @@ testState.prototype = {
     },
 
     create: function() {
+        game.sound.stopAll();
         //Start physics
-        game.physics.startSystem(Phaser.Physics.ARCADE);
         game.stage.backgroundColor = "#339933";
         
         //MUSIC
@@ -389,16 +377,26 @@ testState.prototype = {
        	
         //ENEMY SETUP
         //gonna take enemy out of the group, now that the game ends when one is done
-        //enemygroup = game.add.group();
+        enemygroup = game.add.group();
         //this.addEnemy(enemygroup);
+        //    enemy = new Enemy(game, 'enemy', tintColor);
+        //    game.add.existing(enemy);
+        //    group.add(enemy);
+        
         var tintColor = colors[game.rnd.between(0, colors.length-1)]; //for variety, which is the spiciest of meatballs
-        enemy = new Enemy(game, 'enemy');
+        //Enemy(game, x, y, key, name, char, sar, ego, type)
+        enemy = new Enemy(game,(64 * 5), (64* 4), 'enemy', "Reynard", 4, 5, 4, "Sarcastic");
         game.add.existing(enemy);
+        enemygroup.add(enemy);
 
+        enemy2 = new Enemy(game,(64 * 3), (64* 3), 'enemy2', "Choco Fox", 6, 2, 1, "Charismatic");
+        game.add.existing(enemy2);
+        enemygroup.add(enemy2);
+        
         //BFF SETUP
         console.log('yo about to construct BFF');
-        BFF = new BFF(game, 'BFF');
-        this.game.add.existing(BFF);
+        BFF = new Bff(game, 'BFF');
+        game.add.existing(BFF);
 
         console.log('yo about to construct move');
         movebutt = new moveButton(game, 'move');
@@ -476,16 +474,22 @@ testState.prototype = {
     //},	 
 
 	update: function() {
-		if(enemy.alive == false){
-			//this.addEnemy(enemygroup);
-            game.time.events.add(Phaser.Timer.SECOND * 7, function() {
-                    firstMusic.stop();
-                    game.state.start('Congrats')
-                });
+		if(enemygroup.length == 0){
+            if (freeFox[0] == true) {
+                game.time.events.add(Phaser.Timer.SECOND * 7, function() {
+                        firstMusic.stop();
+                        game.state.start('Congrats')
+                        });
+            }else {
+                game.time.events.add(Phaser.Timer.SECOND * 7, function() {
+                        firstMusic.stop();
+                        game.state.start('GameOver')
+                        });
+            }
 		}
 		//Checks if these two are adjacent, can be run on any two objects. Probably still way too centered on the player.
-        isAdjacent(player, enemy);
-        //isAdjacent(BFF, enemy);
+        isAdjacent(enemygroup, player);
+        //isAdjacent(enemy2, player);
         //updates variables to what is in out settings, this is a really shitty place to update the health variable, lol one sec
         //never put things in here that govern a resource, as it will always put it to max, throw that into the constructor for said resource
         //ie, player.health = settings.playerhealth
@@ -508,34 +512,70 @@ testState.prototype = {
 // define Congrats state and methods
 var Congrats = function(game) {};
 Congrats.prototype = {
-    init: function(lvl) {
-        this.level = lvl+1;
-    },
     preload: function() {
         console.log('Congrats: preload');
 
     },
     create: function() {
         console.log('Congrats: create');
-        game.stage.backgroundColor = "#F28A2E";
+        game.stage.backgroundColor = "#270201";
 
         // create background image
-        //game.add.sprite(0, 0, 'prolBorder');
+        game.add.sprite(0, 0, 'Congrats');
 
-        // create upper left comic panel
-        //game.add.sprite(10, 10, 'prolUpL');
+        game.add.sprite(320, 135, 'barRed');
+        game.add.sprite(320, 235, 'barRed');
+        game.add.sprite(320, 335, 'barRed');
+        game.add.sprite(320, 435, 'barRed');
 
-        /* create logo image
-        game.add.sprite(190, 50, 'logo');*/
+        var bar01 = game.add.sprite(320, 135, 'barGreen');
+        var bar02 = game.add.sprite(320, 235, 'barGreen');
+        var bar03 = game.add.sprite(320, 335, 'barGreen');
+        var bar04 = game.add.sprite(320, 435, 'barGreen');
 
-        // State change instructions and intro text -----------------------------------------------
-        scoreText = game.add.text(200, 150, 'Outfox', { fontSize: '48px', fill: '#000' });
-        scoreText = game.add.text(240, 200, 'Congratulations you won!', { fontSize: '22px', fill: '#000' });
-//        scoreText01 = game.add.text(150, 250, 'Press space to restart', { fontSize: '32px', fill: '#000' });
+        var name01 = game.add.text(330, 144, BFF.NAME, { font: 'Fira Sans', fontSize: '18px', fill: '#eed6c3', fontWeight: '700' })
+        var name02 = game.add.text(330, 244, enemy.NAME, { font: 'Fira Sans', fontSize: '18px', fill: '#eed6c3', fontWeight: '700' })
+        var name03 = game.add.text(330, 344, enemy2.NAME, { font: 'Fira Sans', fontSize: '18px', fill: '#eed6c3', fontWeight: '700' })
+        var name04 = game.add.text(330, 444, 'PC Name', { font: 'Fira Sans', fontSize: '18px', fill: '#eed6c3', fontWeight: '700' })
+
+        var names = [name01,name02,name03,name04];
+
+        game.add.sprite(415, 50, 'fox00');
+        var fox01 = game.add.sprite(415, 50, 'fox01');
+        game.add.sprite(415, 150, 'fox00');
+        var fox02 = game.add.sprite(415, 150, 'fox02');
+        game.add.sprite(415, 250, 'fox00');
+        var fox03 = game.add.sprite(415, 250, 'fox03');
+        game.add.sprite(415, 350, 'fox00');
+        var fox04 = game.add.sprite(415, 350, 'fox04');
+        
+        var foxes = [fox01,fox02,fox03,fox04];
+        var bars = [bar01,bar02,bar03,bar04];
+
+        var i = 0;
+        foxes.forEach(function(fox) {
+            if(freeFox[i] == true){
+                fox.alpha = 1;
+                bars[i].alpha = 1;
+            }else {
+                fox.alpha = 0;
+                bars[i].alpha = 0;
+                names[i].text = '???';
+            }
+            i++;
+        });
+
+
+
     },
     update: function() {
-        // End Game Here. Debugging issues with restarting world.
-
+        // GameOver logic
+        if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
+            //player.kill();
+            //enemy.kill()
+            //BFF.kill();
+            game.state.start('MainMenu');
+        }
     }
 }
 
@@ -553,36 +593,26 @@ GameOver.prototype = {
         // load a path to save us typing
         this.load.path = 'assets/img/'; 
         // load image assets
-        this.load.images(['prolMain'], ['prologue640x480.png']);
+        this.load.images(['gameOver'], ['s_gameOver.png']);
     },
     create: function() {
         console.log('MainMenu: create');
-        game.stage.backgroundColor = "#732817";
+        game.stage.backgroundColor = "#250001";
         console.log('level: ' + this.level);
 
         // create background image
-        //game.add.sprite(0, 0, 'prolBorder');
+        game.add.sprite(0, 0, 'gameOver');
 
-        // create upper left comic panel
-        //game.add.sprite(10, 10, 'prolUpL');
-
-        /* create logo image
-        game.add.sprite(190, 50, 'logo');*/
-
-        // State change instructions and intro text -----------------------------------------------
-        scoreText = game.add.text(200, 150, 'Outfox', { fontSize: '48px', fill: '#000' });
-        scoreText = game.add.text(240, 200, 'You died!', { fontSize: '22px', fill: '#000' });
-        scoreText01 = game.add.text(150, 250, 'Press space to restart', { fontSize: '32px', fill: '#000' });
     },
     update: function() {
         // GameOver logic
         if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
-            player.kill();
-            enemy.kill()
-            BFF.kill();
+            //player.kill();
+            //enemy.kill()
+            //BFF.kill();
             game.state.start('MainMenu');
         }
-    }
+    },
 }
 
 game.state.add('test', testState);
@@ -593,6 +623,5 @@ game.state.add('BFFmeet', BFFmeet);
 game.state.add('Congrats', Congrats);
 game.state.add('GameOver', GameOver);
 game.state.add('Preloader', Preloader);
-game.state.add('Boot', Boot);
 game.state.add('Credits', credits);
-game.state.start('Boot');
+game.state.start('Preloader');

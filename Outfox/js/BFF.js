@@ -11,7 +11,7 @@ var EXH;
 var TYPE; //Ro-Sham-Bo
 var NAME;
 
-function BFF(game, key) {
+function Bff(game, key) {
         // call to Phaser.Sprite // new Sprite(game, x, y, key, frame)
         Phaser.Sprite.call(this, game, size * 3, size * 4, key);
         // add custom properties
@@ -27,7 +27,7 @@ function BFF(game, key) {
         this.RPCT = 0;
         this.EXH = 9999;
         this.TYPE = "Charisma";
-        this.NAME = "Zerda";
+        this.NAME = "Tod";
 
         this.charb = false;
         this.sarcb = false;
@@ -40,7 +40,7 @@ function BFF(game, key) {
         this.displayed = false;
     
         //EXHAUSTION
-        this.popup = game.add.sprite(this.x + size, this.y - size, 'atlas','s_batteryOut');
+        this.popup = game.add.sprite(this.x + 19, this.y - 18, 'atlas','s_batteryOut');
         this.popup.visible = false;
     
     //CURSOR
@@ -56,11 +56,11 @@ function BFF(game, key) {
 
 }
 // explicitly define prefab's prototype (Phaser.Sprite) and constructor (Player)
-BFF.prototype = Object.create(Phaser.Sprite.prototype);
-BFF.prototype.constructor = BFF;
+Bff.prototype = Object.create(Phaser.Sprite.prototype);
+Bff.prototype.constructor = Bff;
 
 // override Phaser.Sprite update (Enemy update function)
-BFF.prototype.update = function() {
+Bff.prototype.update = function() {
     //IF it is BFF's turn to move
     if(this.moveable == true){
         
@@ -71,6 +71,8 @@ BFF.prototype.update = function() {
                 gameLog.setText(enemy.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else if(player.y ==(this.y - size) && player.x == this.x ){
                 gameLog.setText(player.NAME + ' blocks ' + this.NAME +'\'s path.');
+            }else if(enemy2.y ==(this.y - size) && enemy2.x == this.x ){
+                gameLog.setText(enemy2.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else {
                 this.y = this.y - size;
                 this.cursor.y = this.cursor.y - size;
@@ -89,6 +91,8 @@ BFF.prototype.update = function() {
                 gameLog.setText(enemy.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else if(player.y ==(this.y + size) && player.x == this.x ){
                 gameLog.setText(player.NAME + ' blocks ' + this.NAME +'\'s path.');
+            }else if(enemy2.y ==(this.y + size) && enemy2.x == this.x ){
+                gameLog.setText(enemy2.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else {
                 this.y = this.y + size;
                 this.cursor.y = this.cursor.y + size;
@@ -107,6 +111,8 @@ BFF.prototype.update = function() {
                 gameLog.setText(enemy.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else if(player.x ==(this.x - size) && player.y == this.y){
                 gameLog.setText(player.NAME + ' blocks ' + this.NAME +'\'s path.');
+            }else if(enemy2.x ==(this.x - size) && enemy2.y == this.y){
+                gameLog.setText(enemy2.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else {
                 this.x = this.x - size;
                 this.cursor.x = this.cursor.x - size;
@@ -125,6 +131,8 @@ BFF.prototype.update = function() {
                 gameLog.setText(enemy.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else if(player.x ==(this.x + size) && player.y == this.y ){
                 gameLog.setText(player.NAME + ' blocks ' + this.NAME +'\'s path.');
+            }else if(enemy2.x ==(this.x + size) && enemy2.y == this.y ){
+                gameLog.setText(enemy2.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else {
                 this.x = this.x + size;
                 this.cursor.x = this.cursor.x + size;
@@ -186,7 +194,6 @@ BFF.prototype.update = function() {
             enemyTarget.loadTexture('UI', 's_foxTarget');
             rightName.setText(enemy.NAME);
             rightName.visible = true;
-            aura();
             rightName.setText(player.NAME);
             enemyStats.setText('Type: ' + player.TYPE + '\n' +
             'Charisma: ' + player.CHAR + '\n' +
@@ -201,8 +208,7 @@ BFF.prototype.update = function() {
                     var bark = game.add.audio('boostSound');
                     bark.play('',0,1,false)
                     //Animate Battery
-                    var popup = game.add.sprite(player.x, player.y, 'atlas', 's_batteryFull');
-                    popup.anchor.setTo(.5,.5);
+                    var popup = game.add.sprite(player.x +19, player.y - 18, 'atlas', 's_batteryFull');
                     game.time.events.add(Phaser.Timer.SECOND * 0.5, killPop, this);
                     game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
                     this.acted = true;
@@ -216,7 +222,6 @@ BFF.prototype.update = function() {
             enemyUI.visible = false;
             rightName.visible = false;
             enemyStats.visible = false;
-            player.CHAR -+ 1;
         }
 	}
     if (this.controlled == true){
@@ -230,7 +235,12 @@ BFF.prototype.update = function() {
     }
     if(this.controlled == false && this.moveable == false && this.acted == true){
         this.cursor.visible = false;
-        enemy.controlled = true;
+        if(enemygroup.length > 0) {
+            enemygroup.cursor.controlled = true;
+        }else {
+            player.controlled = true;
+            player.moveable = true;
+        }
         this.acted = false;
         this.displayed = false;
         movebutt.usable = true;
@@ -241,9 +251,9 @@ BFF.prototype.update = function() {
         pressed = false;
 
   	}
-    if (this.controlled == false) {
-        this.popup.x = this.x + size/2;
-        this.popup.y = this.y - size/2;
+    if (this.controlled == true) {
+        this.popup.x = this.x + 19;
+        this.popup.y = this.y - 18;
         this.popup.animations.play('silent');
         this.popup.visible = true;
         this.popup.bringToTop();
@@ -265,8 +275,6 @@ BFF.prototype.update = function() {
         this.controlled = false;
         this.acted = true;
     }
-    function aura() {
-        player.CHAR += 1;
-    }
+
 
 }
