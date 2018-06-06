@@ -29,6 +29,11 @@ function BFF(game, key) {
         this.TYPE = "Charisma";
         this.NAME = "Zerda";
 
+        this.charb = false;
+        this.sarcb = false;
+        this.enerb = false;
+        this.waitb = false;
+
         this.moveable = false;
         this.controlled = false;
         this.acted = false;
@@ -74,6 +79,7 @@ BFF.prototype.update = function() {
             this.animations.play('up');
             this.frame = 4;
             this.moveable = false;
+            pressed = false;
             console.log('up pressed');
             
         } else if(cursors.down.justPressed() ) {
@@ -91,6 +97,7 @@ BFF.prototype.update = function() {
             this.animations.play('down');
             this.frame = 1;
             this.moveable = false;
+            pressed = false;
             console.log('down pressed');
             
         } else if(cursors.left.justPressed() ) {
@@ -108,6 +115,7 @@ BFF.prototype.update = function() {
             this.animations.play('left');
             this.frame = 7;
             this.moveable = false;
+            pressed = false;
             console.log('left pressed');
             
         } else if(cursors.right.justPressed() ) {
@@ -125,6 +133,7 @@ BFF.prototype.update = function() {
             this.animations.play('right');
             this.frame = 10;
             this.moveable = false;
+            pressed = false;
             console.log('right pressed');
         }
     }
@@ -185,7 +194,7 @@ BFF.prototype.update = function() {
             'Ego: ' + player.EGO + '\n' +
             'Resolve: ' + player.EXH + '\n')
             ;
-                if (bKey.justPressed() && player.EXH <=7) {
+                if (this.enerb == true && player.EXH <=7) {
                     player.EXH += 3;
                     gameLog.setText('The fox who treated you with\nkindness gives you an\n encouraging bark.');
                     //play audio
@@ -196,9 +205,11 @@ BFF.prototype.update = function() {
                     popup.anchor.setTo(.5,.5);
                     game.time.events.add(Phaser.Timer.SECOND * 0.5, killPop, this);
                     game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
-                }else if (bKey.justPressed() && player.EXH >=7) {
+                    this.acted = true;
+                }else if (this.enerb == true && player.EXH >=7) {
                     gameLog.setText('The kind fox has little to say.');
                     game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
+                    this.acted = true;
                 }
         } else {
             enemyIcon.visible = false;
@@ -209,10 +220,11 @@ BFF.prototype.update = function() {
         }
 	}
     if (this.controlled == true){
-        if(wKey.justPressed()){
+        if(this.waitb == true){
             console.log("Waiting");
             gameLog.setText(this.NAME + ' takes a moment to compose a thought.');
             this.controlled = false;
+            this.waitb = false;
             game.time.events.add(Phaser.Timer.SECOND * 3, changeTurn, this);
         }
     }
@@ -221,7 +233,11 @@ BFF.prototype.update = function() {
         enemy.controlled = true;
         this.acted = false;
         this.displayed = false;
-        movebutt.usable = true;;
+        movebutt.usable = true;
+        movebutt.unusable = false;
+        movebutt.pressed = false;
+        barkbutt.usable = true;
+        barkbutt.unusable = false;
 
   	}
     if (this.controlled == false) {

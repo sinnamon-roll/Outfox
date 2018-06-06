@@ -20,10 +20,10 @@ isAdjacent = function(character, subject){
             //DISPLAY INFORMATION
             if(character.controlled == true){
             //Keyboard input only available when adjacent
-            if (cKey.justPressed() && character.EXH > 0) {
+            if (character.charb == true && character.EXH > 0) {
                 //Exhaust Player
                 character.EXH -= 1;
-                
+                character.charb = false;
                 //Display GameLog
                 gameLog.setText('"What\'s a fox like you doing in a place like this"');
                 
@@ -50,10 +50,10 @@ isAdjacent = function(character, subject){
                 charEmitter.setYSpeed(-50,50);            // set min/max vertical speed
                 
             }
-            if (sKey.justPressed() && character.EXH > 0) {
+            if (character.sarcb == true && character.EXH > 0) {
                 //Exhaust Player
                 character.EXH -= 1;
-                
+                character.sarcb = false;
                 //Display GameLog
                 gameLog.setText('"Don\'t you just love eating dog food every day?"');
                 

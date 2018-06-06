@@ -140,8 +140,9 @@ Enemy.prototype.update = function() {
         function killText() {
             console.log("killText");
             game.add.tween(result).to( { alpha: 0 }, 420, Phaser.Easing.Linear.None, true);
-            this.controlled == false;
-            player.moveable == true;
+            this.controlled = false;
+            player.controlled = true;
+            player.displayed = true;
         }
     function moveRight() {
         enemy.x = enemy.x + size;
@@ -150,7 +151,7 @@ Enemy.prototype.update = function() {
         enemy.controlled = false;
         iterator = 0;
         player.displayed = true;
-        movebutt.usable = true;
+        player.controlled = true;
         
     }
     function moveLeft() {
@@ -160,7 +161,7 @@ Enemy.prototype.update = function() {
         enemy.controlled = false;
         iterator = 0;
         player.displayed = true;
-        movebutt.usable = true;
+        player.controlled = true;
         
     }
     function moveDown () {
@@ -170,7 +171,7 @@ Enemy.prototype.update = function() {
         enemy.controlled = false;
         iterator = 0;
         player.displayed = true;
-        movebutt.usable = true;
+        player.controlled = true;
         
     }
     function moveUp() {
@@ -180,7 +181,7 @@ Enemy.prototype.update = function() {
         enemy.controlled = false;
         iterator = 0;
         player.displayed = true;
-        movebutt.usable = true;
+        player.controlled = true;
 
     }
 

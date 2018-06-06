@@ -31,7 +31,12 @@ function Player(game, key) {
     this.EXH = 3;
     this.NAME = "Player Fox";
 
-    this.controlled = false;
+    this.charb = false;
+    this.sarcb = false;
+    this.enerb = false;
+    this.waitb = false;
+
+    this.controlled = true;
     this.moveable = false;
     this.acted = false;
     this.displayed = true;
@@ -88,6 +93,7 @@ Player.prototype.update = function() {
             }
             this.animations.play('up');
             this.moveable = false;
+            pressed = false;
             console.log('up pressed');
             
         } else if(cursors.down.justPressed() ) {
@@ -105,6 +111,7 @@ Player.prototype.update = function() {
             this.animations.play('down');
             this.frame = 1;
             this.moveable = false;
+            pressed = false;
             console.log('down pressed');
             
         } else if(cursors.left.justPressed() ) {
@@ -122,6 +129,7 @@ Player.prototype.update = function() {
             this.animations.play('left');
             this.frame = 7;
             this.moveable = false;
+            pressed = false;
             console.log('left pressed');
             
         } else if(cursors.right.justPressed() ) {
@@ -139,20 +147,23 @@ Player.prototype.update = function() {
             this.animations.play('right');
             this.frame = 10;
             this.moveable = false;
+            pressed = false;
             console.log('right pressed');
         }
   }
   if (this.controlled == true){
       //DISPLAY STATS
       
-        if (cKey.justPressed() && this.adj == true){
+        if (this.charb == true && this.adj == true){
             game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
-    	}else if(sKey.justPressed() && this.adj == true){
+    	}else if(this.sarcb == true && this.adj == true){
             game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
-        }else if(wKey.justPressed()){
+        }else if(this.waitb == true){
             console.log("Waiting");
             gameLog.setText(this.NAME + ' takes a moment to compose a thought.');
             this.moveable = false;
+            pressed = false;
+            this.waitb = false;
             game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
         }
       
@@ -183,11 +194,15 @@ Player.prototype.update = function() {
   }
   if(this.controlled == false && this.moveable == false && this.acted == true){
         this.cursor.visible = false;
-        BFF.controlled = true;
         this.acted = false;
         this.displayed = false;
         BFF.displayed = true;
+        BFF.controlled = true;
         movebutt.usable = true;
+        movebutt.unusable = false;
+        barkbutt.usable = true;
+        barkbutt.unusable = false;
+        pressed = false;
   }
     if (this.displayed == false){
         this.popup.x = this.x + size/2;
