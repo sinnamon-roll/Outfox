@@ -1,4 +1,4 @@
-//Enemies with basic Ai that just follow the player
+//Enemies with basic movement that paces up/down
 // prefab constructor function
 var size = 64;
 var CHAR;
@@ -154,12 +154,13 @@ Enemy.prototype.update = function() {
         }
     function moveRight(target) {
         target.x = target.x + size;
-        enemy.animations.play('right');
+        target.animations.play('right');
         target.frame = 10;
         target.controlled = false;
         iterator = 0;
         gameLog.setText(target.NAME +' runs around!');
-        enemy.controlled = true;
+        
+        player.controlled = true;
         player.moveable = true;
     }
     function moveLeft(target) {
@@ -181,8 +182,7 @@ Enemy.prototype.update = function() {
         iterator = 0;
         gameLog.setText(target.NAME +' runs around!');
 
-        player.controlled = true;
-        player.moveable = true;
+        changeTurn();
     }
     function moveUp(target) {
         target.y = target.y - size;
@@ -192,8 +192,7 @@ Enemy.prototype.update = function() {
         iterator = 0;
         gameLog.setText(target.NAME +' runs around!');
 
-        player.controlled = true;
-        player.moveable = true;
+        changeTurn();
     }
     function checkPos(target) {
         if( (target.y == player.y && target.x == player.x) ||
@@ -227,6 +226,10 @@ Enemy.prototype.update = function() {
         result.animations.add('break', [4,5,6,7,6], 7,true);
         result.play('break');
         game.time.events.add(Phaser.Timer.SECOND * 1.5, killText, this, result);
+    }
+    function changeTurn() {
+        player.controlled = true;
+        player.moveable = true;
     }
 
 }
