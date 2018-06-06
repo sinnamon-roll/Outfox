@@ -222,7 +222,12 @@ Bff.prototype.update = function() {
     }
     if(this.controlled == false && this.moveable == false && this.acted == true){
         this.cursor.visible = false;
-        enemy.controlled = true;
+        if(enemy.exists == true) {
+            enemy.controlled = true;
+        }else {
+            player.controlled = true;
+            player.moveable = true;
+        }
         this.acted = false;
 
   	}

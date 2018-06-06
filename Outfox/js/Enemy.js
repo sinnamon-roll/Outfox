@@ -52,18 +52,7 @@ Enemy.prototype.constructor = Enemy;
 Enemy.prototype.update = function() {
         spawnlocY = size*game.rnd.integerInRange(1, 4);
         spawnlocX = size*game.rnd.integerInRange(1, 8);
-        //If the enemy and player are overlapped
-        if( (this.y == player.y && this.x == player.x) || (this.y == BFF.y && this.x == BFF.x)){
-            if(player.y == size * 4) {
-                if (player.x == size * 4) {
-                    this.x -= size;
-                } else {
-                    this.x += size;
-                }
-            } else {
-                this.y += size;
-            }
-        }
+    
 
         if(this.controlled == true) {
             playerIcon.visible = false;
@@ -100,20 +89,23 @@ Enemy.prototype.update = function() {
             //ENEMY TURN
             if(Math.floor(iterator) == 1){
                 if(this.y == size){
-                    moveDown();
+                    moveDown(this);
+                    checkPos(this);
                 }else if(this.y == size * 4){
-                    moveUp();
+                    moveUp(this);
+                    checkPos(this);
                 }else {
                     rnd = game.rnd.integerInRange(-1, 1);
                     if (rnd == -1) {
-                        moveUp();
+                        moveUp(this);
+                        checkPos(this);
                     }
                     else {
-                        moveDown();
+                        moveDown(this);
+                        checkPos(this);
                     }
                 }
                 //END ENEMY TURN
-                gameLog.setText(this.NAME +' runs around!');
                 enemyTarget.loadTexture('UI','s_foxTarget');
                 rightName.visible = false;
                 enemyUI.visible = false;
@@ -125,73 +117,116 @@ Enemy.prototype.update = function() {
 
         //ENEMY DEATH
         if (this.RPCT >=10) {
-            gameLog.setText(this.NAME +', overwhelmed by your zeal, got intimidated and ran.');
-            var result = game.add.sprite(this.x+19, this.y-18, 'atlas', 'chat_heart_broken');
-            result.animations.add('break', [4,5,6,7,6], 7,true);
-            result.play('break');
-            game.time.events.add(Phaser.Timer.SECOND, killText, this);
+            if(this.TYPE == "Charismatic") {
+                reactWell(this);
+                freeFox[0] = true;
+                console.log(freeFox);
+                freeFox[2] = true;
+                console.log(freeFox);
+            } else {
+                reactPoor(this);
+            }
             this.x = 0;
             this.y = 0;
-            this.pendingDestroy = true;    
+            this.adj = false;
+            this.pendingDestroy = true;
         }else if(this.CTMP >= 10) {
-            //MARK AS SUCCESSFULLY RECRUITED FOR CREDITS
-            freeFox[0] = true;
-            console.log(freeFox);
-            freeFox[1] = true;
-            console.log(freeFox);
-            //GAMELOG TEXT
-            gameLog.setText(this.NAME +' walked away convinced to join your escape effort.');
-            //SPRITE EFFECT
-            var result = game.add.sprite(this.x +19, this.y-18, 'atlas', 'chat_heart_whole');
-            result.animations.add('beat', [4, 5], 7,true);
-            result.play('beat');
-            game.time.events.add(Phaser.Timer.SECOND * 1.5, killText, this);
+            if(this.TYPE == "Sarcastic") {
+                //MARK AS SUCCESSFULLY RECRUITED FOR CREDITS
+                freeFox[0] = true;
+                console.log(freeFox);
+                freeFox[1] = true;
+                console.log(freeFox);
+            } else {
+                reactPoor(this);
+            }
             this.x = 0;
             this.y = 0;
+            this.adj = false;
             this.pendingDestroy = true;
         }
         
-        function killText() {
+        function killText(result) {
             console.log("killText");
             game.add.tween(result).to( { alpha: 0 }, 420, Phaser.Easing.Linear.None, true);
             this.controlled == false;
             player.moveable == true;
         }
-    function moveRight() {
-        enemy.x = enemy.x + size;
+    function moveRight(target) {
+        target.x = target.x + size;
         enemy.animations.play('right');
-        enemy.frame = 10;
-        enemy.controlled = false;
+        target.frame = 10;
+        target.controlled = false;
         iterator = 0;
+        gameLog.setText(target.NAME +' runs around!');
         enemy.controlled = true;
         player.moveable = true;
     }
-    function moveLeft() {
+    function moveLeft(target) {
         enemy.x = enemy.x - size;
         enemy.animations.play('left');
         enemy.frame = 7;
         enemy.controlled = false;
         iterator = 0;
+        gameLog.setText(this.NAME +' runs around!');
+
         player.controlled = true;
         player.moveable = true;
     }
-    function moveDown () {
-        enemy.y = enemy.y + size;
+    function moveDown (target) {
+        target.y = target.y + size;
         enemy.animations.play('down');
-        enemy.frame = 1;
-        enemy.controlled = false;
+        target.frame = 1;
+        target.controlled = false;
         iterator = 0;
+        gameLog.setText(target.NAME +' runs around!');
+
         player.controlled = true;
         player.moveable = true;
     }
-    function moveUp() {
-        enemy.y = enemy.y - size;
-        enemy.animations.play('up');
-        enemy.frame = 4;
-        enemy.controlled = false;
+    function moveUp(target) {
+        target.y = target.y - size;
+        target.animations.play('up');
+        target.frame = 4;
+        target.controlled = false;
         iterator = 0;
+        gameLog.setText(target.NAME +' runs around!');
+
         player.controlled = true;
         player.moveable = true;
+    }
+    function checkPos(target) {
+        if( (target.y == player.y && target.x == player.x) ||
+           (target.y == BFF.y && target.x == BFF.x) ||
+           (target.y == enemy2.y && target.x == enemy2.x) ||
+           (target.y > size * 4 || target.y < size) ||
+           (target.x > size * 8 || target.x < size)
+           ){
+            //go back to previous position
+            target.x = target.previousPosition.x;
+            target.y = target.previousPosition.y;
+            console.log("Resetting to prevPos", target)
+            gameLog.setText(target.NAME +' stays put!');
+            
+        }
+    }
+    function reactWell(target) {
+        //GAMELOG TEXT
+        gameLog.setText(target.NAME +' walked away convinced to join your escape effort.');
+        //SPRITE EFFECT
+        var result = game.add.sprite(target.x +19, target.y-18, 'atlas', 'chat_heart_whole');
+        result.animations.add('beat', [4, 5], 7,true);
+        result.play('beat');
+        game.time.events.add(Phaser.Timer.SECOND * 1.5, killText, this, result);
+    }
+    function reactPoor(target) {
+        //GAMELOG TEXT
+        gameLog.setText(target.NAME +', overwhelmed by your zeal, got intimidated and ran.');
+        //SPRITE EFFECT
+        var result = game.add.sprite(target.x+19, target.y-18, 'atlas', 'chat_heart_broken');
+        result.animations.add('break', [4,5,6,7,6], 7,true);
+        result.play('break');
+        game.time.events.add(Phaser.Timer.SECOND * 1.5, killText, this, result);
     }
 
 }

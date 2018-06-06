@@ -25,7 +25,7 @@ function Player(game, key) {
 
     //CHARACTER STATS
     this.CHAR = 3;
-    this.SAR = 1;
+    this.SAR = 2;
     this.EGO = 4;
     this.EXH = 3;
     this.NAME = "Zerda";

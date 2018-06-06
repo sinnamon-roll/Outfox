@@ -98,16 +98,16 @@ isAdjacent = function(characterGroup, subject){
                     character.CTMP += (subject.SAR * 2);
                     gameLog.setText('The bark is Super Effective');
                     sarEmitter.makeParticles('atlas','+_green');        // image used for particles
-                } else if (character.TYPE == 'Charismatic') {
+            }else if (character.TYPE == 'Charismatic') {
                     character.CTMP += Math.floor(subject.SAR / 2);
                     gameLog.setText('Your cries fall on deaf ears.');
                     sarEmitter.makeParticles('atlas','-_red');        // image used for particles
-                } else {
+            } else {
                     character.CTMP += subject.SAR;
                     gameLog.setText('The fox regards you calmly.');
                     sarEmitter.makeParticles('atlas','x_red');
                 }
-                sarEmitter.start(true, 4000, null, 20);    // (explode, lifespan, freq, quantity)
+            sarEmitter.start(true, 4000, null, 20);    // (explode, lifespan, freq, quantity)
     }
     function cBark() {
         //Determine if weak/resistant
