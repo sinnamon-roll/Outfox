@@ -1,19 +1,15 @@
+html,
 body {
-	font-family: Helvetica;
-	margin: 0 auto;
+  	margin: 0 auto;
+  	height: 100%;
+  	width: 100%;
+  	overflow: hidden;
+  	position: fixed;
 }
 
-<div id=”gameArea”>
-  <canvas id=”gameCanvas”></canvas>
-  <div id=”statsPanel”></div>
-</div>
-
-#gameArea {
-  position: absolute;
-  left:     50%;
-  top:      50%;
-}
-
-canvas {
-	border: 5px solid #270201;
+.mydiv {
+  margin: 0 auto;
+  animation: myanimation;
+  animation-iteration-count: 1;
+  animation-duration: 17s;
 }
