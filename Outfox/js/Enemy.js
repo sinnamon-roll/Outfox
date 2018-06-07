@@ -149,8 +149,9 @@ Enemy.prototype.update = function() {
         function killText(result) {
             console.log("killText");
             game.add.tween(result).to( { alpha: 0 }, 420, Phaser.Easing.Linear.None, true);
-            this.controlled == false;
-            player.moveable == true;
+            this.controlled = false;
+            player.controlled = true;
+            player.displayed = true;
         }
     function moveRight(target) {
         target.x = target.x + size;
@@ -159,9 +160,9 @@ Enemy.prototype.update = function() {
         target.controlled = false;
         iterator = 0;
         gameLog.setText(target.NAME +' runs around!');
-        
+        player.displayed = true;
         player.controlled = true;
-        player.moveable = true;
+        
     }
     function moveLeft(target) {
         enemy.x = enemy.x - size;
@@ -170,9 +171,9 @@ Enemy.prototype.update = function() {
         enemy.controlled = false;
         iterator = 0;
         gameLog.setText(this.NAME +' runs around!');
-
+        player.displayed = true;
         player.controlled = true;
-        player.moveable = true;
+        
     }
     function moveDown (target) {
         target.y = target.y + size;
@@ -183,6 +184,9 @@ Enemy.prototype.update = function() {
         gameLog.setText(target.NAME +' runs around!');
 
         changeTurn();
+        player.displayed = true;
+        player.controlled = true;
+        
     }
     function moveUp(target) {
         target.y = target.y - size;
@@ -228,8 +232,9 @@ Enemy.prototype.update = function() {
         game.time.events.add(Phaser.Timer.SECOND * 1.5, killText, this, result);
     }
     function changeTurn() {
+        player.displayed = true;
         player.controlled = true;
-        player.moveable = true;
+
     }
 
 }

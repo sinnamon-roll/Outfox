@@ -29,9 +29,15 @@ function Bff(game, key) {
         this.TYPE = "Charisma";
         this.NAME = "Tod";
 
+        this.charb = false;
+        this.sarcb = false;
+        this.enerb = false;
+        this.waitb = false;
+
         this.moveable = false;
         this.controlled = false;
         this.acted = false;
+        this.displayed = false;
     
         //EXHAUSTION
         this.popup = game.add.sprite(this.x + 19, this.y - 18, 'atlas','s_batteryOut');
@@ -75,6 +81,7 @@ Bff.prototype.update = function() {
             this.animations.play('up');
             this.frame = 4;
             this.moveable = false;
+            pressed = false;
             console.log('up pressed');
             
         } else if(cursors.down.justPressed() ) {
@@ -94,6 +101,7 @@ Bff.prototype.update = function() {
             this.animations.play('down');
             this.frame = 1;
             this.moveable = false;
+            pressed = false;
             console.log('down pressed');
             
         } else if(cursors.left.justPressed() ) {
@@ -113,6 +121,7 @@ Bff.prototype.update = function() {
             this.animations.play('left');
             this.frame = 7;
             this.moveable = false;
+            pressed = false;
             console.log('left pressed');
             
         } else if(cursors.right.justPressed() ) {
@@ -132,6 +141,7 @@ Bff.prototype.update = function() {
             this.animations.play('right');
             this.frame = 10;
             this.moveable = false;
+            pressed = false;
             console.log('right pressed');
         }
     }
@@ -191,7 +201,7 @@ Bff.prototype.update = function() {
             'Ego: ' + player.EGO + '\n' +
             'Resolve: ' + player.EXH + '\n')
             ;
-                if (bKey.justPressed() && player.EXH <=7) {
+                if (this.enerb == true && player.EXH <=7) {
                     player.EXH += 3;
                     gameLog.setText('The fox who treated you with\nkindness gives you an\n encouraging bark.');
                     //play audio
@@ -201,9 +211,11 @@ Bff.prototype.update = function() {
                     var popup = game.add.sprite(player.x +19, player.y - 18, 'atlas', 's_batteryFull');
                     game.time.events.add(Phaser.Timer.SECOND * 0.5, killPop, this);
                     game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
-                }else if (bKey.justPressed() && player.EXH >=7) {
+                    this.acted = true;
+                }else if (this.enerb == true && player.EXH >=7) {
                     gameLog.setText('The kind fox has little to say.');
                     game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
+                    this.acted = true;
                 }
         } else {
             enemyIcon.visible = false;
@@ -213,10 +225,11 @@ Bff.prototype.update = function() {
         }
 	}
     if (this.controlled == true){
-        if(wKey.justPressed()){
+        if(this.waitb == true){
             console.log("Waiting");
             gameLog.setText(this.NAME + ' takes a moment to compose a thought.');
             this.controlled = false;
+            this.waitb = false;
             game.time.events.add(Phaser.Timer.SECOND * 3, changeTurn, this);
         }
     }
@@ -229,6 +242,13 @@ Bff.prototype.update = function() {
             player.moveable = true;
         }
         this.acted = false;
+        this.displayed = false;
+        movebutt.usable = true;
+        movebutt.unusable = false;
+        movebutt.pressed = false;
+        barkbutt.usable = true;
+        barkbutt.unusable = false;
+        pressed = false;
 
   	}
     if (this.controlled == true) {
