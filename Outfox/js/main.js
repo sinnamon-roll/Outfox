@@ -489,6 +489,7 @@ testState.prototype = {
 		}
 		//Checks if these two are adjacent, can be run on any two objects. Probably still way too centered on the player.
         isAdjacent(enemygroup, player);
+        //isAdjacent(enemy, player);
         //isAdjacent(enemy2, player);
         //updates variables to what is in out settings, this is a really shitty place to update the health variable, lol one sec
         //never put things in here that govern a resource, as it will always put it to max, throw that into the constructor for said resource

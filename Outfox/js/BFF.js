@@ -1,7 +1,6 @@
 //Player Fox's Comrade
 // prefab constructor function
 var size = 64;
-var adj = false;
 var CHAR;
 var SAR;
 var EGO;
@@ -38,6 +37,7 @@ function Bff(game, key) {
         this.controlled = false;
         this.acted = false;
         this.displayed = false;
+        this.adj = false;
     
         //EXHAUSTION
         this.popup = game.add.sprite(this.x + 19, this.y - 18, 'atlas','s_batteryOut');

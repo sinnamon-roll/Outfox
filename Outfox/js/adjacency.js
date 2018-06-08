@@ -4,28 +4,33 @@ isAdjacent = function(characterGroup, subject){
         if(subject.x == (character.x + size) || subject.x == (character.x - size) ){
             if (subject.y == character.y) {
                 //console.log("ADJACENT R/L");
+                subject.adj = true;
                 character.adj = true;
             }else
+                subject.adj = false;
                 character.adj = false;
         }else if (subject.y == (character.y + size) || subject.y == (character.y - size) ){
              if (subject.x == character.x) {
                 //console.log("ADJACENT UP/DOWN");
                 character.adj = true;
+                subject.adj = true;
              }else {
                 character.adj = false;
+                subject.adj = false;
              }
         }else {
             character.adj = false;
+            subject.adj = false;
         }
                            //});
         if (character.adj == true) {
             //DISPLAY INFORMATION
             if(subject.controlled == true){
             //Keyboard input only available when adjacent
-            if (character.charb == true && character.EXH > 0) {
+            if (subject.charb == true && character.EXH > 0) {
                 //Exhaust Player
-                character.EXH -= 1;
-                character.charb = false;
+                subject.EXH -= 1;
+                subject.charb = false;
                 //Display GameLog
                 gameLog.setText('"What\'s a fox like you doing in a place like this"');
                 
@@ -53,10 +58,10 @@ isAdjacent = function(characterGroup, subject){
                 //useAction()
                 game.time.events.add(Phaser.Timer.SECOND * 4, useAction, this);
             }
-            if (character.sarcb == true && character.EXH > 0) {
+            if (subject.sarcb == true && character.EXH > 0) {
                 //Exhaust Player
-                character.EXH -= 1;
-                character.sarcb = false;
+                subject.EXH -= 1;
+                subject.sarcb = false;
                 //Display GameLog
                 gameLog.setText('"Don\'t you just love eating dog food every day?"');
                 
@@ -126,10 +131,11 @@ isAdjacent = function(characterGroup, subject){
         }
         charEmitter.start(true, 4000, null, 20);    // (explode, lifespan, freq, quantity)
     }
-            function useAction() {
-                subject.controlled = false;
-                subject.acted = true;
-            }
+    function useAction() {
+        console.log("using Player's action");
+        this.controlled = false;
+        this.acted = true;
+    }
     }
                            });
 }

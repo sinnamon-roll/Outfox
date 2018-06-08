@@ -1,7 +1,6 @@
 // stuff i have yet to code, but its gonna be the prefab for the player character
 // Player prefab constructor function
 var size = 64;
-var adj = false;
 var CHAR;
 var SAR;
 var EGO;
@@ -29,6 +28,7 @@ function Player(game, key) {
     this.EGO = 4;
     this.EXH = 3;
     this.NAME = "Zerda";
+    this.adj = false;
 
     this.charb = false;
     this.sarcb = false;

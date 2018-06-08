@@ -8,7 +8,6 @@ var CTMP;
 var RPCT;
 var TYPE;
 var NAME;
-var adj;
 
 var iterator = 0;
 
