@@ -57,17 +57,17 @@ Bff.prototype.update = function() {
         
         if(cursors.up.justPressed() ) {
             if(this.y == size){
-                gameLog.setText('The laboratory wall prevents you from going further.');
+                add2Log('The laboratory wall prevents you from going further.');
             }else if(enemy.y ==(this.y - size) && enemy.x == this.x ){
-                gameLog.setText(enemy.NAME + ' blocks ' + this.NAME +'\'s path.');
+                add2Log(enemy.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else if(player.y ==(this.y - size) && player.x == this.x ){
-                gameLog.setText(player.NAME + ' blocks ' + this.NAME +'\'s path.');
+                add2Log(player.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else if(enemy2.y ==(this.y - size) && enemy2.x == this.x ){
-                gameLog.setText(enemy2.NAME + ' blocks ' + this.NAME +'\'s path.');
+                add2Log(enemy2.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else {
                 this.y = this.y - size;
                 this.cursor.y = this.cursor.y - size;
-                gameLog.setText(this.NAME + ' takes a step.');
+                add2Log(this.NAME + ' takes a step.');
             }
             this.animations.play('up');
             this.frame = 4;
@@ -77,17 +77,17 @@ Bff.prototype.update = function() {
             
         } else if(cursors.down.justPressed() ) {
             if(this.y == size * 4){
-                gameLog.setText('The laboratory wall prevents you from going further.');
+                add2Log('The laboratory wall prevents you from going further.');
             }else if(enemy.y ==(this.y + size) && enemy.x == this.x ){
-                gameLog.setText(enemy.NAME + ' blocks ' + this.NAME +'\'s path.');
+                add2Log(enemy.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else if(player.y ==(this.y + size) && player.x == this.x ){
-                gameLog.setText(player.NAME + ' blocks ' + this.NAME +'\'s path.');
+                add2Log(player.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else if(enemy2.y ==(this.y + size) && enemy2.x == this.x ){
-                gameLog.setText(enemy2.NAME + ' blocks ' + this.NAME +'\'s path.');
+                add2Log(enemy2.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else {
                 this.y = this.y + size;
                 this.cursor.y = this.cursor.y + size;
-                gameLog.setText(this.NAME + ' takes a step.');
+                add2Log(this.NAME + ' takes a step.');
             }
             this.animations.play('down');
             this.frame = 1;
@@ -97,17 +97,17 @@ Bff.prototype.update = function() {
             
         } else if(cursors.left.justPressed() ) {
             if (this.x == size) {
-                gameLog.setText('The laboratory wall prevents you from going further.');
+                add2Log('The laboratory wall prevents you from going further.');
             }else if(enemy.x ==(this.x - size) && enemy.y == this.y){
-                gameLog.setText(enemy.NAME + ' blocks ' + this.NAME +'\'s path.');
+                add2Log(enemy.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else if(player.x ==(this.x - size) && player.y == this.y){
-                gameLog.setText(player.NAME + ' blocks ' + this.NAME +'\'s path.');
+                add2Log(player.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else if(enemy2.x ==(this.x - size) && enemy2.y == this.y){
-                gameLog.setText(enemy2.NAME + ' blocks ' + this.NAME +'\'s path.');
+                add2Log(enemy2.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else {
                 this.x = this.x - size;
                 this.cursor.x = this.cursor.x - size;
-                gameLog.setText(this.NAME + ' takes a step.');
+                add2Log(this.NAME + ' takes a step.');
             }
             this.animations.play('left');
             this.frame = 7;
@@ -117,17 +117,17 @@ Bff.prototype.update = function() {
             
         } else if(cursors.right.justPressed() ) {
             if (this.x == size * 8) {
-                gameLog.setText('The laboratory wall prevents you from going further.');
+                add2Log('The laboratory wall prevents you from going further.');
             }else if(enemy.x ==(this.x + size) && enemy.y == this.y ){
-                gameLog.setText(enemy.NAME + ' blocks ' + this.NAME +'\'s path.');
+                add2Log(enemy.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else if(player.x ==(this.x + size) && player.y == this.y ){
-                gameLog.setText(player.NAME + ' blocks ' + this.NAME +'\'s path.');
+                add2Log(player.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else if(enemy2.x ==(this.x + size) && enemy2.y == this.y ){
-                gameLog.setText(enemy2.NAME + ' blocks ' + this.NAME +'\'s path.');
+                add2Log(enemy2.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else {
                 this.x = this.x + size;
                 this.cursor.x = this.cursor.x + size;
-                gameLog.setText(this.NAME + ' takes a step.');
+                add2Log(this.NAME + ' takes a step.');
             }
             this.animations.play('right');
             this.frame = 10;
@@ -175,6 +175,7 @@ Bff.prototype.update = function() {
         'Ego: ' + this.EGO + '\n' +
         'Resolve: ' + this.EXH + '\n'
         ;
+        setBgColorById('main-page','#ccc');
         if(this.adj == true) {
             //DISPLAY FOX TARGET INFO
             enemyTarget.loadTexture('UI', 's_foxTarget');
@@ -194,7 +195,7 @@ Bff.prototype.update = function() {
             ;
                 if (this.enerb == true && player.EXH <=7) {
                     player.EXH += 3;
-                    gameLog.setText('The fox who treated you with\nkindness gives you an\n encouraging bark.');
+                    add2Log('The fox who treated you with kindness gives you an encouraging bark.');
                     //play audio
                     var bark = game.add.audio('boostSound');
                     bark.play('',0,1,false)
@@ -206,7 +207,7 @@ Bff.prototype.update = function() {
                     this.controlled = false;
                     this.enerb = false;
                 }else if (this.enerb == true && player.EXH >=7) {
-                    gameLog.setText('The kind fox has little to say.');
+                    add2Log('The kind fox has little to say.');
                     game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
                     this.acted = true;
                     this.controlled = false;
@@ -222,7 +223,7 @@ Bff.prototype.update = function() {
     if (this.controlled == true){
         if(this.waitb == true){
             console.log("Waiting");
-            gameLog.setText(this.NAME + ' takes a moment to compose a thought.');
+            add2Log(this.NAME + ' takes a moment to compose a thought.');
             this.controlled = false;
             this.waitb = false;
             game.time.events.add(Phaser.Timer.SECOND * 3, changeTurn, this);

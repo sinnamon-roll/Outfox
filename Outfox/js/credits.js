@@ -57,7 +57,8 @@ create: function() {
     
     creditText = game.add.text(73,355, 'Courtney Hunt', creditStyle);
 
-    creditText = game.add.text(290,200, 'Authentic Fox sounds - Courtney Hunt', creditStyle);
+    creditText = game.add.text(290,235, 'Authentic Fox sounds - Courtney Hunt', creditStyle);
+    creditText = game.add.text(297,200, 'Creative Commons 0 - freesound.org', creditStyle);
 
     creditText = game.add.text(350,355, 'Lobster - Google Fonts', creditStyle);
 

@@ -1,4 +1,4 @@
-var game = new Phaser.Game(640, 480, Phaser.AUTO);
+var game = new Phaser.Game(640, 480, Phaser.AUTO, 'phaser-window');
 var player;
 var enemygroup;
 var enemy, enemy2;
@@ -13,24 +13,21 @@ var logoSound;
 var startScene = 0;
 var panelTime = 4;
 var scene;
-var scenes = [{key:"BFF00"},{key:"BFF01"},{key:"BFF01"},{key:"BFF02"},{key:"BFF03"},{key:"BFF04"},{key:"BFF05"},{key:"BFF06"},{key:"BFF07"},{key:"BFF08"},{key:"BFF09"},{key:"BFF10"},{key:"BFF11"},{key:"BFF12"}];
-var narratives = [  'As your consciousness stirs, the instinct to repeatedly blink and paw gently at your eyes kicks in. Despite your best efforts, your sight struggles to adjust in the pitch black darkness that surrounding you.',
-                    'Turning your head, your eyes squint taking in a faint, glowing, red light. "Is that the sun beginning to rise? I must have wandered deeper within my den," you rationalize.',
-                    'Attempting to disregard the atrophy you feel in your muscles, you stand. \* wham\! \* Rising so suddenly, your ears had little time to warn you of the low ceiling you just made contact with. You wonder, "why is the den ceiling so cold\? It\'s nowhere near wintertime yet..."',
-                    'Panicking from this unfamiliar sensation, you lunge forward, all four paws scurrying for your den entrance. To your continued surprise, your body is met with more cold and unforgiving objects blocking your escape. Perplexed, you ponder, "where did all of these hard branches come from?!"',
-                    'Shaking your head to attempt to remain conscious from the impact, your eyes come into focus. The red light illuminates the "branches," as well as the "den\'s" ceiling and floor. Fear welling up inside, you wimper in quite a low voice, "oh, no\! I\'m in a hunter\'s cage\!"',
-                    'You find it quite peculiar that you can JUST make out grass outside of the cage below, but you smell nothing. A neighboring read light slightly further away catches your eye.',
-                    'As your pupils bring the distant area into view, you confirm it is another hunter\s cage. Bittersweet in its revelation, you think "It\'s calming that I am not alone but it means another creature is trapped here with me."',
-                    'Pushing your snout as far as you can between the cage\'s "branches", you gekker imploringly. "Bright day! Is there another fox about?" The echos of your call resonating as they bounce inside your cage frighten you slightly.',
-                    'Perking up your ears, you close your eyes and take slow, deep breaths, hopefully anticipating a response...\nHowever, no sound could be heard...\n"Whatever shall I do now?" you lament.',
-                    'But wait! Was that a yawn you heard? "It can\'t possibly be morning catch yet. Who is making all that noise?" gekkered a voice travelling from the adjacent cage.',
-                    'narrative about discovering each other is there and introductions. may need this scene background for more than one scene. may need to cut down on text at beginning. Reuse this scene to explain escape and becoming friends.',
-                    'final thoughts and sounds before falling asleep',
-                    'issue getting rid of log graphic here when the final scene fades, ask for help. should just be black and fade for effect before going to gameplay'];
+var scenes = [{key:"BFF00"},{key:"BFF01"},{key:"BFF01"},{key:"BFF02"},{key:"BFF03"},{key:"BFF05"},{key:"BFF06"},{key:"BFF07"},{key:"BFF08"},{key:"BFF09"},{key:"BFF09"},{key:"BFF09"},{key:"BFF11"},{key:"BFF12"}];
 var talkText;
 var logImg;
 //Array for credits: Who to display as recruited
 var freeFox = [false,false,false,false];
+var namePC = '';
+var logCount;
+var lineCount = 0;
+var lineTotal = 0;
+var gameLog;
+var linePush = 0;
+var logLines = 0;
+var firstLog = false;
+
+
 
 
 var Preloader = function(game){};
@@ -108,10 +105,12 @@ logoScreen.prototype = {
         preload: function(){
             console.log('logoScreen: preload');
             
-        },
-        create: function() {
+        },create: function() {
             console.log('logoScreen: create');
             var CCGLogo = game.add.sprite(0,0, 'CCGlogo');
+            setBgColorById('main-page','#880700');
+           
+
 
             CCGLogo.anchor.setTo(0, 0);
             CCGLogo.alpha = 0;
@@ -154,6 +153,7 @@ MainMenu.prototype = {
             console.log('MainMenu: create');
             game.stage.backgroundColor = "#000000";
             var OFLogo = game.add.sprite(0,0, 'OFlogo');
+            setBgColorById('main-page','#250001');
 
             OFLogo.anchor.setTo(0, 0);
             OFLogo.alpha = 0;
@@ -162,14 +162,6 @@ MainMenu.prototype = {
 
             function logoSound() {
                 this.logoUp.play('', 0, 0.1, false);
-            }
-            
-            function fadeOut() {
-                game.add.tween(OFLogo).to( { alpha: 0 }, 1500, Phaser.Easing.Linear.None, true);
-            }
-
-            function switchState() {
-                game.add.tween(OFLogo).to( { alpha: 0 }, 1500, Phaser.Easing.Linear.None, true);
             }
             
             // State change instructions and intro text -----------------------------------------------
@@ -188,6 +180,14 @@ MainMenu.prototype = {
         },
 }
 
+var namePC = function(game) {};
+namePC.prototype = {
+        namePC: function(){
+            console.log('logoScreen: namePC');
+    
+        },
+}
+
 // define Prologue state and methods
 var Prologue = function(game) {};
 Prologue.prototype = {
@@ -196,6 +196,8 @@ Prologue.prototype = {
     },
     preload: function() {
         console.log('Prologue: preload');
+        setBgColorById('main-page','#facade');
+        setBgImageById('main-page','url("assets/img/prologueBG.png")');
 
         // Preload Assets -----------------------------------------------------
 
@@ -206,6 +208,12 @@ Prologue.prototype = {
             ['prologueborder.png', 'prologueUpL.png', 'prologueUpMid.png', 'prologueUpR.png', 'prologueLowL.png', 'prologueLowMidTop.png', 'prologueLowMidL.png', 'prologueLowMidR.png', 'prologueLowR.png']);
     },
     create: function() {
+        // create background image
+        var proBG = game.add.sprite(0, 0, 'prolBorder');
+        proBG.alpha = 0;
+
+        game.add.tween(proBG).to( { alpha: 1 }, 1500, Phaser.Easing.Linear.None, true);
+
         console.log('Prologue: create');
         game.stage.backgroundColor = "#ffffff";
         console.log('level: ' + this.level);
@@ -224,8 +232,7 @@ Prologue.prototype = {
             this.cageDown.play('', 0, 0.5, false);
         }
 
-        // create background image
-        game.add.sprite(0, 0, 'prolBorder');
+        
 
         var panel00 = game.add.sprite(10, 10, 'panel00');
         var panel01 = game.add.sprite(101, 10, 'panel01');
@@ -270,9 +277,97 @@ BFFmeet.prototype = {
         },
         create: function() {
             console.log('BFFmeet: create');
+
+            setBgColorById('main-page','#000000');
+            setBgImageById('main-page','');
             game.sound.stopAll();
+
             game.stage.backgroundColor = "#000000";
-            switchScene(startScene);
+            //switchScene(startScene);
+
+            // establish a dialog component
+            var dialog=new Dialog(
+            {x:108, y:315, width:435}, // the geo of the dialog box
+            { font: 'Fira Sans', fontSize: '16px', fill: '#eed6c3', wordWrap: 'true', boundsAlignH: "left", boundsAlignV: "top" } // the style of the text
+            );
+
+            var controller=new DialogController(dialog);
+            var perSec=20;
+            controller.setList(
+            [
+                {        
+                  text: "As your consciousness stirs, you repeatedly blink and paw gently at your eyes. Despite your best efforts, your sight struggles to adjust in the pitch black darkness.\n\n\n[ ENTER ]", // the text you want to play
+                  lettersPerSec: perSec, // letters per second
+                },
+                {        
+                    text: "Turning your head, your eyes squint taking in a faint, glowing, red light. \"Is that the sun beginning to rise?\nI must have wandered deeper within my den.\"\n\n\n[ ENTER ]", // the text you want to play
+                    lettersPerSec: perSec, // letters per second
+                },
+                {        
+                    text: "Attempting to disregard the atrophy you feel in your muscles, you stand. \n\* wham\! \*\nRising so suddenly, your ears had little time to warn you of the low ceiling you just made contact with.\n[ ENTER ]", // the text you want to play
+                    lettersPerSec: perSec, // letters per second
+                },
+                {        
+                    text: "Panicking from this unexpected sensation, you lunge forward, all four paws scurrying for your den entrance.\nTo your continued surprise, your body is met with more cold and unforgiving objects blocking your escape.\n\n[ ENTER ]", // the text you want to play
+                    lettersPerSec: perSec, // letters per second
+                },
+                {        
+                    text: "Shaking your head in an attempt to remain conscious from the impact, your eyes come into focus. The red light illuminates your \"den.\"\nFear welling up inside, you wimper, \"oh, no\! I\'m in a hunter\'s cage\!\"\n[ ENTER ]", // the text you want to play
+                    lettersPerSec: perSec, // letters per second
+                },
+                {        
+                    text: "Your pupils retract, deciphering another red light and accompanying hunter\'\s cage.\n\"Perhaps I'm not alone in this cold, strange place.\"\n\n\n[ ENTER ]", // the text you want to play
+                    lettersPerSec: perSec, // letters per second
+                },
+                {        
+                    text: "Pushing your snout as far as you can between the cage\'s bars, you gekker imploringly.\n\"Bright day! Is there another fox about?\"\nYour call echoes.\n\n[ ENTER ]", // the text you want to play
+                    lettersPerSec: perSec, // letters per second
+                },
+                {        
+                    text: "Perking up your ears and closing your eyes, you hold your breath, hopefully anticipating a reply...\nHowever, no sound is heard.\n\"Whatever shall I do now?\" you lament.\n\n[ ENTER ]", // the text you want to play
+                    lettersPerSec: perSec, // letters per second
+                },
+                {        
+                    text: "But wait! Was that a yawn you just heard?\n\"It can\'t possibly be morning catch yet. Who is making all that noise?\" gekkered a voice from the adjacent cage.\n\n\n[ ENTER ]", // the text you want to play
+                    lettersPerSec: perSec, // letters per second
+
+                },
+                {        
+                    text: "\"That would be me, Player1, the beige fox,\" you respond.\n\n\"Beige fox? Rare to see such a fur mutation. Tod, the red fox here. Welcome to the Lab!\"\n\n[ ENTER ]", // the text you want to play
+                    lettersPerSec: perSec, // letters per second
+                },
+                {        
+                    text: "You inquire with a quiver in your voice, \"The Lab? Don't they perform horrible experiments on our kind here?\"\n\n\"I\'ll level with you kit,\" Tod barked soberly, \"they do. If you\'re smart, you\'ll stick with me. I\'ve got an escape plan.\"\n[ ENTER ]", // the text you want to play
+                    lettersPerSec: perSec, // letters per second
+                },
+                {        
+                    text: "Every day for a few hours, the humans allow us out into an observation area. One day, I discovered the perfect spot to dig. If you could help me convince the other foxes to join our efforts, perhaps we can make our way through!\nDon't rush your decision, sleep on it.\"\n[ ENTER ]", // the text you want to play
+                    lettersPerSec: perSec, // letters per second
+                },
+                {        
+                    text: "As you settle in to save up your strength for the next day, you contemplate Tod's offer.\n\"Can I, of all foxes, convince others to join me?\"\nThe red cage lights seem to dim as you drift off...\n\n[ PRESS SPACE TO START ]", // the text you want to play
+                    lettersPerSec: perSec, // letters per second
+                },
+
+
+            ],
+            function(){console.log("all text in the list has been played!")}
+            );
+
+        controller.playNext();
+
+        _setupKeys(controller);
+
+// private functions
+function _setupKeys(controller){
+    enterKey = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+    enterKey.onUp.add(function(){
+        console.log("Enter pressed!");
+        this.playNext();
+    }, controller);
+}
+
+            
             
             this.logoUp = game.add.audio('piano');
             game.time.events.add(1500, logoSound, this);
@@ -291,17 +386,16 @@ BFFmeet.prototype = {
         update: function(){
             if( game.input.keyboard.justPressed(Phaser.Keyboard.ENTER) ){
                 if (startScene < scenes.length) {
-                    console.log('1st Enter IF. startScene: ' + startScene);
-                    game.add.tween(scene).to( { alpha: 0 }, 1500, Phaser.Easing.Linear.None, true);
-                    talkText.alpha = 0;
-                    switchScene(startScene);
+                    //game.add.tween(scene).to( { alpha: 0 }, 1500, Phaser.Easing.Linear.None, true);
+                    //talkText.alpha = 0;
+                    //switchScene(startScene);
                 }
                 if(startScene == (scenes.length - 1)) {
-                    talkText.kill();
-                    logImg.kill();
-                    game.add.tween(talkText).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
-                    game.time.events.add(4000, changeState, this, 'test');
-                    game.add.tween(--scene).to( { alpha: 0 }, 1500, Phaser.Easing.Linear.None, true);
+                    //talkText.kill();
+                    //logImg.kill();
+                    //game.add.tween(talkText).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
+                    //game.time.events.add(4000, changeState, this, 'test');
+                    //ame.add.tween(--scene).to( { alpha: 0 }, 1500, Phaser.Easing.Linear.None, true);
                 }
             }
             //console.log('MainMenu: test');
@@ -309,13 +403,20 @@ BFFmeet.prototype = {
                 this.state.start('test');
             }
         },
-}
 
+
+}
 function switchScene(num) {
     console.log('Scene switch start. startScene: ' + startScene);
     this.cageDown = game.add.audio('cage');
     if (num == 3){
         this.cageDown.play('', 0, 0.5, false);
+    }
+    if (num == 4) {
+        setBgColorById('main-page','#242323');
+    }
+    if (num == 8) {
+        setBgColorById('main-page','#615f5f');
     }
     scene = game.add.sprite(0,0,scenes[num].key);
     scene.alpha = 0;
@@ -323,10 +424,11 @@ function switchScene(num) {
     /*if (num > 0 && num < scenes.length - 1) {
         logImg = game.add.sprite(79,306,'logImg');   
     }*/
-    talkText = game.add.text(108, 315, narratives[num], { font: 'Fira Sans', fontSize: '16px', fill: '#eed6c3', wordWrapWidth: '440', wordWrap: 'true' });
-    talkText.alpha = 0;
-    game.add.tween(talkText).to( { alpha: 1 }, 1500, Phaser.Easing.Linear.None, true);
+    //talkText = game.add.text(108, 315, narratives[num], { font: 'Fira Sans', fontSize: '16px', fill: '#eed6c3', wordWrapWidth: '440', wordWrap: 'true' });
+    //talkText.alpha = 0;
+    //game.add.tween(talkText).to( { alpha: 1 }, 1500, Phaser.Easing.Linear.None, true);
     startScene++;
+
         
 }
 
@@ -345,7 +447,8 @@ testState.prototype = {
     create: function() {
         game.sound.stopAll();
         //Start physics
-        game.stage.backgroundColor = "#339933";
+        game.physics.startSystem(Phaser.Physics.ARCADE);
+        game.stage.backgroundColor = "#333333";
         
         //MUSIC
         playMusic();
@@ -358,15 +461,29 @@ testState.prototype = {
         
         //TILEMAP SETUP
         //create new tilemap object
-        map = this.game.add.tilemap('level');
+        /*map = this.game.add.tilemap('level');
         //add image to the map to be used as a tileset (tileset, key)
         //the tileset name is specified w/in the .json file and Tiled
         //Can have multiple tilesets in any one map
         map.addTilesetImage('landscape','tilesheet');
         map.setCollision(2);
-        mapLayer = map.createLayer('Ground Level');
+        mapLayer = map.createLayer('Ground Level');*/
         //set the world size to match the size of the Tilemap Layer
         //mapLayer.resizeWorld();
+
+        //GAMELOG SETUP
+        var logStyle = {
+        font: 'Fira Sans',
+        fontSize: '12px',
+        wordWrapWidth: '235',
+        wordWrap: 'true',
+        fill: '#edd6c2',
+        }
+        
+        gameLog = game.add.text(203, 369, 'The foxes have been released into the observation area.', logStyle);
+        gameLog.lineSpacing = '-6';
+
+
         game.add.sprite(0, 0, 'playField');
    
         //PLAYER SETUP
@@ -434,16 +551,6 @@ testState.prototype = {
 
         leftName = game.add.text(187, 335, 'PC Name', { font: 'Fira Sans', fontSize: '15px', fill: '#fff', fontWeight: '700' })
         
-        //GAMELOG SETUP
-        var logStyle = {
-        font: 'Fira Sans',
-        fontSize: '16px',
-        wordWrapWidth: '250',
-        wordWrap: 'true',
-        fontWeight: '420',
-        fill: '#fff'
-        }
-        gameLog = game.add.text(200, 370, 'Arrived in a strange field.\n', logStyle);
         
         rightName = game.add.text(380, 335, 'NPC Name', { font: 'Fira Sans', fontSize: '15px', fill: '#fff', fontWeight: '700' })
         rightName.visible = false;
@@ -510,6 +617,8 @@ testState.prototype = {
         }
     }
 }
+
+
 
 // define Congrats state and methods
 var Congrats = function(game) {};
@@ -617,8 +726,38 @@ GameOver.prototype = {
     },
 }
 
+// change css background color
+// code help from http://www.javascripter.net/
+function setBgColorById(id,sColor) {
+ var elem;
+ if (document.getElementById) {
+  if (elem=document.getElementById(id)) {
+   if (elem.style) {
+    elem.style.backgroundColor=sColor;
+    return 1;  // success
+   }
+  }
+ }
+ return 0;  // failure
+}
+
+// change css background image
+function setBgImageById(id,sImage) {
+ var elem;
+ if (document.getElementById) {
+  if (elem=document.getElementById(id)) {
+   if (elem.style) {
+    elem.style.backgroundImage=sImage;
+    return 1;  // success
+   }
+  }
+ }
+ return 0;  // failure
+}
+
 game.state.add('test', testState);
 game.state.add('logoScreen', logoScreen);
+game.state.add('namePC', namePC);
 game.state.add('MainMenu', MainMenu);
 game.state.add('Prologue', Prologue);
 game.state.add('BFFmeet', BFFmeet);

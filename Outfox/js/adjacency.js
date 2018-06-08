@@ -1,5 +1,30 @@
+<<<<<<< HEAD
 isAdjacent = function(characterGroup, subject){
     characterGroup.forEach(function(character) {
+=======
+var charText = [  'Charisma 01',
+                + 'Charisma 02',
+                + 'Charisma 03',
+                + 'Charisma 04',
+                + 'Charisma 05',
+                + 'Charisma 06',
+                + 'Charisma 07',
+                + 'Charisma 08',
+                + 'Charisma 09',
+                + 'Charisma 10']
+var sarText = [   'Sarcasm 01',
+                + 'Sarcasm 02',
+                + 'Sarcasm 03',
+                + 'Sarcasm 04',
+                + 'Sarcasm 05',
+                + 'Sarcasm 06',
+                + 'Sarcasm 07',
+                + 'Sarcasm 08',
+                + 'Sarcasm 09',
+                + 'Sarcasm 10']
+
+isAdjacent = function(character, subject){
+>>>>>>> development
     //ADJ!!!
         if(subject.x == (character.x + size) || subject.x == (character.x - size) ){
             if (subject.y == character.y) {
@@ -28,7 +53,7 @@ isAdjacent = function(characterGroup, subject){
                 subject.EXH -= 1;
                 subject.charb = false;
                 //Display GameLog
-                gameLog.setText('"What\'s a fox like you doing in a place like this"');
+                add2Log(Phaser.ArrayUtils.getRandomItem(charText));
                 
                 //play audio
                 var char = game.add.audio('charSound');
@@ -59,7 +84,7 @@ isAdjacent = function(characterGroup, subject){
                 subject.EXH -= 1;
                 subject.sarcb = false;
                 //Display GameLog
-                gameLog.setText('"Don\'t you just love eating dog food every day?"');
+                add2Log(Phaser.ArrayUtils.getRandomItem(sarText));
                 
                 //play audio
                 var sar = game.add.audio('sarSound');
@@ -94,6 +119,7 @@ isAdjacent = function(characterGroup, subject){
     }
     function sBark() {
                 //Ro-Sham-Bo
+<<<<<<< HEAD
         console.log("sBark", character);
             if (character.TYPE == 'Sarcastic') {
                     character.CTMP += (subject.SAR * 2);
@@ -106,12 +132,26 @@ isAdjacent = function(characterGroup, subject){
             } else {
                     character.CTMP += subject.SAR;
                     gameLog.setText('The fox regards you calmly.');
+=======
+                if (subject.TYPE == 'Sarcastic') {
+                    subject.CTMP += (character.SAR * 2);
+                    add2Log('The bark is Super Effective');
+                    sarEmitter.makeParticles('atlas','+_green');        // image used for particles
+                } else if (subject.TYPE == 'Charismatic') {
+                    subject.CTMP += Math.floor(character.SAR / 2);
+                    add2Log('Your cries fall on deaf ears.');
+                    sarEmitter.makeParticles('atlas','-_red');        // image used for particles
+                } else {
+                    subject.CTMP += character.SAR;
+                    add2Log('The fox regards you calmly.');
+>>>>>>> development
                     sarEmitter.makeParticles('atlas','x_red');
                 }
             sarEmitter.start(true, 4000, null, 20);    // (explode, lifespan, freq, quantity)
     }
     function cBark() {
         //Determine if weak/resistant
+<<<<<<< HEAD
         if (character.TYPE == 'Sarcastic') {
             character.RPCT += Math.floor(subject.CHAR / 2);
             gameLog.setText('Your cries fall on deaf ears.');
@@ -123,6 +163,19 @@ isAdjacent = function(characterGroup, subject){
         } else {
             character.RPCT += character.CHAR;
             gameLog.setText('The fox regards you calmly.');
+=======
+        if (subject.TYPE == 'Sarcastic') {
+            subject.RPCT += Math.floor(character.CHAR / 2);
+            add2Log('Your cries fall on deaf ears.');
+            charEmitter.makeParticles('atlas','-_red');        // image used for particles
+        } else if (subject.TYPE == 'Charismatic') {
+            subject.RPCT += (character.CHAR * 2);
+            add2Log('Super Effective!');
+            charEmitter.makeParticles('atlas','+_green');
+        } else {
+            subject.RPCT += character.CHAR;
+            add2Log('The fox regards you calmly.');
+>>>>>>> development
             charEmitter.makeParticles('atlas','x_red');
         }
         charEmitter.start(true, 4000, null, 20);    // (explode, lifespan, freq, quantity)

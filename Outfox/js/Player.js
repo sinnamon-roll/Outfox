@@ -79,17 +79,17 @@ Player.prototype.update = function() {
 	if (this.moveable == true){
         if(cursors.up.justPressed() ) {
             if(this.y == size){
-                gameLog.setText('The laboratory wall prevents you from going further.');
+                add2Log('The laboratory wall prevents you from going further.');
             }else if(enemy.y ==(this.y - size) && enemy.adj == true ){
-                gameLog.setText(enemy.NAME + ' blocks your path.');
+                add2Log(enemy.NAME + ' blocks your path.');
             }else if(BFF.y ==(this.y - size) && BFF.adj == true ){
-                gameLog.setText(BFF.NAME + ' blocks your path.');
+                add2Log(BFF.NAME + ' blocks your path.');
             }else if(enemy2.y ==(this.y - size) && this.x == enemy2.x ){
-                gameLog.setText(enemy2.NAME + ' blocks your path.');
+                add2Log(enemy2.NAME + ' blocks your path.');
             }else {
                 this.y = this.y - size;
                 this.cursor.y = this.cursor.y - size;
-                gameLog.setText(this.NAME + ' takes a step.');
+                add2Log(this.NAME + ' takes a step.');
             }
             this.animations.play('up');
             this.moveable = false;
@@ -98,17 +98,17 @@ Player.prototype.update = function() {
             
         } else if(cursors.down.justPressed() ) {
             if(this.y == size * 4){
-                gameLog.setText('The laboratory wall prevents you from going further.');
+                add2Log('The laboratory wall prevents you from going further.');
             }else if(enemy.y ==(this.y + size) && enemy.adj == true ){
-                gameLog.setText(enemy.NAME + ' blocks your path.');
+                add2Log(enemy.NAME + ' blocks your path.');
             }else if(BFF.y ==(this.y + size) && BFF.adj == true ){
-                gameLog.setText(BFF.NAME + ' blocks your path.');
+                add2Log(BFF.NAME + ' blocks your path.');
             }else if(enemy2.y ==(this.y + size) && this.x == enemy2.x ){
-                gameLog.setText(enemy2.NAME + ' blocks your path.');
+                add2Log(enemy2.NAME + ' blocks your path.');
             }else {
                 this.y = this.y + size;
                 this.cursor.y = this.cursor.y + size;
-                gameLog.setText(this.NAME + ' takes a step.');
+                add2Log(this.NAME + ' takes a step.');
             }
             this.animations.play('down');
             this.frame = 1;
@@ -118,17 +118,17 @@ Player.prototype.update = function() {
             
         } else if(cursors.left.justPressed() ) {
             if (this.x == size) {
-                gameLog.setText('The laboratory wall prevents you from going further.');
+                add2Log('The laboratory wall prevents you from going further.');
             }else if(enemy.x ==(this.x - size) && enemy.y == this.y){
-                gameLog.setText(enemy.NAME + ' blocks your path.');
+                add2Log(enemy.NAME + ' blocks your path.');
             }else if(BFF.x ==(this.x - size) && BFF.adj == true){
-                gameLog.setText(BFF.NAME + ' blocks your path.');
+                add2Log(BFF.NAME + ' blocks your path.');
             }else if(enemy2.x ==(this.x - size) && this.y == enemy2.y){
-                gameLog.setText(enemy2.NAME + ' blocks your path.');
+                add2Log(enemy2.NAME + ' blocks your path.');
             }else {
                 this.x = this.x - size;
                 this.cursor.x = this.cursor.x - size;
-                gameLog.setText(this.NAME + ' takes a step.');
+                add2Log(this.NAME + ' takes a step.');
             }
             this.animations.play('left');
             this.frame = 7;
@@ -138,17 +138,17 @@ Player.prototype.update = function() {
             
         } else if(cursors.right.justPressed() ) {
             if (this.x == size * 8) {
-                gameLog.setText('The laboratory wall prevents you from going further.');
+                add2Log('The laboratory wall prevents you from going further.');
             }else if(enemy.x ==(this.x + size) && enemy.adj == true ){
-                gameLog.setText(enemy.NAME + ' blocks your path.');
+                add2Log(enemy.NAME + ' blocks your path.');
             }else if(BFF.x ==(this.x + size) && BFF.adj == true ){
-                gameLog.setText(BFF.NAME + ' blocks your path.');
+                add2Log(BFF.NAME + ' blocks your path.');
             }else if(enemy2.x ==(this.x + size) && this.y == enemy2.y ){
-                gameLog.setText(enemy2.NAME + ' blocks your path.');
+                add2Log(enemy2.NAME + ' blocks your path.');
             }else {
                 this.x = this.x + size;
                 this.cursor.x = this.cursor.x + size;
-                gameLog.setText(this.NAME + ' takes a step.');
+                add2Log(this.NAME + ' takes a step.');
             }
             this.animations.play('right');
             this.frame = 10;
@@ -159,6 +159,22 @@ Player.prototype.update = function() {
   }
   if (this.controlled == true){
       //DISPLAY STATS
+      this.cursor.visible = true;
+      playerStats.visible = true;
+      playerIcon.loadTexture('UI','s_nar_NPC04');
+      playerIcon.visible = true;
+      playerTarget.loadTexture('UI','s_activeFox');
+      playerTarget.visible = true;
+      leftName.setText(this.NAME);
+      leftName.visible = true;
+      playerUI.visible = true;
+      playerStats.text = 'Type: ' + this.TYPE + '\n' +
+      'Charisma: ' + this.CHAR + '\n' +
+      'Sarcasm: ' + this.SAR + '\n' +
+      'Ego: ' + this.EGO + '\n' +
+      'Resolve: ' + this.EXH + '\n'
+      ;
+      setBgColorById('main-page','#fff');
       
         if (this.charb == true && (enemy.adj == true || enemy2.adj == true)){
             game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
@@ -166,7 +182,7 @@ Player.prototype.update = function() {
             game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
         }else if(this.waitb == true){
             console.log("Waiting");
-            gameLog.setText(this.NAME + ' takes a moment to compose a thought.');
+            add2Log(this.NAME + ' takes a moment to compose a thought.');
             this.moveable = false;
             pressed = false;
             this.waitb = false;
