@@ -19,6 +19,15 @@ var logImg;
 //Array for credits: Who to display as recruited
 var freeFox = [false,false,false,false];
 var namePC = '';
+var logCount;
+var lineCount = 0;
+var lineTotal = 0;
+var gameLog;
+var linePush = 0;
+var logLines = 0;
+var firstLog = false;
+
+
 
 
 var Boot = function(game){};
@@ -555,13 +564,14 @@ testState.prototype = {
         //GAMELOG SETUP
         var logStyle = {
         font: 'Fira Sans',
-        fontSize: '16px',
-        wordWrapWidth: '250',
+        fontSize: '12px',
+        wordWrapWidth: '235',
         wordWrap: 'true',
-        fontWeight: '420',
-        fill: '#fff'
+        fill: '#fff',
         }
-        gameLog = game.add.text(200, 370, 'Arrived in a strange field.\n', logStyle);
+        
+        gameLog = game.add.text(203, 369, 'The foxes have been released into the observation area.', logStyle);
+        gameLog.lineSpacing = '-6';
         
         rightName = game.add.text(380, 335, 'NPC Name', { font: 'Fira Sans', fontSize: '15px', fill: '#fff', fontWeight: '700' })
         rightName.visible = false;
@@ -626,6 +636,8 @@ testState.prototype = {
         }
     }
 }
+
+
 
 // define Congrats state and methods
 var Congrats = function(game) {};
