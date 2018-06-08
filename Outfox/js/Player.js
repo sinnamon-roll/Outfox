@@ -28,7 +28,6 @@ function Player(game, key) {
     this.EGO = 4;
     this.EXH = 3;
     this.NAME = "Zerda";
-    this.adj = false;
 
     this.charb = false;
     this.sarcb = false;
@@ -161,9 +160,9 @@ Player.prototype.update = function() {
   if (this.controlled == true){
       //DISPLAY STATS
       
-        if (this.charb == true && this.adj == true){
+        if (this.charb == true && (enemy.adj == true || enemy2.adj == true)){
             game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
-    	}else if(this.sarcb == true && this.adj == true){
+    	  }else if(this.sarcb == true && (enemy.adj == true || enemy2.adj == true)){
             game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
         }else if(this.waitb == true){
             console.log("Waiting");

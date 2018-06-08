@@ -1,13 +1,5 @@
 //Enemies with basic movement that paces up/down
 // prefab constructor function
-var size = 64;
-var CHAR;
-var SAR;
-var EGO;
-var CTMP;
-var RPCT;
-var TYPE;
-var NAME;
 
 var iterator = 0;
 
@@ -72,7 +64,7 @@ Enemy.prototype.update = function() {
                             'Contempt: ' + this.CTMP + '\n');
             enemyStats.visible = true;
 
-            if (player.adj == true) {
+            if (this.adj == true) {
                 playerTarget.loadTexture('UI','s_foxTarget');
                 playerIcon.visible = true;
                 playerStats.visible = true;
@@ -110,7 +102,6 @@ Enemy.prototype.update = function() {
                 enemyUI.visible = false;
                 enemyStats.visible = false;
             }
-            console.log('NPC Turn');
             iterator += 0.01;
         }
 

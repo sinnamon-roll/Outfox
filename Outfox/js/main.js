@@ -488,6 +488,7 @@ testState.prototype = {
             }
 		}
 		//Checks if these two are adjacent, can be run on any two objects. Probably still way too centered on the player.
+        //took it out of main, was causing issues lol nvm;
         isAdjacent(enemygroup, player);
         //isAdjacent(enemy, player);
         //isAdjacent(enemy2, player);

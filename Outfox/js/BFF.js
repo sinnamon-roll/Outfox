@@ -1,14 +1,5 @@
-//Player Fox's Comrade
+// BFF Fox's Comrade
 // prefab constructor function
-var size = 64;
-var CHAR;
-var SAR;
-var EGO;
-var CTMP;
-var RPCT;
-var EXH;
-var TYPE; //Ro-Sham-Bo
-var NAME;
 
 function Bff(game, key) {
         // call to Phaser.Sprite // new Sprite(game, x, y, key, frame)
@@ -212,10 +203,14 @@ Bff.prototype.update = function() {
                     game.time.events.add(Phaser.Timer.SECOND * 0.5, killPop, this);
                     game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
                     this.acted = true;
+                    this.controlled = false;
+                    this.enerb = false;
                 }else if (this.enerb == true && player.EXH >=7) {
                     gameLog.setText('The kind fox has little to say.');
                     game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
                     this.acted = true;
+                    this.controlled = false;
+                    this.enerb = false;
                 }
         } else {
             enemyIcon.visible = false;

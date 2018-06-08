@@ -59,15 +59,17 @@ barkButton.prototype.update = function() {
 					this.i = 0;
 					this.usable = false;
 				}else if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)){
-					if(BFF.displayed == true){
+					if(BFF.displayed == true && BFF.adj == true){
 						subMenu(game, BFF);
 						this.unusable = true;
 						this.animations.play('Used');
+						BFF.controlled = true;
 						pressed = true;
-					}else{
+					}else if(player.displayed == true && (enemy.adj == true || enemy2.adj == true)){
 						subMenu(game, player);
 						this.unusable = true;
 						this.animations.play('Used');
+						Player.controlled = true;
 						pressed = true;
 					}
 				}

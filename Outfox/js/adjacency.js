@@ -4,30 +4,26 @@ isAdjacent = function(characterGroup, subject){
         if(subject.x == (character.x + size) || subject.x == (character.x - size) ){
             if (subject.y == character.y) {
                 //console.log("ADJACENT R/L");
-                subject.adj = true;
                 character.adj = true;
-            }else
-                subject.adj = false;
+            }else{
                 character.adj = false;
+            }
         }else if (subject.y == (character.y + size) || subject.y == (character.y - size) ){
              if (subject.x == character.x) {
                 //console.log("ADJACENT UP/DOWN");
                 character.adj = true;
-                subject.adj = true;
-             }else {
+             }else{
                 character.adj = false;
-                subject.adj = false;
              }
-        }else {
+        }else{
             character.adj = false;
-            subject.adj = false;
         }
                            //});
         if (character.adj == true) {
             //DISPLAY INFORMATION
             if(subject.controlled == true){
             //Keyboard input only available when adjacent
-            if (subject.charb == true && character.EXH > 0) {
+            if (subject.charb == true && subject.EXH > 0) {
                 //Exhaust Player
                 subject.EXH -= 1;
                 subject.charb = false;
@@ -58,7 +54,7 @@ isAdjacent = function(characterGroup, subject){
                 //useAction()
                 game.time.events.add(Phaser.Timer.SECOND * 4, useAction, this);
             }
-            if (subject.sarcb == true && character.EXH > 0) {
+            if (subject.sarcb == true && subject.EXH > 0) {
                 //Exhaust Player
                 subject.EXH -= 1;
                 subject.sarcb = false;
@@ -133,8 +129,8 @@ isAdjacent = function(characterGroup, subject){
     }
     function useAction() {
         console.log("using Player's action");
-        this.controlled = false;
-        this.acted = true;
+        subject.controlled = false;
+        subject.acted = true;
     }
     }
                            });
