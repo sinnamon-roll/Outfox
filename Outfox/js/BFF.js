@@ -185,7 +185,7 @@ Bff.prototype.update = function() {
             ;
                 if (bKey.justPressed() && player.EXH <=7) {
                     player.EXH += 3;
-                    add2Log('The fox who treated you with\nkindness gives you an\n encouraging bark.');
+                    add2Log('The fox who treated you with kindness gives you an encouraging bark.');
                     //play audio
                     var bark = game.add.audio('boostSound');
                     bark.play('',0,1,false)
