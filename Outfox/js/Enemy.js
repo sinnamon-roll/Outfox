@@ -8,6 +8,8 @@ var CTMP;
 var RPCT;
 var TYPE;
 var NAME;
+var turnText = false;
+var moveText = false;
 
 var iterator = 0;
 
@@ -92,7 +94,11 @@ Enemy.prototype.update = function() {
             } else
             enemyTarget.loadTexture('UI','s_activeFox');
             enemyUI.visible = true;
-            gameLog.setText(this.NAME +'\'s turn.');
+            if(turnText == false){
+                add2Log(this.NAME +'\'s turn.');
+                turnText = true;
+            }
+            
             
             
             
@@ -112,11 +118,17 @@ Enemy.prototype.update = function() {
                     }
                 }
                 //END ENEMY TURN
-                gameLog.setText(this.NAME +' runs around!');
+                if(moveText == false){
+                    add2Log(this.NAME +' runs around!');
+                    moveText = true;
+                }
+
                 enemyTarget.loadTexture('UI','s_foxTarget');
                 rightName.visible = false;
                 enemyUI.visible = false;
                 enemyStats.visible = false;
+                turnText = false;
+                moveText = false;
             }
             console.log('NPC Turn');
             iterator += 0.01;
@@ -124,7 +136,7 @@ Enemy.prototype.update = function() {
 
         //ENEMY DEATH
         if (this.RPCT >=10) {
-            gameLog.setText(this.NAME +', overwhelmed by your zeal, got intimidated and ran.');
+            add2log(this.NAME +', overwhelmed by your zeal, got intimidated and ran.');
             var result = game.add.sprite(this.x+19, this.y-18, 'atlas', 'chat_heart_broken');
             result.animations.add('break', [4,5,6,7,6], 7,true);
             result.play('break');
@@ -137,7 +149,7 @@ Enemy.prototype.update = function() {
             freeFox[1] = true;
             console.log(freeFox);
             //GAMELOG TEXT
-            gameLog.setText(this.NAME +' walked away convinced to join your escape effort.');
+            add2log(this.NAME +' walked away convinced to join your escape effort.');
             //SPRITE EFFECT
             var result = game.add.sprite(this.x +19, this.y-18, 'atlas', 'chat_heart_whole');
             result.animations.add('beat', [4, 5], 7,true);

@@ -1,3 +1,24 @@
+var charText = [  'Charisma 01',
+                + 'Charisma 02',
+                + 'Charisma 03',
+                + 'Charisma 04',
+                + 'Charisma 05',
+                + 'Charisma 06',
+                + 'Charisma 07',
+                + 'Charisma 08',
+                + 'Charisma 09',
+                + 'Charisma 10']
+var sarText = [   'Sarcasm 01',
+                + 'Sarcasm 02',
+                + 'Sarcasm 03',
+                + 'Sarcasm 04',
+                + 'Sarcasm 05',
+                + 'Sarcasm 06',
+                + 'Sarcasm 07',
+                + 'Sarcasm 08',
+                + 'Sarcasm 09',
+                + 'Sarcasm 10']
+
 isAdjacent = function(character, subject){
     //ADJ!!!
         if(subject.x == (character.x + size) || subject.x == (character.x - size) ){
@@ -25,7 +46,7 @@ isAdjacent = function(character, subject){
                 character.EXH -= 1;
                 
                 //Display GameLog
-                gameLog.setText('"What\'s a fox like you doing in a place like this"');
+                add2Log(Phaser.ArrayUtils.getRandomItem(charText));
                 
                 //play audio
                 var char = game.add.audio('charSound');
@@ -54,7 +75,7 @@ isAdjacent = function(character, subject){
                 character.EXH -= 1;
                 
                 //Display GameLog
-                gameLog.setText('"Don\'t you just love eating dog food every day?"');
+                add2Log(Phaser.ArrayUtils.getRandomItem(sarText));
                 
                 //play audio
                 var sar = game.add.audio('sarSound');
@@ -89,15 +110,15 @@ isAdjacent = function(character, subject){
                 //Ro-Sham-Bo
                 if (subject.TYPE == 'Sarcastic') {
                     subject.CTMP += (character.SAR * 2);
-                    gameLog.setText('The bark is Super Effective');
+                    add2Log('The bark is Super Effective');
                     sarEmitter.makeParticles('atlas','+_green');        // image used for particles
                 } else if (subject.TYPE == 'Charismatic') {
                     subject.CTMP += Math.floor(character.SAR / 2);
-                    gameLog.setText('Your cries fall on deaf ears.');
+                    add2Log('Your cries fall on deaf ears.');
                     sarEmitter.makeParticles('atlas','-_red');        // image used for particles
                 } else {
                     subject.CTMP += character.SAR;
-                    gameLog.setText('The fox regards you calmly.');
+                    add2Log('The fox regards you calmly.');
                     sarEmitter.makeParticles('atlas','x_red');
                 }
                 sarEmitter.start(true, 2000, null, 20);    // (explode, lifespan, freq, quantity)
@@ -106,15 +127,15 @@ isAdjacent = function(character, subject){
         //Determine if weak/resistant
         if (subject.TYPE == 'Sarcastic') {
             subject.RPCT += Math.floor(character.CHAR / 2);
-            gameLog.setText('Your cries fall on deaf ears.');
+            add2Log('Your cries fall on deaf ears.');
             charEmitter.makeParticles('atlas','-_red');        // image used for particles
         } else if (subject.TYPE == 'Charismatic') {
             subject.RPCT += (character.CHAR * 2);
-            gameLog.setText('Super Effective!');
+            add2Log('Super Effective!');
             charEmitter.makeParticles('atlas','+_green');
         } else {
             subject.RPCT += character.CHAR;
-            gameLog.setText('The fox regards you calmly.');
+            add2Log('The fox regards you calmly.');
             charEmitter.makeParticles('atlas','x_red');
         }
         charEmitter.start(true, 2000, null, 20);    // (explode, lifespan, freq, quantity)

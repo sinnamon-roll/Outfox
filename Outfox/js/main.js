@@ -19,6 +19,15 @@ var logImg;
 //Array for credits: Who to display as recruited
 var freeFox = [false,false,false,false];
 var namePC = '';
+var logCount;
+var lineCount = 0;
+var lineTotal = 0;
+var gameLog;
+var linePush = 0;
+var logLines = 0;
+var firstLog = false;
+
+
 
 
 var Boot = function(game){};
@@ -473,7 +482,7 @@ testState.prototype = {
         game.sound.stopAll();
         //Start physics
         game.physics.startSystem(Phaser.Physics.ARCADE);
-        game.stage.backgroundColor = "#339933";
+        game.stage.backgroundColor = "#333333";
         
         //MUSIC
         playMusic();
@@ -486,15 +495,29 @@ testState.prototype = {
         
         //TILEMAP SETUP
         //create new tilemap object
-        map = this.game.add.tilemap('level');
+        /*map = this.game.add.tilemap('level');
         //add image to the map to be used as a tileset (tileset, key)
         //the tileset name is specified w/in the .json file and Tiled
         //Can have multiple tilesets in any one map
         map.addTilesetImage('landscape','tilesheet');
         map.setCollision(2);
-        mapLayer = map.createLayer('Ground Level');
+        mapLayer = map.createLayer('Ground Level');*/
         //set the world size to match the size of the Tilemap Layer
         //mapLayer.resizeWorld();
+
+        //GAMELOG SETUP
+        var logStyle = {
+        font: 'Fira Sans',
+        fontSize: '12px',
+        wordWrapWidth: '235',
+        wordWrap: 'true',
+        fill: '#edd6c2',
+        }
+        
+        gameLog = game.add.text(203, 369, 'The foxes have been released into the observation area.', logStyle);
+        gameLog.lineSpacing = '-6';
+
+
         game.add.sprite(0, 0, 'playField');
    
         //PLAYER SETUP
@@ -552,16 +575,6 @@ testState.prototype = {
 
         leftName = game.add.text(187, 335, 'PC Name', { font: 'Fira Sans', fontSize: '15px', fill: '#fff', fontWeight: '700' })
         
-        //GAMELOG SETUP
-        var logStyle = {
-        font: 'Fira Sans',
-        fontSize: '16px',
-        wordWrapWidth: '250',
-        wordWrap: 'true',
-        fontWeight: '420',
-        fill: '#fff'
-        }
-        gameLog = game.add.text(200, 370, 'Arrived in a strange field.\n', logStyle);
         
         rightName = game.add.text(380, 335, 'NPC Name', { font: 'Fira Sans', fontSize: '15px', fill: '#fff', fontWeight: '700' })
         rightName.visible = false;
@@ -626,6 +639,8 @@ testState.prototype = {
         }
     }
 }
+
+
 
 // define Congrats state and methods
 var Congrats = function(game) {};
