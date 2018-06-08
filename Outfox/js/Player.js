@@ -158,6 +158,7 @@ Player.prototype.update = function() {
       'Ego: ' + this.EGO + '\n' +
       'Resolve: ' + this.EXH + '\n'
       ;
+      setBgColorById('main-page','#fff');
       
         if (cKey.justPressed() && this.adj == true){
             game.time.events.add(Phaser.Timer.SECOND * 4, useAction, this);

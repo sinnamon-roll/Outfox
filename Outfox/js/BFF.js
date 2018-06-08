@@ -166,6 +166,7 @@ Bff.prototype.update = function() {
         'Ego: ' + this.EGO + '\n' +
         'Resolve: ' + this.EXH + '\n'
         ;
+        setBgColorById('main-page','#ccc');
         if(this.adj == true) {
             //DISPLAY FOX TARGET INFO
             enemyTarget.loadTexture('UI', 's_foxTarget');
