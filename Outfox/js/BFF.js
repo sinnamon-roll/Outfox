@@ -225,6 +225,7 @@ Bff.prototype.update = function() {
             console.log("Waiting");
             add2Log(this.NAME + ' takes a moment to compose a thought.');
             this.controlled = false;
+            this.acted = true;
             this.waitb = false;
         }
     }
