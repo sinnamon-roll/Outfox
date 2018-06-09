@@ -21,7 +21,6 @@ var sarText = [   'Sarcasm 01',
 
 isAdjacent = function(characterGroup, subject){
     characterGroup.forEach(function(character) {
-        //ADJ!!!
         if(subject.x == (character.x + size) || subject.x == (character.x - size) ){
             if (subject.y == character.y) {
                 //console.log("ADJACENT R/L");

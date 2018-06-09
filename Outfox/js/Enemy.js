@@ -1,5 +1,15 @@
 //Enemies with basic movement that paces up/down
 // prefab constructor function
+var size = 64;
+var CHAR;
+var SAR;
+var EGO;
+var CTMP;
+var RPCT;
+var TYPE;
+var NAME;
+var turnText = false;
+var moveText = false;
 var iterator = 0;
 
 var spawnlocX;
