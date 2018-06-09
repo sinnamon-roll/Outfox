@@ -172,8 +172,6 @@ Enemy.prototype.update = function() {
         target.frame = 10;
         target.controlled = false;
         iterator = 0;
-        player.displayed = true;
-        player.controlled = true;
         
     }
     function moveLeft(target) {
@@ -182,8 +180,6 @@ Enemy.prototype.update = function() {
         enemy.frame = 7;
         enemy.controlled = false;
         iterator = 0;
-        player.displayed = true;
-        player.controlled = true;
         
     }
     function moveDown (target) {

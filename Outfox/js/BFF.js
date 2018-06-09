@@ -205,11 +205,13 @@ Bff.prototype.update = function() {
                     game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
                     this.acted = true;
                     this.enerb = false;
+                    facesel = true;
                 }else if (this.enerb == true && player.EXH >=7) {
                     add2Log('The kind fox has little to say.');
                     game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
                     this.acted = true;
                     this.enerb = false;
+                    facesel = true;
                 }
         } else {
             enemyIcon.visible = false;
@@ -237,11 +239,16 @@ Bff.prototype.update = function() {
         }
         this.acted = false;
         this.displayed = false;
-        movebutt.usable = true;
         movebutt.unusable = false;
-        barkbutt.usable = true;
         barkbutt.unusable = false;
+        barkbutt.usable = true;
         pressed = false;
+        movesel = true;
+        barksel = false;
+        facesel = false;
+        endsel = false;
+        barkbutt.animations.play('BarkOff');
+
 
   	}
     if (this.controlled == true) {
@@ -265,9 +272,10 @@ Bff.prototype.update = function() {
     }
     function useAction() {
         console.log("using your action");
-        this.controlled = false;
         this.acted = true;
         this.enerb = false;
+        pressed = false;
+
     }
 
 

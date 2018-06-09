@@ -34,7 +34,7 @@ barkButton.prototype.constructor = barkButton;
 barkButton.prototype.update = function() {
 	if(pressed == false){
 		if(barksel == true){	
-			if(Math.floor(this.i) == 1 && this.unusable == false){
+			if(Math.floor(this.i) == 1 /*&& this.unusable == false*/){
 				this.usable = true;
 			}
 			if(this.usable == true){
@@ -75,10 +75,12 @@ barkButton.prototype.update = function() {
 				}
 			}
 			this.i += 0.1;
+		}else if(this.usable == true){
+			this.animations.play("EndOff");
 		}
 		if(this.unusable == true){
 			this.animations.play('Used');
-		}
+		}	
 	}
 }
 
@@ -113,6 +115,7 @@ barksubMenu.prototype.update = function() {
 			}else if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)){
 				this.act.charb = true;
 				this.pendingDestroy = true;
+				barksel = false;
 				sarcbutt.pendingDestroy = true;
 				charbutt.pendingDestroy = true;
 				enerbutt.pendingDestroy = true;
@@ -133,6 +136,7 @@ barksubMenu.prototype.update = function() {
 			}else if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)){
 				this.act.enerb = true;
 				this.pendingDestroy = true;
+				barksel = false;
 				sarcbutt.pendingDestroy = true;
 				charbutt.pendingDestroy = true;
 				enerbutt.pendingDestroy = true;
