@@ -211,9 +211,9 @@ Enemy.prototype.update = function() {
            (target.x > size * 8 || target.x < size)
            ){
             //go back to previous position
+            console.log("Resetting to prevPos", target)
             target.x = target.previousPosition.x;
             target.y = target.previousPosition.y;
-            console.log("Resetting to prevPos", target)
             add2Log(target.NAME +' stays put!');
             moveText = true;
             

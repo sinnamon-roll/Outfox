@@ -336,7 +336,7 @@ BFFmeet.prototype = {
 
                 },
                 {        
-                    text: "\"That would be me, Player1, the beige fox,\" you respond.\n\n\"Beige fox? Rare to see such a fur mutation. Tod, the red fox here. Welcome to the Lab!\"\n\n[ ENTER ]", // the text you want to play
+                    text: "\"That would be me, Zerda, the beige fox,\" you respond.\n\n\"Beige fox? Rare to see such a fur mutation. Tod, the red fox here. Welcome to the Lab!\"\n\n[ ENTER ]", // the text you want to play
                     lettersPerSec: perSec, // letters per second
                 },
                 {        
