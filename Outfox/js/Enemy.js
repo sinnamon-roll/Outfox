@@ -30,7 +30,7 @@ function Enemy(game, x, y, key, name, char, sar, ego, type) {
         this.CHAR = char;
         this.SAR = sar;
         this.EGO = ego;
-        this.CTMP = 8;
+        this.CTMP = 0;
         this.RPCT = 0;
         this.TYPE = type;
         this.NAME = name;

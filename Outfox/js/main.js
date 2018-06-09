@@ -509,7 +509,7 @@ testState.prototype = {
         game.add.existing(enemy);
         enemygroup.add(enemy);
 
-        enemy2 = new Enemy(game,(64 * 3), (64* 3), 'enemy2', "Choco Fox", 6, 2, 1, "Charismatic");
+        enemy2 = new Enemy(game,(64 * 2), (64* 2), 'enemy2', "Choco Fox", 6, 2, 1, "Charismatic");
         game.add.existing(enemy2);
         enemygroup.add(enemy2);
         
