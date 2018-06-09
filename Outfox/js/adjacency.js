@@ -144,8 +144,10 @@ isAdjacent = function(characterGroup, subject){
     }
     function useAction() {
         console.log("using Player's action");
-        subject.controlled = false;
         subject.acted = true;
+        facesel = true;
+        barksel = false;
+        pressed = false;
     }
     }
                            });

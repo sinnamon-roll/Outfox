@@ -26,13 +26,7 @@ moveButton.prototype.update = function() {
 		if(pressed == false){
 			if(movesel == true){
 				if(Math.floor(this.i) == 1 && this.unusable == false){
-					if(enemy.controlled == true){
-						this.usable = false;
-					}else if(player.displayed == true){
-						this.usable = true;
-					}else if(BFF.displayed == true){
-						this.usable = true;
-					}
+					this.usable = true;
 				}
 				if(this.usable == true){
 					this.animations.play('MoveOn');
@@ -62,14 +56,16 @@ moveButton.prototype.update = function() {
 							pressed = true;
 							this.animations.play('Used');
 							// pressed = true;
-							// barksel = true;
+							barksel = true;
+							movesel = false;
 						}else if(player.displayed == true){
 							player.moveable = true;
 							this.unusable = true;
 							pressed = true;
 							this.animations.play('Used');
 							// pressed = true;
-							// barksel = true;
+							barksel = true;
+							movesel = false;
 						}
 					}
 				}

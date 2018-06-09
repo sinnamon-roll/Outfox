@@ -186,6 +186,7 @@ Player.prototype.update = function() {
             this.moveable = false;
             pressed = false;
             this.waitb = false;
+            this.controlled = false;
             game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
         }
       
@@ -238,11 +239,15 @@ Player.prototype.update = function() {
         this.displayed = false;
         BFF.displayed = true;
         BFF.controlled = true;
-        movebutt.usable = true;
+        movesel = true;
+        barksel = false;
+        facesel = false;
+        endsel = false;
         movebutt.unusable = false;
-        barkbutt.usable = true;
         barkbutt.unusable = false;
+        barkbutt.usable = true;
         pressed = false;
+        barkbutt.animations.play('BarkOff');
   }
     if (this.controlled == true){
         this.popup.x = this.x + 19;
@@ -266,8 +271,8 @@ Player.prototype.update = function() {
     
     function useAction() {
         console.log("using Player's action");
-        this.controlled = false;
         this.acted = true;
+        pressed = false;
     }
     if(this.displayed == true){
         this.cursor.visible = true;
