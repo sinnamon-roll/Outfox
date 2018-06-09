@@ -15,8 +15,12 @@ var subbuttkey = 's_subPaw01_inact';
 //variable governing the atlas
 var atlas = 'UI';
 
+// submenu text variables
+var chaOption;
+var sarOption;
+var egoOption;
+
 function barkButton(game, type) {
-	
 	this.i = 0;
 	Phaser.Sprite.call(this, game, barkloX, barkloY, atlas, barkkey);
 	this.animations.add('BarkOn', ['s_Bark_act'], 60, true, false);
@@ -119,6 +123,9 @@ barksubMenu.prototype.update = function() {
 				sarcbutt.pendingDestroy = true;
 				charbutt.pendingDestroy = true;
 				enerbutt.pendingDestroy = true;
+				chaOption.pendingDestroy = true;
+				sarOption.pendingDestroy = true;
+				egoOption.pendingDestroy = true;
 
 			}
 		}else if(this.downsel == true){
@@ -140,6 +147,9 @@ barksubMenu.prototype.update = function() {
 				sarcbutt.pendingDestroy = true;
 				charbutt.pendingDestroy = true;
 				enerbutt.pendingDestroy = true;
+				chaOption.pendingDestroy = true;
+				sarOption.pendingDestroy = true;
+				egoOption.pendingDestroy = true;
 			}
 		}else if(this.midsel == true){
 			sarcbutt.animations.play('SarcOn');
@@ -159,6 +169,9 @@ barksubMenu.prototype.update = function() {
 				sarcbutt.pendingDestroy = true;
 				charbutt.pendingDestroy = true;
 				enerbutt.pendingDestroy = true;
+				chaOption.pendingDestroy = true;
+				sarOption.pendingDestroy = true;
+				egoOption.pendingDestroy = true;
 			}
 		}
 	}
@@ -190,7 +203,6 @@ function enersubButton(game){
 	Phaser.Sprite.call(this, game, subbuttloX, subbuttloY + 46, atlas, subbuttkey);
 	this.animations.add('EnerOn', ['s_subPaw01_act'], 60, true, false);
 	this.animations.add('EnerOff', ['s_subPaw01_inact'], 60, true, false);
-
 }
 enersubButton.prototype = Object.create(Phaser.Sprite.prototype);
 enersubButton.prototype.constructor = enersubButton;
@@ -205,10 +217,13 @@ function subMenu(game, character){
 
     charbutt = new charsubButton(game);
     this.game.add.existing(charbutt);
+    this.chaOption = game.add.text(98, 157, 'Charismatic', { font: 'Fira Sans', fontSize: '16px', fill: '#260100', fontWeight: 'bold' });
 
     sarcbutt = new sarcsubButton(game);
     this.game.add.existing(sarcbutt);
+	this.sarOption = game.add.text(98, 181, 'Sarcastic', { font: 'Fira Sans', fontSize: '16px', fill: '#260100', fontWeight: 'bold'  });
 
     enerbutt = new enersubButton(game);
     this.game.add.existing(enerbutt);
+    this.egoOption = game.add.text(98, 203, 'Egotistic', { font: 'Fira Sans', fontSize: '16px', fill: '#260100', fontWeight: 'bold'  });
 }
