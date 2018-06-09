@@ -20,6 +20,7 @@ function add2Log(text){
     
     // get the length of characters in the incoming text string
  	textCount = text.length;
+    console.log('textLength: ' + text.length);
     console.log('textCount: ' + textCount);
 
     // get the number of lines the text will take up in the log box
