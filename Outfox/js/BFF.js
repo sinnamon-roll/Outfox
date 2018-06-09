@@ -204,13 +204,11 @@ Bff.prototype.update = function() {
                     game.time.events.add(Phaser.Timer.SECOND * 0.5, killPop, this);
                     game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
                     this.acted = true;
-                    this.controlled = false;
                     this.enerb = false;
                 }else if (this.enerb == true && player.EXH >=7) {
                     add2Log('The kind fox has little to say.');
                     game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
                     this.acted = true;
-                    this.controlled = false;
                     this.enerb = false;
                 }
         } else {
@@ -241,7 +239,6 @@ Bff.prototype.update = function() {
         this.displayed = false;
         movebutt.usable = true;
         movebutt.unusable = false;
-        movebutt.pressed = false;
         barkbutt.usable = true;
         barkbutt.unusable = false;
         pressed = false;
