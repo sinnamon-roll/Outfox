@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-isAdjacent = function(characterGroup, subject){
-    characterGroup.forEach(function(character) {
-=======
 var charText = [  'Charisma 01',
                 + 'Charisma 02',
                 + 'Charisma 03',
@@ -13,19 +9,19 @@ var charText = [  'Charisma 01',
                 + 'Charisma 09',
                 + 'Charisma 10']
 var sarText = [   'Sarcasm 01',
-                + 'Sarcasm 02',
-                + 'Sarcasm 03',
-                + 'Sarcasm 04',
-                + 'Sarcasm 05',
-                + 'Sarcasm 06',
-                + 'Sarcasm 07',
-                + 'Sarcasm 08',
-                + 'Sarcasm 09',
-                + 'Sarcasm 10']
+               + 'Sarcasm 02',
+               + 'Sarcasm 03',
+               + 'Sarcasm 04',
+               + 'Sarcasm 05',
+               + 'Sarcasm 06',
+               + 'Sarcasm 07',
+               + 'Sarcasm 08',
+               + 'Sarcasm 09',
+               + 'Sarcasm 10']
 
-isAdjacent = function(character, subject){
->>>>>>> development
-    //ADJ!!!
+isAdjacent = function(characterGroup, subject){
+    characterGroup.forEach(function(character) {
+        //ADJ!!!
         if(subject.x == (character.x + size) || subject.x == (character.x - size) ){
             if (subject.y == character.y) {
                 //console.log("ADJACENT R/L");
@@ -119,63 +115,35 @@ isAdjacent = function(character, subject){
     }
     function sBark() {
                 //Ro-Sham-Bo
-<<<<<<< HEAD
         console.log("sBark", character);
-            if (character.TYPE == 'Sarcastic') {
+                if (character.TYPE == 'Sarcastic') {
                     character.CTMP += (subject.SAR * 2);
-                    gameLog.setText('The bark is Super Effective');
-                    sarEmitter.makeParticles('atlas','+_green');        // image used for particles
-            }else if (character.TYPE == 'Charismatic') {
-                    character.CTMP += Math.floor(subject.SAR / 2);
-                    gameLog.setText('Your cries fall on deaf ears.');
-                    sarEmitter.makeParticles('atlas','-_red');        // image used for particles
-            } else {
-                    character.CTMP += subject.SAR;
-                    gameLog.setText('The fox regards you calmly.');
-=======
-                if (subject.TYPE == 'Sarcastic') {
-                    subject.CTMP += (character.SAR * 2);
                     add2Log('The bark is Super Effective');
                     sarEmitter.makeParticles('atlas','+_green');        // image used for particles
-                } else if (subject.TYPE == 'Charismatic') {
-                    subject.CTMP += Math.floor(character.SAR / 2);
+                } else if (character.TYPE == 'Charismatic') {
+                    character.CTMP += Math.floor(subject.SAR / 2);
                     add2Log('Your cries fall on deaf ears.');
                     sarEmitter.makeParticles('atlas','-_red');        // image used for particles
                 } else {
-                    subject.CTMP += character.SAR;
+                    character.CTMP += subject.SAR;
                     add2Log('The fox regards you calmly.');
->>>>>>> development
                     sarEmitter.makeParticles('atlas','x_red');
                 }
             sarEmitter.start(true, 4000, null, 20);    // (explode, lifespan, freq, quantity)
     }
     function cBark() {
         //Determine if weak/resistant
-<<<<<<< HEAD
         if (character.TYPE == 'Sarcastic') {
             character.RPCT += Math.floor(subject.CHAR / 2);
-            gameLog.setText('Your cries fall on deaf ears.');
+            add2Log('Your cries fall on deaf ears.');
             charEmitter.makeParticles('atlas','-_red');        // image used for particles
         } else if (character.TYPE == 'Charismatic') {
             character.RPCT += (subject.CHAR * 2);
-            gameLog.setText('Super Effective!');
-            charEmitter.makeParticles('atlas','+_green');
-        } else {
-            character.RPCT += character.CHAR;
-            gameLog.setText('The fox regards you calmly.');
-=======
-        if (subject.TYPE == 'Sarcastic') {
-            subject.RPCT += Math.floor(character.CHAR / 2);
-            add2Log('Your cries fall on deaf ears.');
-            charEmitter.makeParticles('atlas','-_red');        // image used for particles
-        } else if (subject.TYPE == 'Charismatic') {
-            subject.RPCT += (character.CHAR * 2);
             add2Log('Super Effective!');
             charEmitter.makeParticles('atlas','+_green');
         } else {
-            subject.RPCT += character.CHAR;
+            character.RPCT += subject.CHAR;
             add2Log('The fox regards you calmly.');
->>>>>>> development
             charEmitter.makeParticles('atlas','x_red');
         }
         charEmitter.start(true, 4000, null, 20);    // (explode, lifespan, freq, quantity)

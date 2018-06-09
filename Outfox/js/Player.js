@@ -244,9 +244,9 @@ Player.prototype.update = function() {
         barkbutt.unusable = false;
         pressed = false;
   }
-    if (this.displayed == false){
-        this.popup.x = this.x + size/2;
-        this.popup.y = this.y - size/2;
+    if (this.controlled == true){
+        this.popup.x = this.x + 19;
+        this.popup.y = this.y - 18;
         this.popup.animations.play('silent');
         this.popup.visible = true;
         this.popup.bringToTop();

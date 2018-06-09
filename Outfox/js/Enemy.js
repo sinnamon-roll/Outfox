@@ -1,23 +1,11 @@
 //Enemies with basic movement that paces up/down
 // prefab constructor function
-<<<<<<< HEAD
-=======
-var size = 64;
-var CHAR;
-var SAR;
-var EGO;
-var CTMP;
-var RPCT;
-var TYPE;
-var NAME;
-var turnText = false;
-var moveText = false;
->>>>>>> development
-
 var iterator = 0;
 
 var spawnlocX;
 var spawnlocY;
+var turnText = false;
+var moveText = false;
 function Enemy(game, x, y, key, name, char, sar, ego, type) {
 //    spawnlocX = size*game.rnd.integerInRange(5, 8);
 //    spawnlocY= size*game.rnd.integerInRange(1, 4);
@@ -63,7 +51,10 @@ Enemy.prototype.update = function() {
             playerStats.visible = false;
             leftName.visible = false;
             playerUI.visible = false;
-            enemyIcon.loadTexture('UI','s_Fox_NPC01');
+            if (this.NAME == "Reynard")
+                enemyIcon.loadTexture('UI','s_Fox_NPC01');
+            else
+                enemyIcon.loadTexture('UI','s_nar_NPC03');
             enemyIcon.visible = true;
             enemyUI.visible = true;
             rightName.setText(this.NAME);
@@ -114,14 +105,10 @@ Enemy.prototype.update = function() {
                     }
                 }
                 //END ENEMY TURN
-<<<<<<< HEAD
-=======
                 if(moveText == false){
                     add2Log(this.NAME +' runs around!');
                     moveText = true;
                 }
-
->>>>>>> development
                 enemyTarget.loadTexture('UI','s_foxTarget');
                 rightName.visible = false;
                 enemyUI.visible = false;
@@ -134,8 +121,8 @@ Enemy.prototype.update = function() {
 
         //ENEMY DEATH
         if (this.RPCT >=10) {
-<<<<<<< HEAD
             if(this.TYPE == "Charismatic") {
+                //MARK AS SUCCESSFULLY RECRUITED FOR CREDITS
                 reactWell(this);
                 freeFox[0] = true;
                 console.log(freeFox);
@@ -151,6 +138,7 @@ Enemy.prototype.update = function() {
         }else if(this.CTMP >= 10) {
             if(this.TYPE == "Sarcastic") {
                 //MARK AS SUCCESSFULLY RECRUITED FOR CREDITS
+                reactWell(this);
                 freeFox[0] = true;
                 console.log(freeFox);
                 freeFox[1] = true;
@@ -161,36 +149,12 @@ Enemy.prototype.update = function() {
             this.x = 0;
             this.y = 0;
             this.adj = false;
-=======
-            add2log(this.NAME +', overwhelmed by your zeal, got intimidated and ran.');
-            var result = game.add.sprite(this.x+19, this.y-18, 'atlas', 'chat_heart_broken');
-            result.animations.add('break', [4,5,6,7,6], 7,true);
-            result.play('break');
-            game.time.events.add(Phaser.Timer.SECOND, killText, this);
-            this.pendingDestroy = true;
-        }else if(this.CTMP >= 10) {
-            //MARK AS SUCCESSFULLY RECRUITED FOR CREDITS
-            freeFox[0] = true;
-            console.log(freeFox);
-            freeFox[1] = true;
-            console.log(freeFox);
-            //GAMELOG TEXT
-            add2log(this.NAME +' walked away convinced to join your escape effort.');
-            //SPRITE EFFECT
-            var result = game.add.sprite(this.x +19, this.y-18, 'atlas', 'chat_heart_whole');
-            result.animations.add('beat', [4, 5], 7,true);
-            result.play('beat');
-            game.time.events.add(Phaser.Timer.SECOND * 1.5, killText, this);
->>>>>>> development
             this.pendingDestroy = true;
         }
         
         function killText(result) {
             console.log("killText");
             game.add.tween(result).to( { alpha: 0 }, 420, Phaser.Easing.Linear.None, true);
-            this.controlled = false;
-            player.controlled = true;
-            player.displayed = true;
         }
     function moveRight(target) {
         target.x = target.x + size;
@@ -198,7 +162,6 @@ Enemy.prototype.update = function() {
         target.frame = 10;
         target.controlled = false;
         iterator = 0;
-        gameLog.setText(target.NAME +' runs around!');
         player.displayed = true;
         player.controlled = true;
         
@@ -209,7 +172,6 @@ Enemy.prototype.update = function() {
         enemy.frame = 7;
         enemy.controlled = false;
         iterator = 0;
-        gameLog.setText(this.NAME +' runs around!');
         player.displayed = true;
         player.controlled = true;
         
@@ -220,11 +182,7 @@ Enemy.prototype.update = function() {
         target.frame = 1;
         target.controlled = false;
         iterator = 0;
-        gameLog.setText(target.NAME +' runs around!');
-
-        changeTurn();
-        player.displayed = true;
-        player.controlled = true;
+        game.time.events.add(Phaser.Timer.SECOND * 1.5, changeTurn, this);
         
     }
     function moveUp(target) {
@@ -233,9 +191,7 @@ Enemy.prototype.update = function() {
         target.frame = 4;
         target.controlled = false;
         iterator = 0;
-        gameLog.setText(target.NAME +' runs around!');
-
-        changeTurn();
+        game.time.events.add(Phaser.Timer.SECOND * 1.5, changeTurn, this);
     }
     function checkPos(target) {
         if( (target.y == player.y && target.x == player.x) ||
@@ -248,32 +204,41 @@ Enemy.prototype.update = function() {
             target.x = target.previousPosition.x;
             target.y = target.previousPosition.y;
             console.log("Resetting to prevPos", target)
-            gameLog.setText(target.NAME +' stays put!');
+            add2Log(target.NAME +' stays put!');
+            moveText = true;
             
         }
     }
     function reactWell(target) {
         //GAMELOG TEXT
-        gameLog.setText(target.NAME +' walked away convinced to join your escape effort.');
+        add2Log(target.NAME +' walked away convinced to join your escape effort.');
         //SPRITE EFFECT
         var result = game.add.sprite(target.x +19, target.y-18, 'atlas', 'chat_heart_whole');
         result.animations.add('beat', [4, 5], 7,true);
         result.play('beat');
         game.time.events.add(Phaser.Timer.SECOND * 1.5, killText, this, result);
+        
     }
     function reactPoor(target) {
         //GAMELOG TEXT
-        gameLog.setText(target.NAME +', overwhelmed by your zeal, got intimidated and ran.');
+        add2Log(target.NAME +', overwhelmed by your zeal, got intimidated and ran.');
         //SPRITE EFFECT
         var result = game.add.sprite(target.x+19, target.y-18, 'atlas', 'chat_heart_broken');
         result.animations.add('break', [4,5,6,7,6], 7,true);
         result.play('break');
-        game.time.events.add(Phaser.Timer.SECOND * 1.5, killText, this, result);
+        game.time.events.add(Phaser.Timer.SECOND, killText, this, result);
     }
     function changeTurn() {
-        player.displayed = true;
-        player.controlled = true;
-
+        //SWITCH ENEMIES
+        enemygroup.cursor = enemygroup.next();
+        if(enemygroup.cursorIndex != 0) {
+            enemygroup.cursor.controlled = true;
+            iterator = 0;
+            moveText = false;
+        }else {
+            player.displayed = true;
+            player.controlled = true;
+        }
     }
 
 }

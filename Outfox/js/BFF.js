@@ -270,6 +270,7 @@ Bff.prototype.update = function() {
         console.log("using your action");
         this.controlled = false;
         this.acted = true;
+        this.enerb = false;
     }
 
 
