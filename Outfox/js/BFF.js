@@ -226,7 +226,6 @@ Bff.prototype.update = function() {
             add2Log(this.NAME + ' takes a moment to compose a thought.');
             this.controlled = false;
             this.waitb = false;
-            game.time.events.add(Phaser.Timer.SECOND * 3, changeTurn, this);
         }
     }
     if(this.controlled == false && this.moveable == false && this.acted == true){
@@ -264,11 +263,6 @@ Bff.prototype.update = function() {
     function killPop() {
         console.log("killPop");
         game.add.tween(popup).to( { alpha: 0 }, 420, Phaser.Easing.Linear.None, true);
-    }
-    function changeTurn() {
-        console.log("switching");
-        this.moveable = false;
-        this.acted = true;
     }
     function useAction() {
         console.log("using your action");
