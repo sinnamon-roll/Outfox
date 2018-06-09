@@ -61,10 +61,12 @@ Enemy.prototype.update = function() {
             playerStats.visible = false;
             leftName.visible = false;
             playerUI.visible = false;
-            if (this.NAME == "Reynard")
+            if (this.NAME == "Reynard"){
                 enemyIcon.loadTexture('UI','s_Fox_NPC01');
-            else
+            }
+            else {
                 enemyIcon.loadTexture('UI','s_nar_NPC03');
+            }
             enemyIcon.visible = true;
             enemyUI.visible = true;
             rightName.setText(this.NAME);
@@ -184,7 +186,7 @@ Enemy.prototype.update = function() {
     }
     function moveDown (target) {
         target.y = target.y + size;
-        enemy.animations.play('down');
+        target.animations.play('down');
         target.frame = 1;
         target.controlled = false;
         iterator = 0;
@@ -202,7 +204,6 @@ Enemy.prototype.update = function() {
     function checkPos(target) {
         if( (target.y == player.y && target.x == player.x) ||
            (target.y == BFF.y && target.x == BFF.x) ||
-           (target.y == enemy2.y && target.x == enemy2.x) ||
            (target.y > size * 4 || target.y < size) ||
            (target.x > size * 8 || target.x < size)
            ){
