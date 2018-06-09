@@ -1,14 +1,23 @@
 var charText = [  'Let\'s get some dirt in our paws!',
                 'We\'re wild animals! Surely we can find a way.',
                 'You\'ve never had fresh fish!? There\'s good hunting outside these walls.',
-                'Charisma 04',
-                'Charisma 05',
-                'Charisma 06',
-                'Charisma 07',
+                'At first I was afraid, then I heard YOU were going to help us!',
+                'To be completely honest, you are the most beautiful fox I\'ve ever met.',
+                'Back where I came from, there is a den large enough for ALL of us to thrive in!',
+                'I know the idea of escape can be worrisome, but if we work together it will all be ok.',
                 'Charisma 08',
                 'Charisma 09',
                 'Charisma 10']
-var sarText = [  'Don\'t you just love eating dog food every day?', 'These fluorescent lights really make your coat shine.', 'On the bright side, you can\'t get your tail in a trap.', 'Sarcasm 04', 'Sarcasm 05', 'Sarcasm 06', 'Sarcasm 07', 'Sarcasm 08', 'Sarcasm 09', 'Sarcasm 10']
+var sarText = [ 'Don\'t you just love eating dog food every day?',
+                'These fluorescent lights really make your coat shine.',
+                'On the bright side, you can\'t get your tail in a trap.',
+                'Your pelt looks shabby. Fresh lake water would leave it silky and smooth.',
+                'I get it. You\'re comfortable here... comfortable being at the beck and call of humans!',
+                'I heard you were narcissistic, but looking forward to your weekly X-ray? Pathetic.',
+                'Tod, let\'s just leave. Obviously there aren\'t any other foxes brave enough to help.',
+                'Sarcasm 08',
+                'Sarcasm 09',
+                'Sarcasm 10']
 
 isAdjacent = function(characterGroup, subject){
     characterGroup.forEach(function(character) {
