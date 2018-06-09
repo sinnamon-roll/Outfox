@@ -1,15 +1,5 @@
-//Player Fox's Comrade
+// BFF Fox's Comrade
 // prefab constructor function
-var size = 64;
-var adj = false;
-var CHAR;
-var SAR;
-var EGO;
-var CTMP;
-var RPCT;
-var EXH;
-var TYPE; //Ro-Sham-Bo
-var NAME;
 
 function Bff(game, key) {
         // call to Phaser.Sprite // new Sprite(game, x, y, key, frame)
@@ -29,9 +19,16 @@ function Bff(game, key) {
         this.TYPE = "Charisma";
         this.NAME = "Tod";
 
+        this.charb = false;
+        this.sarcb = false;
+        this.enerb = false;
+        this.waitb = false;
+
         this.moveable = false;
         this.controlled = false;
         this.acted = false;
+        this.displayed = false;
+        this.adj = false;
     
         //EXHAUSTION
         this.popup = game.add.sprite(this.x + 19, this.y - 18, 'atlas','s_batteryOut');
@@ -65,6 +62,8 @@ Bff.prototype.update = function() {
                 add2Log(enemy.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else if(player.y ==(this.y - size) && player.x == this.x ){
                 add2Log(player.NAME + ' blocks ' + this.NAME +'\'s path.');
+            }else if(enemy2.y ==(this.y - size) && enemy2.x == this.x ){
+                add2Log(enemy2.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else {
                 this.y = this.y - size;
                 this.cursor.y = this.cursor.y - size;
@@ -73,6 +72,7 @@ Bff.prototype.update = function() {
             this.animations.play('up');
             this.frame = 4;
             this.moveable = false;
+            pressed = false;
             console.log('up pressed');
             
         } else if(cursors.down.justPressed() ) {
@@ -82,6 +82,8 @@ Bff.prototype.update = function() {
                 add2Log(enemy.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else if(player.y ==(this.y + size) && player.x == this.x ){
                 add2Log(player.NAME + ' blocks ' + this.NAME +'\'s path.');
+            }else if(enemy2.y ==(this.y + size) && enemy2.x == this.x ){
+                add2Log(enemy2.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else {
                 this.y = this.y + size;
                 this.cursor.y = this.cursor.y + size;
@@ -90,6 +92,7 @@ Bff.prototype.update = function() {
             this.animations.play('down');
             this.frame = 1;
             this.moveable = false;
+            pressed = false;
             console.log('down pressed');
             
         } else if(cursors.left.justPressed() ) {
@@ -99,6 +102,8 @@ Bff.prototype.update = function() {
                 add2Log(enemy.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else if(player.x ==(this.x - size) && player.y == this.y){
                 add2Log(player.NAME + ' blocks ' + this.NAME +'\'s path.');
+            }else if(enemy2.x ==(this.x - size) && enemy2.y == this.y){
+                add2Log(enemy2.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else {
                 this.x = this.x - size;
                 this.cursor.x = this.cursor.x - size;
@@ -107,6 +112,7 @@ Bff.prototype.update = function() {
             this.animations.play('left');
             this.frame = 7;
             this.moveable = false;
+            pressed = false;
             console.log('left pressed');
             
         } else if(cursors.right.justPressed() ) {
@@ -116,6 +122,8 @@ Bff.prototype.update = function() {
                 add2Log(enemy.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else if(player.x ==(this.x + size) && player.y == this.y ){
                 add2Log(player.NAME + ' blocks ' + this.NAME +'\'s path.');
+            }else if(enemy2.x ==(this.x + size) && enemy2.y == this.y ){
+                add2Log(enemy2.NAME + ' blocks ' + this.NAME +'\'s path.');
             }else {
                 this.x = this.x + size;
                 this.cursor.x = this.cursor.x + size;
@@ -124,6 +132,7 @@ Bff.prototype.update = function() {
             this.animations.play('right');
             this.frame = 10;
             this.moveable = false;
+            pressed = false;
             console.log('right pressed');
         }
     }
@@ -184,7 +193,7 @@ Bff.prototype.update = function() {
             'Ego: ' + player.EGO + '\n' +
             'Resolve: ' + player.EXH + '\n')
             ;
-                if (bKey.justPressed() && player.EXH <=7) {
+                if (this.enerb == true && player.EXH <=7) {
                     player.EXH += 3;
                     add2Log('The fox who treated you with kindness gives you an encouraging bark.');
                     //play audio
@@ -194,9 +203,15 @@ Bff.prototype.update = function() {
                     var popup = game.add.sprite(player.x +19, player.y - 18, 'atlas', 's_batteryFull');
                     game.time.events.add(Phaser.Timer.SECOND * 0.5, killPop, this);
                     game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
-                }else if (bKey.justPressed() && player.EXH >=7) {
+                    this.acted = true;
+                    this.controlled = false;
+                    this.enerb = false;
+                }else if (this.enerb == true && player.EXH >=7) {
                     add2Log('The kind fox has little to say.');
                     game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
+                    this.acted = true;
+                    this.controlled = false;
+                    this.enerb = false;
                 }
         } else {
             enemyIcon.visible = false;
@@ -206,17 +221,30 @@ Bff.prototype.update = function() {
         }
 	}
     if (this.controlled == true){
-        if(wKey.justPressed()){
+        if(this.waitb == true){
             console.log("Waiting");
             add2Log(this.NAME + ' takes a moment to compose a thought.');
             this.controlled = false;
+            this.waitb = false;
             game.time.events.add(Phaser.Timer.SECOND * 3, changeTurn, this);
         }
     }
     if(this.controlled == false && this.moveable == false && this.acted == true){
         this.cursor.visible = false;
-        enemy.controlled = true;
+        if(enemygroup.length > 0) {
+            enemygroup.cursor.controlled = true;
+        }else {
+            player.controlled = true;
+            player.moveable = true;
+        }
         this.acted = false;
+        this.displayed = false;
+        movebutt.usable = true;
+        movebutt.unusable = false;
+        movebutt.pressed = false;
+        barkbutt.usable = true;
+        barkbutt.unusable = false;
+        pressed = false;
 
   	}
     if (this.controlled == true) {
@@ -242,6 +270,7 @@ Bff.prototype.update = function() {
         console.log("using your action");
         this.controlled = false;
         this.acted = true;
+        this.enerb = false;
     }
 
 

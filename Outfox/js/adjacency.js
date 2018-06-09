@@ -9,42 +9,44 @@ var charText = [  'Charisma 01',
                 + 'Charisma 09',
                 + 'Charisma 10']
 var sarText = [   'Sarcasm 01',
-                + 'Sarcasm 02',
-                + 'Sarcasm 03',
-                + 'Sarcasm 04',
-                + 'Sarcasm 05',
-                + 'Sarcasm 06',
-                + 'Sarcasm 07',
-                + 'Sarcasm 08',
-                + 'Sarcasm 09',
-                + 'Sarcasm 10']
+               + 'Sarcasm 02',
+               + 'Sarcasm 03',
+               + 'Sarcasm 04',
+               + 'Sarcasm 05',
+               + 'Sarcasm 06',
+               + 'Sarcasm 07',
+               + 'Sarcasm 08',
+               + 'Sarcasm 09',
+               + 'Sarcasm 10']
 
-isAdjacent = function(character, subject){
-    //ADJ!!!
+isAdjacent = function(characterGroup, subject){
+    characterGroup.forEach(function(character) {
         if(subject.x == (character.x + size) || subject.x == (character.x - size) ){
             if (subject.y == character.y) {
                 //console.log("ADJACENT R/L");
                 character.adj = true;
-            }else
+            }else{
                 character.adj = false;
+            }
         }else if (subject.y == (character.y + size) || subject.y == (character.y - size) ){
              if (subject.x == character.x) {
                 //console.log("ADJACENT UP/DOWN");
                 character.adj = true;
-             }else {
+             }else{
                 character.adj = false;
              }
-        }else {
+        }else{
             character.adj = false;
         }
+                           //});
         if (character.adj == true) {
             //DISPLAY INFORMATION
-            if(character.controlled == true){
+            if(subject.controlled == true){
             //Keyboard input only available when adjacent
-            if (cKey.justPressed() && character.EXH > 0) {
+            if (subject.charb == true && subject.EXH > 0) {
                 //Exhaust Player
-                character.EXH -= 1;
-                
+                subject.EXH -= 1;
+                subject.charb = false;
                 //Display GameLog
                 add2Log(Phaser.ArrayUtils.getRandomItem(charText));
                 
@@ -53,7 +55,7 @@ isAdjacent = function(character, subject){
                 char.play('',0,1,false)
                 
                 //Show popup
-                var popup = game.add.sprite(character.x + 19, character.y - 38, 'atlas', 's_charisma');
+                var popup = game.add.sprite(subject.x + 19, subject.y - 38, 'atlas', 's_charisma');
                 //popup.animations.add('beat', [4, 5], 10,true);
                 //popup.play('beat');
                 game.time.events.add(Phaser.Timer.SECOND * 2, killPop, this);
@@ -62,18 +64,20 @@ isAdjacent = function(character, subject){
                 //emit sprites
                 // collision causes particle explosion
                 // add.emitter(x, y, maxParticles)
-                var charEmitter = game.add.emitter(subject.x + 32, subject.y + 32, 20);
+                var charEmitter = game.add.emitter(character.x + 32, character.y + 32, 20);
                 charEmitter.setAlpha(0.5, 1);                // set particle alpha (min, max)
                 charEmitter.minParticleScale = .5;        // set min/max particle size
                 charEmitter.maxParticleScale = 1.5;
                 charEmitter.setXSpeed(-50,50);            // set min/max horizontal speed
                 charEmitter.setYSpeed(-50,50);            // set min/max vertical speed
                 
+                //useAction()
+                game.time.events.add(Phaser.Timer.SECOND * 4, useAction, this);
             }
-            if (sKey.justPressed() && character.EXH > 0) {
+            if (subject.sarcb == true && subject.EXH > 0) {
                 //Exhaust Player
-                character.EXH -= 1;
-                
+                subject.EXH -= 1;
+                subject.sarcb = false;
                 //Display GameLog
                 add2Log(Phaser.ArrayUtils.getRandomItem(sarText));
                 
@@ -81,7 +85,7 @@ isAdjacent = function(character, subject){
                 var sar = game.add.audio('sarSound');
                 sar.play('',0,1,false)
                 
-                var popup = game.add.sprite(character.x + 19, character.y - 38, 'atlas', 's_sarcasm');
+                var popup = game.add.sprite(subject.x + 19, subject.y - 38, 'atlas', 's_sarcasm');
                 //popup.animations.add('smirk', [12, 13], 10,true);
                 //popup.play('smirk');
                 game.time.events.add(Phaser.Timer.SECOND * 2, killPop, this);
@@ -90,12 +94,14 @@ isAdjacent = function(character, subject){
                 //emit sprites
                 // collision causes particle explosion
                 // add.emitter(x, y, maxParticles)
-                var sarEmitter = game.add.emitter(subject.x + 32, subject.y + 32, 20);
+                var sarEmitter = game.add.emitter(character.x + 32, character.y + 32, 20);
                 sarEmitter.setAlpha(0.5, 1);                // set particle alpha (min, max)
                 sarEmitter.minParticleScale = .5;        // set min/max particle size
                 sarEmitter.maxParticleScale = 1.5;
                 sarEmitter.setXSpeed(-50,50);            // set min/max horizontal speed
                 sarEmitter.setYSpeed(-50,50);            // set min/max vertical speed
+                //useAction()
+                game.time.events.add(Phaser.Timer.SECOND * 4, useAction, this);
             }
         }else {
             //character.range.visible = false;
@@ -108,37 +114,44 @@ isAdjacent = function(character, subject){
     }
     function sBark() {
                 //Ro-Sham-Bo
-                if (subject.TYPE == 'Sarcastic') {
-                    subject.CTMP += (character.SAR * 2);
+        console.log("sBark", character);
+                if (character.TYPE == 'Sarcastic') {
+                    character.CTMP += (subject.SAR * 2);
                     add2Log('The bark is Super Effective');
                     sarEmitter.makeParticles('atlas','+_green');        // image used for particles
-                } else if (subject.TYPE == 'Charismatic') {
-                    subject.CTMP += Math.floor(character.SAR / 2);
+                } else if (character.TYPE == 'Charismatic') {
+                    character.CTMP += Math.floor(subject.SAR / 2);
                     add2Log('Your cries fall on deaf ears.');
                     sarEmitter.makeParticles('atlas','-_red');        // image used for particles
                 } else {
-                    subject.CTMP += character.SAR;
+                    character.CTMP += subject.SAR;
                     add2Log('The fox regards you calmly.');
                     sarEmitter.makeParticles('atlas','x_red');
                 }
-                sarEmitter.start(true, 2000, null, 20);    // (explode, lifespan, freq, quantity)
+            sarEmitter.start(true, 4000, null, 20);    // (explode, lifespan, freq, quantity)
     }
     function cBark() {
         //Determine if weak/resistant
-        if (subject.TYPE == 'Sarcastic') {
-            subject.RPCT += Math.floor(character.CHAR / 2);
+        if (character.TYPE == 'Sarcastic') {
+            character.RPCT += Math.floor(subject.CHAR / 2);
             add2Log('Your cries fall on deaf ears.');
             charEmitter.makeParticles('atlas','-_red');        // image used for particles
-        } else if (subject.TYPE == 'Charismatic') {
-            subject.RPCT += (character.CHAR * 2);
+        } else if (character.TYPE == 'Charismatic') {
+            character.RPCT += (subject.CHAR * 2);
             add2Log('Super Effective!');
             charEmitter.makeParticles('atlas','+_green');
         } else {
-            subject.RPCT += character.CHAR;
+            character.RPCT += subject.CHAR;
             add2Log('The fox regards you calmly.');
             charEmitter.makeParticles('atlas','x_red');
         }
-        charEmitter.start(true, 2000, null, 20);    // (explode, lifespan, freq, quantity)
+        charEmitter.start(true, 4000, null, 20);    // (explode, lifespan, freq, quantity)
+    }
+    function useAction() {
+        console.log("using Player's action");
+        subject.controlled = false;
+        subject.acted = true;
     }
     }
+                           });
 }

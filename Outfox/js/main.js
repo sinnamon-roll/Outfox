@@ -1,7 +1,7 @@
 var game = new Phaser.Game(640, 480, Phaser.AUTO, 'phaser-window');
 var player;
 var enemygroup;
-var enemy;
+var enemy, enemy2;
 var BFF;
 var adjacency;
 var colors = [0x1BE7FF, 0x6EEB83, 0xE4FF1A, 0xE8AA14, 0xE8AA14];
@@ -30,41 +30,6 @@ var firstLog = false;
 
 
 
-var Boot = function(game){};
-Boot.prototype = {
-  init: function(){
-                console.log('Boot: init');
-                this.stage.disableVisibilityChange = true;
-        },
-        preload: function(){
-                console.log('Boot: preload');
-        },
-        create: function(){
-                console.log('Boot: create');
-                settings = {
-                //debug controls
-                //add in what you want
-
-                //Character setting
-                playerhealth: 10,
-                playerCHAR: 5,
-                enemyhealth: 10,
-                enemyCHAR: 5,
-                enemyCONTROL: false,
-
-                //Button setting
-				barklocX: 64,
-				barklocY: 64,
-				movelocX: 64,
-				movelocY: 128,
-				facelocX: 64,
-				facelocY: 256,
-				endlocX: 64,
-				endlocY: 192
-                }
-                this.state.start('Preloader');
-        },
-}
 var Preloader = function(game){};
 Preloader.prototype = {
         preload: function(){
@@ -78,6 +43,7 @@ Preloader.prototype = {
             this.load.spritesheet('player', 's_fox_sheet04.png', 64, 64);
             this.load.spritesheet('BFF', 's_fox_sheet.png',64,64);
             this.load.spritesheet('enemy', 's_fox_sheet01.png',64,64);
+            this.load.spritesheet('enemy2', 's_fox_sheet03.png',64,64);
             this.load.image('s_interfaceR_edge', 's_interfaceR_edge.png');
             this.load.image('cursor', 's_active.png');
             //Load Sprite Atlas
@@ -528,12 +494,22 @@ testState.prototype = {
        	
         //ENEMY SETUP
         //gonna take enemy out of the group, now that the game ends when one is done
-        //enemygroup = game.add.group();
+        enemygroup = game.add.group();
         //this.addEnemy(enemygroup);
+        //    enemy = new Enemy(game, 'enemy', tintColor);
+        //    game.add.existing(enemy);
+        //    group.add(enemy);
+        
         var tintColor = colors[game.rnd.between(0, colors.length-1)]; //for variety, which is the spiciest of meatballs
-        enemy = new Enemy(game, 'enemy');
+        //Enemy(game, x, y, key, name, char, sar, ego, type)
+        enemy = new Enemy(game,(64 * 5), (64* 4), 'enemy', "Reynard", 4, 5, 4, "Sarcastic");
         game.add.existing(enemy);
+        enemygroup.add(enemy);
 
+        enemy2 = new Enemy(game,(64 * 3), (64* 3), 'enemy2', "Choco Fox", 6, 2, 1, "Charismatic");
+        game.add.existing(enemy2);
+        enemygroup.add(enemy2);
+        
         //BFF SETUP
         console.log('yo about to construct BFF');
         BFF = new Bff(game, 'BFF');
@@ -605,7 +581,7 @@ testState.prototype = {
     //},	 
 
 	update: function() {
-		if(enemy.alive == false){
+		if(enemygroup.length == 0){
             if (freeFox[0] == true) {
                 game.time.events.add(Phaser.Timer.SECOND * 7, function() {
                         firstMusic.stop();
@@ -619,8 +595,10 @@ testState.prototype = {
             }
 		}
 		//Checks if these two are adjacent, can be run on any two objects. Probably still way too centered on the player.
-        isAdjacent(player, enemy);
-        //isAdjacent(BFF, enemy);
+        //took it out of main, was causing issues lol nvm;
+        isAdjacent(enemygroup, player);
+        //isAdjacent(enemy, player);
+        //isAdjacent(enemy2, player);
         //updates variables to what is in out settings, this is a really shitty place to update the health variable, lol one sec
         //never put things in here that govern a resource, as it will always put it to max, throw that into the constructor for said resource
         //ie, player.health = settings.playerhealth
@@ -668,7 +646,7 @@ Congrats.prototype = {
 
         var name01 = game.add.text(330, 144, BFF.NAME, { font: 'Fira Sans', fontSize: '18px', fill: '#eed6c3', fontWeight: '700' })
         var name02 = game.add.text(330, 244, enemy.NAME, { font: 'Fira Sans', fontSize: '18px', fill: '#eed6c3', fontWeight: '700' })
-        var name03 = game.add.text(330, 344, 'PC Name', { font: 'Fira Sans', fontSize: '18px', fill: '#eed6c3', fontWeight: '700' })
+        var name03 = game.add.text(330, 344, enemy2.NAME, { font: 'Fira Sans', fontSize: '18px', fill: '#eed6c3', fontWeight: '700' })
         var name04 = game.add.text(330, 444, 'PC Name', { font: 'Fira Sans', fontSize: '18px', fill: '#eed6c3', fontWeight: '700' })
 
         var names = [name01,name02,name03,name04];
@@ -745,7 +723,7 @@ GameOver.prototype = {
             //BFF.kill();
             game.state.start('MainMenu');
         }
-    }
+    },
 }
 
 // change css background color
@@ -786,6 +764,5 @@ game.state.add('BFFmeet', BFFmeet);
 game.state.add('Congrats', Congrats);
 game.state.add('GameOver', GameOver);
 game.state.add('Preloader', Preloader);
-game.state.add('Boot', Boot);
 game.state.add('Credits', credits);
-game.state.start('Boot');
+game.state.start('Preloader');
