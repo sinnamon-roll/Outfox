@@ -600,6 +600,11 @@ testState.prototype = {
 		//Checks if these two are adjacent, can be run on any two objects. Probably still way too centered on the player.
         //took it out of main, was causing issues lol nvm;
         isAdjacent(enemygroup, player);
+
+        if(player.x == 512 && player.y == 256){
+        	firstMusic.stop();
+        	game.state.start('GameOver');
+        }
         //isAdjacent(enemy, player);
         //isAdjacent(enemy2, player);
         //updates variables to what is in out settings, this is a really shitty place to update the health variable, lol one sec
