@@ -1,5 +1,14 @@
-var charText = [  'Charisma 01', 'Charisma 02', 'Charisma 03', 'Charisma 04', 'Charisma 05', 'Charisma 06', 'Charisma 07', 'Charisma 08', 'Charisma 09', 'Charisma 10']
-var sarText = [  'Sarcasm 01', 'Sarcasm 02', 'Sarcasm 03', 'Sarcasm 04', 'Sarcasm 05', 'Sarcasm 06', 'Sarcasm 07', 'Sarcasm 08', 'Sarcasm 09', 'Sarcasm 10']
+var charText = [  'Let\'s get some dirt in our paws!',
+                'We\'re wild animals! Surely we can find a way.',
+                'You\'ve never had fresh fish!? There\'s good hunting outside these walls.',
+                'Charisma 04',
+                'Charisma 05',
+                'Charisma 06',
+                'Charisma 07',
+                'Charisma 08',
+                'Charisma 09',
+                'Charisma 10']
+var sarText = [  'Don\'t you just love eating dog food every day?', 'These fluorescent lights really make your coat shine.', 'On the bright side, you can\'t get your tail in a trap.', 'Sarcasm 04', 'Sarcasm 05', 'Sarcasm 06', 'Sarcasm 07', 'Sarcasm 08', 'Sarcasm 09', 'Sarcasm 10']
 
 isAdjacent = function(characterGroup, subject){
     characterGroup.forEach(function(character) {
@@ -135,8 +144,10 @@ isAdjacent = function(characterGroup, subject){
     }
     function useAction() {
         console.log("using Player's action");
-        subject.controlled = false;
         subject.acted = true;
+        facesel = true;
+        barksel = false;
+        pressed = false;
     }
     }
                            });

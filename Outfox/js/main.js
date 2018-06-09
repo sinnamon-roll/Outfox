@@ -284,6 +284,9 @@ BFFmeet.prototype = {
 
             game.stage.backgroundColor = "#000000";
             //switchScene(startScene);
+            
+            //RESET FREEFOX
+            freeFox = [false,false,false,false];
 
             // establish a dialog component
             var dialog=new Dialog(
@@ -333,7 +336,7 @@ BFFmeet.prototype = {
 
                 },
                 {        
-                    text: "\"That would be me, Player1, the beige fox,\" you respond.\n\n\"Beige fox? Rare to see such a fur mutation. Tod, the red fox here. Welcome to the Lab!\"\n\n[ ENTER ]", // the text you want to play
+                    text: "\"That would be me, Zerda, the beige fox,\" you respond.\n\n\"Beige fox? Rare to see such a fur mutation. Tod, the red fox here. Welcome to the Lab!\"\n\n[ ENTER ]", // the text you want to play
                     lettersPerSec: perSec, // letters per second
                 },
                 {        
@@ -506,7 +509,7 @@ testState.prototype = {
         game.add.existing(enemy);
         enemygroup.add(enemy);
 
-        enemy2 = new Enemy(game,(64 * 3), (64* 3), 'enemy2', "Choco Fox", 6, 2, 1, "Charismatic");
+        enemy2 = new Enemy(game,(64 * 2), (64* 2), 'enemy2', "Choco Fox", 6, 2, 1, "Charismatic");
         game.add.existing(enemy2);
         enemygroup.add(enemy2);
         

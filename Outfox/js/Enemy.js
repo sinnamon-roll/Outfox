@@ -30,7 +30,7 @@ function Enemy(game, x, y, key, name, char, sar, ego, type) {
         this.CHAR = char;
         this.SAR = sar;
         this.EGO = ego;
-        this.CTMP = 8;
+        this.CTMP = 0;
         this.RPCT = 0;
         this.TYPE = type;
         this.NAME = name;
@@ -172,8 +172,6 @@ Enemy.prototype.update = function() {
         target.frame = 10;
         target.controlled = false;
         iterator = 0;
-        player.displayed = true;
-        player.controlled = true;
         
     }
     function moveLeft(target) {
@@ -182,8 +180,6 @@ Enemy.prototype.update = function() {
         enemy.frame = 7;
         enemy.controlled = false;
         iterator = 0;
-        player.displayed = true;
-        player.controlled = true;
         
     }
     function moveDown (target) {
@@ -211,9 +207,9 @@ Enemy.prototype.update = function() {
            (target.x > size * 8 || target.x < size)
            ){
             //go back to previous position
+            console.log("Resetting to prevPos", target)
             target.x = target.previousPosition.x;
             target.y = target.previousPosition.y;
-            console.log("Resetting to prevPos", target)
             add2Log(target.NAME +' stays put!');
             moveText = true;
             

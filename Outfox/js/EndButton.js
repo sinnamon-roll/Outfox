@@ -59,6 +59,8 @@ endButton.prototype.update = function() {
 				}
 			}
 			this.i += 0.1;
+		}else if(this.usable == true){
+			this.animations.play("EndOff");
 		}
 	}
 }
