@@ -284,6 +284,9 @@ BFFmeet.prototype = {
 
             game.stage.backgroundColor = "#000000";
             //switchScene(startScene);
+            
+            //RESET FREEFOX
+            freeFox = [false,false,false,false];
 
             // establish a dialog component
             var dialog=new Dialog(
