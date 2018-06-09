@@ -1,23 +1,5 @@
-var charText = [  'Charisma 01',
-                + 'Charisma 02',
-                + 'Charisma 03',
-                + 'Charisma 04',
-                + 'Charisma 05',
-                + 'Charisma 06',
-                + 'Charisma 07',
-                + 'Charisma 08',
-                + 'Charisma 09',
-                + 'Charisma 10']
-var sarText = [   'Sarcasm 01',
-               + 'Sarcasm 02',
-               + 'Sarcasm 03',
-               + 'Sarcasm 04',
-               + 'Sarcasm 05',
-               + 'Sarcasm 06',
-               + 'Sarcasm 07',
-               + 'Sarcasm 08',
-               + 'Sarcasm 09',
-               + 'Sarcasm 10']
+var charText = [  'Charisma 01', 'Charisma 02', 'Charisma 03', 'Charisma 04', 'Charisma 05', 'Charisma 06', 'Charisma 07', 'Charisma 08', 'Charisma 09', 'Charisma 10']
+var sarText = [  'Sarcasm 01', 'Sarcasm 02', 'Sarcasm 03', 'Sarcasm 04', 'Sarcasm 05', 'Sarcasm 06', 'Sarcasm 07', 'Sarcasm 08', 'Sarcasm 09', 'Sarcasm 10']
 
 isAdjacent = function(characterGroup, subject){
     characterGroup.forEach(function(character) {
@@ -48,7 +30,9 @@ isAdjacent = function(characterGroup, subject){
                 subject.EXH -= 1;
                 subject.charb = false;
                 //Display GameLog
-                add2Log(Phaser.ArrayUtils.getRandomItem(charText));
+                var randChar = Phaser.ArrayUtils.getRandomItem(charText);
+                console.log('randChar: ' + randChar);
+                add2Log(randChar);
                 
                 //play audio
                 var char = game.add.audio('charSound');
@@ -79,7 +63,9 @@ isAdjacent = function(characterGroup, subject){
                 subject.EXH -= 1;
                 subject.sarcb = false;
                 //Display GameLog
-                add2Log(Phaser.ArrayUtils.getRandomItem(sarText));
+                var randSar = Phaser.ArrayUtils.getRandomItem(sarText);
+                console.log('randSar: ' + randSar);
+                add2Log(randSar);
                 
                 //play audio
                 var sar = game.add.audio('sarSound');
