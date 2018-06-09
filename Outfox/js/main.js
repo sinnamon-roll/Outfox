@@ -682,9 +682,11 @@ Congrats.prototype = {
     update: function() {
         // GameOver logic
         if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
-            //player.kill();
-            //enemy.kill()
-            //BFF.kill();
+            lineCount = 0;
+            lineTotal = 0;
+            linePush = 0;
+            logLines = 0;
+            firstLog = false;
             game.state.start('MainMenu');
         }
     }
