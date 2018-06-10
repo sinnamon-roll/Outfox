@@ -152,8 +152,9 @@ Bff.prototype.update = function() {
     if(player.x == (this.x + size) || player.x == (this.x - size) ){
         if (player.y == this.y) {
             this.adj = true;
-        }else
+        }else{
             this.adj = false;
+        }
     }else if (player.y == (this.y + size) || player.y == (this.y - size) ){
         if (player.x == this.x) {
             this.adj = true;
