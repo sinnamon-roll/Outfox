@@ -57,16 +57,26 @@ moveButton.prototype.update = function() {
 							pressed = true;
 							this.animations.play('Used');
 							// pressed = true;
-							barksel = true;
-							movesel = false;
+							if(barkbutt.unusable == true){
+								facesel = true;
+								movesel = false;
+							}else{
+								barksel = true;
+								movesel = false;
+							}
 						}else if(player.displayed == true){
 							player.moveable = true;
 							this.unusable = true;
 							pressed = true;
 							this.animations.play('Used');
 							// pressed = true;
-							barksel = true;
-							movesel = false;
+							if(barkbutt.unusable == true){
+								facesel = true;
+								movesel = false;
+							}else{
+								barksel = true;
+								movesel = false;
+							}
 						}
 					}
 				}

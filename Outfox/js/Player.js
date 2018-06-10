@@ -188,7 +188,6 @@ Player.prototype.update = function() {
             this.waitb = false;
             this.controlled = false;
             this.acted = true;
-            game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
         }
       
       if (enemy.adj == true) {
@@ -272,7 +271,7 @@ Player.prototype.update = function() {
     
     function useAction() {
         console.log("using Player's action");
-        //this.acted = true;
+        this.acted = true;
         pressed = false;
     }
     if(this.displayed == true){
