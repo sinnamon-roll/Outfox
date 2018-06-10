@@ -72,6 +72,7 @@ barkButton.prototype.update = function() {
 					}
 					if(BFF.displayed == true && BFF.adj == true){
 						subMenu(game, BFF);
+						this.usable = false;
 						this.unusable = true;
 						this.animations.play('Used');
 						BFF.controlled = true;
@@ -79,6 +80,7 @@ barkButton.prototype.update = function() {
 					}else if(player.displayed == true && (enemy.adj == true || enemy2.adj == true)){
 						
 						subMenu(game, player);
+						this.usable = false;
 						this.unusable = true;
 						this.animations.play('Used');
 						Player.controlled = true;
@@ -173,7 +175,7 @@ barksubMenu.prototype.update = function() {
 				this.midsel = false;
 				sarcbutt.animations.play('EnerOn');
 				sarcbutt.animations.play('SarcOff');
-			}else if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR) == BFF.controlled == true){
+			}else if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)){
                 barksel = false;
                 facesel = true;
 				this.act.sarcb = true;

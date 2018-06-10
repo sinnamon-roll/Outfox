@@ -153,7 +153,7 @@ isAdjacent = function(characterGroup, subject){
     }
     function useAction() {
         console.log("using Player's action");
-        subject.acted = true;
+        //subject.acted = true;
         //facesel = true;
         //barksel = false;
         //pressed = false;
