@@ -118,7 +118,8 @@ Enemy.prototype.update = function() {
                 }
                 //END ENEMY TURN
                 if(moveText == false){
-                    add2Log(this.NAME +' runs around!');
+                    add2Log(this.NAME + ' runs around.');
+                    add2Log(this.NAME + ' ends their turn.');
                     moveText = true;
                 }
                 enemyTarget.loadTexture('UI','s_foxTarget');
@@ -211,7 +212,8 @@ Enemy.prototype.update = function() {
             console.log("Resetting to prevPos", target)
             target.x = target.previousPosition.x;
             target.y = target.previousPosition.y;
-            add2Log(target.NAME +' stays put!');
+            add2Log(target.NAME + ' stays put.');
+            add2Log(this.NAME + ' ends their turn.');
             moveText = true;
             
         }

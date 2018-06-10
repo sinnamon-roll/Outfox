@@ -177,6 +177,10 @@ Bff.prototype.update = function() {
         'Resolve: ' + this.EXH + '\n'
         ;
         setBgColorById('main-page','#ccc');
+        if(turnBFF == false){
+            add2Log('Tod\'s turn.');
+            turnBFF = true;
+        }
         if(this.adj == true) {
             //DISPLAY FOX TARGET INFO
             enemyTarget.loadTexture('UI', 's_foxTarget');
@@ -224,10 +228,11 @@ Bff.prototype.update = function() {
     if (this.controlled == true){
         if(this.waitb == true){
             console.log("Waiting");
-            add2Log(this.NAME + ' takes a moment to compose a thought.');
+            add2Log(this.NAME + ' takes a moment to compose a thought and ends their turn.');
             this.controlled = false;
             this.acted = true;
             this.waitb = false;
+            turnBFF = false;
         }
     }
     if(this.controlled == false && this.moveable == false && this.acted == true){
