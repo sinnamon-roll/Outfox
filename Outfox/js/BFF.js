@@ -1,6 +1,6 @@
 // BFF Fox's Comrade
 // prefab constructor function
-var turnBFF = false;
+//var turnBFF = false;
 
 function Bff(game, key) {
         // call to Phaser.Sprite // new Sprite(game, x, y, key, frame)
@@ -178,10 +178,10 @@ Bff.prototype.update = function() {
         'Resolve: ' + this.EXH + '\n'
         ;
         setBgColorById('main-page','#ccc');
-        if(turnBFF == false){
-            add2Log('Tod\'s turn.');
-            turnBFF = true;
-        }
+        //if(turnBFF == false){
+        //    add2Log('Tod\'s turn.');
+         //   turnBFF = true;
+        //}
         if(this.adj == true) {
             //DISPLAY FOX TARGET INFO
             enemyTarget.loadTexture('UI', 's_foxTarget');
@@ -233,7 +233,7 @@ Bff.prototype.update = function() {
             this.controlled = false;
             this.acted = true;
             this.waitb = false;
-            turnBFF = false;
+           // turnBFF = false;
         }
     }
     if(this.controlled == false && this.moveable == false && this.acted == true){
