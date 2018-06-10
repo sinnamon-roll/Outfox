@@ -193,11 +193,8 @@ Player.prototype.update = function() {
             this.waitb = false;
             this.controlled = false;
             this.acted = true;
-<<<<<<< HEAD
-=======
             turnPC = false;
             game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
->>>>>>> fox-Dialog
         }
       
       if (enemy.adj == true) {
