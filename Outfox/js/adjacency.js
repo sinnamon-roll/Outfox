@@ -50,7 +50,7 @@ isAdjacent = function(characterGroup, subject){
                 //Display GameLog
                 var randChar = Phaser.ArrayUtils.getRandomItem(charText);
                 console.log('randChar: ' + randChar);
-                add2Log(randChar);
+                add2Log('Zerda charismatically barks, "' + randChar + '"');
                 
                 //play audio
                 var char = game.add.audio('charSound');
@@ -83,7 +83,7 @@ isAdjacent = function(characterGroup, subject){
                 //Display GameLog
                 var randSar = Phaser.ArrayUtils.getRandomItem(sarText);
                 console.log('randSar: ' + randSar);
-                add2Log(randSar);
+                add2Log('Zerda sarcastically barks, "' + randSar + '"');
                 
                 //play audio
                 var sar = game.add.audio('sarSound');
