@@ -243,14 +243,12 @@ Bff.prototype.update = function() {
         this.displayed = false;
         movebutt.unusable = false;
         barkbutt.unusable = false;
-        barkbutt.usable = true;
         pressed = false;
         movesel = true;
         barksel = false;
         facesel = false;
         endsel = false;
         barkbutt.animations.play('BarkOff');
-
 
   	}
     if (this.controlled == true) {
@@ -269,7 +267,7 @@ Bff.prototype.update = function() {
     }
     function useAction() {
         console.log("using your action");
-        this.acted = true;
+       // this.acted = true;
         this.enerb = false;
         pressed = false;
 
