@@ -1,6 +1,5 @@
 // BFF Fox's Comrade
 // prefab constructor function
-var turnBFF = false;
 
 function Bff(game, key) {
         // call to Phaser.Sprite // new Sprite(game, x, y, key, frame)
