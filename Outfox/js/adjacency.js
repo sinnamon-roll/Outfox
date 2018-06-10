@@ -5,7 +5,7 @@ var charText = [  'Let\'s get some dirt in our paws!',
                 'To be completely honest, you are the most beautiful fox I\'ve ever met.',
                 'Back where I came from, there is a den large enough for ALL of us to thrive in!',
                 'I know the idea of escape can be worrisome, but if we work together it will all be ok.',
-                'Charisma 08',
+                'It\s nice to feel wanted, but when is the last time the researchers let you out?',
                 'Charisma 09',
                 'Charisma 10']
 var sarText = [ 'Don\'t you just love eating dog food every day?',

@@ -122,6 +122,7 @@ barksubMenu.prototype.update = function() {
 				this.act.charb = true;
 				this.pendingDestroy = true;
 				barksel = false;
+                facesel = true;
 				sarcbutt.pendingDestroy = true;
 				charbutt.pendingDestroy = true;
 				enerbutt.pendingDestroy = true;
@@ -146,6 +147,7 @@ barksubMenu.prototype.update = function() {
 				this.act.enerb = true;
 				this.pendingDestroy = true;
 				barksel = false;
+                facesel = true;
 				sarcbutt.pendingDestroy = true;
 				charbutt.pendingDestroy = true;
 				enerbutt.pendingDestroy = true;
@@ -166,6 +168,8 @@ barksubMenu.prototype.update = function() {
 				sarcbutt.animations.play('EnerOn');
 				sarcbutt.animations.play('SarcOff');
 			}else if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR) == BFF.controlled == true){
+                barksel = false;
+                facesel = true;
 				this.act.sarcb = true;
 				this.pendingDestroy = true;
 				sarcbutt.pendingDestroy = true;
