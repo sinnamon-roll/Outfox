@@ -158,6 +158,7 @@ Player.prototype.update = function() {
         }
   }
   if (this.controlled == true){
+      add2Log('Zerda\'s Turn.');
       //DISPLAY STATS
       this.cursor.visible = true;
       playerStats.visible = true;
@@ -182,7 +183,7 @@ Player.prototype.update = function() {
             game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
         }else if(this.waitb == true){
             console.log("Waiting");
-            add2Log(this.NAME + ' takes a moment to compose a thought.');
+            add2Log(this.NAME + ' takes a moment to compose a thought and ends their turn.');
             this.moveable = false;
             pressed = false;
             this.waitb = false;

@@ -166,6 +166,7 @@ Bff.prototype.update = function() {
     }
     
     if(this.controlled == true){
+        add2Log('Tod\'s Turn.');
         //DISPLAY STATS
         this.cursor.visible = true;
         leftName.setText(this.NAME);
