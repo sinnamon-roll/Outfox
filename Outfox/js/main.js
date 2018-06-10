@@ -299,56 +299,56 @@ BFFmeet.prototype = {
             controller.setList(
             [
                 {        
-                  text: "As your consciousness stirs, you repeatedly blink and paw gently at your eyes. Despite your best efforts, your sight struggles to adjust in the pitch black darkness.\n\n\n[ ENTER ]", // the text you want to play
+                  text: "As your consciousness stirs, you repeatedly blink and paw gently at your eyes. Despite your best efforts, your sight struggles to adjust in the pitch black darkness.\n\n\n[ SPACE ]", // the text you want to play
                   lettersPerSec: perSec, // letters per second
                 },
                 {        
-                    text: "Turning your head, your eyes squint taking in a faint, glowing, red light. \"Is that the sun beginning to rise?\nI must have wandered deeper within my den.\"\n\n\n[ ENTER ]", // the text you want to play
+                    text: "Turning your head, your eyes squint taking in a faint, glowing, red light. \"Is that the sun beginning to rise?\nI must have wandered deeper within my den.\"\n\n\n[ SPACE ]", // the text you want to play
                     lettersPerSec: perSec, // letters per second
                 },
                 {        
-                    text: "Attempting to disregard the atrophy you feel in your muscles, you stand. \n\* wham\! \*\nRising so suddenly, your ears had little time to warn you of the low ceiling you just made contact with.\n[ ENTER ]", // the text you want to play
+                    text: "Attempting to disregard the atrophy you feel in your muscles, you stand. \n\* wham\! \*\nRising so suddenly, your ears had little time to warn you of the low ceiling you just made contact with.\n[ SPACE ]", // the text you want to play
                     lettersPerSec: perSec, // letters per second
                 },
                 {        
-                    text: "Panicking from this unexpected sensation, you lunge forward, all four paws scurrying for your den entrance.\nTo your continued surprise, your body is met with more cold and unforgiving objects blocking your escape.\n\n[ ENTER ]", // the text you want to play
+                    text: "Panicking from this unexpected sensation, you lunge forward, all four paws scurrying for your den entrance.\nTo your continued surprise, your body is met with more cold and unforgiving objects blocking your escape.\n\n[ SPACE ]", // the text you want to play
                     lettersPerSec: perSec, // letters per second
                 },
                 {        
-                    text: "Shaking your head in an attempt to remain conscious from the impact, your eyes come into focus. The red light illuminates your \"den.\"\nFear welling up inside, you wimper, \"oh, no\! I\'m in a hunter\'s cage\!\"\n[ ENTER ]", // the text you want to play
+                    text: "Shaking your head in an attempt to remain conscious from the impact, your eyes come into focus. The red light illuminates your \"den.\"\nFear welling up inside, you wimper, \"oh, no\! I\'m in a hunter\'s cage\!\"\n[ SPACE ]", // the text you want to play
                     lettersPerSec: perSec, // letters per second
                 },
                 {        
-                    text: "Your pupils retract, deciphering another red light and accompanying hunter\'\s cage.\n\"Perhaps I'm not alone in this cold, strange place.\"\n\n\n[ ENTER ]", // the text you want to play
+                    text: "Your pupils retract, deciphering another red light and accompanying hunter\'\s cage.\n\"Perhaps I'm not alone in this cold, strange place.\"\n\n\n[ SPACE ]", // the text you want to play
                     lettersPerSec: perSec, // letters per second
                 },
                 {        
-                    text: "Pushing your snout as far as you can between the cage\'s bars, you gekker imploringly.\n\"Bright day! Is there another fox about?\"\nYour call echoes.\n\n[ ENTER ]", // the text you want to play
+                    text: "Pushing your snout as far as you can between the cage\'s bars, you gekker imploringly.\n\"Bright day! Is there another fox about?\"\nYour call echoes.\n\n[ SPACE ]", // the text you want to play
                     lettersPerSec: perSec, // letters per second
                 },
                 {        
-                    text: "Perking up your ears and closing your eyes, you hold your breath, hopefully anticipating a reply...\nHowever, no sound is heard.\n\"Whatever shall I do now?\" you lament.\n\n[ ENTER ]", // the text you want to play
+                    text: "Perking up your ears and closing your eyes, you hold your breath, hopefully anticipating a reply...\nHowever, no sound is heard.\n\"Whatever shall I do now?\" you lament.\n\n[ SPACE ]", // the text you want to play
                     lettersPerSec: perSec, // letters per second
                 },
                 {        
-                    text: "But wait! Was that a yawn you just heard?\n\"It can\'t possibly be morning catch yet. Who is making all that noise?\" gekkered a voice from the adjacent cage.\n\n\n[ ENTER ]", // the text you want to play
+                    text: "But wait! Was that a yawn you just heard?\n\"It can\'t possibly be morning catch yet. Who is making all that noise?\" gekkered a voice from the adjacent cage.\n\n\n[ SPACE ]", // the text you want to play
                     lettersPerSec: perSec, // letters per second
 
                 },
                 {        
-                    text: "\"That would be me, Zerda, the beige fox,\" you respond.\n\n\"Beige fox? Rare to see such a fur mutation. Tod, the red fox here. Welcome to the Lab!\"\n\n[ ENTER ]", // the text you want to play
+                    text: "\"That would be me, Zerda, the beige fox,\" you respond.\n\n\"Beige fox? Rare to see such a fur mutation. Tod, the red fox here. Welcome to the Lab!\"\n\n[ SPACE ]", // the text you want to play
                     lettersPerSec: perSec, // letters per second
                 },
                 {        
-                    text: "You inquire with a quiver in your voice, \"The Lab? Don't they perform horrible experiments on our kind here?\"\n\n\"I\'ll level with you kit,\" Tod barked soberly, \"they do. If you\'re smart, you\'ll stick with me. I\'ve got an escape plan.\"\n[ ENTER ]", // the text you want to play
+                    text: "You inquire with a quiver in your voice, \"The Lab? Don't they perform horrible experiments on our kind here?\"\n\n\"I\'ll level with you kit,\" Tod barked soberly, \"they do. If you\'re smart, you\'ll stick with me. I\'ve got an escape plan.\"\n[ SPACE ]", // the text you want to play
                     lettersPerSec: perSec, // letters per second
                 },
                 {        
-                    text: "Every day for a few hours, the humans allow us out into an observation area. One day, I discovered the perfect spot to dig. If you could help me convince the other foxes to join our efforts, perhaps we can make our way through!\nDon't rush your decision, sleep on it.\"\n[ ENTER ]", // the text you want to play
+                    text: "Every day for a few hours, the humans allow us out into an observation area. One day, I discovered the perfect spot to dig. If you could help me convince the other foxes to join our efforts, perhaps we can make our way through!\nDon't rush your decision, sleep on it.\"\n[ SPACE ]", // the text you want to play
                     lettersPerSec: perSec, // letters per second
                 },
                 {        
-                    text: "As you settle in to save up your strength for the next day, you contemplate Tod's offer.\n\"Can I, of all foxes, convince others to join me?\"\nThe red cage lights seem to dim as you drift off...\n\n[ PRESS SPACE TO START ]", // the text you want to play
+                    text: "As you settle in to save up your strength for the next day, you contemplate Tod's offer.\n\"Can I, of all foxes, convince others to join me?\"\nThe red cage lights seem to dim as you drift off...\n\n[ PRESS ENTER TO START ]", // the text you want to play
                     lettersPerSec: perSec, // letters per second
                 },
 
@@ -363,9 +363,9 @@ BFFmeet.prototype = {
 
 // private functions
 function _setupKeys(controller){
-    enterKey = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+    enterKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
     enterKey.onUp.add(function(){
-        console.log("Enter pressed!");
+        console.log("Space pressed!");
         this.playNext();
     }, controller);
 }
@@ -387,7 +387,7 @@ function _setupKeys(controller){
 
         },
         update: function(){
-            if( game.input.keyboard.justPressed(Phaser.Keyboard.ENTER) ){
+            if( game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR) ){
                 if (startScene < scenes.length) {
                     //game.add.tween(scene).to( { alpha: 0 }, 1500, Phaser.Easing.Linear.None, true);
                     //talkText.alpha = 0;
@@ -402,7 +402,7 @@ function _setupKeys(controller){
                 }
             }
             //console.log('MainMenu: test');
-            if(this.cache.isSoundDecoded('bgMusic') && game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR) ){
+            if(this.cache.isSoundDecoded('bgMusic') && game.input.keyboard.justPressed(Phaser.Keyboard.ENTER) ){
                 this.state.start('test');
             }
         },

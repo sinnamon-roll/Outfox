@@ -187,6 +187,7 @@ Player.prototype.update = function() {
             pressed = false;
             this.waitb = false;
             this.controlled = false;
+            this.acted = true;
             game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
         }
       
@@ -271,7 +272,7 @@ Player.prototype.update = function() {
     
     function useAction() {
         console.log("using Player's action");
-        this.acted = true;
+        //this.acted = true;
         pressed = false;
     }
     if(this.displayed == true){

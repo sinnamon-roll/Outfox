@@ -63,7 +63,13 @@ barkButton.prototype.update = function() {
 					this.i = 0;
 					this.usable = false;
 				}else if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)){
-					add2Log('Bark Action: [UP] or [DOWN] to hover over a bark type. [SPACE] to perform.');
+					if(enemy.adj == true || BFF.adj == true || enemy2.adj == true){
+						add2Log('Bark Action: [UP] or [DOWN] to hover over a bark type. [SPACE] to perform.');
+					} else if (enemy.adj == false || enemy2.adj == false){
+						add2Log('In order to use a Bark Action, Zerda needs to be adjacent to an unfamiliar fox.');
+					} else if (BFF.adj == false) {
+						add2Log('In order to use a Bark Action, Tod needs to be adjacent to Zerda.');
+					}
 					if(BFF.displayed == true && BFF.adj == true){
 						subMenu(game, BFF);
 						this.unusable = true;
@@ -122,6 +128,7 @@ barksubMenu.prototype.update = function() {
 				this.act.charb = true;
 				this.pendingDestroy = true;
 				barksel = false;
+                facesel = true;
 				sarcbutt.pendingDestroy = true;
 				charbutt.pendingDestroy = true;
 				enerbutt.pendingDestroy = true;
@@ -146,6 +153,7 @@ barksubMenu.prototype.update = function() {
 				this.act.enerb = true;
 				this.pendingDestroy = true;
 				barksel = false;
+                facesel = true;
 				sarcbutt.pendingDestroy = true;
 				charbutt.pendingDestroy = true;
 				enerbutt.pendingDestroy = true;
@@ -165,7 +173,9 @@ barksubMenu.prototype.update = function() {
 				this.midsel = false;
 				sarcbutt.animations.play('EnerOn');
 				sarcbutt.animations.play('SarcOff');
-			}else if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)){
+			}else if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR) == BFF.controlled == true){
+                barksel = false;
+                facesel = true;
 				this.act.sarcb = true;
 				this.pendingDestroy = true;
 				sarcbutt.pendingDestroy = true;
