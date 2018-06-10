@@ -9,6 +9,7 @@ var RPCT;
 var EXH;
 var TYPE; //Ro-Sham-Bo
 var NAME;
+var turnPC = false;
 
 function Player(game, key) {
 	// call to Phaser.Sprite // new Sprite(game, x, y, key, frame)
@@ -175,6 +176,10 @@ Player.prototype.update = function() {
       'Resolve: ' + this.EXH + '\n'
       ;
       setBgColorById('main-page','#fff');
+      if(turnPC == false){
+                add2Log('Zerda\'s turn.');
+                turnPC = true;
+      }
       
         if (this.charb == true && (enemy.adj == true || enemy2.adj == true)){
             game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
@@ -182,12 +187,14 @@ Player.prototype.update = function() {
             game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
         }else if(this.waitb == true){
             console.log("Waiting");
-            add2Log(this.NAME + ' takes a moment to compose a thought.');
+            add2Log(this.NAME + ' takes a moment to compose a thought and ends their turn.');
             this.moveable = false;
             pressed = false;
             this.waitb = false;
             this.controlled = false;
             this.acted = true;
+            turnPC = false;
+            game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
         }
       
       if (enemy.adj == true) {
@@ -293,3 +300,5 @@ Player.prototype.update = function() {
     }
     
 }
+
+
