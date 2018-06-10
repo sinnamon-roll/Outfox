@@ -485,6 +485,7 @@ testState.prototype = {
         
         gameLog = game.add.text(203, 369, 'The foxes have been released into the observation area.', logStyle);
         gameLog.lineSpacing = '-6';
+        add2Log('Instructions: [UP] or [DOWN] to hover over an Action button (paw print icon). [SPACE] to select. Further instructions will follow.');
 
 
         game.add.sprite(0, 0, 'playField');
