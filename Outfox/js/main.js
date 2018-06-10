@@ -603,8 +603,17 @@ testState.prototype = {
         isAdjacent(enemygroup, player);
 
         if(player.x == 512 && player.y == 256){
-        	firstMusic.stop();
-        	game.state.start('GameOver');
+            if (freeFox[0] == true) {
+                game.time.events.add(Phaser.Timer.SECOND * 3, function() {
+                                     firstMusic.stop();
+                                     game.state.start('Congrats')
+                                     });
+            }else {
+                game.time.events.add(Phaser.Timer.SECOND * 3, function() {
+                                     firstMusic.stop();
+                                     game.state.start('GameOver')
+                                     });
+            }
         }
         //isAdjacent(enemy, player);
         //isAdjacent(enemy2, player);
