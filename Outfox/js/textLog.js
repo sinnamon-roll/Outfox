@@ -1,4 +1,4 @@
-function add2Log(text){
+function add2Log(text, type){
 	// get the length of characters in the logCount array
 	logCount = gameLog.text.length;
 

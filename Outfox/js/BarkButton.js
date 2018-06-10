@@ -63,6 +63,7 @@ barkButton.prototype.update = function() {
 					this.i = 0;
 					this.usable = false;
 				}else if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)){
+					add2Log('Bark Action: [UP] or [DOWN] to hover over a bark type. [SPACE] to perform.');
 					if(BFF.displayed == true && BFF.adj == true){
 						subMenu(game, BFF);
 						this.unusable = true;
@@ -70,6 +71,7 @@ barkButton.prototype.update = function() {
 						BFF.controlled = true;
 						pressed = true;
 					}else if(player.displayed == true && (enemy.adj == true || enemy2.adj == true)){
+						
 						subMenu(game, player);
 						this.unusable = true;
 						this.animations.play('Used');
