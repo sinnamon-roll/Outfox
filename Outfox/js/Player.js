@@ -278,7 +278,7 @@ Player.prototype.update = function() {
     
     function useAction() {
         console.log("using Player's action");
-        this.acted = true;
+        //this.acted = true;
         pressed = false;
     }
     if(this.displayed == true){
