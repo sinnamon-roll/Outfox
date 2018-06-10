@@ -187,6 +187,7 @@ Player.prototype.update = function() {
             pressed = false;
             this.waitb = false;
             this.controlled = false;
+            this.acted = true;
             game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
         }
       

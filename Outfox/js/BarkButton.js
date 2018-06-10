@@ -163,7 +163,7 @@ barksubMenu.prototype.update = function() {
 				this.midsel = false;
 				sarcbutt.animations.play('EnerOn');
 				sarcbutt.animations.play('SarcOff');
-			}else if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)){
+			}else if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR) == BFF.controlled == true){
 				this.act.sarcb = true;
 				this.pendingDestroy = true;
 				sarcbutt.pendingDestroy = true;
