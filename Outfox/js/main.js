@@ -20,6 +20,7 @@ var logImg;
 var freeFox = [false,false,false,false];
 var namePC = '';
 var gameLog;
+var displayText;
 
 
 
@@ -281,6 +282,8 @@ BFFmeet.prototype = {
             
             //RESET FREEFOX
             freeFox = [false,false,false,false];
+            //RESET ESCAPE ROUTE TEXT
+            displayText = true;
 
             // establish a dialog component
             var dialog=new Dialog(
@@ -446,6 +449,7 @@ testState.prototype = {
         //Start physics
         game.physics.startSystem(Phaser.Physics.ARCADE);
         game.stage.backgroundColor = "#333333";
+        setBgColorById('main-page','#250001');
         
         //MUSIC
         playMusic();
@@ -581,12 +585,12 @@ testState.prototype = {
 	update: function() {
 		if(enemygroup.length == 0){
             if (freeFox[0] == true) {
-                game.time.events.add(Phaser.Timer.SECOND * 7, function() {
+                game.time.events.add(Phaser.Timer.SECOND * 3, function() {
                         firstMusic.stop();
                         game.state.start('Congrats')
                         });
             }else {
-                game.time.events.add(Phaser.Timer.SECOND * 7, function() {
+                game.time.events.add(Phaser.Timer.SECOND * 3, function() {
                         firstMusic.stop();
                         game.state.start('GameOver')
                         });
@@ -597,8 +601,31 @@ testState.prototype = {
         isAdjacent(game, enemygroup, player);
 
         if(player.x == 512 && player.y == 256){
-        	firstMusic.stop();
-        	game.state.start('GameOver');
+            if(displayText == true) {
+                add2Log("Do you wish to dig through the hole? Press [SPACEBAR] to stay, [ENTER] to pass through.",2);
+                displayText = false;
+            }
+            if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)) {
+                player.x -= size;
+                player.cursor.x = player.x;
+                player.cursor.y = player.y;
+                displayText = true;
+                pressed = false;
+            }
+            if( game.input.keyboard.justPressed(Phaser.Keyboard.ENTER)) {
+                if (freeFox[0] == true) {
+                    game.time.events.add(Phaser.Timer.SECOND * 3, function() {
+                                         firstMusic.stop();
+                                         game.state.start('Congrats')
+                                         });
+                }else {
+                    game.time.events.add(Phaser.Timer.SECOND * 3, function() {
+                                         firstMusic.stop();
+                                         game.state.start('GameOver')
+                                         });
+                }
+            }
+            
         }
         //isAdjacent(enemy, player);
         //isAdjacent(enemy2, player);

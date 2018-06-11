@@ -177,7 +177,6 @@ Bff.prototype.update = function() {
         'Ego: ' + this.EGO + '\n' +
         'Resolve: ' + this.EXH + '\n'
         ;
-        setBgColorById('main-page','#ccc');
         if (turnBFF == false){
             add2Log('Tod\'s turn.', 1);
             turnBFF = true;
