@@ -6,20 +6,20 @@ var charText = ['Let\'s get some dirt in our paws!',
                 'Back where I came from, there is a den large enough for ALL of us to thrive in!',
                 'I know the idea of escape can be worrisome, but if we work together it will all be ok.',
                 'It\s nice to feel wanted, but when is the last time the researchers let you out?',
-                'Charisma 09',
-                'Charisma 10']
-var charLines = [2,2,2,2,2,2,3,3,2,2]
+                'Aren\'t you a little lonely in here?',
+                'Let\'s leave this place together!']
+var charLines = [2,2,3,3,3,3,3,3,2,2]
 var sarText = [ 'Don\'t you just love eating dog food every day?',
-                'These fluorescent lights really make your coat shine.',
+                'These fluorescent lights really make your coat \'shine.\'',
                 'On the bright side, you can\'t get your tail in a trap.',
                 'Your pelt looks shabby. Fresh lake water would leave it silky and smooth.',
                 'I get it. You\'re comfortable here... comfortable being at the beck and call of humans!',
                 'I heard you were narcissistic, but looking forward to your weekly X-ray? Pathetic.',
                 'Tod, let\'s just leave. Obviously there aren\'t any other foxes brave enough to help.',
-                'Sarcasm 08',
-                'Sarcasm 09',
-                'Sarcasm 10']
-var sarLines = [2,2,2,2,2,3,3,3,2,2]
+                'Oof, when was the last time you cleaned your fur?',
+                'I wanted to leave this place before, but after smelling you I think I need to leave.',
+                'You should totally stay here, it feels like you belong.']
+var sarLines = [2,3,2,3,3,3,3,2,3,2]
 
 isAdjacent = function(game, characterGroup, subject){
     characterGroup.forEach(function(character) {
@@ -123,15 +123,15 @@ isAdjacent = function(game, characterGroup, subject){
         console.log("sBark", character);
                 if (character.TYPE == 'Sarcastic') {
                     character.CTMP += (subject.SAR * 2);
-                    add2Log('The bark is Super Effective');
+                    add2Log('The bark is Super Effective!', 1);
                     sarEmitter.makeParticles('atlas','+_green');        // image used for particles
                 } else if (character.TYPE == 'Charismatic') {
                     character.CTMP += Math.floor(subject.SAR / 2);
-                    add2Log('Your cries fall on deaf ears.');
+                    add2Log('Your cries fall on deaf ears.', 1);
                     sarEmitter.makeParticles('atlas','-_red');        // image used for particles
                 } else {
                     character.CTMP += subject.SAR;
-                    add2Log('The fox regards you calmly.');
+                    add2Log('The fox regards you calmly.', 1);
                     sarEmitter.makeParticles('atlas','x_red');
                 }
             sarEmitter.start(true, 4000, null, 20);    // (explode, lifespan, freq, quantity)
@@ -140,15 +140,15 @@ isAdjacent = function(game, characterGroup, subject){
         //Determine if weak/resistant
         if (character.TYPE == 'Sarcastic') {
             character.RPCT += Math.floor(subject.CHAR / 2);
-            add2Log('Your cries fall on deaf ears.');
+            add2Log('Your cries fall on deaf ears.', 1);
             charEmitter.makeParticles('atlas','-_red');        // image used for particles
         } else if (character.TYPE == 'Charismatic') {
             character.RPCT += (subject.CHAR * 2);
-            add2Log('Super Effective!');
+            add2Log('It\'s Super Effective!', 1);
             charEmitter.makeParticles('atlas','+_green');
         } else {
             character.RPCT += subject.CHAR;
-            add2Log('The fox regards you calmly.');
+            add2Log('The fox regards you calmly.', 1);
             charEmitter.makeParticles('atlas','x_red');
         }
         charEmitter.start(true, 4000, null, 20);    // (explode, lifespan, freq, quantity)
