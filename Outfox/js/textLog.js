@@ -7,7 +7,7 @@ function add2Log(text, type){
 		console.log('logCount: ' + logCount);
 
 		// get the number of lines the text will take up in the log box
-    	logLines = Phaser.Math.roundAwayFromZero(logCount/38);
+    	logLines = Math.floor(logCount/38);
     	console.log('logLines: ' + logLines);
 
     	// set the lineCount's initial number
@@ -24,12 +24,19 @@ function add2Log(text, type){
     console.log('textCount: ' + textCount);
 
     // get the number of lines the text will take up in the log box
-    textLines = Phaser.Math.roundAwayFromZero(textCount/38);
+    textLines = Math.floor(textCount/38);
     console.log('textLines: ' + textLines);
+
+    if(textLines == 0){
+        textLines = 1;
+        console.log('textLines was 0 but is now: ' + textLines);
+    }
 
     // tally the current line count with the new text line count
     lineCount += textLines;
     console.log('lineCount: ' + lineCount);
+
+
 
     // if the log box isn't going to overflow, add the new text line
     if(lineCount <= 7){
