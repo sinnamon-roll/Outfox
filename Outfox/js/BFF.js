@@ -179,7 +179,7 @@ Bff.prototype.update = function() {
         ;
         setBgColorById('main-page','#ccc');
         if (turnBFF == false){
-            add2Log('Tod\'s turn.');
+            add2Log('Tod\'s turn.', 1);
             turnBFF = true;
         }
         if(this.adj == true) {
@@ -213,7 +213,7 @@ Bff.prototype.update = function() {
                     this.enerb = false;
                     facesel = true;
                 }else if (this.enerb == true && player.EXH >=7) {
-                    add2Log('The kind fox has little to say.');
+                    add2Log('The kind fox has little to say.', 1);
                     game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
                     this.acted = true;
                     this.enerb = false;
