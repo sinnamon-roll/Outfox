@@ -449,6 +449,7 @@ testState.prototype = {
         //Start physics
         game.physics.startSystem(Phaser.Physics.ARCADE);
         game.stage.backgroundColor = "#333333";
+        setBgColorById('main-page','#250001');
         
         //MUSIC
         playMusic();

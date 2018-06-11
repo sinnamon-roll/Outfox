@@ -175,7 +175,6 @@ Player.prototype.update = function() {
       'Ego: ' + this.EGO + '\n' +
       'Resolve: ' + this.EXH + '\n'
       ;
-      setBgColorById('main-page','#fff');
       if (turnPC == false) {
             add2Log('Zerda\'s turn.', 1);
             turnPC = true;
