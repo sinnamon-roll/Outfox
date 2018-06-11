@@ -155,6 +155,8 @@ isAdjacent = function(game, characterGroup, subject){
     }
     function useAction() {
         console.log("using Player's action");
+        subject.acted = true;
+        pressed = false;
         //subject.acted = true;
         //facesel = true;
         //barksel = false;
