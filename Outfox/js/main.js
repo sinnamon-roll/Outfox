@@ -602,8 +602,10 @@ testState.prototype = {
 
         if(player.x == 512 && player.y == 256){
             if(displayText == true) {
+
                 pressed = true;
-                add2Log("Do you wish to dig through the hole? Press [SPACEBAR] to stay, [ENTER] to pass through.",2);
+                add2Log("Do you wish to dig through the hole and escape the laboratory? Press [SPACEBAR] to stay, [ENTER] to pass through.", 3);
+
                 displayText = false;
             }
             if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)) {
