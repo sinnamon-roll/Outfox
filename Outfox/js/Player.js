@@ -9,6 +9,7 @@ var RPCT;
 var EXH;
 var TYPE; //Ro-Sham-Bo
 var NAME;
+var turnPC = false;
 
 function Player(game, key) {
 	// call to Phaser.Sprite // new Sprite(game, x, y, key, frame)
@@ -79,17 +80,17 @@ Player.prototype.update = function() {
 	if (this.moveable == true){
         if(cursors.up.justPressed() ) {
             if(this.y == size){
-                add2Log('The laboratory wall prevents you from going further.');
+                add2Log('The laboratory wall prevents you from going further.', 2);
             }else if(enemy.y ==(this.y - size) && enemy.adj == true ){
-                add2Log(enemy.NAME + ' blocks your path.');
+                add2Log(enemy.NAME + ' blocks your path.', 1);
             }else if(BFF.y ==(this.y - size) && BFF.adj == true ){
-                add2Log(BFF.NAME + ' blocks your path.');
+                add2Log(BFF.NAME + ' blocks your path.', 1);
             }else if(enemy2.y ==(this.y - size) && this.x == enemy2.x ){
-                add2Log(enemy2.NAME + ' blocks your path.');
+                add2Log(enemy2.NAME + ' blocks your path.', 1);
             }else {
                 this.y = this.y - size;
                 this.cursor.y = this.cursor.y - size;
-                add2Log(this.NAME + ' takes a step.');
+                add2Log(this.NAME + ' takes a step.', 1);
             }
             this.animations.play('up');
             this.moveable = false;
@@ -98,17 +99,17 @@ Player.prototype.update = function() {
             
         } else if(cursors.down.justPressed() ) {
             if(this.y == size * 4){
-                add2Log('The laboratory wall prevents you from going further.');
+                add2Log('The laboratory wall prevents you from going further.', 2);
             }else if(enemy.y ==(this.y + size) && enemy.adj == true ){
-                add2Log(enemy.NAME + ' blocks your path.');
+                add2Log(enemy.NAME + ' blocks your path.', 1);
             }else if(BFF.y ==(this.y + size) && BFF.adj == true ){
-                add2Log(BFF.NAME + ' blocks your path.');
+                add2Log(BFF.NAME + ' blocks your path.', 1);
             }else if(enemy2.y ==(this.y + size) && this.x == enemy2.x ){
-                add2Log(enemy2.NAME + ' blocks your path.');
+                add2Log(enemy2.NAME + ' blocks your path.', 1);
             }else {
                 this.y = this.y + size;
                 this.cursor.y = this.cursor.y + size;
-                add2Log(this.NAME + ' takes a step.');
+                add2Log(this.NAME + ' takes a step.', 1);
             }
             this.animations.play('down');
             this.frame = 1;
@@ -118,17 +119,17 @@ Player.prototype.update = function() {
             
         } else if(cursors.left.justPressed() ) {
             if (this.x == size) {
-                add2Log('The laboratory wall prevents you from going further.');
+                add2Log('The laboratory wall prevents you from going further.', 2);
             }else if(enemy.x ==(this.x - size) && enemy.y == this.y){
-                add2Log(enemy.NAME + ' blocks your path.');
+                add2Log(enemy.NAME + ' blocks your path.', 1);
             }else if(BFF.x ==(this.x - size) && BFF.adj == true){
-                add2Log(BFF.NAME + ' blocks your path.');
+                add2Log(BFF.NAME + ' blocks your path.', 1);
             }else if(enemy2.x ==(this.x - size) && this.y == enemy2.y){
-                add2Log(enemy2.NAME + ' blocks your path.');
+                add2Log(enemy2.NAME + ' blocks your path.', 1);
             }else {
                 this.x = this.x - size;
                 this.cursor.x = this.cursor.x - size;
-                add2Log(this.NAME + ' takes a step.');
+                add2Log(this.NAME + ' takes a step.', 1);
             }
             this.animations.play('left');
             this.frame = 7;
@@ -138,17 +139,17 @@ Player.prototype.update = function() {
             
         } else if(cursors.right.justPressed() ) {
             if (this.x == size * 8) {
-                add2Log('The laboratory wall prevents you from going further.');
+                add2Log('The laboratory wall prevents you from going further.', 2);
             }else if(enemy.x ==(this.x + size) && enemy.adj == true ){
-                add2Log(enemy.NAME + ' blocks your path.');
+                add2Log(enemy.NAME + ' blocks your path.', 1);
             }else if(BFF.x ==(this.x + size) && BFF.adj == true ){
                 add2Log(BFF.NAME + ' blocks your path.');
             }else if(enemy2.x ==(this.x + size) && this.y == enemy2.y ){
-                add2Log(enemy2.NAME + ' blocks your path.');
+                add2Log(enemy2.NAME + ' blocks your path.', 1);
             }else {
                 this.x = this.x + size;
                 this.cursor.x = this.cursor.x + size;
-                add2Log(this.NAME + ' takes a step.');
+                add2Log(this.NAME + ' takes a step.', 1);
             }
             this.animations.play('right');
             this.frame = 10;
@@ -158,7 +159,6 @@ Player.prototype.update = function() {
         }
   }
   if (this.controlled == true){
-      add2Log('Zerda\'s Turn.');
       //DISPLAY STATS
       this.cursor.visible = true;
       playerStats.visible = true;
@@ -176,6 +176,10 @@ Player.prototype.update = function() {
       'Resolve: ' + this.EXH + '\n'
       ;
       setBgColorById('main-page','#fff');
+      if (turnPC == false) {
+            add2Log('Zerda\'s turn.', 1);
+            turnPC = true;
+      }
       
         if (this.charb == true && (enemy.adj == true || enemy2.adj == true)){
             game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
@@ -183,12 +187,13 @@ Player.prototype.update = function() {
             game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
         }else if(this.waitb == true){
             console.log("Waiting");
-            add2Log(this.NAME + ' takes a moment to compose a thought and ends their turn.');
+            add2Log(this.NAME + ' takes a moment to compose a thought and ends their turn.', 2);
             this.moveable = false;
             pressed = false;
             this.waitb = false;
             this.controlled = false;
             this.acted = true;
+            turnPC = false;
             game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
         }
       

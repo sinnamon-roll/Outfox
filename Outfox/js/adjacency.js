@@ -1,4 +1,4 @@
-var charText = [  'Let\'s get some dirt in our paws!',
+var charText = ['Let\'s get some dirt in our paws!',
                 'We\'re wild animals! Surely we can find a way.',
                 'You\'ve never had fresh fish!? There\'s good hunting outside these walls.',
                 'At first I was afraid, then I heard YOU were going to help us!',
@@ -8,6 +8,7 @@ var charText = [  'Let\'s get some dirt in our paws!',
                 'It\s nice to feel wanted, but when is the last time the researchers let you out?',
                 'Charisma 09',
                 'Charisma 10']
+var charLines = [2,2,2,2,2,2,3,3,2,2]
 var sarText = [ 'Don\'t you just love eating dog food every day?',
                 'These fluorescent lights really make your coat shine.',
                 'On the bright side, you can\'t get your tail in a trap.',
@@ -18,8 +19,9 @@ var sarText = [ 'Don\'t you just love eating dog food every day?',
                 'Sarcasm 08',
                 'Sarcasm 09',
                 'Sarcasm 10']
+var sarLines = [2,2,2,2,2,3,3,3,2,2]
 
-isAdjacent = function(characterGroup, subject){
+isAdjacent = function(game, characterGroup, subject){
     characterGroup.forEach(function(character) {
         if(subject.x == (character.x + size) || subject.x == (character.x - size) ){
             if (subject.y == character.y) {
@@ -48,9 +50,9 @@ isAdjacent = function(characterGroup, subject){
                 subject.EXH -= 1;
                 subject.charb = false;
                 //Display GameLog
-                var randChar = Phaser.ArrayUtils.getRandomItem(charText);
-                console.log('randChar: ' + randChar);
-                add2Log('Zerda charismatically barks, "' + randChar + '"');
+                var charNum = game.rnd.integerInRange(0,9);
+                console.log('charText: ' + charText[charNum]);
+                add2Log('Zerda charismatically barks, "' + charText[charNum] + '"', charLines[charNum]);
                 
                 //play audio
                 var char = game.add.audio('charSound');
@@ -81,9 +83,9 @@ isAdjacent = function(characterGroup, subject){
                 subject.EXH -= 1;
                 subject.sarcb = false;
                 //Display GameLog
-                var randSar = Phaser.ArrayUtils.getRandomItem(sarText);
-                console.log('randSar: ' + randSar);
-                add2Log('Zerda sarcastically barks, "' + randSar + '"');
+                var sarNum = game.rnd.integerInRange(0,9);
+                console.log('sarText: ' + sarText[sarNum]);
+                add2Log('Zerda sarcastically barks, "' + sarText[sarNum] + '"', sarLines[sarNum]);
                 
                 //play audio
                 var sar = game.add.audio('sarSound');

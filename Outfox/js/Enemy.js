@@ -90,7 +90,7 @@ Enemy.prototype.update = function() {
             enemyTarget.loadTexture('UI','s_activeFox');
             enemyUI.visible = true;
             if(turnText == false){
-                add2Log(this.NAME +'\'s turn.');
+                add2Log(this.NAME +'\'s turn.', 1);
                 turnText = true;
             }
             
@@ -118,8 +118,8 @@ Enemy.prototype.update = function() {
                 }
                 //END ENEMY TURN
                 if(moveText == false){
-                    add2Log(this.NAME + ' runs around.');
-                    add2Log(this.NAME + ' ends their turn.');
+                    add2Log(this.NAME + ' runs around.', 1);
+                    add2Log(this.NAME + ' ends their turn.', 1);
                     moveText = true;
                 }
                 enemyTarget.loadTexture('UI','s_foxTarget');
@@ -212,15 +212,15 @@ Enemy.prototype.update = function() {
             console.log("Resetting to prevPos", target)
             target.x = target.previousPosition.x;
             target.y = target.previousPosition.y;
-            add2Log(target.NAME + ' stays put.');
-            add2Log(this.NAME + ' ends their turn.');
+            add2Log(target.NAME + ' stays put.', 1);
+            add2Log(target.NAME + ' ends their turn.', 1);
             moveText = true;
             
         }
     }
     function reactWell(target) {
         //GAMELOG TEXT
-        add2Log(target.NAME +' walked away convinced to join your escape effort.');
+        add2Log(target.NAME +' walked away convinced to join your escape effort.', 2);
         //SPRITE EFFECT
         var result = game.add.sprite(target.x +19, target.y-18, 'atlas', 'chat_heart_whole');
         result.animations.add('beat', [4, 5], 7,true);
@@ -230,7 +230,7 @@ Enemy.prototype.update = function() {
     }
     function reactPoor(target) {
         //GAMELOG TEXT
-        add2Log(target.NAME +', overwhelmed by your zeal, got intimidated and ran.');
+        add2Log(target.NAME +', overwhelmed by your zeal, got intimidated and ran.', 2);
         //SPRITE EFFECT
         var result = game.add.sprite(target.x+19, target.y-18, 'atlas', 'chat_heart_broken');
         result.animations.add('break', [4,5,6,7,6], 7,true);

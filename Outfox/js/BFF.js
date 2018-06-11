@@ -1,5 +1,6 @@
 // BFF Fox's Comrade
 // prefab constructor function
+var turnBFF = false;
 
 function Bff(game, key) {
         // call to Phaser.Sprite // new Sprite(game, x, y, key, frame)
@@ -57,17 +58,17 @@ Bff.prototype.update = function() {
         
         if(cursors.up.justPressed() ) {
             if(this.y == size){
-                add2Log('The laboratory wall prevents you from going further.');
+                add2Log('The laboratory wall prevents you from going further.', 2);
             }else if(enemy.y ==(this.y - size) && enemy.x == this.x ){
-                add2Log(enemy.NAME + ' blocks ' + this.NAME +'\'s path.');
+                add2Log(enemy.NAME + ' blocks ' + this.NAME +'\'s path.', 1);
             }else if(player.y ==(this.y - size) && player.x == this.x ){
-                add2Log(player.NAME + ' blocks ' + this.NAME +'\'s path.');
+                add2Log(player.NAME + ' blocks ' + this.NAME +'\'s path.', 1);
             }else if(enemy2.y ==(this.y - size) && enemy2.x == this.x ){
-                add2Log(enemy2.NAME + ' blocks ' + this.NAME +'\'s path.');
+                add2Log(enemy2.NAME + ' blocks ' + this.NAME +'\'s path.', 1);
             }else {
                 this.y = this.y - size;
                 this.cursor.y = this.cursor.y - size;
-                add2Log(this.NAME + ' takes a step.');
+                add2Log(this.NAME + ' takes a step.', 1);
             }
             this.animations.play('up');
             this.frame = 4;
@@ -77,17 +78,17 @@ Bff.prototype.update = function() {
             
         } else if(cursors.down.justPressed() ) {
             if(this.y == size * 4){
-                add2Log('The laboratory wall prevents you from going further.');
+                add2Log('The laboratory wall prevents you from going further.', 2);
             }else if(enemy.y ==(this.y + size) && enemy.x == this.x ){
-                add2Log(enemy.NAME + ' blocks ' + this.NAME +'\'s path.');
+                add2Log(enemy.NAME + ' blocks ' + this.NAME +'\'s path.', 1);
             }else if(player.y ==(this.y + size) && player.x == this.x ){
-                add2Log(player.NAME + ' blocks ' + this.NAME +'\'s path.');
+                add2Log(player.NAME + ' blocks ' + this.NAME +'\'s path.', 1);
             }else if(enemy2.y ==(this.y + size) && enemy2.x == this.x ){
-                add2Log(enemy2.NAME + ' blocks ' + this.NAME +'\'s path.');
+                add2Log(enemy2.NAME + ' blocks ' + this.NAME +'\'s path.', 1);
             }else {
                 this.y = this.y + size;
                 this.cursor.y = this.cursor.y + size;
-                add2Log(this.NAME + ' takes a step.');
+                add2Log(this.NAME + ' takes a step.', 1);
             }
             this.animations.play('down');
             this.frame = 1;
@@ -97,17 +98,17 @@ Bff.prototype.update = function() {
             
         } else if(cursors.left.justPressed() ) {
             if (this.x == size) {
-                add2Log('The laboratory wall prevents you from going further.');
+                add2Log('The laboratory wall prevents you from going further.', 2);
             }else if(enemy.x ==(this.x - size) && enemy.y == this.y){
-                add2Log(enemy.NAME + ' blocks ' + this.NAME +'\'s path.');
+                add2Log(enemy.NAME + ' blocks ' + this.NAME +'\'s path.', 1);
             }else if(player.x ==(this.x - size) && player.y == this.y){
-                add2Log(player.NAME + ' blocks ' + this.NAME +'\'s path.');
+                add2Log(player.NAME + ' blocks ' + this.NAME +'\'s path.', 1);
             }else if(enemy2.x ==(this.x - size) && enemy2.y == this.y){
-                add2Log(enemy2.NAME + ' blocks ' + this.NAME +'\'s path.');
+                add2Log(enemy2.NAME + ' blocks ' + this.NAME +'\'s path.', 1);
             }else {
                 this.x = this.x - size;
                 this.cursor.x = this.cursor.x - size;
-                add2Log(this.NAME + ' takes a step.');
+                add2Log(this.NAME + ' takes a step.', 1);
             }
             this.animations.play('left');
             this.frame = 7;
@@ -117,17 +118,17 @@ Bff.prototype.update = function() {
             
         } else if(cursors.right.justPressed() ) {
             if (this.x == size * 8) {
-                add2Log('The laboratory wall prevents you from going further.');
+                add2Log('The laboratory wall prevents you from going further.', 2);
             }else if(enemy.x ==(this.x + size) && enemy.y == this.y ){
-                add2Log(enemy.NAME + ' blocks ' + this.NAME +'\'s path.');
+                add2Log(enemy.NAME + ' blocks ' + this.NAME +'\'s path.', 1);
             }else if(player.x ==(this.x + size) && player.y == this.y ){
-                add2Log(player.NAME + ' blocks ' + this.NAME +'\'s path.');
+                add2Log(player.NAME + ' blocks ' + this.NAME +'\'s path.', 1);
             }else if(enemy2.x ==(this.x + size) && enemy2.y == this.y ){
-                add2Log(enemy2.NAME + ' blocks ' + this.NAME +'\'s path.');
+                add2Log(enemy2.NAME + ' blocks ' + this.NAME +'\'s path.', 1);
             }else {
                 this.x = this.x + size;
                 this.cursor.x = this.cursor.x + size;
-                add2Log(this.NAME + ' takes a step.');
+                add2Log(this.NAME + ' takes a step.', 1);
             }
             this.animations.play('right');
             this.frame = 10;
@@ -166,7 +167,6 @@ Bff.prototype.update = function() {
     }
     
     if(this.controlled == true){
-        add2Log('Tod\'s Turn.');
         //DISPLAY STATS
         this.cursor.visible = true;
         leftName.setText(this.NAME);
@@ -178,6 +178,10 @@ Bff.prototype.update = function() {
         'Resolve: ' + this.EXH + '\n'
         ;
         setBgColorById('main-page','#ccc');
+        if (turnBFF == false){
+            add2Log('Tod\'s turn.');
+            turnBFF = true;
+        }
         if(this.adj == true) {
             //DISPLAY FOX TARGET INFO
             enemyTarget.loadTexture('UI', 's_foxTarget');
@@ -197,7 +201,7 @@ Bff.prototype.update = function() {
             ;
                 if (this.enerb == true && player.EXH <=7) {
                     player.EXH += 3;
-                    add2Log('The fox who treated you with kindness gives you an encouraging bark.');
+                    add2Log('The fox who treated you with kindness gives you an encouraging bark.', 2);
                     //play audio
                     var bark = game.add.audio('boostSound');
                     bark.play('',0,1,false)
@@ -225,10 +229,11 @@ Bff.prototype.update = function() {
     if (this.controlled == true){
         if(this.waitb == true){
             console.log("Waiting");
-            add2Log(this.NAME + ' takes a moment to compose a thought.');
+            add2Log(this.NAME + ' takes a moment to compose a thought and ends their turn.', 2);
             this.controlled = false;
             this.acted = true;
             this.waitb = false;
+            turnBFF = false;
         }
     }
     if(this.controlled == false && this.moveable == false && this.acted == true){

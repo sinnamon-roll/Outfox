@@ -19,13 +19,7 @@ var logImg;
 //Array for credits: Who to display as recruited
 var freeFox = [false,false,false,false];
 var namePC = '';
-var logCount;
-var lineCount = 0;
-var lineTotal = 0;
 var gameLog;
-var linePush = 0;
-var logLines = 0;
-var firstLog = false;
 
 
 
@@ -485,7 +479,7 @@ testState.prototype = {
         
         gameLog = game.add.text(203, 369, 'The foxes have been released into the observation area.', logStyle);
         gameLog.lineSpacing = '-6';
-        add2Log('Instructions: [UP] or [DOWN] to hover over an Action button (paw print icon). [SPACE] to select. Further instructions will follow.');
+        add2Log('Instructions: [UP] or [DOWN] to hover over an Action button (paw print icon). [SPACE] to select. Further instructions will follow.', 3);
 
 
         game.add.sprite(0, 0, 'playField');
@@ -600,7 +594,7 @@ testState.prototype = {
 		}
 		//Checks if these two are adjacent, can be run on any two objects. Probably still way too centered on the player.
         //took it out of main, was causing issues lol nvm;
-        isAdjacent(enemygroup, player);
+        isAdjacent(game, enemygroup, player);
 
         if(player.x == 512 && player.y == 256){
         	firstMusic.stop();
