@@ -1,4 +1,4 @@
-function add2Log(text, type){
+/*function add2Log(text, type){
 	// get the length of characters in the logCount array
 	logCount = gameLog.text.length;
 
@@ -51,6 +51,37 @@ function add2Log(text, type){
     		linePush += 15;
     	}
     	console.log('linePush: ' + linePush);
+        gameLog.y = gameLog.y - linePush;
+        gameLog.text += '\n' + text;
+        linePush = 0;
+
+    }
+}*/
+
+
+// set to number of lines in the text when the object is created
+var lineCount = 2;
+var linePush = 0;
+
+function add2Log(text, lines){
+    console.log('Original lineCount: ' + lineCount);
+    // add the number of lines from this text to the line count total
+    lineCount += lines;
+    console.log('Text: ' + text + '\n' + 'Lines: ' + lines + '\n' + 'New lineCount: ' + lineCount);
+
+    // if the log box isn't going to overflow, add the new text line
+    if(lineCount <= 7){
+        gameLog.text += '\n' + text;
+        console.log('chars & lines under par');
+
+    // otherwise push the log box text up 15 pixels per line being added then add the new text line
+    } else {
+        console.log('chars & lines over par');
+        while(lineCount > 7){
+            lineCount--;
+            linePush += 15;
+        }
+        console.log('linePush: ' + linePush);
         gameLog.y = gameLog.y - linePush;
         gameLog.text += '\n' + text;
         linePush = 0;
