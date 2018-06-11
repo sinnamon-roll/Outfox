@@ -40,6 +40,8 @@ barkButton.prototype.update = function() {
 		if(barksel == true){	
 			if(Math.floor(this.i) == 1 /*&& this.unusable == false*/){
 				this.usable = true;
+			}else if(Math.floor(this.i) > 1){
+				this.i = 0;
 			}
 			if(this.usable == true){
 				this.animations.play('BarkOn');
