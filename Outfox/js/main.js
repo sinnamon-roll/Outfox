@@ -602,6 +602,7 @@ testState.prototype = {
 
         if(player.x == 512 && player.y == 256){
             if(displayText == true) {
+                pressed = true;
                 add2Log("Do you wish to dig through the hole? Press [SPACEBAR] to stay, [ENTER] to pass through.",2);
                 displayText = false;
             }
