@@ -9,6 +9,7 @@ var RPCT;
 var EXH;
 var TYPE; //Ro-Sham-Bo
 var NAME;
+var turnPC = false;
 
 function Player(game, key) {
 	// call to Phaser.Sprite // new Sprite(game, x, y, key, frame)
@@ -158,7 +159,6 @@ Player.prototype.update = function() {
         }
   }
   if (this.controlled == true){
-      add2Log('Zerda\'s Turn.');
       //DISPLAY STATS
       this.cursor.visible = true;
       playerStats.visible = true;
@@ -176,6 +176,10 @@ Player.prototype.update = function() {
       'Resolve: ' + this.EXH + '\n'
       ;
       setBgColorById('main-page','#fff');
+      if (turnPC == false) {
+            add2Log('Zerda\'s turn.');
+            turnPC = true;
+      }
       
         if (this.charb == true && (enemy.adj == true || enemy2.adj == true)){
             game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
@@ -189,6 +193,7 @@ Player.prototype.update = function() {
             this.waitb = false;
             this.controlled = false;
             this.acted = true;
+            turnPC = false;
             game.time.events.add(Phaser.Timer.SECOND * 3, useAction, this);
         }
       
