@@ -213,7 +213,7 @@ Enemy.prototype.update = function() {
             target.x = target.previousPosition.x;
             target.y = target.previousPosition.y;
             add2Log(target.NAME + ' stays put.');
-            add2Log(this.NAME + ' ends their turn.');
+            add2Log(target.NAME + ' ends their turn.');
             moveText = true;
             
         }
